@@ -1,0 +1,70 @@
+name: Daily Data Pipeline
+
+on:
+  schedule:
+    # 美東時間 21:30（UTC 01:30），週二到週六
+    # 對應美股週一到週五盤後 1.5 小時
+    - cron: '30 1 * * 2-6'
+
+  workflow_dispatch:
+    inputs:
+      force_rerun:
+        description: '強制重跑今天的資料（即使已存在）'
+        required: false
+        default: 'false'
+        type: choice
+        options: ['true', 'false']
+      backfill:
+        description: '回填模式（首次執行用）'
+        required: false
+        default: 'false'
+        type: choice
+        options: ['true', 'false']
+
+jobs:
+  run-pipeline:
+    name: Run Momentum Pipeline
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run pipeline (normal mode)
+        if: ${{ github.event.inputs.backfill != 'true' }}
+        env:
+          SUPABASE_URL:         ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          FORCE_RERUN:          ${{ github.event.inputs.force_rerun || 'false' }}
+        run: python pipeline/main.py
+
+      - name: Run pipeline (backfill mode)
+        if: ${{ github.event.inputs.backfill == 'true' }}
+        env:
+          SUPABASE_URL:         ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: python pipeline/main.py --backfill
+
+      - name: Write success summary
+        if: success()
+        run: |
+          echo "## Pipeline Success" >> $GITHUB_STEP_SUMMARY
+          echo "- Date: $(date -u '+%Y-%m-%d %H:%M UTC')" >> $GITHUB_STEP_SUMMARY
+          echo "- Status: Completed successfully" >> $GITHUB_STEP_SUMMARY
+
+      - name: Write failure summary
+        if: failure()
+        run: |
+          echo "## Pipeline FAILED" >> $GITHUB_STEP_SUMMARY
+          echo "- Date: $(date -u '+%Y-%m-%d %H:%M UTC')" >> $GITHUB_STEP_SUMMARY
+          echo "- Check logs above for details" >> $GITHUB_STEP_SUMMARY
