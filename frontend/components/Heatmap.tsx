@@ -4,10 +4,10 @@ import { useState, useMemo } from 'react'
 import { SubReturn } from '@/lib/types'
 import Link from 'next/link'
 
-type Window = 'mom' | '1d' | '1w' | '1m' | '3m' | '6m' | '12m'
+type SubWindow = 'mom' | '1d' | '1w' | '1m' | '3m' | '6m' | '12m'
 type SortBy = 'rank' | 'score' | 'ret_1d' | 'ret_3m' | 'sector'
 
-const WINDOWS: { key: Window; label: string }[] = [
+const WINDOWS: { key: SubWindow; label: string }[] = [
   { key: 'mom', label: '動能' },
   { key: '1d', label: '1D' },
   { key: '1w', label: '1W' },
@@ -17,8 +17,8 @@ const WINDOWS: { key: Window; label: string }[] = [
   { key: '12m', label: '12M' },
 ]
 
-function getRetField(w: Window): keyof SubReturn {
-  const map: Record<Window, keyof SubReturn> = {
+function getRetField(w: SubWindow): keyof SubReturn {
+  const map: Record<SubWindow, keyof SubReturn> = {
     mom: 'mom_score',
     '1d': 'ret_1d',
     '1w': 'ret_1w',
@@ -70,7 +70,7 @@ interface Props {
 }
 
 export function Heatmap({ data, latestDate }: Props) {
-  const [activeWindow, setActiveWindow] = useState<Window>('mom')
+  const [activeWindow, setActiveWindow] = useState<SubWindow>('mom')
   const [sortBy, setSortBy] = useState<SortBy>('sector')
 
   const retField = getRetField(activeWindow)
