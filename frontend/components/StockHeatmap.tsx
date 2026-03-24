@@ -6,11 +6,11 @@ import Link from 'next/link'
 
 // ── Types ────────────────────────────────────────────────────
 
-type Window = '1d' | '1w' | '1m' | '3m' | 'mom'
+type TimeWindow = '1d' | '1w' | '1m' | '3m' | 'mom'
 type SizeFilter = 'all' | 'large' | 'mid' | 'small'
 type CellSize = 'sm' | 'md' | 'lg'
 
-const WINDOWS: { key: Window; label: string }[] = [
+const WINDOWS: { key: TimeWindow; label: string }[] = [
   { key: '1d', label: '1D' },
   { key: '1w', label: '1W' },
   { key: '1m', label: '1M' },
@@ -61,7 +61,7 @@ function momColor(val: number | null): CellColor {
   return { bg: '#7f1d1d', text: '#fecaca', border: '#6b1515' }
 }
 
-function getColor(entry: StockHeatmapEntry, window: Window): CellColor {
+function getColor(entry: StockHeatmapEntry, window: TimeWindow): CellColor {
   if (!entry.hasReturns) return { bg: '#f9fafb', text: '#d1d5db', border: '#f3f4f6' }
   if (window === 'mom') return momColor(entry.mom_score)
   const val = window === '1d' ? entry.ret_1d
@@ -71,7 +71,7 @@ function getColor(entry: StockHeatmapEntry, window: Window): CellColor {
   return retColor(val)
 }
 
-function getDisplayValue(entry: StockHeatmapEntry, window: Window): string {
+function getDisplayValue(entry: StockHeatmapEntry, window: TimeWindow): string {
   if (!entry.hasReturns) return '—'
   if (window === 'mom') return entry.mom_score != null ? entry.mom_score.toFixed(0) : '—'
   const val = window === '1d' ? entry.ret_1d
@@ -84,7 +84,7 @@ function getDisplayValue(entry: StockHeatmapEntry, window: Window): string {
 
 // ── Sector returns (avg of stocks) ───────────────────────────
 
-function calcSectorReturn(stocks: StockHeatmapEntry[], window: Window): number | null {
+function calcSectorReturn(stocks: StockHeatmapEntry[], window: TimeWindow): number | null {
   const vals = stocks
     .map(s => window === 'mom' ? s.mom_score
               : window === '1d' ? s.ret_1d
@@ -152,7 +152,7 @@ function StockCell({
   entry, window, cellSize,
 }: {
   entry: StockHeatmapEntry
-  window: Window
+  window: TimeWindow
   cellSize: CellSize
 }) {
   const [hovered, setHovered] = useState(false)
@@ -196,7 +196,7 @@ function SubIndustryRow({
 }: {
   name: string
   stocks: StockHeatmapEntry[]
-  window: Window
+  window: TimeWindow
   cellSize: CellSize
 }) {
   const avgRet = calcSectorReturn(stocks, window)
@@ -248,7 +248,7 @@ function SectorBlock({
 }: {
   sector: string
   subGroups: Record<string, StockHeatmapEntry[]>
-  window: Window
+  window: TimeWindow
   cellSize: CellSize
 }) {
   const allStocks = Object.values(subGroups).flat()
@@ -313,7 +313,7 @@ interface Props {
 }
 
 export function StockHeatmap({ entries, date }: Props) {
-  const [activeWindow, setActiveWindow] = useState<Window>('3m')
+  const [activeWindow, setActiveWindow] = useState<TimeWindow>('3m')
   const [sizeFilter, setSizeFilter] = useState<SizeFilter>('all')
   const [cellSize, setCellSize] = useState<CellSize>('md')
   const [search, setSearch] = useState('')
