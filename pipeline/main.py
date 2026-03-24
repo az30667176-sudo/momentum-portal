@@ -14,19 +14,25 @@ import logging
 import argparse
 import time
 from datetime import date, datetime, timedelta
+from pathlib import Path
+
+# 確保 momentum-portal/ 目錄在 sys.path，無論從哪裡執行
+_root = Path(__file__).resolve().parent.parent
+if str(_root) not in sys.path:
+    sys.path.insert(0, str(_root))
 
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv(dotenv_path=_root / ".env")
 
 # ─── Logging 設定 ─────────────────────────────────────────────
+_handler = logging.StreamHandler(sys.stdout)
+_handler.stream = open(sys.stdout.fileno(), mode='w', encoding='utf-8', buffering=1)
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s %(levelname)s [%(module)s] %(message)s",
     datefmt="%Y-%m-%d %H:%M:%S",
-    handlers=[
-        logging.StreamHandler(sys.stdout),
-    ]
+    handlers=[_handler],
 )
 logger = logging.getLogger(__name__)
 
@@ -203,14 +209,28 @@ def main():
         sys.exit(1)
 
     # 6. Upsert universe 靜態資料
+    import hashlib
+
+    # 建立 sub_industry → gics_code 的權威對照表（以 drop_duplicates 後的 sector 為準）
+    import pandas as pd
+    gics_deduped = (
+        universe_df[["sector", "sub_industry"]]
+        .drop_duplicates(subset=["sub_industry"])
+        .reset_index(drop=True)
+    )
+    sub_to_gics_code: dict = {}
+    for _, r in gics_deduped.iterrows():
+        code = hashlib.md5(f"{r['sector']}_{r['sub_industry']}".encode()).hexdigest()[:8].upper()
+        sub_to_gics_code[r["sub_industry"]] = code
+
     gics_records = get_gics_universe_records(universe_df)
     upsert_gics_universe(supabase, gics_records)
 
     stock_records = []
-    import hashlib
     for _, row in universe_df.iterrows():
-        code_raw = f"{row['sector']}_{row['sub_industry']}"
-        gics_code = hashlib.md5(code_raw.encode()).hexdigest()[:8].upper()
+        gics_code = sub_to_gics_code.get(row["sub_industry"])
+        if not gics_code:
+            continue
         stock_records.append({
             "ticker":       row["ticker"],
             "company":      row.get("company", ""),

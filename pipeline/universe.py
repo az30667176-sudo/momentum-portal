@@ -44,13 +44,25 @@ def _normalize_columns(df: pd.DataFrame) -> pd.DataFrame:
     return df.rename(columns=rename_map)
 
 
+WIKI_HEADERS = {
+    "User-Agent": (
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+        "AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/124.0.0.0 Safari/537.36"
+    ),
+    "Accept-Language": "en-US,en;q=0.9",
+}
+
+
 def _fetch_single_index(url: str, index_name: str,
                         max_retries: int = 3) -> pd.DataFrame:
     """抓取單一指數的成分股清單，含 retry 邏輯"""
     for attempt in range(1, max_retries + 1):
         try:
             logger.info(f"Fetching {index_name} (attempt {attempt})...")
-            tables = pd.read_html(url, flavor="html5lib")
+            resp = requests.get(url, headers=WIKI_HEADERS, timeout=30)
+            resp.raise_for_status()
+            tables = pd.read_html(StringIO(resp.text), flavor="html5lib")
             if not tables:
                 raise ValueError(f"No tables found at {url}")
 
@@ -74,7 +86,7 @@ def _fetch_single_index(url: str, index_name: str,
             df["index_member"] = index_name
             df["ticker"] = df["ticker"].str.strip().str.replace(".", "-", regex=False)
             df = df[["ticker", "company", "sector", "sub_industry", "index_member"]]
-            df = df.dropna(subset=["ticker", "sector"])
+            df = df.dropna(subset=["ticker", "sector", "sub_industry"])
 
             logger.info(f"  → {index_name}: {len(df)} stocks")
             return df

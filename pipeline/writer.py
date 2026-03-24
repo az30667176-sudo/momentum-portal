@@ -16,6 +16,18 @@ BATCH_SIZE = 100       # 每次 upsert 的最大筆數
 MAX_RETRIES = 3        # 失敗重試次數
 
 
+def _sanitize(records: list[dict]) -> list[dict]:
+    """把 float NaN / Inf 換成 None，避免 JSON 序列化失敗"""
+    import math
+    cleaned = []
+    for row in records:
+        cleaned.append({
+            k: (None if isinstance(v, float) and not math.isfinite(v) else v)
+            for k, v in row.items()
+        })
+    return cleaned
+
+
 def init_supabase() -> Client:
     """建立 Supabase client"""
     url = os.environ.get("SUPABASE_URL")
@@ -43,6 +55,7 @@ def _upsert_with_retry(supabase: Client, table: str,
                for i in range(0, len(records), BATCH_SIZE)]
 
     for batch_idx, batch in enumerate(batches):
+        batch = _sanitize(batch)
         for attempt in range(1, MAX_RETRIES + 1):
             try:
                 result = (supabase.table(table)
