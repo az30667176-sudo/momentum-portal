@@ -19,7 +19,6 @@ function createServerClient() {
 export async function getLatestSubReturns(): Promise<SubReturn[]> {
   const supabase = createServerClient()
 
-  // 找最新日期
   const { data: latest } = await supabase
     .from('daily_sub_returns')
     .select('date')
@@ -53,10 +52,15 @@ export async function getSubHistory(gicsCode: string): Promise<SubReturn[]> {
 
   const { data, error } = await supabase
     .from('daily_sub_returns')
-    .select('*')
+    .select(`
+      *,
+      gics_universe (
+        sector, industry_group, industry, sub_industry, etf_proxy
+      )
+    `)
     .eq('gics_code', gicsCode)
     .order('date', { ascending: true })
-    .limit(260)  // 約 52 週
+    .limit(260)
 
   if (error) {
     console.error('getSubHistory error:', error)
