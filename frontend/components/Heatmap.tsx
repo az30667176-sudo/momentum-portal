@@ -137,7 +137,8 @@ export function Heatmap({ data, latestDate }: Props) {
           </h1>
           <div className="flex gap-4 mt-1 text-sm text-gray-500">
             {latestDate && <span>Data as of <strong className="text-gray-700 dark:text-gray-300">{latestDate}</strong></span>}
-            <span>{totalRows} sub-industries</span>
+            <Link href="/" className="text-xs text-blue-500 hover:underline">← 個股視圖</Link>
+          <span>{totalRows} sub-industries</span>
             <span className="text-green-600">{advancing} advancing</span>
             <span className="text-gray-400">{totalRows - advancing} declining</span>
           </div>

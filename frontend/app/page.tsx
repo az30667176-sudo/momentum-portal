@@ -1,18 +1,9 @@
-import { getLatestSubReturns, getLatestDate } from '@/lib/supabase'
-import { Heatmap } from '@/components/Heatmap'
+import { getStockHeatmap } from '@/lib/supabase'
+import { StockHeatmap } from '@/components/StockHeatmap'
 
-// 每小時重新 fetch 資料
 export const revalidate = 3600
 
 export default async function HomePage() {
-  const [data, latestDate] = await Promise.all([
-    getLatestSubReturns(),
-    getLatestDate(),
-  ])
-
-  return (
-    <main className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <Heatmap data={data} latestDate={latestDate} />
-    </main>
-  )
+  const { entries, date } = await getStockHeatmap()
+  return <StockHeatmap entries={entries} date={date} />
 }

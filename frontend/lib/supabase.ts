@@ -1,5 +1,5 @@
 import { createClient } from '@supabase/supabase-js'
-import { SubReturn, StockReturn } from './types'
+import { SubReturn, StockReturn, StockHeatmapEntry } from './types'
 
 function createServerClient() {
   const url = process.env.SUPABASE_URL!
@@ -100,4 +100,96 @@ export async function getLatestDate(): Promise<string | null> {
     .limit(1)
     .single()
   return data?.date || null
+}
+
+// ── Stock Heatmap ─────────────────────────────────────────────
+
+export async function getStockHeatmap(): Promise<{
+  entries: StockHeatmapEntry[]
+  date: string | null
+}> {
+  const supabase = createServerClient()
+
+  // 1. Get latest date from daily_stock_returns
+  const { data: latestRow } = await supabase
+    .from('daily_stock_returns')
+    .select('date')
+    .order('date', { ascending: false })
+    .limit(1)
+    .single()
+
+  const latestDate = latestRow?.date ?? null
+
+  // 2. Get full stock universe with sector/sub_industry (always available)
+  const { data: universe, error: uErr } = await supabase
+    .from('stock_universe')
+    .select(`
+      ticker, company, index_member, gics_code,
+      gics_universe ( sector, sub_industry )
+    `)
+    .eq('is_active', true)
+    .order('ticker')
+
+  if (uErr || !universe) {
+    console.error('getStockHeatmap universe error:', uErr)
+    return { entries: [], date: null }
+  }
+
+  // Build a map from ticker → universe info
+  type UniverseRow = {
+    ticker: string
+    company: string
+    index_member: string
+    gics_code: string
+    gics_universe: { sector: string; sub_industry: string } | null
+  }
+
+  const universeMap = new Map<string, UniverseRow>()
+  for (const row of universe as UniverseRow[]) {
+    universeMap.set(row.ticker, row)
+  }
+
+  // 3. If we have returns data, fetch it; otherwise use empty returns
+  let returnsMap = new Map<string, StockReturn>()
+
+  if (latestDate) {
+    const { data: returns, error: rErr } = await supabase
+      .from('daily_stock_returns')
+      .select('ticker, ret_1d, ret_1w, ret_1m, ret_3m, mom_score, rank_in_sub, rvol')
+      .eq('date', latestDate)
+
+    if (!rErr && returns) {
+      for (const r of returns as StockReturn[]) {
+        returnsMap.set(r.ticker, r)
+      }
+    }
+  }
+
+  // 4. Merge universe + returns
+  const entries: StockHeatmapEntry[] = []
+  for (const row of universe as UniverseRow[]) {
+    const gu = row.gics_universe
+    if (!gu) continue
+
+    const ret = returnsMap.get(row.ticker)
+
+    entries.push({
+      ticker: row.ticker,
+      company: row.company,
+      sector: gu.sector,
+      sub_industry: gu.sub_industry,
+      gics_code: row.gics_code,
+      index_member: row.index_member,
+      ret_1d: ret?.ret_1d ?? null,
+      ret_1w: ret?.ret_1w ?? null,
+      ret_1m: ret?.ret_1m ?? null,
+      ret_3m: ret?.ret_3m ?? null,
+      mom_score: ret?.mom_score ?? null,
+      rank_in_sub: ret?.rank_in_sub ?? null,
+      rvol: ret?.rvol ?? null,
+      hasReturns: ret != null,
+    })
+  }
+
+  return { entries, date: latestDate }
 }

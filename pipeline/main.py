@@ -153,8 +153,59 @@ def run_pipeline_for_date(
 
         records.append(record)
 
-    # Upsert
+    # Upsert sub-industry
     success, failed = upsert_daily_sub_returns(supabase, records)
+
+    # ── 個股指標 ──────────────────────────────────────────────
+    from pipeline.calculator import calc_returns
+    from pipeline.volume import calc_rvol
+
+    stock_records = []
+    for sub_industry, tickers in sub_mapping.items():
+        gics_code = gics_records_map.get(sub_industry)
+        if not gics_code:
+            continue
+
+        ticker_rets = {}
+        for t in tickers:
+            if t not in close_to_date.columns:
+                continue
+            close_s = close_to_date[t].dropna()
+            if close_s.empty:
+                continue
+            ticker_rets[t] = calc_returns(close_s)
+
+        # 在 sub-industry 內按 ret_3m 排名
+        ret3m_vals = {t: r["ret_3m"] for t, r in ticker_rets.items()
+                      if r.get("ret_3m") is not None}
+        ranked = sorted(ret3m_vals, key=ret3m_vals.get, reverse=True)
+        rank_map = {t: i + 1 for i, t in enumerate(ranked)}
+
+        for t, rets in ticker_rets.items():
+            if volume_to_date is not None and t in volume_to_date.columns:
+                vol_s = volume_to_date[t].dropna()
+                rvol = calc_rvol(vol_s) if not vol_s.empty else None
+            else:
+                rvol = None
+
+            stock_records.append({
+                "date":        str(target_date),
+                "ticker":      t,
+                "gics_code":   gics_code,
+                "ret_1d":      rets.get("ret_1d"),
+                "ret_1w":      rets.get("ret_1w"),
+                "ret_1m":      rets.get("ret_1m"),
+                "ret_3m":      rets.get("ret_3m"),
+                "rank_in_sub": rank_map.get(t),
+                "rvol":        rvol,
+                "mom_score":   None,
+                "obv_trend":   None,
+            })
+
+    if stock_records:
+        s2, f2 = upsert_daily_stock_returns(supabase, stock_records)
+        logger.info(f"  Stock records: {s2} upserted, {f2} failed")
+
     return {"success": success, "failed": failed, "date": str(target_date)}
 
 

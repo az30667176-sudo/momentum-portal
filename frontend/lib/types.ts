@@ -57,3 +57,22 @@ export interface StockReturn {
   rvol: number | null
   obv_trend: number | null
 }
+
+// Enriched stock entry for the stock heatmap (joined with universe tables)
+export interface StockHeatmapEntry {
+  ticker: string
+  company: string
+  sector: string
+  sub_industry: string
+  gics_code: string
+  index_member: string  // SP500 / SP400 / SP600
+  ret_1d: number | null
+  ret_1w: number | null
+  ret_1m: number | null
+  ret_3m: number | null
+  mom_score: number | null
+  rank_in_sub: number | null
+  rvol: number | null
+  // derived
+  hasReturns: boolean
+}
