@@ -13,6 +13,7 @@
     "next": "14.2.5",
     "react": "^18",
     "react-dom": "^18",
+    "lightweight-charts": "^4.2.0",
     "recharts": "^2.12.7"
   },
   "devDependencies": {
