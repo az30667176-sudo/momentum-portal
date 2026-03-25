@@ -74,6 +74,15 @@ export interface StockReturn {
   obv_trend: number | null
 }
 
+export interface StockInfo {
+  ticker:       string
+  company:      string
+  gics_code:    string
+  index_member: string | null
+  sector:       string | null
+  sub_industry: string | null
+}
+
 // Enriched stock entry for the stock heatmap (joined with universe tables)
 export interface StockHeatmapEntry {
   ticker: string

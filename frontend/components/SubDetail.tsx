@@ -482,7 +482,11 @@ export function SubDetail({ gicsCode, history, stocks }: Props) {
                   .map(s => (
                     <tr key={s.ticker} className="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
                       <td className="px-4 py-2 text-gray-400">{s.rank_in_sub ?? '—'}</td>
-                      <td className="px-4 py-2 font-bold text-gray-900 dark:text-white">{s.ticker}</td>
+                      <td className="px-4 py-2 font-bold">
+                        <Link href={`/stock/${s.ticker}`} className="text-blue-600 dark:text-blue-400 hover:underline">
+                          {s.ticker}
+                        </Link>
+                      </td>
                       {[s.ret_1d, s.ret_1w, s.ret_1m, s.ret_3m].map((v, i) => (
                         <td key={i} className={`px-3 py-2 text-right font-medium ${v == null ? 'text-gray-400' : v >= 0 ? 'text-green-600 dark:text-green-400' : 'text-red-500 dark:text-red-400'}`}>
                           {v != null ? `${v >= 0 ? '+' : ''}${v.toFixed(2)}%` : '—'}

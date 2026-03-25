@@ -162,28 +162,30 @@ function StockCell({
 
   return (
     <div className="relative">
-      <div
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
-        style={{
-          backgroundColor: color.bg,
-          color: color.text,
-          borderColor: color.border,
-        }}
-        className={`
-          ${sz.w} ${sz.h} rounded-md border cursor-default select-none
-          flex flex-col justify-center px-1.5
-          transition-transform duration-100 ease-out
-          ${hovered ? 'scale-105 shadow-lg z-10 relative' : ''}
-        `}
-      >
-        <div className={`${sz.ticker} font-bold leading-none tracking-tight`}>
-          {entry.ticker}
+      <Link href={`/stock/${entry.ticker}`}>
+        <div
+          onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}
+          style={{
+            backgroundColor: color.bg,
+            color: color.text,
+            borderColor: color.border,
+          }}
+          className={`
+            ${sz.w} ${sz.h} rounded-md border cursor-pointer select-none
+            flex flex-col justify-center px-1.5
+            transition-transform duration-100 ease-out
+            ${hovered ? 'scale-105 shadow-lg z-10 relative' : ''}
+          `}
+        >
+          <div className={`${sz.ticker} font-bold leading-none tracking-tight`}>
+            {entry.ticker}
+          </div>
+          <div className={`${sz.ret} font-semibold leading-none mt-1 opacity-90`}>
+            {value}
+          </div>
         </div>
-        <div className={`${sz.ret} font-semibold leading-none mt-1 opacity-90`}>
-          {value}
-        </div>
-      </div>
+      </Link>
       <Tooltip entry={entry} visible={hovered} />
     </div>
   )

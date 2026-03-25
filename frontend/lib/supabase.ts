@@ -1,5 +1,5 @@
 import { createClient } from '@supabase/supabase-js'
-import { SubReturn, StockReturn, StockHeatmapEntry } from './types'
+import { SubReturn, StockReturn, StockHeatmapEntry, StockInfo } from './types'
 
 function createServerClient() {
   const url = process.env.SUPABASE_URL!
@@ -182,4 +182,61 @@ export async function getStockHeatmap(): Promise<{
   }
 
   return { entries, date: latestDate }
+}
+
+// ── Stock Detail ───────────────────────────────────────────────
+
+export async function getStockInfo(ticker: string): Promise<StockInfo | null> {
+  const supabase = createServerClient()
+
+  const { data, error } = await supabase
+    .from('stock_universe')
+    .select('ticker, company, gics_code, index_member, gics_universe ( sector, sub_industry )')
+    .eq('ticker', ticker)
+    .single()
+
+  if (error || !data) return null
+
+  const gu = data.gics_universe as { sector: string; sub_industry: string } | null
+  return {
+    ticker:       data.ticker,
+    company:      data.company,
+    gics_code:    data.gics_code,
+    index_member: data.index_member,
+    sector:       gu?.sector ?? null,
+    sub_industry: gu?.sub_industry ?? null,
+  }
+}
+
+export async function getStockHistory(ticker: string): Promise<StockReturn[]> {
+  const supabase = createServerClient()
+
+  const { data, error } = await supabase
+    .from('daily_stock_returns')
+    .select('date, ticker, gics_code, ret_1d, ret_1w, ret_1m, ret_3m, mom_score, rank_in_sub, rvol, obv_trend')
+    .eq('ticker', ticker)
+    .order('date', { ascending: false })
+    .limit(260)
+
+  if (error) {
+    console.error('getStockHistory error:', error)
+    return []
+  }
+
+  return ((data as StockReturn[]) || []).reverse()
+}
+
+export async function getLatestSubReturn(gicsCode: string): Promise<SubReturn | null> {
+  const supabase = createServerClient()
+
+  const { data, error } = await supabase
+    .from('daily_sub_returns')
+    .select('*, gics_universe ( sector, industry_group, industry, sub_industry, etf_proxy )')
+    .eq('gics_code', gicsCode)
+    .order('date', { ascending: false })
+    .limit(1)
+    .single()
+
+  if (error || !data) return null
+  return data as SubReturn
 }
