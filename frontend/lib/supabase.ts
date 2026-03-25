@@ -120,23 +120,7 @@ export async function getStockHeatmap(): Promise<{
 
   const latestDate = latestRow?.date ?? null
 
-  // 2. Get full stock universe with sector/sub_industry (always available)
-  const { data: universe, error: uErr } = await supabase
-    .from('stock_universe')
-    .select(`
-      ticker, company, index_member, gics_code,
-      gics_universe ( sector, sub_industry )
-    `)
-    .eq('is_active', true)
-    .order('ticker')
-    .limit(2000)
-
-  if (uErr || !universe) {
-    console.error('getStockHeatmap universe error:', uErr)
-    return { entries: [], date: null }
-  }
-
-  // Build a map from ticker → universe info
+  // 2. Get full stock universe — paginate to bypass 1000-row PostgREST cap
   type UniverseRow = {
     ticker: string
     company: string
@@ -144,26 +128,29 @@ export async function getStockHeatmap(): Promise<{
     gics_code: string
     gics_universe: { sector: string; sub_industry: string } | null
   }
-
-  const universeMap = new Map<string, UniverseRow>()
-  for (const row of universe as UniverseRow[]) {
-    universeMap.set(row.ticker, row)
+  const universeSelect = `ticker, company, index_member, gics_code, gics_universe ( sector, sub_industry )`
+  const [uPage1, uPage2] = await Promise.all([
+    supabase.from('stock_universe').select(universeSelect).eq('is_active', true).order('ticker').range(0, 999),
+    supabase.from('stock_universe').select(universeSelect).eq('is_active', true).order('ticker').range(1000, 1999),
+  ])
+  if (uPage1.error) {
+    console.error('getStockHeatmap universe error:', uPage1.error)
+    return { entries: [], date: null }
   }
+  const universe = [...(uPage1.data ?? []), ...(uPage2.data ?? [])] as UniverseRow[]
 
-  // 3. If we have returns data, fetch it; otherwise use empty returns
+  // 3. If we have returns data, fetch it — paginate to bypass 1000-row cap
   let returnsMap = new Map<string, StockReturn>()
 
   if (latestDate) {
-    const { data: returns, error: rErr } = await supabase
-      .from('daily_stock_returns')
-      .select('ticker, ret_1d, ret_1w, ret_1m, ret_3m, mom_score, rank_in_sub, rvol')
-      .eq('date', latestDate)
-      .limit(2000)
-
-    if (!rErr && returns) {
-      for (const r of returns as StockReturn[]) {
-        returnsMap.set(r.ticker, r)
-      }
+    const retSelect = 'ticker, ret_1d, ret_1w, ret_1m, ret_3m, mom_score, rank_in_sub, rvol'
+    const [rPage1, rPage2] = await Promise.all([
+      supabase.from('daily_stock_returns').select(retSelect).eq('date', latestDate).range(0, 999),
+      supabase.from('daily_stock_returns').select(retSelect).eq('date', latestDate).range(1000, 1999),
+    ])
+    const allReturns = [...(rPage1.data ?? []), ...(rPage2.data ?? [])] as StockReturn[]
+    for (const r of allReturns) {
+      returnsMap.set(r.ticker, r)
     }
   }
 
