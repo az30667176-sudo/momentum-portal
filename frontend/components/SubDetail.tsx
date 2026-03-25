@@ -419,14 +419,6 @@ export function SubDetail({ gicsCode, history, stocks }: Props) {
         <CustomizeModal selected={selectedCards} onToggle={toggleCard} onClose={() => setShowModal(false)} />
       )}
 
-      {/* ── Quant Panel ─────────────────────────────────────── */}
-      <div className="bg-gray-50 dark:bg-gray-900 rounded-lg p-4 border border-gray-200 dark:border-gray-700 mb-6">
-        <h2 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-4">
-          Quantitative Panel
-        </h2>
-        <QuantPanel data={latest} />
-      </div>
-
       {/* ── Interactive Chart ────────────────────────────────── */}
       <div className="mb-6">
         <h2 className="text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wide mb-2">
@@ -506,6 +498,14 @@ export function SubDetail({ gicsCode, history, stocks }: Props) {
           </div>
         </div>
       )}
+
+      {/* ── Quant Panel ─────────────────────────────────────── */}
+      <div className="bg-gray-50 dark:bg-gray-900 rounded-lg p-4 border border-gray-200 dark:border-gray-700 mb-6">
+        <h2 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-4">
+          Quantitative Panel
+        </h2>
+        <QuantPanel data={latest} />
+      </div>
 
     </div>
   )
