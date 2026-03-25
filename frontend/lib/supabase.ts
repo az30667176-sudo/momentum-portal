@@ -59,7 +59,7 @@ export async function getSubHistory(gicsCode: string): Promise<SubReturn[]> {
       )
     `)
     .eq('gics_code', gicsCode)
-    .order('date', { ascending: true })
+    .order('date', { ascending: false })
     .limit(260)
 
   if (error) {
@@ -67,7 +67,8 @@ export async function getSubHistory(gicsCode: string): Promise<SubReturn[]> {
     return []
   }
 
-  return (data as SubReturn[]) || []
+  // Reverse to ascending order for charts
+  return ((data as SubReturn[]) || []).reverse()
 }
 
 export async function getSubStocks(
