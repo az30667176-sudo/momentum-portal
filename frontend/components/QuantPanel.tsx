@@ -170,15 +170,6 @@ export function QuantPanel({ data: d }: Props) {
     { t: -5, color: GRAY,   above: true },
   ], RED)
 
-  const breadthColor = thresholdColor(d.breadth_adj_mom, [
-    { t: 10, color: GREEN,  above: true },
-    { t: 0,  color: YELLOW, above: true },
-  ], RED)
-
-  const rsColor = d.rs_trend_slope != null
-    ? (d.rs_trend_slope > 0 ? GREEN : RED)
-    : GRAY
-
   // ── Group 2: Risk-Adjusted ─────────────────────────────────
 
   const sortinoColor = thresholdColor(d.sortino_8w, [
@@ -269,7 +260,7 @@ export function QuantPanel({ data: d }: Props) {
       {/* ── Group 1: Momentum Quality ── */}
       <div>
         <GroupHeader zh="動能品質" en="Momentum Quality" />
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+        <div className="grid grid-cols-2 gap-2">
           <MetricCard
             label="Information Ratio"
             value={fmtNum(d.information_ratio, 2)}
@@ -285,22 +276,6 @@ export function QuantPanel({ data: d }: Props) {
             valueColor={decayColor}
             barColor={barColorFor(decayColor)}
             barMin={-30} barMax={30} barValue={d.momentum_decay_rate}
-          />
-          <MetricCard
-            label="Breadth-Adj Mom"
-            value={fmtNum(d.breadth_adj_mom, 2)}
-            desc="廣度調整動能，過濾少數股票撐盤的假動能"
-            valueColor={breadthColor}
-            barColor={barColorFor(breadthColor)}
-            barMin={-20} barMax={30} barValue={d.breadth_adj_mom}
-          />
-          <MetricCard
-            label="RS Trend Slope"
-            value={d.rs_trend_slope != null ? d.rs_trend_slope.toFixed(4) : '—'}
-            desc="相對強度趨勢斜率，正數代表 RS 正在建立"
-            valueColor={rsColor}
-            barColor={barColorFor(rsColor)}
-            barMin={-0.01} barMax={0.01} barValue={d.rs_trend_slope}
           />
         </div>
       </div>
