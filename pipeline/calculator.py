@@ -387,6 +387,10 @@ def aggregate_sub_industry(
     result['calmar_ratio']      = calc_calmar_ratio(sub_weekly)
     result['momentum_autocorr'] = calc_momentum_autocorrelation(sub_weekly)
 
+    # Rolling risk metrics (8-week window)
+    rolling = calc_rolling_metrics(sub_weekly[-8:] if len(sub_weekly) >= 8 else sub_weekly)
+    result.update(rolling)
+
     # Price Trend R²（等權價格指數）
     eq_price_rets = close_sub.pct_change().mean(axis=1).dropna()
     price_index = (1 + eq_price_rets).cumprod() * 100

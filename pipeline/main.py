@@ -186,6 +186,7 @@ def run_pipeline_for_date(
         for key in ["ret_1d", "ret_1w", "ret_1m", "ret_3m",
                     "ret_6m", "ret_12m", "mom_6m", "mom_12m",
                     "obv_trend", "rvol", "vol_mom", "pv_divergence",
+                    "sharpe_8w", "sortino_8w", "win_rate_8w", "volatility_8w", "skewness",
                     "information_ratio", "momentum_decay_rate", "breadth_adj_mom",
                     "downside_capture", "calmar_ratio", "rs_trend_slope",
                     "leader_lagger_ratio", "cmf", "mfi", "vrsi", "pvt_slope",
