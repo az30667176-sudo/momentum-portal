@@ -1,6 +1,6 @@
 'use client'
 
-import { SubReturn } from '@/lib/types'
+import { SubReturn, StockReturn } from '@/lib/types'
 import { QuantPanel } from './QuantPanel'
 import {
   LineChart, Line, BarChart, Bar,
@@ -12,6 +12,7 @@ import Link from 'next/link'
 interface Props {
   gicsCode: string
   history: SubReturn[]
+  stocks: StockReturn[]
 }
 
 // ── Helpers ──────────────────────────────────────────────────
@@ -83,7 +84,7 @@ function ChartTooltip({ active, payload, label }: {
   )
 }
 
-export function SubDetail({ gicsCode, history }: Props) {
+export function SubDetail({ gicsCode, history, stocks }: Props) {
   const latest = history[history.length - 1]
   if (!latest) return <div className="p-8 text-center text-gray-400">No data</div>
 
@@ -334,6 +335,58 @@ export function SubDetail({ gicsCode, history }: Props) {
           <span><span className="inline-block w-3 h-3 rounded-sm bg-red-600 mr-1" />Bot 10%</span>
         </div>
       </div>
+
+      {/* ── Individual Stocks ── */}
+      {stocks.length > 0 && (
+        <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 mb-4 overflow-hidden">
+          <div className="px-4 py-3 border-b border-gray-100 dark:border-gray-700">
+            <h2 className="text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wide">
+              Individual Stocks
+              <span className="ml-2 font-normal text-gray-400">({stocks.length} stocks · {latest.date})</span>
+            </h2>
+          </div>
+          <div className="overflow-x-auto">
+            <table className="w-full text-xs">
+              <thead>
+                <tr className="bg-gray-50 dark:bg-gray-900 text-gray-500 dark:text-gray-400">
+                  <th className="text-left px-4 py-2 font-medium w-8">#</th>
+                  <th className="text-left px-4 py-2 font-medium">Ticker</th>
+                  <th className="text-right px-3 py-2 font-medium">1D</th>
+                  <th className="text-right px-3 py-2 font-medium">1W</th>
+                  <th className="text-right px-3 py-2 font-medium">1M</th>
+                  <th className="text-right px-3 py-2 font-medium">3M</th>
+                  <th className="text-right px-3 py-2 font-medium">RVol</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
+                {stocks
+                  .sort((a, b) => (a.rank_in_sub ?? 999) - (b.rank_in_sub ?? 999))
+                  .map((s) => (
+                  <tr key={s.ticker} className="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
+                    <td className="px-4 py-2 text-gray-400">{s.rank_in_sub ?? '—'}</td>
+                    <td className="px-4 py-2 font-bold text-gray-900 dark:text-white">{s.ticker}</td>
+                    <td className={`px-3 py-2 text-right font-medium ${s.ret_1d == null ? 'text-gray-400' : s.ret_1d >= 0 ? 'text-green-600 dark:text-green-400' : 'text-red-500 dark:text-red-400'}`}>
+                      {s.ret_1d != null ? `${s.ret_1d >= 0 ? '+' : ''}${s.ret_1d.toFixed(2)}%` : '—'}
+                    </td>
+                    <td className={`px-3 py-2 text-right font-medium ${s.ret_1w == null ? 'text-gray-400' : s.ret_1w >= 0 ? 'text-green-600 dark:text-green-400' : 'text-red-500 dark:text-red-400'}`}>
+                      {s.ret_1w != null ? `${s.ret_1w >= 0 ? '+' : ''}${s.ret_1w.toFixed(2)}%` : '—'}
+                    </td>
+                    <td className={`px-3 py-2 text-right font-medium ${s.ret_1m == null ? 'text-gray-400' : s.ret_1m >= 0 ? 'text-green-600 dark:text-green-400' : 'text-red-500 dark:text-red-400'}`}>
+                      {s.ret_1m != null ? `${s.ret_1m >= 0 ? '+' : ''}${s.ret_1m.toFixed(2)}%` : '—'}
+                    </td>
+                    <td className={`px-3 py-2 text-right font-medium ${s.ret_3m == null ? 'text-gray-400' : s.ret_3m >= 0 ? 'text-green-600 dark:text-green-400' : 'text-red-500 dark:text-red-400'}`}>
+                      {s.ret_3m != null ? `${s.ret_3m >= 0 ? '+' : ''}${s.ret_3m.toFixed(2)}%` : '—'}
+                    </td>
+                    <td className={`px-3 py-2 text-right ${s.rvol == null ? 'text-gray-400' : s.rvol >= 1.5 ? 'text-yellow-600 dark:text-yellow-400 font-semibold' : 'text-gray-600 dark:text-gray-400'}`}>
+                      {s.rvol != null ? `${s.rvol.toFixed(2)}x` : '—'}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
 
       {/* ── Quant Panel ── */}
       <div className="bg-gray-50 dark:bg-gray-900 rounded-lg p-4 border border-gray-200 dark:border-gray-700">

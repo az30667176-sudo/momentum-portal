@@ -1,4 +1,4 @@
-import { getSubHistory } from '@/lib/supabase'
+import { getSubHistory, getSubStocks } from '@/lib/supabase'
 import { SubDetail } from '@/components/SubDetail'
 
 export const revalidate = 3600
@@ -18,9 +18,12 @@ export default async function SubDetailPage({ params }: Props) {
     )
   }
 
+  const latestDate = history[history.length - 1].date
+  const stocks = await getSubStocks(params.gicsCode, latestDate)
+
   return (
     <main className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <SubDetail gicsCode={params.gicsCode} history={history} />
+      <SubDetail gicsCode={params.gicsCode} history={history} stocks={stocks} />
     </main>
   )
 }
