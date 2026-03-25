@@ -249,6 +249,10 @@ def aggregate_sub_industry(
     tickers: list[str],
     close_all: pd.DataFrame,
     volume_all: pd.DataFrame,
+    spy_close: pd.Series = None,
+    prev_rvols: list[float] = None,
+    high_all: pd.DataFrame = None,
+    low_all: pd.DataFrame = None,
 ) -> dict:
     """
     對一個 sub-industry 的所有成分股等權平均，計算所有指標。
@@ -259,14 +263,23 @@ def aggregate_sub_industry(
         該 sub-industry 的成分股清單
     close_all, volume_all : pd.DataFrame
         全市場收盤價和成交量（columns = ticker）
+    spy_close : pd.Series, optional
+        SPY 收盤價（用於 IR、Downside Capture、Beta）
+    prev_rvols : list[float], optional
+        過去數週的 RVol 序列（用於 Vol Surge Score）
+    high_all, low_all : pd.DataFrame, optional
+        全市場最高/最低價（用於 CMF、MFI、A/D Slope）
 
     Returns
     -------
     dict
-        包含所有報酬和風險指標，以及 stock_count
+        包含所有報酬、風險和量化指標，以及 stock_count
     """
     from pipeline.volume import (calc_obv_trend, calc_rvol,
-                                  calc_vol_momentum, calc_pv_divergence)
+                                  calc_vol_momentum, calc_pv_divergence,
+                                  calc_chaikin_money_flow, calc_money_flow_index,
+                                  calc_volume_weighted_rsi, calc_ad_slope,
+                                  calc_pvt_slope, calc_vol_surge_score)
 
     valid = [t for t in tickers if t in close_all.columns
              and not close_all[t].dropna().empty]
@@ -284,29 +297,42 @@ def aggregate_sub_industry(
         ret_results.append(calc_returns(close))
 
         if not volume.empty:
-            vol_results.append({
+            vol_entry = {
                 "obv_trend": calc_obv_trend(close, volume),
                 "rvol":      calc_rvol(volume),
                 "vol_mom":   calc_vol_momentum(volume),
                 "pv_div":    calc_pv_divergence(close, volume),
-            })
+            }
+            has_hl = (high_all is not None and low_all is not None
+                      and t in high_all.columns and t in low_all.columns)
+            if has_hl:
+                high = high_all[t].dropna()
+                low  = low_all[t].dropna()
+                vol_entry["cmf"]       = calc_chaikin_money_flow(high, low, close, volume)
+                vol_entry["mfi"]       = calc_money_flow_index(high, low, close, volume)
+                vol_entry["vrsi"]      = calc_volume_weighted_rsi(close, volume)
+                vol_entry["ad_slope"]  = calc_ad_slope(high, low, close, volume)
+                vol_entry["pvt_slope"] = calc_pvt_slope(close, volume)
+            else:
+                for k in ["cmf", "mfi", "vrsi", "ad_slope", "pvt_slope"]:
+                    vol_entry[k] = None
+            vol_results.append(vol_entry)
 
-    # 等權平均所有數值指標
+    # 等權平均所有數值指標（報酬類）
     all_keys = set()
     for r in ret_results:
         all_keys.update(r.keys())
 
     result = {}
     for key in all_keys:
-        vals = [r.get(key) for r in ret_results
-                if r.get(key) is not None]
+        vals = [r.get(key) for r in ret_results if r.get(key) is not None]
         result[key] = round(float(np.nanmean(vals)), 4) if vals else None
 
     # 量價指標等權平均
     if vol_results:
-        for vk in ["obv_trend", "rvol", "vol_mom"]:
-            vals = [v[vk] for v in vol_results
-                    if v.get(vk) is not None]
+        for vk in ["obv_trend", "rvol", "vol_mom",
+                   "cmf", "mfi", "vrsi", "ad_slope", "pvt_slope"]:
+            vals = [v[vk] for v in vol_results if v.get(vk) is not None]
             result[vk] = round(float(np.nanmean(vals)), 4) if vals else None
 
         # pv_divergence：取眾數
@@ -316,7 +342,233 @@ def aggregate_sub_industry(
             result["pv_divergence"] = Counter(pvs).most_common(1)[0][0]
 
     result["stock_count"] = len(valid)
+
+    # ── 建立等權聚合週報酬序列 ────────────────────────────────
+    close_sub = close_all[valid]
+    daily_rets_full = close_sub.pct_change()
+    aligned_dates = daily_rets_full.dropna(how='all').index
+    n_weeks = len(aligned_dates) // 5
+
+    sub_weekly: list[float] = []
+    spy_weekly: list[float] = []
+
+    spy_daily_all = spy_close.pct_change() if spy_close is not None else None
+
+    for i in range(n_weeks):
+        week_dates = aligned_dates[i * 5:(i + 1) * 5]
+        week_data = daily_rets_full.reindex(week_dates)
+        eq_daily = week_data.mean(axis=1).dropna()
+        if len(eq_daily) == 0:
+            continue
+        week_ret = float((1 + eq_daily).prod() - 1) * 100
+        sub_weekly.append(week_ret)
+
+        if spy_daily_all is not None:
+            spy_wk = spy_daily_all.reindex(week_dates).dropna()
+            spy_weekly.append(
+                float((1 + spy_wk).prod() - 1) * 100 if len(spy_wk) > 0 else 0.0
+            )
+
+    n_common = min(len(sub_weekly), len(spy_weekly))
+    sw = sub_weekly[-n_common:] if n_common > 0 else sub_weekly
+    bw = spy_weekly[-n_common:] if n_common > 0 else []
+
+    # ── 新增指標 ──────────────────────────────────────────────
+    if bw:
+        excess = [s - b for s, b in zip(sw, bw)]
+        result['information_ratio'] = calc_information_ratio(excess)
+        result['downside_capture']  = calc_downside_capture(sw, bw)
+        result['beta']              = calc_beta(sw, bw)
+    else:
+        result['information_ratio'] = None
+        result['downside_capture']  = None
+        result['beta']              = None
+
+    result['calmar_ratio']      = calc_calmar_ratio(sub_weekly)
+    result['momentum_autocorr'] = calc_momentum_autocorrelation(sub_weekly)
+
+    # Price Trend R²（等權價格指數）
+    eq_price_rets = close_sub.pct_change().mean(axis=1).dropna()
+    price_index = (1 + eq_price_rets).cumprod() * 100
+    result['price_trend_r2'] = calc_price_trend_r2(price_index)
+
+    # Leader / Lagger Ratio
+    ticker_rets_20d = {
+        t: close_all[t].pct_change().dropna().iloc[-20:].tolist()
+        for t in valid
+    }
+    result['leader_lagger_ratio'] = calc_leader_lagger_ratio(ticker_rets_20d)
+
+    # RS Trend Slope：需要歷史序列，由外部傳入後補算
+    result['rs_trend_slope'] = None
+
+    # Vol Surge Score
+    result['vol_surge_score'] = calc_vol_surge_score(prev_rvols or [])
+
     return result
+
+
+# ─── 進階量化指標 ──────────────────────────────────────────────
+
+def calc_information_ratio(weekly_excess_returns: list[float]) -> float | None:
+    """
+    IR = 超額週報酬均值 / 超額週報酬標準差 × sqrt(52)
+    超額報酬 = sub-industry 週報酬 - SPY 同期週報酬
+    >= 0.5 動能可靠，< 0 跑輸大盤
+    """
+    if not weekly_excess_returns or len(weekly_excess_returns) < 4:
+        return None
+    arr = np.array(weekly_excess_returns, dtype=float)
+    mn = np.nanmean(arr)
+    std = np.nanstd(arr, ddof=1)
+    if std < 1e-8:
+        return None
+    return round(float(mn / std * np.sqrt(52)), 4)
+
+
+def calc_momentum_decay_rate(score_3m: float | None, score_1m: float | None) -> float | None:
+    """
+    = mom_score_1m - mom_score_3m
+    正數=動能加速，負數=動能衰退（出場預警）
+    """
+    if score_3m is None or score_1m is None:
+        return None
+    return round(float(score_1m - score_3m), 2)
+
+
+def calc_breadth_adjusted_momentum(ret_3m: float | None, breadth_pct: float | None) -> float | None:
+    """
+    = ret_3m × (breadth_pct / 100)
+    懲罰少數股票撐盤的假動能
+    """
+    if ret_3m is None or breadth_pct is None:
+        return None
+    return round(float(ret_3m * breadth_pct / 100), 4)
+
+
+def calc_downside_capture(weekly_sub: list[float], weekly_spy: list[float]) -> float | None:
+    """
+    只取 SPY 為負的週，計算 sub 平均下跌 / SPY 平均下跌
+    <= 0.7 防禦強，> 1.0 高 beta
+    """
+    if not weekly_sub or not weekly_spy:
+        return None
+    n = min(len(weekly_sub), len(weekly_spy))
+    sub = np.array(weekly_sub[-n:], dtype=float)
+    spy = np.array(weekly_spy[-n:], dtype=float)
+    down = spy < 0
+    if not np.any(down):
+        return 1.0
+    spy_avg = np.nanmean(spy[down])
+    sub_avg = np.nanmean(sub[down])
+    if abs(spy_avg) < 1e-8:
+        return None
+    return round(float(sub_avg / spy_avg), 4)
+
+
+def calc_calmar_ratio(weekly_returns: list[float], weeks: int = 12) -> float | None:
+    """
+    = 年化週報酬(mean × 52) / abs(最差單週報酬)
+    """
+    if not weekly_returns or len(weekly_returns) < 4:
+        return None
+    arr = np.array(weekly_returns[-weeks:], dtype=float)
+    ann_ret = np.nanmean(arr) * 52
+    max_dd = abs(np.nanmin(arr))
+    if max_dd < 1e-8:
+        return None
+    return round(float(ann_ret / max_dd), 4)
+
+
+def calc_rs_trend_slope(rs_history: list[float], lookback: int = 4) -> float | None:
+    """
+    對最近 lookback 筆 rs_ratio 做線性迴歸取斜率
+    正數=RS 正在建立，負數=RS 正在弱化
+    """
+    if not rs_history or len(rs_history) < lookback:
+        return None
+    recent = np.array(rs_history[-lookback:], dtype=float)
+    x = np.arange(len(recent))
+    try:
+        slope = np.polyfit(x, recent, 1)[0]
+        return round(float(slope), 6)
+    except Exception:
+        return None
+
+
+def calc_leader_lagger_ratio(ticker_returns_20d: dict) -> float | None:
+    """
+    leaders = 近 5 天均報酬 > 近 20 天均報酬 的 ticker 數
+    > 2.0 健康輪動，< 0.5 少數股撐盤
+    """
+    leaders, laggers = 0, 0
+    for ticker, rets in ticker_returns_20d.items():
+        if not rets or len(rets) < 5:
+            continue
+        arr = np.array(rets, dtype=float)
+        avg = np.nanmean(arr)
+        recent = np.nanmean(arr[-5:])
+        if recent > avg:
+            leaders += 1
+        else:
+            laggers += 1
+    if laggers == 0:
+        return float(leaders) if leaders > 0 else None
+    return round(float(leaders / laggers), 4)
+
+
+def calc_beta(weekly_sub: list[float], weekly_spy: list[float]) -> float | None:
+    """
+    Beta = cov(sub, spy) / var(spy)
+    <= 0.8 獨立強勢，> 1.2 高度跟隨大盤
+    """
+    if not weekly_sub or not weekly_spy or len(weekly_sub) < 12:
+        return None
+    n = min(len(weekly_sub), len(weekly_spy))
+    sub = np.array(weekly_sub[-n:], dtype=float)
+    spy = np.array(weekly_spy[-n:], dtype=float)
+    try:
+        cov_matrix = np.cov(sub, spy)
+        var_spy = cov_matrix[1][1]
+        if var_spy < 1e-10:
+            return None
+        beta = cov_matrix[0][1] / var_spy
+        return round(float(beta), 4)
+    except Exception:
+        return None
+
+
+def calc_momentum_autocorrelation(weekly_returns: list[float], lag: int = 1) -> float | None:
+    """
+    lag-1 自相關係數
+    > 0.2 趨勢持續（趨勢策略），< -0.2 均值回歸
+    """
+    if not weekly_returns or len(weekly_returns) < 8:
+        return None
+    arr = np.array(weekly_returns, dtype=float)
+    try:
+        r = np.corrcoef(arr[:-lag], arr[lag:])[0][1]
+        return round(float(r), 4)
+    except Exception:
+        return None
+
+
+def calc_price_trend_r2(close: pd.Series, lookback_days: int = 63) -> float | None:
+    """
+    價格對時間的線性迴歸 R²
+    >= 0.85 趨勢乾淨，< 0.5 高度震盪
+    """
+    close = close.dropna()
+    if len(close) < 20:
+        return None
+    n = min(lookback_days, len(close))
+    y = close.iloc[-n:].values
+    x = np.arange(n)
+    try:
+        _, _, r, _, _ = stats.linregress(x, y)
+        return round(float(r ** 2), 4)
+    except Exception:
+        return None
 
 
 if __name__ == "__main__":

@@ -43,9 +43,9 @@ def is_market_open_today() -> bool:
     return True
 
 
-def fetch_prices(tickers: list[str]) -> tuple[pd.DataFrame, pd.DataFrame]:
+def fetch_prices(tickers: list[str]) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     """
-    批次下載所有 ticker 的收盤價和成交量。
+    批次下載所有 ticker 的收盤價、成交量、最高價和最低價。
 
     Parameters
     ----------
@@ -54,8 +54,8 @@ def fetch_prices(tickers: list[str]) -> tuple[pd.DataFrame, pd.DataFrame]:
 
     Returns
     -------
-    tuple[pd.DataFrame, pd.DataFrame]
-        (close_df, volume_df)
+    tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame]
+        (close_df, volume_df, high_df, low_df)
         index = 日期，columns = ticker
     """
     end = datetime.today()
@@ -64,7 +64,7 @@ def fetch_prices(tickers: list[str]) -> tuple[pd.DataFrame, pd.DataFrame]:
     batches = [tickers[i:i + BATCH_SIZE]
                for i in range(0, len(tickers), BATCH_SIZE)]
 
-    all_close, all_volume = [], []
+    all_close, all_volume, all_high, all_low = [], [], [], []
     failed_tickers = []
 
     for i, batch in enumerate(batches):
@@ -87,14 +87,21 @@ def fetch_prices(tickers: list[str]) -> tuple[pd.DataFrame, pd.DataFrame]:
 
             # 單一 ticker 時 columns 結構不同
             if len(batch) == 1:
-                close = raw[["Close"]].rename(columns={"Close": batch[0]})
+                close  = raw[["Close"]].rename(columns={"Close": batch[0]})
                 volume = raw[["Volume"]].rename(columns={"Volume": batch[0]})
+                high   = raw[["High"]].rename(columns={"High": batch[0]})
+                low    = raw[["Low"]].rename(columns={"Low": batch[0]})
             else:
-                close = raw["Close"] if "Close" in raw.columns.get_level_values(0) else raw.xs("Close", axis=1, level=0)
-                volume = raw["Volume"] if "Volume" in raw.columns.get_level_values(0) else raw.xs("Volume", axis=1, level=0)
+                lvl0 = raw.columns.get_level_values(0)
+                close  = raw["Close"]  if "Close"  in lvl0 else raw.xs("Close",  axis=1, level=0)
+                volume = raw["Volume"] if "Volume" in lvl0 else raw.xs("Volume", axis=1, level=0)
+                high   = raw["High"]   if "High"   in lvl0 else raw.xs("High",   axis=1, level=0)
+                low    = raw["Low"]    if "Low"    in lvl0 else raw.xs("Low",    axis=1, level=0)
 
             all_close.append(close)
             all_volume.append(volume)
+            all_high.append(high)
+            all_low.append(low)
             logger.info(f"  → OK: {close.shape[1]} tickers, "
                         f"{close.shape[0]} days")
 
@@ -107,15 +114,18 @@ def fetch_prices(tickers: list[str]) -> tuple[pd.DataFrame, pd.DataFrame]:
     if not all_close:
         raise RuntimeError("All batches failed. Check network or yfinance version.")
 
-    close_df = pd.concat(all_close, axis=1)
+    close_df  = pd.concat(all_close,  axis=1)
     volume_df = pd.concat(all_volume, axis=1)
+    high_df   = pd.concat(all_high,   axis=1)
+    low_df    = pd.concat(all_low,    axis=1)
 
-    # 移除全 NaN 欄位
-    close_df = close_df.dropna(how="all", axis=1)
+    # 移除全 NaN 欄位（以 close 為基準）
+    close_df  = close_df.dropna(how="all", axis=1)
     volume_df = volume_df.reindex(columns=close_df.columns)
+    high_df   = high_df.reindex(columns=close_df.columns)
+    low_df    = low_df.reindex(columns=close_df.columns)
 
     # ── 補抓批次下載遺漏的 tickers ───────────────────────────
-    # yfinance 批次下載有時會靜默丟棄個別 ticker，逐一重試補回
     all_expected = set(tickers)
     downloaded = set(close_df.columns.tolist())
     missing = list(all_expected - downloaded)
@@ -124,6 +134,7 @@ def fetch_prices(tickers: list[str]) -> tuple[pd.DataFrame, pd.DataFrame]:
         logger.warning(f"Batch download missed {len(missing)} tickers, "
                        f"retrying individually: {missing[:10]}...")
         recovered_close, recovered_volume = [], []
+        recovered_high,  recovered_low    = [], []
         for t in missing:
             try:
                 raw = yf.download(
@@ -139,12 +150,16 @@ def fetch_prices(tickers: list[str]) -> tuple[pd.DataFrame, pd.DataFrame]:
                     continue
                 c = raw[["Close"]].rename(columns={"Close": t})
                 v = raw[["Volume"]].rename(columns={"Volume": t})
+                h = raw[["High"]].rename(columns={"High": t})
+                l = raw[["Low"]].rename(columns={"Low": t})
                 if c[t].dropna().empty:
                     logger.warning(f"  {t}: all-NaN close series")
                     failed_tickers.append(t)
                     continue
                 recovered_close.append(c)
                 recovered_volume.append(v)
+                recovered_high.append(h)
+                recovered_low.append(l)
                 logger.info(f"  {t}: recovered ({len(c.dropna())} days)")
                 time.sleep(0.5)
             except Exception as e:
@@ -152,10 +167,10 @@ def fetch_prices(tickers: list[str]) -> tuple[pd.DataFrame, pd.DataFrame]:
                 failed_tickers.append(t)
 
         if recovered_close:
-            extra_close = pd.concat(recovered_close, axis=1)
-            extra_volume = pd.concat(recovered_volume, axis=1)
-            close_df = pd.concat([close_df, extra_close], axis=1)
-            volume_df = pd.concat([volume_df, extra_volume], axis=1)
+            close_df  = pd.concat([close_df,  pd.concat(recovered_close,  axis=1)], axis=1)
+            volume_df = pd.concat([volume_df, pd.concat(recovered_volume, axis=1)], axis=1)
+            high_df   = pd.concat([high_df,   pd.concat(recovered_high,   axis=1)], axis=1)
+            low_df    = pd.concat([low_df,    pd.concat(recovered_low,    axis=1)], axis=1)
             logger.info(f"Recovered {len(recovered_close)} tickers individually")
 
     if failed_tickers:
@@ -164,7 +179,7 @@ def fetch_prices(tickers: list[str]) -> tuple[pd.DataFrame, pd.DataFrame]:
 
     logger.info(f"Download complete: {close_df.shape[1]} tickers, "
                 f"{close_df.shape[0]} days")
-    return close_df, volume_df
+    return close_df, volume_df, high_df, low_df
 
 
 def fetch_spy_prices() -> pd.Series:

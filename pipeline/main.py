@@ -45,6 +45,8 @@ def run_pipeline_for_date(
     spy_close,
     supabase,
     prev_ranks: dict,
+    high_all=None,
+    low_all=None,
 ) -> dict:
     """
     對指定日期計算所有 sub-industry 指標並 upsert。
@@ -78,6 +80,14 @@ def run_pipeline_for_date(
     # 截取到 target_date 的價格
     close_to_date = close_all[date_mask]
     volume_to_date = volume_all[date_mask] if volume_all is not None else None
+    high_to_date   = high_all[date_mask]   if high_all  is not None else None
+    low_to_date    = low_all[date_mask]    if low_all   is not None else None
+
+    # SPY 截取到 target_date
+    spy_to_date = None
+    if spy_close is not None:
+        spy_mask = spy_close.index.normalize() <= target_ts
+        spy_to_date = spy_close[spy_mask] if spy_mask.any() else None
 
     # 對每個 sub-industry 計算
     from pipeline.universe import get_sub_industry_mapping
@@ -102,7 +112,10 @@ def run_pipeline_for_date(
 
         metrics = aggregate_sub_industry(
             tickers, close_to_date,
-            volume_to_date if volume_to_date is not None else close_to_date
+            volume_to_date if volume_to_date is not None else close_to_date,
+            spy_close=spy_to_date,
+            high_all=high_to_date,
+            low_all=low_to_date,
         )
         if metrics:
             sub_metrics[gics_code] = {
@@ -115,6 +128,7 @@ def run_pipeline_for_date(
         return {"success": 0, "failed": 1, "date": str(target_date)}
 
     # 截面計算：動能分數和排名
+    all_ret1m = [v.get("ret_1m") for v in sub_metrics.values()]
     all_ret3m = [v.get("ret_3m") for v in sub_metrics.values()]
     all_ret6m = [v.get("ret_6m") for v in sub_metrics.values()]
 
@@ -127,6 +141,29 @@ def run_pipeline_for_date(
 
     ranks = calc_cross_sectional_rank(mom_scores)
 
+    # 截面計算 momentum_decay_rate（1M 百分位 - 3M 百分位）
+    from pipeline.calculator import (calc_momentum_decay_rate,
+                                      calc_breadth_adjusted_momentum)
+    from scipy import stats as _stats
+
+    def _percentile(val, all_vals):
+        clean = [v for v in all_vals if v is not None and not np.isnan(v)]
+        if not clean or val is None:
+            return 50.0
+        mn = np.mean(clean)
+        std = np.std(clean, ddof=1) if len(clean) > 1 else 1e-8
+        if std == 0:
+            return 50.0
+        return float(_stats.norm.cdf((val - mn) / std) * 100)
+
+    for gc, metrics in sub_metrics.items():
+        score_3m = _percentile(metrics.get("ret_3m"), all_ret3m)
+        score_1m = _percentile(metrics.get("ret_1m"), all_ret1m)
+        metrics['momentum_decay_rate'] = calc_momentum_decay_rate(score_3m, score_1m)
+        metrics['breadth_adj_mom'] = calc_breadth_adjusted_momentum(
+            metrics.get("ret_3m"), metrics.get("breadth_pct")
+        )
+
     # 組裝最終 records
     records = []
     for gics_code, metrics in sub_metrics.items():
@@ -136,19 +173,24 @@ def run_pipeline_for_date(
                       if rank_today and rank_prev else None)
 
         record = {
-            "date":         str(target_date),
-            "gics_code":    gics_code,
-            "mom_score":    mom_scores.get(gics_code),
-            "rank_today":   rank_today,
+            "date":           str(target_date),
+            "gics_code":      gics_code,
+            "mom_score":      mom_scores.get(gics_code),
+            "rank_today":     rank_today,
             "rank_prev_week": rank_prev,
-            "delta_rank":   delta_rank,
-            "stock_count":  metrics.get("stock_count", 0),
+            "delta_rank":     delta_rank,
+            "stock_count":    metrics.get("stock_count", 0),
         }
 
         # 合入所有指標
         for key in ["ret_1d", "ret_1w", "ret_1m", "ret_3m",
                     "ret_6m", "ret_12m", "mom_6m", "mom_12m",
-                    "obv_trend", "rvol", "vol_mom", "pv_divergence"]:
+                    "obv_trend", "rvol", "vol_mom", "pv_divergence",
+                    "information_ratio", "momentum_decay_rate", "breadth_adj_mom",
+                    "downside_capture", "calmar_ratio", "rs_trend_slope",
+                    "leader_lagger_ratio", "cmf", "mfi", "vrsi", "pvt_slope",
+                    "vol_surge_score", "beta", "momentum_autocorr",
+                    "price_trend_r2", "ad_slope"]:
             record[key] = metrics.get(key)
 
         records.append(record)
@@ -295,7 +337,7 @@ def main():
     logger.info("Downloading price data...")
     tickers = universe_df["ticker"].tolist()
     try:
-        close_all, volume_all = fetch_prices(tickers)
+        close_all, volume_all, high_all, low_all = fetch_prices(tickers)
         spy_close = fetch_spy_prices()
         logger.info(f"Downloaded: {close_all.shape[1]} tickers, "
                     f"{close_all.shape[0]} days")
@@ -328,6 +370,7 @@ def main():
             result = run_pipeline_for_date(
                 target_date, universe_df, close_all, volume_all,
                 spy_close, supabase, prev_ranks,
+                high_all=high_all, low_all=low_all,
             )
             total_success += result["success"]
             total_failed += result["failed"]
@@ -338,6 +381,7 @@ def main():
         result = run_pipeline_for_date(
             date.today(), universe_df, close_all, volume_all,
             spy_close, supabase, prev_ranks,
+            high_all=high_all, low_all=low_all,
         )
         total_success += result["success"]
         total_failed += result["failed"]

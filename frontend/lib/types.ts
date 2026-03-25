@@ -41,6 +41,22 @@ export interface SubReturn {
   vol_mom: number | null
   pv_divergence: string | null
   stock_count: number | null
+  information_ratio: number | null
+  momentum_decay_rate: number | null
+  breadth_adj_mom: number | null
+  downside_capture: number | null
+  calmar_ratio: number | null
+  rs_trend_slope: number | null
+  leader_lagger_ratio: number | null
+  cmf: number | null
+  mfi: number | null
+  vrsi: number | null
+  pvt_slope: number | null
+  vol_surge_score: number | null
+  beta: number | null
+  momentum_autocorr: number | null
+  price_trend_r2: number | null
+  ad_slope: number | null
   gics_universe?: GicsUniverse
 }
 
