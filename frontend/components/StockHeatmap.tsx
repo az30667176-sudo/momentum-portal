@@ -332,7 +332,7 @@ export function StockHeatmap({ entries, date }: Props) {
   }, [])
 
   const filtered = useMemo(() => {
-    let d = entries.filter(s => s.hasReturns)
+    let d = entries
     if (sizeFilter === 'large') d = d.filter(s => s.index_member === 'SP500')
     if (sizeFilter === 'mid')   d = d.filter(s => s.index_member === 'SP400')
     if (sizeFilter === 'small') d = d.filter(s => s.index_member === 'SP600')

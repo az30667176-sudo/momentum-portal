@@ -114,8 +114,52 @@ def fetch_prices(tickers: list[str]) -> tuple[pd.DataFrame, pd.DataFrame]:
     close_df = close_df.dropna(how="all", axis=1)
     volume_df = volume_df.reindex(columns=close_df.columns)
 
+    # ── 補抓批次下載遺漏的 tickers ───────────────────────────
+    # yfinance 批次下載有時會靜默丟棄個別 ticker，逐一重試補回
+    all_expected = set(tickers)
+    downloaded = set(close_df.columns.tolist())
+    missing = list(all_expected - downloaded)
+
+    if missing:
+        logger.warning(f"Batch download missed {len(missing)} tickers, "
+                       f"retrying individually: {missing[:10]}...")
+        recovered_close, recovered_volume = [], []
+        for t in missing:
+            try:
+                raw = yf.download(
+                    t,
+                    start=start,
+                    end=end,
+                    auto_adjust=True,
+                    progress=False,
+                )
+                if raw.empty or "Close" not in raw.columns:
+                    logger.warning(f"  {t}: no data from yfinance")
+                    failed_tickers.append(t)
+                    continue
+                c = raw[["Close"]].rename(columns={"Close": t})
+                v = raw[["Volume"]].rename(columns={"Volume": t})
+                if c[t].dropna().empty:
+                    logger.warning(f"  {t}: all-NaN close series")
+                    failed_tickers.append(t)
+                    continue
+                recovered_close.append(c)
+                recovered_volume.append(v)
+                logger.info(f"  {t}: recovered ({len(c.dropna())} days)")
+                time.sleep(0.5)
+            except Exception as e:
+                logger.warning(f"  {t}: individual download failed: {e}")
+                failed_tickers.append(t)
+
+        if recovered_close:
+            extra_close = pd.concat(recovered_close, axis=1)
+            extra_volume = pd.concat(recovered_volume, axis=1)
+            close_df = pd.concat([close_df, extra_close], axis=1)
+            volume_df = pd.concat([volume_df, extra_volume], axis=1)
+            logger.info(f"Recovered {len(recovered_close)} tickers individually")
+
     if failed_tickers:
-        logger.warning(f"Failed tickers ({len(failed_tickers)}): "
+        logger.warning(f"Permanently failed tickers ({len(failed_tickers)}): "
                        f"{failed_tickers[:20]}...")
 
     logger.info(f"Download complete: {close_df.shape[1]} tickers, "

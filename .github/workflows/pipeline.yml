@@ -2,9 +2,9 @@ name: Daily Data Pipeline
 
 on:
   schedule:
-    # 美東時間 21:30（UTC 01:30），週二到週六
-    # 對應美股週一到週五盤後 1.5 小時
-    - cron: '30 1 * * 2-6'
+    # 美東時間 17:30（UTC 21:30），週一到週五
+    # 美股收盤（16:00 EDT）後 1.5 小時，確保 yfinance 資料已可用
+    - cron: '30 21 * * 1-5'
 
   workflow_dispatch:
     inputs:
