@@ -129,6 +129,7 @@ export async function getStockHeatmap(): Promise<{
     `)
     .eq('is_active', true)
     .order('ticker')
+    .limit(2000)
 
   if (uErr || !universe) {
     console.error('getStockHeatmap universe error:', uErr)
@@ -157,6 +158,7 @@ export async function getStockHeatmap(): Promise<{
       .from('daily_stock_returns')
       .select('ticker, ret_1d, ret_1w, ret_1m, ret_3m, mom_score, rank_in_sub, rvol')
       .eq('date', latestDate)
+      .limit(2000)
 
     if (!rErr && returns) {
       for (const r of returns as StockReturn[]) {
