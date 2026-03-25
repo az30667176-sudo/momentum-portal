@@ -1,7 +1,7 @@
 import { getLatestSubReturns, getLatestDate } from '@/lib/supabase'
 import { Heatmap } from '@/components/Heatmap'
 
-export const revalidate = 3600
+export const revalidate = 300
 
 export default async function SectorsPage() {
   const [data, latestDate] = await Promise.all([

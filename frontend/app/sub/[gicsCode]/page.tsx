@@ -1,7 +1,7 @@
 import { getSubHistory, getSubStocks } from '@/lib/supabase'
 import { SubDetail } from '@/components/SubDetail'
 
-export const revalidate = 3600
+export const revalidate = 300
 
 interface Props {
   params: { gicsCode: string }
