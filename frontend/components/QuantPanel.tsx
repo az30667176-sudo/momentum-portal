@@ -264,7 +264,7 @@ export function QuantPanel({ data: d }: Props) {
           <MetricCard
             label="Information Ratio"
             value={fmtNum(d.information_ratio, 2)}
-            desc="超額報酬穩定性，動能是否真的跑贏大盤"
+            desc="超額報酬穩定性（全年 ~84 週）· 動能是否真的跑贏大盤"
             valueColor={irColor}
             barColor={barColorFor(irColor)}
             barMin={-1} barMax={2} barValue={d.information_ratio}
@@ -272,7 +272,7 @@ export function QuantPanel({ data: d }: Props) {
           <MetricCard
             label="Momentum Decay"
             value={fmtNum(d.momentum_decay_rate, 1)}
-            desc="動能加速或衰退，負數是出場預警"
+            desc="1M 百分位 − 3M 百分位（當日截面）· 負數是出場預警"
             valueColor={decayColor}
             barColor={barColorFor(decayColor)}
             barMin={-30} barMax={30} barValue={d.momentum_decay_rate}
@@ -287,7 +287,7 @@ export function QuantPanel({ data: d }: Props) {
           <MetricCard
             label="Sortino Ratio"
             value={fmtNum(d.sortino_8w, 2)}
-            desc="只懲罰下行波動，比 Sharpe 更實用"
+            desc="近 8 週下行波動調整報酬 · 只懲罰下跌，比 Sharpe 更實用"
             valueColor={sortinoColor}
             barColor={barColorFor(sortinoColor)}
             barMin={-2} barMax={5} barValue={d.sortino_8w}
@@ -295,7 +295,7 @@ export function QuantPanel({ data: d }: Props) {
           <MetricCard
             label="Calmar Ratio"
             value={fmtNum(d.calmar_ratio, 2)}
-            desc="年化報酬除以最大單週回撤"
+            desc="近 12 週年化報酬 ÷ 最大單週回撤 · 反映近期風險回報"
             valueColor={calmarColor}
             barColor={barColorFor(calmarColor)}
             barMin={-2} barMax={6} barValue={d.calmar_ratio}
@@ -303,7 +303,7 @@ export function QuantPanel({ data: d }: Props) {
           <MetricCard
             label="Volatility (ann.)"
             value={d.volatility_8w != null ? `${d.volatility_8w.toFixed(1)}%` : '—'}
-            desc="年化波動率，低波動更適合週策略"
+            desc="近 8 週週報酬標準差年化 · 低波動更適合趨勢策略"
             valueColor={volColor}
             barColor={barColorFor(volColor)}
             barMin={0} barMax={60} barValue={d.volatility_8w}
@@ -318,7 +318,7 @@ export function QuantPanel({ data: d }: Props) {
           <MetricCard
             label="Leader / Lagger"
             value={fmtNum(d.leader_lagger_ratio, 2)}
-            desc="跑贏 vs 跑輸自身均值的股票比例"
+            desc="近 20 日：近 5 日均報酬 > 近 20 日均報酬的股票比例"
             valueColor={llColor}
             barColor={barColorFor(llColor)}
             barMin={0} barMax={5} barValue={d.leader_lagger_ratio}
@@ -326,7 +326,7 @@ export function QuantPanel({ data: d }: Props) {
           <MetricCard
             label="Downside Capture"
             value={fmtNum(d.downside_capture, 2)}
-            desc="大盤下跌時的跟跌比例，越低越有保護"
+            desc="全年 ~84 週：SPY 下跌週，板塊平均跟跌幅度比"
             valueColor={dcColor}
             barColor={barColorFor(dcColor)}
             barMin={0} barMax={2} barValue={d.downside_capture}
@@ -341,7 +341,7 @@ export function QuantPanel({ data: d }: Props) {
           <MetricCard
             label="CMF"
             value={fmtNum(d.cmf, 3)}
-            desc="Chaikin Money Flow，-1 到 +1，跨板塊標準化資金流向"
+            desc="近 20 日 Chaikin Money Flow · -1 到 +1，資金淨流入方向"
             valueColor={cmfColor}
             barColor={barColorFor(cmfColor)}
             barMin={-1} barMax={1} barValue={d.cmf}
@@ -350,7 +350,7 @@ export function QuantPanel({ data: d }: Props) {
           <MetricCard
             label="MFI"
             value={d.mfi != null ? Math.round(d.mfi).toString() : '—'}
-            desc="量價版 RSI，0-100，> 80 超買，< 20 超賣"
+            desc="近 14 日量價版 RSI · 0–100，> 80 超買，< 20 超賣"
             valueColor={mfiColor}
             barColor={barColorFor(mfiColor)}
             barMin={0} barMax={100} barValue={d.mfi}
@@ -358,7 +358,7 @@ export function QuantPanel({ data: d }: Props) {
           <MetricCard
             label="PVT Slope"
             value={d.pvt_slope != null ? d.pvt_slope.toFixed(4) : '—'}
-            desc="量價趨勢斜率，資金流入力道指標"
+            desc="近 8 週 Price-Volume Trend 斜率 · 正數代表資金持續流入"
             valueColor={pvtColor}
             barColor={barColorFor(pvtColor)}
             barMin={-0.01} barMax={0.01} barValue={d.pvt_slope}
@@ -366,7 +366,7 @@ export function QuantPanel({ data: d }: Props) {
           <MetricCard
             label="RVol"
             value={d.rvol != null ? `${d.rvol.toFixed(2)}x` : '—'}
-            desc="當日成交量 / 過去 20 日均量"
+            desc="今日成交量 ÷ 過去 20 日均量 · 反映當前量能異常程度"
             valueColor={rvolColor}
             barColor={barColorFor(rvolColor)}
             barMin={0} barMax={3} barValue={d.rvol}
@@ -374,7 +374,7 @@ export function QuantPanel({ data: d }: Props) {
           <MetricCard
             label="Vol Surge Score"
             value={d.vol_surge_score != null ? Math.round(d.vol_surge_score).toString() : '—'}
-            desc="綜合量能爆發分數（0-100）"
+            desc="近 8 週量能爆發綜合分數 · 連續高量、峰值、高量佔比合成"
             valueColor={vsColor}
             barColor={barColorFor(vsColor)}
             barMin={0} barMax={100} barValue={d.vol_surge_score}
@@ -389,7 +389,7 @@ export function QuantPanel({ data: d }: Props) {
           <MetricCard
             label="Beta (vs SPY)"
             value={fmtNum(d.beta, 2)}
-            desc="板塊對大盤的敏感度，越低代表越獨立強勢"
+            desc="全年 ~84 週 vs SPY · 越低代表板塊越獨立於大盤"
             valueColor={betaColor}
             barColor={barColorFor(betaColor)}
             barMin={0} barMax={2} barValue={d.beta}
@@ -397,7 +397,7 @@ export function QuantPanel({ data: d }: Props) {
           <MetricCard
             label="Mom Autocorr"
             value={fmtNum(d.momentum_autocorr, 2)}
-            desc="週報酬持續性，決定適合何種策略"
+            desc="全年週報酬 lag-1 自相關 · 正數趨勢持續，負數易反轉"
             valueColor={autocorrColor}
             barColor={barColorFor(autocorrColor)}
             barMin={-1} barMax={1} barValue={d.momentum_autocorr}
@@ -406,7 +406,7 @@ export function QuantPanel({ data: d }: Props) {
           <MetricCard
             label="Price Trend R²"
             value={fmtNum(d.price_trend_r2, 2)}
-            desc="價格趨勢乾淨程度，越高換倉時機越好掌握"
+            desc="近 63 日（3M）價格對時間線性 R² · 越高趨勢越乾淨"
             valueColor={r2Color}
             barColor={barColorFor(r2Color)}
             barMin={0} barMax={1} barValue={d.price_trend_r2}
