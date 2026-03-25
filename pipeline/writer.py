@@ -16,15 +16,24 @@ BATCH_SIZE = 100       # 每次 upsert 的最大筆數
 MAX_RETRIES = 3        # 失敗重試次數
 
 
+_NUMERIC_7_4_MAX = 999.9999  # NUMERIC(7,4) 上限
+
+
 def _sanitize(records: list[dict]) -> list[dict]:
-    """把 float NaN / Inf 換成 None，避免 JSON 序列化失敗"""
+    """把 float NaN / Inf 換成 None；超出 NUMERIC(7,4) 範圍也換成 None"""
     import math
     cleaned = []
     for row in records:
-        cleaned.append({
-            k: (None if isinstance(v, float) and not math.isfinite(v) else v)
-            for k, v in row.items()
-        })
+        new_row = {}
+        for k, v in row.items():
+            if isinstance(v, float):
+                if not math.isfinite(v) or abs(v) > _NUMERIC_7_4_MAX:
+                    new_row[k] = None
+                else:
+                    new_row[k] = v
+            else:
+                new_row[k] = v
+        cleaned.append(new_row)
     return cleaned
 
 

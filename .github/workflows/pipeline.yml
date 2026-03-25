@@ -2,9 +2,10 @@ name: Daily Data Pipeline
 
 on:
   schedule:
-    # EDT（UTC-4，3月–11月）：17:15，收盤後 75 分鐘
-    # EST（UTC-5，11月–3月）：16:15，收盤後 15 分鐘
-    - cron: '15 21 * * 1-5'
+    # EDT（UTC-4，3月–11月）：20:30 UTC = 4:30 PM ET，收盤後 30 分鐘
+    - cron: '30 20 * * 1-5'
+    # EST（UTC-5，11月–3月）：21:30 UTC = 4:30 PM ET，收盤後 30 分鐘
+    - cron: '30 21 * * 1-5'
 
   workflow_dispatch:
     inputs:
