@@ -1,7 +1,7 @@
 import { getLatestSubReturns } from '@/lib/supabase'
 import { BacktestEngine } from '@/components/BacktestEngine'
 
-export const revalidate = 3600
+export const revalidate = 0
 
 export default async function BacktestPage() {
   const latestData = await getLatestSubReturns()
