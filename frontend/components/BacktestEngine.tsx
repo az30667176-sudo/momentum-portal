@@ -1,14 +1,14 @@
 'use client'
 
-import React, { useState, useEffect, useMemo, useCallback } from 'react'
+import React, { useState, useMemo, useCallback } from 'react'
 import Link from 'next/link'
 import {
   LineChart, Line, AreaChart, Area, BarChart, Bar,
   XAxis, YAxis, CartesianGrid, Tooltip, Legend, ReferenceLine, ResponsiveContainer
 } from 'recharts'
 import {
-  SubReturn, StockReturn, DailySubSnapshot, DailyStockSnapshot,
-  SubFilter, BacktestConfig, Holding,
+  SubReturn,
+  SubFilter, BacktestConfig,
   FilterDetail, FilterConditionDetail, RebalLog, PerfMetrics, BacktestResult,
   FilterType, WeightMode,
 } from '@/lib/types'
@@ -133,400 +133,7 @@ function checkFilter(
   return false
 }
 
-// ── Weight Helpers ────────────────────────────────────────────
-
-function capWeights(weights: number[], maxPct: number): number[] {
-  const max = maxPct / 100
-  let capped = weights.map(w => Math.min(w, max))
-  const totalCapped = capped.reduce((a, b) => a + b, 0)
-  if (totalCapped > 0) {
-    capped = capped.map(w => w / totalCapped)
-  }
-  return capped
-}
-
-function calcWeights(
-  tickers: string[],
-  subs: SubReturn[],
-  stockHistory: DailyStockSnapshot[],
-  dayIdx: number,
-  mode: WeightMode,
-  maxSingleWeight: number
-): number[] {
-  const n = tickers.length
-  if (n === 0) return []
-
-  if (mode === 'equal') {
-    const w = Array(n).fill(1 / n)
-    return capWeights(w, maxSingleWeight)
-  }
-
-  if (mode === 'momentum') {
-    const scores = tickers.map(ticker => {
-      const dayStocks = dayIdx < stockHistory.length ? stockHistory[dayIdx].stocks : []
-      const st = dayStocks.find(s => s.ticker === ticker)
-      const val = st?.mom_score ?? 50
-      return Math.max(val, 0.001)
-    })
-    const total = scores.reduce((a, b) => a + b, 0)
-    const w = scores.map(s => s / total)
-    return capWeights(w, maxSingleWeight)
-  }
-
-  if (mode === 'volatility') {
-    // Inverse volatility: use 1/vol for each sub
-    const vols = tickers.map(ticker => {
-      const dayStocks = dayIdx < stockHistory.length ? stockHistory[dayIdx].stocks : []
-      const st = dayStocks.find(s => s.ticker === ticker)
-      const subGics = st?.gics_code
-      const sub = subs.find(s => s.gics_code === subGics)
-      const vol = sub?.volatility_8w ?? 15
-      return Math.max(vol, 0.001)
-    })
-    const invVols = vols.map(v => 1 / v)
-    const total = invVols.reduce((a, b) => a + b, 0)
-    const w = invVols.map(iv => iv / total)
-    return capWeights(w, maxSingleWeight)
-  }
-
-  return Array(n).fill(1 / n)
-}
-
-// ── calcPerf ─────────────────────────────────────────────────
-
-function calcPerf(
-  dailyRets: number[],
-  eq: number[],
-  start: number,
-  end: number
-): PerfMetrics {
-  const r = dailyRets.slice(start, end)
-  const e = eq.slice(start, end)
-  const n = r.length
-  if (n < 2) return { annRet: 0, sharpe: 0, sortino: 0, mdd: 0, wr: 0 }
-
-  const mn = r.reduce((a, b) => a + b, 0) / n
-  const variance = r.reduce((a, b) => a + (b - mn) ** 2, 0) / n
-  const std = Math.sqrt(variance) || 0.001
-  const negR = r.filter(x => x < 0)
-  const ds = negR.length
-    ? Math.sqrt(negR.reduce((a, b) => a + b * b, 0) / negR.length)
-    : std
-  const annRet = (Math.pow(e[n - 1] / e[0], 252 / n) - 1) * 100
-  const sharpe = (mn / std) * Math.sqrt(252)
-  const sortino = (mn / ds) * Math.sqrt(252)
-
-  let pk = e[0], mdd = 0
-  e.forEach(v => {
-    if (v > pk) pk = v
-    const d = (pk - v) / pk * 100
-    if (d > mdd) mdd = d
-  })
-
-  const wr = Math.round(r.filter(x => x > 0).length / n * 100)
-  return {
-    annRet: parseFloat(annRet.toFixed(2)),
-    sharpe: parseFloat(sharpe.toFixed(2)),
-    sortino: parseFloat(sortino.toFixed(2)),
-    mdd: parseFloat(mdd.toFixed(2)),
-    wr,
-  }
-}
-
-// ── runBacktestSync ───────────────────────────────────────────
-
-function runBacktestSync(
-  config: BacktestConfig,
-  subHistory: DailySubSnapshot[],
-  stockHistory: DailyStockSnapshot[]
-): BacktestResult {
-  const N = subHistory.length
-  const isSplitDay = Math.floor(N * config.isSplitPct / 100)
-  const stockDataAvailable = stockHistory.length > 0 && stockHistory[0]?.stocks.length > 0
-
-  const equityCurve: number[] = [1]
-  const drawdownCurve: number[] = [0]
-  const dailyReturns: number[] = []
-  const spyCurve: number[] = [1]
-  const ewCurve: number[] = [1]
-  const dates: string[] = []
-  const rebalLogs: RebalLog[] = []
-
-  // Equity weights used for equal-weight benchmark
-  let holdings: Holding[] = []
-  let pendingOrders: { ticker: string; gics_code: string; subName: string; weight: number }[] = []
-  let equity = 1
-  let spyEquity = 1
-  let ewEquity = 1
-  let nextRebalDay = 0
-  let peakEquity = 1
-  let totalExitCount = 0
-
-  // Build a map from (dayIdx, gics_code) -> SubReturn for fast lookup
-  const subMap: Map<string, SubReturn> = new Map()
-
-  // Build stock map
-  const stockByDate: Map<string, Map<string, StockReturn>> = new Map()
-  for (const snap of stockHistory) {
-    const m = new Map<string, StockReturn>()
-    for (const s of snap.stocks) {
-      m.set(s.ticker, s)
-      m.set(s.gics_code, s)
-    }
-    stockByDate.set(snap.date, m)
-  }
-
-  for (let day = 0; day < N; day++) {
-    const snap = subHistory[day]
-    const date = snap.date
-    dates.push(date)
-    const prevSnap = day > 0 ? subHistory[day - 1] : null
-    const isOOS = day >= isSplitDay
-
-    // Update subMap for this day
-    for (const s of snap.subs) {
-      subMap.set(s.gics_code, s)
-    }
-
-    // Compute SPY proxy: average of all sub ret_1d
-    const allRets = snap.subs.map(s => s.ret_1d ?? 0)
-    const avgRet = allRets.length > 0 ? allRets.reduce((a, b) => a + b, 0) / allRets.length : 0
-    spyEquity *= (1 + avgRet / 100)
-    spyCurve.push(spyEquity)
-
-    // Equal-weight: top 20 by mom_score
-    const sorted20 = [...snap.subs].sort((a, b) => (b.mom_score ?? 0) - (a.mom_score ?? 0)).slice(0, 20)
-    const ew20Ret = sorted20.length > 0
-      ? sorted20.reduce((a, s) => a + (s.ret_1d ?? 0), 0) / sorted20.length
-      : 0
-    ewEquity *= (1 + ew20Ret / 100)
-    ewCurve.push(ewEquity)
-
-    // Execute pending orders (buy-in at today's open → approximate: use today's ret_1d)
-    if (pendingOrders.length > 0) {
-      holdings = pendingOrders.map(o => ({
-        ticker: o.ticker,
-        gics_code: o.gics_code,
-        subName: o.subName,
-        entryDay: day,
-        entryEquity: equity * o.weight,
-        peakCumReturn: 0,
-        cumReturn: 0,
-      }))
-      pendingOrders = []
-    }
-
-    // Daily P&L: update holdings
-    let portRet = 0
-    const exitedToday: string[] = []
-
-    if (holdings.length > 0) {
-      const equalW = 1 / holdings.length
-      const updatedHoldings: Holding[] = []
-
-      for (const h of holdings) {
-        const sub = snap.subs.find(s => s.gics_code === h.gics_code)
-        const dailyRet = (sub?.ret_1d ?? 0) / 100
-        h.cumReturn = (1 + h.cumReturn / 100) * (1 + dailyRet) * 100 - 100
-        h.peakCumReturn = Math.max(h.peakCumReturn, h.cumReturn)
-
-        // Check exit conditions
-        let shouldExit = false
-
-        // Stop loss
-        if (config.stopLoss < 0 && h.cumReturn <= config.stopLoss) {
-          shouldExit = true
-        }
-        // Trailing stop
-        if (config.trailingStop > 0) {
-          const drawdown = h.peakCumReturn - h.cumReturn
-          if (drawdown >= config.trailingStop) shouldExit = true
-        }
-        // Take profit
-        if (config.takeProfit > 0 && h.cumReturn >= config.takeProfit) {
-          shouldExit = true
-        }
-        // Time stop
-        if (config.timeStop > 0 && (day - h.entryDay) >= config.timeStop * 5) {
-          shouldExit = true
-        }
-        // Exit filters
-        if (config.exitFilters.length > 0 && sub) {
-          const prevSub = prevSnap?.subs.find(s => s.gics_code === h.gics_code)
-          const allPassed = config.exitFilters.every(f => checkFilter(f, sub, prevSub))
-          if (allPassed) shouldExit = true
-        }
-
-        if (shouldExit) {
-          exitedToday.push(h.subName)
-          totalExitCount++
-          const cost = Math.abs(h.cumReturn * equalW) * config.tradingCost / 100
-          portRet += equalW * (h.cumReturn / 100) - cost
-        } else {
-          portRet += equalW * dailyRet
-          updatedHoldings.push(h)
-        }
-      }
-
-      holdings = updatedHoldings
-    }
-
-    equity *= (1 + portRet)
-    if (equity > peakEquity) peakEquity = equity
-    const dd = peakEquity > 0 ? (peakEquity - equity) / peakEquity * 100 : 0
-
-    equityCurve.push(equity)
-    drawdownCurve.push(dd)
-    dailyReturns.push(portRet * 100)
-
-    // Rebalance check
-    if (day >= nextRebalDay) {
-      nextRebalDay = day + config.rebalPeriod * 5
-
-      // Get candidate subs by applying filters
-      const filterDetails: FilterDetail[] = []
-      const passedSubs: SubReturn[] = []
-
-      for (const sub of snap.subs) {
-        const prevSub = prevSnap?.subs.find(s => s.gics_code === sub.gics_code)
-        const subName = sub.gics_universe?.sub_industry ?? sub.gics_code
-
-        const conditions: FilterConditionDetail[] = config.subFilters.map(f => {
-          const currVal = sub[f.indicator as keyof SubReturn] as number | null | undefined
-          const prevVal = prevSub ? prevSub[f.indicator as keyof SubReturn] as number | null | undefined : undefined
-          return {
-            indicator: f.indicator,
-            type: f.type,
-            currVal: currVal ?? null,
-            prevVal: prevVal ?? null,
-            passed: checkFilter(f, sub, prevSub),
-          }
-        })
-
-        const passed = conditions.length === 0 || conditions.every(c => c.passed)
-        filterDetails.push({ subName, gics_code: sub.gics_code, passed, conditions })
-        if (passed) passedSubs.push(sub)
-      }
-
-      // Rank and select top N
-      const ranked = [...passedSubs].sort((a, b) => {
-        const av = a[config.rankBy as keyof SubReturn] as number | null ?? 0
-        const bv = b[config.rankBy as keyof SubReturn] as number | null ?? 0
-        return config.rankDir === 'desc' ? bv - av : av - bv
-      })
-
-      const selectedSubs = ranked.slice(0, config.topN)
-      const selectedCodes = new Set(selectedSubs.map(s => s.gics_code))
-
-      // Buffer rule: keep current holdings if they're still within bufferRule positions
-      const currentHoldingCodes = new Set(holdings.map(h => h.gics_code))
-      const finalCodes = new Set<string>(selectedCodes)
-
-      // Apply buffer: don't exit holdings unless they drop more than bufferRule positions
-      for (const holdCode of currentHoldingCodes) {
-        const rankIdx = ranked.findIndex(s => s.gics_code === holdCode)
-        if (rankIdx >= 0 && rankIdx < config.topN + config.bufferRule) {
-          finalCodes.add(holdCode)
-        }
-      }
-
-      // Determine entering and exiting
-      const entering = selectedSubs
-        .filter(s => !currentHoldingCodes.has(s.gics_code))
-        .map(s => s.gics_universe?.sub_industry ?? s.gics_code)
-      const exiting = [...currentHoldingCodes]
-        .filter(code => !finalCodes.has(code))
-        .map(code => {
-          const s = snap.subs.find(s => s.gics_code === code)
-          return s?.gics_universe?.sub_industry ?? code
-        })
-
-      // Build new holding list (use stock-level if available)
-      const newTickers: { ticker: string; gics_code: string; subName: string }[] = []
-
-      for (const sub of selectedSubs) {
-        if (!finalCodes.has(sub.gics_code)) continue
-        const subName = sub.gics_universe?.sub_industry ?? sub.gics_code
-
-        if (stockDataAvailable) {
-          const stockSnap = stockHistory.find(s => s.date === date)
-          if (stockSnap) {
-            const subStocks = stockSnap.stocks
-              .filter(s => s.gics_code === sub.gics_code)
-              .sort((a, b) => {
-                const av = a[config.stockRankBy as keyof StockReturn] as number | null ?? 0
-                const bv = b[config.stockRankBy as keyof StockReturn] as number | null ?? 0
-                return bv - av
-              })
-              .slice(0, config.stocksPerSub)
-            for (const st of subStocks) {
-              newTickers.push({ ticker: st.ticker, gics_code: sub.gics_code, subName })
-            }
-          } else {
-            newTickers.push({ ticker: sub.gics_code, gics_code: sub.gics_code, subName })
-          }
-        } else {
-          newTickers.push({ ticker: sub.gics_code, gics_code: sub.gics_code, subName })
-        }
-      }
-
-      // Apply trading cost on turnover
-      const newCodes = new Set(newTickers.map(t => t.ticker))
-      const oldCodes = new Set(holdings.map(h => h.ticker))
-      const turnovers = [...newCodes].filter(c => !oldCodes.has(c)).length
-        + [...oldCodes].filter(c => !newCodes.has(c)).length
-      const costDrag = (turnovers / Math.max(newTickers.length + holdings.length, 1)) * config.tradingCost / 100
-      equity *= (1 - costDrag)
-
-      // Set pending orders with weight mode applied
-      if (newTickers.length > 0) {
-        const tickerIds = newTickers.map(t => t.ticker)
-        const weights = calcWeights(tickerIds, snap.subs, stockHistory, day, config.weightMode, config.maxSingleWeight)
-        pendingOrders = newTickers.map((t, wi) => ({ ...t, weight: weights[wi] ?? (1 / newTickers.length) }))
-      }
-      holdings = [] // will be replaced on next day
-
-      const log: RebalLog = {
-        day,
-        date,
-        isOOS,
-        selectedSubs: selectedSubs.map(s => s.gics_universe?.sub_industry ?? s.gics_code),
-        entering,
-        exiting,
-        holdingCount: newTickers.length,
-        exitedToday,
-        filterDetails,
-      }
-      rebalLogs.push(log)
-    } else if (exitedToday.length > 0) {
-      // Record exits in last rebalLog
-      if (rebalLogs.length > 0) {
-        rebalLogs[rebalLogs.length - 1].exitedToday.push(...exitedToday)
-      }
-    }
-  }
-
-  const fullPerf = calcPerf(dailyReturns, equityCurve, 0, dailyReturns.length)
-  const isPerf = calcPerf(dailyReturns, equityCurve, 0, isSplitDay)
-  const oosPerf = calcPerf(dailyReturns, equityCurve, isSplitDay, dailyReturns.length)
-
-  return {
-    equityCurve,
-    drawdownCurve,
-    dailyReturns,
-    spyCurve,
-    ewCurve,
-    dates,
-    rebalLogs,
-    fullPerf,
-    isPerf,
-    oosPerf,
-    totalRebalCount: rebalLogs.length,
-    totalExitCount,
-    stockDataAvailable,
-    isSplitDay,
-  }
-}
+// Engine is server-side only — see lib/backtestEngine.ts
 
 // ── FilterBlock Component ─────────────────────────────────────
 
@@ -693,19 +300,15 @@ function FilterBlock({ filter, onChange, onDelete }: FilterBlockProps) {
 
 interface Props {
   latestData: SubReturn[]
+  prevData: SubReturn[]
 }
 
 // ── Main Component ────────────────────────────────────────────
 
-export function BacktestEngine({ latestData }: Props) {
+export function BacktestEngine({ latestData, prevData }: Props) {
   const [activeTab, setActiveTab] = useState<'config' | 'results' | 'robustness'>('config')
   const [config, setConfig] = useState<BacktestConfig>(DEFAULT_CONFIG)
-  const [subHistory, setSubHistory] = useState<DailySubSnapshot[]>([])
-  const [stockHistory, setStockHistory] = useState<DailyStockSnapshot[]>([])
-  const [stockDataAvailable, setStockDataAvailable] = useState(false)
-  const [isLoadingData, setIsLoadingData] = useState(false)
   const [isRunning, setIsRunning] = useState(false)
-  const [runProgress, setRunProgress] = useState(0)
   const [result, setResult] = useState<BacktestResult | null>(null)
   const [robustParam, setRobustParam] = useState('rebalPeriod')
   const [robustFrom, setRobustFrom] = useState(1)
@@ -717,25 +320,11 @@ export function BacktestEngine({ latestData }: Props) {
   const [chartRange, setChartRange] = useState<'all' | 'is' | 'oos'>('all')
   const [selectedRobustPoint, setSelectedRobustPoint] = useState<{ param: number; perf: PerfMetrics } | null>(null)
 
-  useEffect(() => {
-    setIsLoadingData(true)
-    fetch('/api/backtest-data')
-      .then(r => r.json())
-      .then(({ subHistory, stockHistory }: { subHistory: DailySubSnapshot[]; stockHistory: DailyStockSnapshot[] }) => {
-        setSubHistory(subHistory)
-        setStockHistory(stockHistory)
-        setStockDataAvailable(stockHistory.length > 0 && stockHistory[0].stocks.length > 0)
-      })
-      .catch(err => console.error('Failed to load backtest data:', err))
-      .finally(() => setIsLoadingData(false))
-  }, [])
 
   // Live preview
   const livePreview = useMemo(() => {
     if (!latestData || latestData.length === 0) return []
-    const prevSubs = subHistory.length >= 2
-      ? subHistory[subHistory.length - 2].subs
-      : latestData
+    const prevSubs = prevData.length > 0 ? prevData : latestData
 
     return latestData.map(sub => {
       const prevSub = prevSubs.find(s => s.gics_code === sub.gics_code)
@@ -758,52 +347,53 @@ export function BacktestEngine({ latestData }: Props) {
         conditions,
       }
     }).sort((a, b) => (b.passed ? 1 : 0) - (a.passed ? 1 : 0))
-  }, [latestData, config.subFilters, subHistory])
+  }, [latestData, config.subFilters, prevData])
 
   const runBacktest = useCallback(async () => {
-    if (subHistory.length < 20) {
-      alert('歷史資料不足 20 天，無法執行回測')
-      return
-    }
     setIsRunning(true)
-    setRunProgress(0)
     setActiveTab('results')
-
-    await new Promise(resolve => setTimeout(resolve, 50))
-
     try {
-      const res = runBacktestSync(config, subHistory, stockHistory)
-      setResult(res)
+      const res = await fetch('/api/run-backtest', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ config }),
+      })
+      if (!res.ok) {
+        const { error } = await res.json()
+        alert(error ?? '回測失敗')
+        return
+      }
+      setResult(await res.json())
+    } catch (err) {
+      alert('回測失敗：' + String(err))
     } finally {
       setIsRunning(false)
-      setRunProgress(subHistory.length)
     }
-  }, [config, subHistory, stockHistory])
+  }, [config])
 
   const runRobustness = useCallback(async () => {
-    if (subHistory.length < 20) {
-      alert('歷史資料不足')
-      return
-    }
     setIsRobustRunning(true)
     setRobustResults([])
-
-    const results: { param: number; oosS: number; perf: PerfMetrics }[] = []
     const steps = Math.ceil((robustTo - robustFrom) / robustStep) + 1
-
-    for (let i = 0; i < steps; i++) {
-      const paramVal = robustFrom + i * robustStep
-      const testConfig = { ...config } as BacktestConfig & Record<string, number>
-      testConfig[robustParam] = paramVal
-
-      await new Promise(resolve => setTimeout(resolve, 10))
-      const res = runBacktestSync(testConfig as unknown as BacktestConfig, subHistory, stockHistory)
-      results.push({ param: paramVal, oosS: res.oosPerf.sharpe, perf: res.oosPerf })
+    const values = Array.from({ length: steps }, (_, i) => robustFrom + i * robustStep)
+    try {
+      const res = await fetch('/api/run-robustness', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ config, param: robustParam, values }),
+      })
+      if (!res.ok) {
+        const { error } = await res.json()
+        alert(error ?? '穩健性測試失敗')
+        return
+      }
+      setRobustResults(await res.json())
+    } catch (err) {
+      alert('穩健性測試失敗：' + String(err))
+    } finally {
+      setIsRobustRunning(false)
     }
-
-    setRobustResults(results)
-    setIsRobustRunning(false)
-  }, [config, subHistory, stockHistory, robustParam, robustFrom, robustTo, robustStep])
+  }, [config, robustParam, robustFrom, robustTo, robustStep])
 
   // Helpers for filter management
   const addSubFilter = () => {
@@ -950,10 +540,6 @@ export function BacktestEngine({ latestData }: Props) {
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white">回測專區</h1>
           <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
             Sub-industry 動能策略回測引擎
-            {isLoadingData && <span className="ml-2 text-blue-500">載入資料中...</span>}
-            {!isLoadingData && subHistory.length > 0 && (
-              <span className="ml-2 text-green-600">{subHistory.length} 個交易日已載入</span>
-            )}
           </p>
         </div>
         <Link href="/" className="text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
@@ -1120,11 +706,6 @@ export function BacktestEngine({ latestData }: Props) {
               />
               <span className={labelCls}>檔</span>
             </div>
-            {!stockDataAvailable && !isLoadingData && (
-              <div className="bg-orange-50 dark:bg-orange-900/20 border border-orange-300 rounded-lg p-4 text-orange-700 dark:text-orange-300 text-sm mt-3">
-                個股資料尚未完整，回測將以 sub-industry 等權替代個股，換倉仍依產業篩選條件執行
-              </div>
-            )}
           </div>
 
           {/* Section C: Rebal & Position */}
@@ -1311,18 +892,14 @@ export function BacktestEngine({ latestData }: Props) {
 
             <button
               onClick={runBacktest}
-              disabled={isRunning || isLoadingData}
+              disabled={isRunning}
               className={`w-full py-3 rounded-xl text-white font-semibold text-base transition-colors ${
-                isRunning || isLoadingData
+                isRunning
                   ? 'bg-gray-400 cursor-not-allowed'
                   : 'bg-blue-600 hover:bg-blue-700'
               }`}
             >
-              {isRunning
-                ? `計算中... Day ${runProgress} / ${subHistory.length}`
-                : isLoadingData
-                ? '載入資料中...'
-                : '▶ 執行回測'}
+              {isRunning ? '計算中...' : '▶ 執行回測'}
             </button>
           </div>
         </div>
@@ -1335,9 +912,7 @@ export function BacktestEngine({ latestData }: Props) {
             <div className="flex items-center justify-center py-20">
               <div className="text-center">
                 <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-                <p className="text-gray-600 dark:text-gray-400">
-                  計算中... Day {runProgress} / {subHistory.length}
-                </p>
+                <p className="text-gray-600 dark:text-gray-400">計算中，請稍候...</p>
               </div>
             </div>
           )}
@@ -1668,9 +1243,9 @@ export function BacktestEngine({ latestData }: Props) {
 
             <button
               onClick={runRobustness}
-              disabled={isRobustRunning || subHistory.length < 20}
+              disabled={isRobustRunning}
               className={`px-6 py-2 rounded-lg text-white font-medium transition-colors ${
-                isRobustRunning || subHistory.length < 20
+                isRobustRunning
                   ? 'bg-gray-400 cursor-not-allowed'
                   : 'bg-purple-600 hover:bg-purple-700'
               }`}

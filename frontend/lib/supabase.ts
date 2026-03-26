@@ -226,6 +226,24 @@ export async function getStockHistory(ticker: string): Promise<StockReturn[]> {
   return ((data as StockReturn[]) || []).reverse()
 }
 
+export async function getPrevSubReturns(): Promise<SubReturn[]> {
+  const supabase = createServerClient()
+  // Get the second-latest date
+  const { data: dates } = await supabase
+    .from('daily_sub_returns')
+    .select('date')
+    .order('date', { ascending: false })
+    .limit(2)
+  if (!dates || dates.length < 2) return []
+  const prevDate = dates[1].date
+  const { data, error } = await supabase
+    .from('daily_sub_returns')
+    .select('*, gics_universe ( sector, industry_group, industry, sub_industry, etf_proxy )')
+    .eq('date', prevDate)
+  if (error || !data) return []
+  return data as SubReturn[]
+}
+
 export async function getLatestSubReturn(gicsCode: string): Promise<SubReturn | null> {
   const supabase = createServerClient()
 
