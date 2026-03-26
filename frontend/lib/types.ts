@@ -101,3 +101,126 @@ export interface StockHeatmapEntry {
   // derived
   hasReturns: boolean
 }
+
+// ── Backtest Types ─────────────────────────────────────────────
+
+export interface DailySubSnapshot {
+  date: string
+  subs: SubReturn[]
+}
+
+export interface DailyStockSnapshot {
+  date: string
+  stocks: StockReturn[]
+}
+
+export type FilterType = 'static' | 'crossover' | 'delta' | 'rank_break'
+export type FilterOp = '>=' | '<=' | 'between' | 'rise' | 'fall'
+export type CrossoverDir = 'neg_to_pos' | 'pos_to_neg'
+export type RankMode = 'top_pct' | 'improve'
+export type WeightMode = 'equal' | 'momentum' | 'volatility'
+
+export interface SubFilter {
+  id: string
+  type: FilterType
+  indicator: string
+  op?: FilterOp
+  direction?: CrossoverDir
+  mode?: RankMode
+  value: number
+  value2?: number
+}
+
+export interface BacktestConfig {
+  subFilters: SubFilter[]
+  exitFilters: SubFilter[]
+  rankBy: string
+  rankDir: 'desc' | 'asc'
+  topN: number
+  stockRankBy: string
+  stocksPerSub: number
+  rebalPeriod: 1 | 2 | 4 | 8
+  weightMode: WeightMode
+  maxSingleWeight: number
+  bufferRule: number
+  stopLoss: number
+  trailingStop: number
+  takeProfit: number
+  timeStop: number
+  tradingCost: number
+  isSplitPct: number
+}
+
+export interface Holding {
+  ticker: string
+  gics_code: string
+  subName: string
+  entryDay: number
+  entryEquity: number
+  peakCumReturn: number
+  cumReturn: number
+}
+
+export interface Candidate {
+  ticker: string
+  gics_code: string
+  subName: string
+}
+
+export interface PendingOrder {
+  ticker: string
+  gics_code: string
+  subName: string
+}
+
+export interface FilterConditionDetail {
+  indicator: string
+  type: FilterType
+  currVal: number | null
+  prevVal: number | null
+  passed: boolean
+}
+
+export interface FilterDetail {
+  subName: string
+  gics_code: string
+  passed: boolean
+  conditions: FilterConditionDetail[]
+}
+
+export interface RebalLog {
+  day: number
+  date: string
+  isOOS: boolean
+  selectedSubs: string[]
+  entering: string[]
+  exiting: string[]
+  holdingCount: number
+  exitedToday: string[]
+  filterDetails: FilterDetail[]
+}
+
+export interface PerfMetrics {
+  annRet: number
+  sharpe: number
+  sortino: number
+  mdd: number
+  wr: number
+}
+
+export interface BacktestResult {
+  equityCurve: number[]
+  drawdownCurve: number[]
+  dailyReturns: number[]
+  spyCurve: number[]
+  ewCurve: number[]
+  dates: string[]
+  rebalLogs: RebalLog[]
+  fullPerf: PerfMetrics
+  isPerf: PerfMetrics
+  oosPerf: PerfMetrics
+  totalRebalCount: number
+  totalExitCount: number
+  stockDataAvailable: boolean
+  isSplitDay: number
+}

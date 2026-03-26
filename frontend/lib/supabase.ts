@@ -1,5 +1,5 @@
 import { createClient } from '@supabase/supabase-js'
-import { SubReturn, StockReturn, StockHeatmapEntry, StockInfo } from './types'
+import { SubReturn, StockReturn, StockHeatmapEntry, StockInfo, DailySubSnapshot, DailyStockSnapshot } from './types'
 
 function createServerClient() {
   const url = process.env.SUPABASE_URL!
@@ -239,4 +239,70 @@ export async function getLatestSubReturn(gicsCode: string): Promise<SubReturn | 
 
   if (error || !data) return null
   return data as SubReturn
+}
+
+// ── Backtest Data Fetchers ─────────────────────────────────────
+
+export async function getDailySubHistory(): Promise<DailySubSnapshot[]> {
+  const supabase = createServerClient()
+
+  // Paginate: daily_sub_returns can have 40,000+ rows
+  const pageSize = 1000
+  let allRows: SubReturn[] = []
+  let offset = 0
+  while (true) {
+    const { data, error } = await supabase
+      .from('daily_sub_returns')
+      .select('date, gics_code, ret_1d, ret_1w, ret_1m, ret_3m, ret_6m, ret_12m, mom_score, rank_today, rank_prev_week, delta_rank, stock_count, obv_trend, rvol, vol_mom, pv_divergence, sharpe_8w, sortino_8w, win_rate_8w, volatility_8w, skewness, information_ratio, momentum_decay_rate, breadth_adj_mom, downside_capture, calmar_ratio, rs_trend_slope, leader_lagger_ratio, cmf, mfi, vrsi, pvt_slope, vol_surge_score, beta, momentum_autocorr, price_trend_r2, ad_slope, breadth_pct, gics_universe(sector, industry_group, industry, sub_industry, etf_proxy)')
+      .order('date', { ascending: true })
+      .range(offset, offset + pageSize - 1)
+    if (error) { console.error('getDailySubHistory error:', error); break }
+    if (!data || data.length === 0) break
+    allRows = [...allRows, ...(data as SubReturn[])]
+    if (data.length < pageSize) break
+    offset += pageSize
+  }
+
+  // Group by date
+  const byDate = new Map<string, SubReturn[]>()
+  for (const row of allRows) {
+    const existing = byDate.get(row.date) ?? []
+    existing.push(row)
+    byDate.set(row.date, existing)
+  }
+
+  return Array.from(byDate.entries())
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([date, subs]) => ({ date, subs }))
+}
+
+export async function getDailyStockHistory(): Promise<DailyStockSnapshot[]> {
+  const supabase = createServerClient()
+
+  const pageSize = 1000
+  let allRows: StockReturn[] = []
+  let offset = 0
+  while (true) {
+    const { data, error } = await supabase
+      .from('daily_stock_returns')
+      .select('date, ticker, gics_code, ret_1d, ret_1w, ret_1m, ret_3m, mom_score, rank_in_sub, rvol, obv_trend')
+      .order('date', { ascending: true })
+      .range(offset, offset + pageSize - 1)
+    if (error) { console.error('getDailyStockHistory error:', error); break }
+    if (!data || data.length === 0) break
+    allRows = [...allRows, ...(data as StockReturn[])]
+    if (data.length < pageSize) break
+    offset += pageSize
+  }
+
+  const byDate = new Map<string, StockReturn[]>()
+  for (const row of allRows) {
+    const existing = byDate.get(row.date) ?? []
+    existing.push(row)
+    byDate.set(row.date, existing)
+  }
+
+  return Array.from(byDate.entries())
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([date, stocks]) => ({ date, stocks }))
 }
