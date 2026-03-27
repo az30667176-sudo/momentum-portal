@@ -547,6 +547,8 @@ export function BacktestEngine({ latestData, prevData }: Props) {
       })
       if (!res.ok) {
         const { error } = await res.json()
+        // Clear sessionStorage dry-scan cache so next run fetches fresh
+        try { sessionStorage.removeItem(cacheKey) } catch {}
         alert(error ?? '回測失敗')
         return
       }

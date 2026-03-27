@@ -69,11 +69,11 @@ async function _fetchBacktestDataRaw(): Promise<{
   return { subHistory, stockHistory }
 }
 
-// Cache for 30 minutes — shared across all concurrent requests on the same server instance
+// Cache for 5 minutes — v2 key busts any stale Vercel Data Cache entries
 export const fetchBacktestData = unstable_cache(
   _fetchBacktestDataRaw,
-  ['backtest-data'],
-  { revalidate: 1800 }
+  ['backtest-data-v2'],
+  { revalidate: 300 }
 )
 
 // ── Engine helpers ────────────────────────────────────────────
