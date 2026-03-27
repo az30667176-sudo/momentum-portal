@@ -389,7 +389,6 @@ def main():
             )
             total_success += result["success"]
             total_failed += result["failed"]
-            time.sleep(0.1)  # 避免 Supabase rate limit
 
     else:
         # ── 一般模式：只跑今天 ────────────────────────────────

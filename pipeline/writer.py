@@ -12,7 +12,7 @@ from dotenv import load_dotenv
 load_dotenv()
 logger = logging.getLogger(__name__)
 
-BATCH_SIZE = 100       # 每次 upsert 的最大筆數
+BATCH_SIZE = 200       # 每次 upsert 的最大筆數（200 是安全上限，可減少 roundtrip）
 MAX_RETRIES = 3        # 失敗重試次數
 
 
