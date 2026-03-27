@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 
 BATCH_SIZE = 50         # 每批 ticker 數（太大容易被限流）
 SLEEP_BETWEEN = 2.0     # 批次間暫停秒數
-HISTORY_DAYS = 420      # 抓 420 天保留計算空間（52 週 + buffer）
+HISTORY_DAYS = 420      # 一般模式：420 天（52 週 + buffer）
 
 # 美國主要假日（月-日格式，不含年份）
 US_HOLIDAYS = {
@@ -43,7 +43,7 @@ def is_market_open_today() -> bool:
     return True
 
 
-def fetch_prices(tickers: list[str]) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+def fetch_prices(tickers: list[str], history_days: int = HISTORY_DAYS) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     """
     批次下載所有 ticker 的收盤價、成交量、最高價和最低價。
 
@@ -51,6 +51,8 @@ def fetch_prices(tickers: list[str]) -> tuple[pd.DataFrame, pd.DataFrame, pd.Dat
     ----------
     tickers : list[str]
         股票代碼清單
+    history_days : int
+        下載天數（日曆天）。backfill 時應傳 years*365+100。
 
     Returns
     -------
@@ -59,7 +61,8 @@ def fetch_prices(tickers: list[str]) -> tuple[pd.DataFrame, pd.DataFrame, pd.Dat
         index = 日期，columns = ticker
     """
     end = datetime.today()
-    start = end - timedelta(days=HISTORY_DAYS)
+    start = end - timedelta(days=history_days)
+    logger.info(f"Fetching prices from {start.date()} to {end.date()} ({history_days} calendar days)")
 
     batches = [tickers[i:i + BATCH_SIZE]
                for i in range(0, len(tickers), BATCH_SIZE)]
@@ -182,7 +185,7 @@ def fetch_prices(tickers: list[str]) -> tuple[pd.DataFrame, pd.DataFrame, pd.Dat
     return close_df, volume_df, high_df, low_df
 
 
-def fetch_spy_prices() -> pd.Series:
+def fetch_spy_prices(history_days: int = HISTORY_DAYS) -> pd.Series:
     """
     抓取 SPY 收盤價作為 benchmark。
 
@@ -192,7 +195,7 @@ def fetch_spy_prices() -> pd.Series:
         index = 日期，values = 收盤價
     """
     end = datetime.today()
-    start = end - timedelta(days=HISTORY_DAYS)
+    start = end - timedelta(days=history_days)
     raw = yf.download("SPY", start=start, end=end,
                       auto_adjust=True, progress=False)
     return raw["Close"].squeeze()

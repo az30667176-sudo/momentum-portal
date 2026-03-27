@@ -269,7 +269,7 @@ def main():
 
     # 1. 匯入模組
     from pipeline.universe import fetch_sp1500_universe, get_gics_universe_records
-    from pipeline.fetcher import fetch_prices, fetch_spy_prices, is_market_open_today
+    from pipeline.fetcher import fetch_prices, fetch_spy_prices, is_market_open_today, HISTORY_DAYS
     from pipeline.writer import (
         init_supabase, upsert_gics_universe, upsert_stock_universe,
         check_today_exists, get_prev_week_ranks,
@@ -340,9 +340,11 @@ def main():
     # 7. 下載價格
     logger.info("Downloading price data...")
     tickers = universe_df["ticker"].tolist()
+    # backfill 時需要足夠多的歷史股價，否則舊日期沒有資料
+    price_history_days = (args.years * 365 + 100) if args.backfill else HISTORY_DAYS
     try:
-        close_all, volume_all, high_all, low_all = fetch_prices(tickers)
-        spy_close = fetch_spy_prices()
+        close_all, volume_all, high_all, low_all = fetch_prices(tickers, history_days=price_history_days)
+        spy_close = fetch_spy_prices(history_days=price_history_days)
         logger.info(f"Downloaded: {close_all.shape[1]} tickers, "
                     f"{close_all.shape[0]} days")
     except Exception as e:
@@ -408,8 +410,13 @@ def main():
     logger.info(f"  Time:    {elapsed:.1f} seconds")
     logger.info("=" * 60)
 
-    if total_failed > 0:
+    total_records = total_success + total_failed
+    fail_rate = total_failed / total_records if total_records > 0 else 0
+    if fail_rate > 0.20:
+        logger.error(f"Failure rate {fail_rate:.1%} exceeds 20% threshold — exiting with error")
         sys.exit(1)
+    elif total_failed > 0:
+        logger.warning(f"Minor failures ({total_failed} records, {fail_rate:.1%}) — likely rate limiting, data still usable")
 
 
 if __name__ == "__main__":

@@ -84,6 +84,9 @@ def _upsert_with_retry(supabase: Client, table: str,
                     logger.error(f"  All {MAX_RETRIES} attempts failed "
                                  f"for batch {batch_idx + 1}: {e}")
                     failed += len(batch)
+        # Brief pause between batches to avoid Supabase rate limiting
+        if len(batches) > 1:
+            time.sleep(0.05)
 
     return success, failed
 
