@@ -84,11 +84,25 @@ def run_pipeline_for_date(
     high_to_date   = high_all[date_mask]   if high_all  is not None else None
     low_to_date    = low_all[date_mask]    if low_all   is not None else None
 
+    # 限制 computation 用的最大行數（所有滾動指標最長 lookback = 252 天，300 已足夠）
+    # 避免舊日期有大量歷史資料時 computation 時間隨之線性成長
+    MAX_COMPUTATION_ROWS = 300
+    if len(close_to_date) > MAX_COMPUTATION_ROWS:
+        close_to_date  = close_to_date.iloc[-MAX_COMPUTATION_ROWS:]
+    if volume_to_date is not None and len(volume_to_date) > MAX_COMPUTATION_ROWS:
+        volume_to_date = volume_to_date.iloc[-MAX_COMPUTATION_ROWS:]
+    if high_to_date is not None and len(high_to_date) > MAX_COMPUTATION_ROWS:
+        high_to_date   = high_to_date.iloc[-MAX_COMPUTATION_ROWS:]
+    if low_to_date is not None and len(low_to_date) > MAX_COMPUTATION_ROWS:
+        low_to_date    = low_to_date.iloc[-MAX_COMPUTATION_ROWS:]
+
     # SPY 截取到 target_date
     spy_to_date = None
     if spy_close is not None:
         spy_mask = spy_close.index.normalize() <= target_ts
         spy_to_date = spy_close[spy_mask] if spy_mask.any() else None
+        if spy_to_date is not None and len(spy_to_date) > MAX_COMPUTATION_ROWS:
+            spy_to_date = spy_to_date.iloc[-MAX_COMPUTATION_ROWS:]
 
     # 對每個 sub-industry 計算
     from pipeline.universe import get_sub_industry_mapping
@@ -259,6 +273,8 @@ def main():
                         help="回填過去 N 年的歷史資料（首次執行用）")
     parser.add_argument("--years", type=int, default=1,
                         help="回填年數（預設 1 年，即約 252 個交易日）")
+    parser.add_argument("--part", type=int, default=0,
+                        help="分批執行：1=舊半部, 2=新半部, 0=全部（預設）")
     args = parser.parse_args()
 
     start_time = time.time()
@@ -372,6 +388,16 @@ def main():
                 break
 
         trading_dates.reverse()  # 從最舊到最新
+
+        # 分批模式
+        total_dates = len(trading_dates)
+        if args.part == 1:
+            trading_dates = trading_dates[:total_dates // 2]
+            logger.info(f"Part 1/2: processing oldest {len(trading_dates)} of {total_dates} dates")
+        elif args.part == 2:
+            trading_dates = trading_dates[total_dates // 2:]
+            logger.info(f"Part 2/2: processing newest {len(trading_dates)} of {total_dates} dates")
+
         logger.info(f"Backfill: {len(trading_dates)} trading days to process")
 
         # 估算 daily_stock_returns 資料量警告（~1,500 rows/天 × 0.5KB ≈ ~750KB/天）

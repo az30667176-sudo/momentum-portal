@@ -27,6 +27,12 @@ on:
         default: '1'
         type: choice
         options: ['1', '2', '3']
+      backfill_part:
+        description: '分批執行（0=全部, 1=舊半部先跑, 2=新半部後跑）'
+        required: false
+        default: '0'
+        type: choice
+        options: ['0', '1', '2']
 
 jobs:
   run-pipeline:
@@ -60,7 +66,7 @@ jobs:
         env:
           SUPABASE_URL:         ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
-        run: python pipeline/main.py --backfill --years ${{ github.event.inputs.backfill_years || '1' }}
+        run: python pipeline/main.py --backfill --years ${{ github.event.inputs.backfill_years || '1' }} --part ${{ github.event.inputs.backfill_part || '0' }}
 
       - name: Write success summary
         if: success()
