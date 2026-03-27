@@ -3,9 +3,10 @@ main.py
 Pipeline 主程式：整合所有模組，每日執行一次
 
 執行方式：
-  python pipeline/main.py           # 一般執行
-  python pipeline/main.py --backfill  # 首次執行回填 52 週歷史
-  FORCE_RERUN=true python pipeline/main.py  # 強制重跑今天
+  python pipeline/main.py                      # 一般執行
+  python pipeline/main.py --backfill           # 首次執行回填 1 年歷史
+  python pipeline/main.py --backfill --years 3 # 回填 3 年歷史
+  FORCE_RERUN=true python pipeline/main.py     # 強制重跑今天
 """
 
 import os
@@ -255,7 +256,9 @@ def run_pipeline_for_date(
 def main():
     parser = argparse.ArgumentParser(description="Momentum Portal Pipeline")
     parser.add_argument("--backfill", action="store_true",
-                        help="回填過去 52 週的歷史資料（首次執行用）")
+                        help="回填過去 N 年的歷史資料（首次執行用）")
+    parser.add_argument("--years", type=int, default=1,
+                        help="回填年數（預設 1 年，即約 252 個交易日）")
     args = parser.parse_args()
 
     start_time = time.time()
@@ -354,17 +357,26 @@ def main():
     total_success, total_failed = 0, 0
 
     if args.backfill:
-        # ── Backfill 模式：回填過去 52 週 ──────────────────────
-        logger.info("BACKFILL MODE: processing past 52 weeks...")
+        # ── Backfill 模式：回填過去 N 年 ──────────────────────
+        target_days = args.years * 252
+        logger.info(f"BACKFILL MODE: processing past {args.years} year(s) (~{target_days} trading days)...")
         trading_dates = []
-        for i in range(365):
+        # 掃描足夠多的日曆天以覆蓋目標交易日數（每年約 365 個日曆天）
+        for i in range(args.years * 365 + 60):
             d = date.today() - timedelta(days=i)
             if d.weekday() < 5:  # 週一到週五
                 trading_dates.append(d)
-            if len(trading_dates) >= 260:  # 約 52 週
+            if len(trading_dates) >= target_days:
                 break
 
         trading_dates.reverse()  # 從最舊到最新
+        logger.info(f"Backfill: {len(trading_dates)} trading days to process")
+
+        # 估算 daily_stock_returns 資料量警告（~1,500 rows/天 × 0.5KB ≈ ~750KB/天）
+        estimated_mb = len(trading_dates) * 1500 * 512 / 1024 / 1024
+        if estimated_mb > 400:
+            logger.warning(f"WARNING: Estimated daily_stock_returns size ~{estimated_mb:.0f}MB, "
+                           "approaching Supabase 500MB limit. Consider checking DB usage.")
 
         for i, target_date in enumerate(trading_dates):
             logger.info(f"Backfill [{i + 1}/{len(trading_dates)}] {target_date}")

@@ -139,9 +139,10 @@ export interface BacktestConfig {
   topN: number
   stockRankBy: string
   stocksPerSub: number
-  rebalPeriod: 1 | 2 | 4 | 8
+  rebalPeriod: number   // trading days (5=1W, 10=2W, 20=4W, 40=8W)
   weightMode: WeightMode
-  maxSingleWeight: number
+  maxStockWeight: number  // per-stock max weight %
+  maxSubWeight: number    // per-sub-industry total weight %
   bufferRule: number
   stopLoss: number
   trailingStop: number
@@ -151,14 +152,32 @@ export interface BacktestConfig {
   isSplitPct: number
 }
 
+export type ExitReason = 'rebal' | 'stop_loss' | 'trailing_stop' | 'take_profit' | 'time_stop' | 'signal'
+
+export interface Trade {
+  ticker: string
+  gics_code: string
+  subName: string
+  entryDate: string
+  exitDate: string
+  holdingDays: number
+  exitIndex: number    // 100 at entry, compounded by sub ret_1d daily
+  pnlPct: number       // exitIndex / 100 - 1 (%)
+  exitReason: ExitReason
+  rebalLogIdx: number  // which RebalLog entry caused the entry
+}
+
 export interface Holding {
   ticker: string
   gics_code: string
   subName: string
   entryDay: number
+  entryDate: string
   entryEquity: number
   peakCumReturn: number
   cumReturn: number
+  exitIndex: number    // tracks daily: starts 100, compounded each day
+  rebalLogIdx: number  // which RebalLog this holding entered from
 }
 
 export interface Candidate {
@@ -198,6 +217,8 @@ export interface RebalLog {
   holdingCount: number
   exitedToday: string[]
   filterDetails: FilterDetail[]
+  stockEntriesCount: number   // stocks entering at this rebal
+  stockExitsCount: number     // stocks exiting (rebal + stop) since prev rebal
 }
 
 export interface PerfMetrics {
@@ -216,6 +237,7 @@ export interface BacktestResult {
   ewCurve: number[]
   dates: string[]
   rebalLogs: RebalLog[]
+  tradeHistory: Trade[]
   fullPerf: PerfMetrics
   isPerf: PerfMetrics
   oosPerf: PerfMetrics

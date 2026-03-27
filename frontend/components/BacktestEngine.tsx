@@ -69,6 +69,143 @@ const INDICATOR_GROUPS = [
 
 const ALL_INDICATORS = INDICATOR_GROUPS.flatMap(g => g.options)
 
+// ── Indicator Hints (Task 3) ──────────────────────────────────
+
+const INDICATOR_HINTS: Record<string, { range: string; suggestion: string }> = {
+  information_ratio:      { range: '通常 -2 到 +3',      suggestion: '> 0.5 動能可靠，< 0 跑輸大盤' },
+  momentum_decay_rate:    { range: '通常 -30 到 +30',     suggestion: '> 5 動能加速，< -5 動能衰退（出場預警）' },
+  breadth_adj_mom:        { range: '通常 -20 到 +30',     suggestion: '> 10 廣泛且強勁，< 0 動能虛假' },
+  rs_trend_slope:         { range: '通常 -0.05 到 +0.05', suggestion: '> 0 相對強度上升，< 0 弱化' },
+  sortino_8w:             { range: '通常 -2 到 +5',       suggestion: '> 1.5 優良，0.8~1.5 尚可，< 0.8 偏差' },
+  calmar_ratio:           { range: '通常 -1 到 +5',       suggestion: '> 2 優秀，0.5~2 尚可，< 0.5 風險高' },
+  volatility_8w:          { range: '年化 %，通常 10 到 40', suggestion: '< 15 低波動，15~25 中等，> 25 高波動' },
+  leader_lagger_ratio:    { range: '通常 0.2 到 5',       suggestion: '> 2 健康輪動，< 0.5 少數股票撐盤' },
+  downside_capture:       { range: '通常 0.3 到 1.5',     suggestion: '< 0.7 防禦強，0.7~1.0 中性，> 1.0 高 beta' },
+  cmf:                    { range: '-1 到 +1',            suggestion: '> 0.1 資金流入，< -0.1 資金流出' },
+  mfi:                    { range: '0 到 100',            suggestion: '20~60 健康，> 80 超買警示，< 20 超賣' },
+  pvt_slope:              { range: '極小數值（標準化後）',  suggestion: '> 0 資金持續流入，< 0 資金流出' },
+  rvol:                   { range: '通常 0.2 到 3',        suggestion: '> 1.5 爆量，1.0~1.5 正常，< 0.7 量縮' },
+  vol_surge_score:        { range: '0 到 100',            suggestion: '> 75 強烈量能訊號，50~75 溫和，< 25 量縮' },
+  beta:                   { range: '通常 0.2 到 1.8',      suggestion: '< 0.8 獨立強勢，0.8~1.2 跟隨大盤，> 1.2 高相關' },
+  momentum_autocorr:      { range: '-1 到 +1',            suggestion: '> 0.2 趨勢持續（適合趨勢策略），< -0.2 均值回歸' },
+  price_trend_r2:         { range: '0 到 1',              suggestion: '> 0.85 趨勢乾淨，0.5~0.85 有震盪，< 0.5 高度震盪' },
+}
+
+// ── Indicator Details (Task 4) ────────────────────────────────
+
+interface IndicatorDetail {
+  group: string
+  definition: string
+  calculation: string
+  useCases: string[]
+  bestFilterTypes: string[]
+}
+
+const INDICATOR_DETAILS: Record<string, IndicatorDetail> = {
+  cmf: {
+    group: '資金流動', definition: 'Chaikin Money Flow，跨板塊標準化的資金流向指標',
+    calculation: '近 20 日的 Money Flow Volume 加總 / 近 20 日總成交量，結果在 -1 到 +1 之間',
+    useCases: ['正值代表資金淨流入，負值代表淨流出', '由負轉正時是資金開始流入的訊號', '跨產業比較最可靠（已標準化）'],
+    bestFilterTypes: ['Crossover（由負轉正）', 'Static（≥ 0.05）'],
+  },
+  sortino_8w: {
+    group: '風險調整', definition: '只懲罰下行波動的風險調整報酬指標',
+    calculation: '超額週報酬均值 / 下行標準差 × sqrt(52)，年化',
+    useCases: ['比 Sharpe 更符合投資人直覺（只懲罰虧損）', '高 Sortino 代表策略在控制下行風險上表現好', '適合週頻換倉策略的主要篩選指標'],
+    bestFilterTypes: ['Static（≥ 1.0）', 'Rank Break（前 33%）'],
+  },
+  momentum_decay_rate: {
+    group: '動能品質', definition: '動能加速或衰退的速度指標',
+    calculation: '1M 動能百分位 - 3M 動能百分位（當日截面）',
+    useCases: ['正數代表動能正在加速，負數代表動能衰退', '< -10 是強烈的出場預警訊號', '由負轉正代表動能從衰退轉為加速'],
+    bestFilterTypes: ['Crossover（由負轉正）', 'Static（≥ 0）', 'Delta（上升 ≥ 5）'],
+  },
+  information_ratio: {
+    group: '動能品質', definition: '衡量超額報酬的穩定性，動能是否真的跑贏大盤',
+    calculation: '超額週報酬（vs SPY）均值 / 標準差 × sqrt(52)，年化',
+    useCases: ['> 0.5 代表動能可靠且穩定', '< 0 代表雖然絕對報酬正但跑輸大盤', '比單純報酬更能反映動能的真實品質'],
+    bestFilterTypes: ['Static（≥ 0.3）', 'Rank Break（前 25%）'],
+  },
+  beta: {
+    group: '策略適性', definition: '板塊對大盤（SPY）的敏感度',
+    calculation: 'cov(sub, SPY) / var(SPY)，滾動 52 週週報酬計算',
+    useCases: ['低 Beta 代表板塊走勢獨立，動能更可信', '高 Beta 板塊在大盤下跌時會放大虧損', '配合 Downside Capture 一起看更完整'],
+    bestFilterTypes: ['Static（≤ 0.8）', 'Rank Break（最低 N 個）'],
+  },
+  momentum_autocorr: {
+    group: '策略適性', definition: '週報酬的 lag-1 自相關係數，衡量動能持續性',
+    calculation: 'pearsonr(returns[:-1], returns[1:])，近 52 週週報酬',
+    useCases: ['> 0.2 代表動能有持續性，適合趨勢跟隨策略', '< -0.2 代表均值回歸傾向，不適合週持倉', '-0.2 到 +0.2 動能方向不穩定'],
+    bestFilterTypes: ['Static（≥ 0.1）', 'Crossover（由負轉正）'],
+  },
+  price_trend_r2: {
+    group: '策略適性', definition: '價格對時間線性迴歸的 R²，衡量趨勢乾淨程度',
+    calculation: '近 63 日（3M）收盤價 vs 時間的 OLS 迴歸 R²',
+    useCases: ['> 0.85 代表趨勢極度乾淨，換倉時機好掌握', '< 0.5 代表高度震盪，不適合趨勢跟隨', '排除橫盤震盪的假動能板塊'],
+    bestFilterTypes: ['Static（≥ 0.7）', 'Rank Break（前 33%）'],
+  },
+  breadth_adj_mom: {
+    group: '動能品質', definition: '廣度調整後的動能，過濾少數股票撐盤的假動能',
+    calculation: 'ret_3m × (breadth_pct / 100)',
+    useCases: ['懲罰只有少數股票在漲的板塊', '高 BA Momentum 代表漲勢廣泛且真實', '避免選到「一檔大型股拉高整個板塊」的情況'],
+    bestFilterTypes: ['Static（≥ 8）', 'Rank Break（前 25%）'],
+  },
+  rs_trend_slope: {
+    group: '動能品質', definition: '相對強度趨勢斜率，衡量 RS 是否正在建立',
+    calculation: '近 4 週 rs_ratio 的線性迴歸斜率',
+    useCases: ['RS 正在上升比 RS 當前高更重要', '正斜率代表相對強度正在建立，是早期訊號', '負斜率代表相對強度正在弱化，準備出場'],
+    bestFilterTypes: ['Crossover（由負轉正）', 'Static（≥ 0）'],
+  },
+  downside_capture: {
+    group: '板塊結構', definition: '大盤下跌時的跟跌比例，衡量下行保護能力',
+    calculation: 'SPY 週報酬為負時，sub-industry 平均下跌 / SPY 平均下跌',
+    useCases: ['< 0.7 代表大盤跌時這個板塊跌得少，防禦性強', '> 1.0 代表跌得比大盤多，高 beta 特性', '週策略最重要的風險指標之一'],
+    bestFilterTypes: ['Static（≤ 0.8）'],
+  },
+  leader_lagger_ratio: {
+    group: '板塊結構', definition: '板塊內部跑贏 vs 跑輸自身均值的股票比例',
+    calculation: '近 5 天均報酬 > 近 20 天均報酬的 ticker 數 / 跑輸的 ticker 數',
+    useCases: ['> 2.0 代表板塊內部健康輪動，動能廣泛', '< 0.5 代表少數股票在撐場面，動能虛假', '配合 Breadth-Adj Momentum 一起使用效果更好'],
+    bestFilterTypes: ['Static（≥ 1.5）', 'Rank Break（前 33%）'],
+  },
+  calmar_ratio: {
+    group: '風險調整', definition: '年化報酬除以最大單週回撤，衡量風險效率',
+    calculation: '近 12 週年化報酬 / abs(最差單週報酬)',
+    useCases: ['> 2 代表用很小的下行風險獲得高報酬', '比 Sharpe 更直觀（最大虧損概念）', '適合厭惡突然大跌的策略'],
+    bestFilterTypes: ['Static（≥ 1.0）', 'Rank Break（前 25%）'],
+  },
+  volatility_8w: {
+    group: '風險調整', definition: '年化波動率，衡量報酬的穩定程度',
+    calculation: '近 8 週週報酬標準差 × sqrt(52)，轉成年化百分比',
+    useCases: ['低波動策略更適合週頻換倉', '< 15% 為低波動，> 25% 為高波動', '配合 Sortino 一起篩選風險控管好的板塊'],
+    bestFilterTypes: ['Static（≤ 20）', 'Rank Break（最低 N 個）'],
+  },
+  mfi: {
+    group: '資金流動', definition: 'Money Flow Index，量價版 RSI，0-100 標準化',
+    calculation: '近 14 日 Positive MF / Negative MF，轉成 0-100',
+    useCases: ['20~60 為健康區間，> 80 超買，< 20 超賣', '從 40 以下往上突破是強入場訊號', '跨產業可直接比較（0-100 標準化）'],
+    bestFilterTypes: ['Static（介於 30-70）', 'Crossover（由低轉高）'],
+  },
+  pvt_slope: {
+    group: '資金流動', definition: 'Price-Volume Trend 斜率，比 OBV 更精確的資金力道',
+    calculation: 'cumsum(volume × pct_change) 近 8 週線性斜率，除以均量標準化',
+    useCases: ['正斜率代表資金持續流入且力道增強', '比 OBV 更精確：漲 3% 的貢獻比漲 0.1% 大得多', '由負轉正是資金開始建倉的訊號'],
+    bestFilterTypes: ['Crossover（由負轉正）', 'Static（≥ 0）'],
+  },
+  rvol: {
+    group: '資金流動', definition: '相對成交量，今日量相對於近期均量的倍數',
+    calculation: '當日成交量 / 近 20 日平均成交量',
+    useCases: ['> 1.5 爆量，可能有重大事件或機構進場', '< 0.7 量縮，市場對此板塊興趣低', '配合 CMF 判斷爆量是買入還是賣出'],
+    bestFilterTypes: ['Static（≥ 1.2）', 'Delta（上升 ≥ 0.5）'],
+  },
+  vol_surge_score: {
+    group: '資金流動', definition: '標準化量能爆發分數（0-100），綜合連續放量、峰值、持續性',
+    calculation: '連續高量週數 + RVol 峰值 + 近 8 週高量比例，三個子指標等權平均',
+    useCases: ['> 75 代表強烈且持續的資金流入訊號', '比單週 RVol 更穩健（排除一次性爆量）', '連續三週以上放量才算真正的資金進場'],
+    bestFilterTypes: ['Static（≥ 60）', 'Rank Break（前 25%）'],
+  },
+}
+
 // ── Default Config ────────────────────────────────────────────
 
 const DEFAULT_CONFIG: BacktestConfig = {
@@ -79,9 +216,10 @@ const DEFAULT_CONFIG: BacktestConfig = {
   topN: 10,
   stockRankBy: 'mom_score',
   stocksPerSub: 3,
-  rebalPeriod: 4,
+  rebalPeriod: 20,       // 20 trading days = 4W
   weightMode: 'equal',
-  maxSingleWeight: 20,
+  maxStockWeight: 20,    // per-stock max %
+  maxSubWeight: 40,      // per-sub max %
   bufferRule: 10,
   stopLoss: -15,
   trailingStop: 0,
@@ -141,9 +279,10 @@ interface FilterBlockProps {
   filter: SubFilter
   onChange: (updated: SubFilter) => void
   onDelete: () => void
+  onSelectIndicator?: (key: string) => void
 }
 
-function FilterBlock({ filter, onChange, onDelete }: FilterBlockProps) {
+function FilterBlock({ filter, onChange, onDelete, onSelectIndicator }: FilterBlockProps) {
   const types: FilterType[] = ['static', 'crossover', 'delta', 'rank_break']
   const typeLabels: Record<FilterType, string> = {
     static: '數值篩選',
@@ -183,7 +322,11 @@ function FilterBlock({ filter, onChange, onDelete }: FilterBlockProps) {
         {filter.type !== 'rank_break' && (
           <select
             value={filter.indicator}
-            onChange={e => onChange({ ...filter, indicator: e.target.value })}
+            onChange={e => {
+              onChange({ ...filter, indicator: e.target.value })
+              onSelectIndicator?.(e.target.value)
+            }}
+            onClick={() => onSelectIndicator?.(filter.indicator)}
             className="text-sm border border-gray-300 dark:border-gray-600 rounded px-2 py-1 bg-white dark:bg-gray-700 dark:text-white"
           >
             {INDICATOR_GROUPS.map(g => (
@@ -225,6 +368,13 @@ function FilterBlock({ filter, onChange, onDelete }: FilterBlockProps) {
               </>
             )}
             <p className="w-full text-xs text-gray-400 mt-1">每個換倉點，當期值符合條件時納入</p>
+            {INDICATOR_HINTS[filter.indicator] && (
+              <p className="w-full text-xs text-gray-400 mt-0.5">
+                <span className="text-gray-500">[範圍：{INDICATOR_HINTS[filter.indicator].range}]</span>
+                {'  '}
+                <span className="text-gray-400">{INDICATOR_HINTS[filter.indicator].suggestion}</span>
+              </p>
+            )}
           </>
         )}
 
@@ -317,6 +467,10 @@ export function BacktestEngine({ latestData, prevData }: Props) {
   const [robustResults, setRobustResults] = useState<{ param: number; oosS: number; perf: PerfMetrics }[]>([])
   const [isRobustRunning, setIsRobustRunning] = useState(false)
   const [expandedRebalIdx, setExpandedRebalIdx] = useState<number | null>(null)
+  const [rebalCustom, setRebalCustom] = useState(false)
+  const [runPhase, setRunPhase] = useState<null | 'scanning' | 'loading' | 'running'>(null)
+  const [scanInfo, setScanInfo] = useState<{ subCount: number; totalDays: number } | null>(null)
+  const [selectedIndicatorKey, setSelectedIndicatorKey] = useState<string | null>(null)
   const [chartRange, setChartRange] = useState<'all' | 'is' | 'oos'>('all')
   const [selectedRobustPoint, setSelectedRobustPoint] = useState<{ param: number; perf: PerfMetrics } | null>(null)
 
@@ -352,7 +506,41 @@ export function BacktestEngine({ latestData, prevData }: Props) {
   const runBacktest = useCallback(async () => {
     setIsRunning(true)
     setActiveTab('results')
+    setScanInfo(null)
+
+    // Check sessionStorage cache for dry-scan result
+    const configKey = JSON.stringify({ subFilters: config.subFilters, rankBy: config.rankBy, rankDir: config.rankDir, topN: config.topN, rebalPeriod: config.rebalPeriod })
+    const cacheKey = `dryscan_${configKey}`
+
     try {
+      // Phase 1: Dry scan
+      setRunPhase('scanning')
+      let cachedScan: { subCount: number; totalDays: number } | null = null
+      try {
+        const cached = sessionStorage.getItem(cacheKey)
+        if (cached) cachedScan = JSON.parse(cached)
+      } catch {}
+
+      if (!cachedScan) {
+        const scanRes = await fetch('/api/dry-scan', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ config }),
+        })
+        if (scanRes.ok) {
+          const scanData = await scanRes.json()
+          cachedScan = { subCount: scanData.subCount, totalDays: scanData.totalDays }
+          try { sessionStorage.setItem(cacheKey, JSON.stringify(cachedScan)) } catch {}
+        }
+      }
+      if (cachedScan) setScanInfo(cachedScan)
+
+      // Phase 2: Loading stocks
+      setRunPhase('loading')
+      await new Promise(r => setTimeout(r, 400))  // brief visual pause
+
+      // Phase 3: Run backtest
+      setRunPhase('running')
       const res = await fetch('/api/run-backtest', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -368,6 +556,7 @@ export function BacktestEngine({ latestData, prevData }: Props) {
       alert('回測失敗：' + String(err))
     } finally {
       setIsRunning(false)
+      setRunPhase(null)
     }
   }, [config])
 
@@ -572,20 +761,63 @@ export function BacktestEngine({ latestData, prevData }: Props) {
             <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
               A. 產業篩選條件
             </h2>
-            {config.subFilters.map((f, idx) => (
-              <FilterBlock
-                key={f.id}
-                filter={f}
-                onChange={updated => updateSubFilter(idx, updated)}
-                onDelete={() => deleteSubFilter(idx)}
-              />
-            ))}
-            <button
-              onClick={addSubFilter}
-              className="mt-2 px-4 py-2 text-sm bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
-            >
-              + 新增篩選條件
-            </button>
+            <div className="flex flex-col lg:flex-row gap-4">
+              {/* Left: filter blocks */}
+              <div className="flex-1 min-w-0">
+                {config.subFilters.map((f, idx) => (
+                  <FilterBlock
+                    key={f.id}
+                    filter={f}
+                    onChange={updated => updateSubFilter(idx, updated)}
+                    onDelete={() => deleteSubFilter(idx)}
+                    onSelectIndicator={setSelectedIndicatorKey}
+                  />
+                ))}
+                <button
+                  onClick={addSubFilter}
+                  className="mt-2 px-4 py-2 text-sm bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+                >
+                  + 新增篩選條件
+                </button>
+              </div>
+
+              {/* Right: indicator detail card (Task 4) */}
+              <div className="lg:w-72 shrink-0">
+                <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-3 bg-gray-50 dark:bg-gray-900 min-h-[120px]">
+                  {!selectedIndicatorKey || !INDICATOR_DETAILS[selectedIndicatorKey] ? (
+                    <p className="text-xs text-gray-400 italic">選擇一個指標以查看說明</p>
+                  ) : (() => {
+                    const d = INDICATOR_DETAILS[selectedIndicatorKey]
+                    return (
+                      <>
+                        <p className="text-xs font-medium text-blue-500 dark:text-blue-400 mb-0.5">{d.group}</p>
+                        <p className="text-sm font-semibold text-gray-900 dark:text-white mb-2">
+                          {ALL_INDICATORS.find(i => i.key === selectedIndicatorKey)?.label ?? selectedIndicatorKey}
+                        </p>
+                        <p className="text-xs font-medium text-gray-500 dark:text-gray-400 mb-0.5">定義</p>
+                        <p className="text-xs text-gray-700 dark:text-gray-300 mb-2">{d.definition}</p>
+                        <p className="text-xs font-medium text-gray-500 dark:text-gray-400 mb-0.5">計算方式</p>
+                        <p className="text-xs text-gray-700 dark:text-gray-300 mb-2">{d.calculation}</p>
+                        <p className="text-xs font-medium text-gray-500 dark:text-gray-400 mb-0.5">使用情境</p>
+                        <ul className="mb-2">
+                          {d.useCases.map((u, i) => (
+                            <li key={i} className="text-xs text-gray-700 dark:text-gray-300">· {u}</li>
+                          ))}
+                        </ul>
+                        <p className="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">建議篩選類型</p>
+                        <div className="flex flex-wrap gap-1">
+                          {d.bestFilterTypes.map((t, i) => (
+                            <span key={i} className="px-1.5 py-0.5 text-xs bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded">
+                              {t}
+                            </span>
+                          ))}
+                        </div>
+                      </>
+                    )
+                  })()}
+                </div>
+              </div>
+            </div>
 
             {/* Ranking */}
             <div className="mt-4 flex flex-wrap items-center gap-2 text-sm">
@@ -716,21 +948,46 @@ export function BacktestEngine({ latestData, prevData }: Props) {
 
             <div className="mb-4">
               <p className={`${labelCls} mb-2`}>換倉週期</p>
-              <div className="flex gap-2">
-                {([1, 2, 4, 8] as const).map(p => (
+              <div className="flex gap-2 flex-wrap">
+                {([5, 10, 20, 40] as const).map(p => (
                   <button
                     key={p}
-                    onClick={() => setConfig(c => ({ ...c, rebalPeriod: p }))}
+                    onClick={() => { setConfig(c => ({ ...c, rebalPeriod: p })); setRebalCustom(false) }}
                     className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                      config.rebalPeriod === p
+                      !rebalCustom && config.rebalPeriod === p
                         ? 'bg-blue-600 text-white'
                         : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
                     }`}
                   >
-                    {p === 1 ? '1W' : p === 2 ? '2W' : p === 4 ? '4W' : '8W'}
+                    {p === 5 ? '1W' : p === 10 ? '2W' : p === 20 ? '4W' : '8W'}
                   </button>
                 ))}
+                <button
+                  onClick={() => setRebalCustom(true)}
+                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                    rebalCustom
+                      ? 'bg-blue-600 text-white'
+                      : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+                  }`}
+                >
+                  自訂
+                </button>
               </div>
+              {rebalCustom && (
+                <div className="mt-2 flex items-center gap-2">
+                  <span className={`${labelCls} text-sm`}>換倉週期：</span>
+                  <input
+                    type="number"
+                    min={1}
+                    max={90}
+                    value={config.rebalPeriod}
+                    onChange={e => setConfig(c => ({ ...c, rebalPeriod: Math.min(90, Math.max(1, parseInt(e.target.value) || 1)) }))}
+                    className={`${inputCls} w-20`}
+                  />
+                  <span className={labelCls}>個交易日</span>
+                  <p className="text-xs text-gray-400 ml-2">1 = 每日換倉，5 = 每週，10 = 每兩週</p>
+                </div>
+              )}
             </div>
 
             <div className="mb-4">
@@ -752,16 +1009,33 @@ export function BacktestEngine({ latestData, prevData }: Props) {
               </div>
             </div>
 
-            <div className="mb-4">
-              <p className={`${labelCls} mb-1`}>單一部位上限：{config.maxSingleWeight}%</p>
-              <input
-                type="range"
-                min={5}
-                max={33}
-                value={config.maxSingleWeight}
-                onChange={e => setConfig(c => ({ ...c, maxSingleWeight: parseInt(e.target.value) }))}
-                className="w-full accent-blue-600"
-              />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+              <div>
+                <p className={`${labelCls} mb-1`}>單一個股上限：{config.maxStockWeight}%</p>
+                <input
+                  type="range"
+                  min={5}
+                  max={50}
+                  step={5}
+                  value={config.maxStockWeight}
+                  onChange={e => setConfig(c => ({ ...c, maxStockWeight: parseInt(e.target.value) }))}
+                  className="w-full accent-blue-600"
+                />
+                <p className="text-xs text-gray-400 mt-1">每檔個股的最大持倉比例</p>
+              </div>
+              <div>
+                <p className={`${labelCls} mb-1`}>單一產業上限：{config.maxSubWeight}%</p>
+                <input
+                  type="range"
+                  min={10}
+                  max={100}
+                  step={10}
+                  value={config.maxSubWeight}
+                  onChange={e => setConfig(c => ({ ...c, maxSubWeight: parseInt(e.target.value) }))}
+                  className="w-full accent-indigo-500"
+                />
+                <p className="text-xs text-gray-400 mt-1">同一個 sub-industry 的所有個股合計上限</p>
+              </div>
             </div>
 
             <div className="mb-2">
@@ -846,6 +1120,7 @@ export function BacktestEngine({ latestData, prevData }: Props) {
                   filter={f}
                   onChange={updated => updateExitFilter(idx, updated)}
                   onDelete={() => deleteExitFilter(idx)}
+                  onSelectIndicator={setSelectedIndicatorKey}
                 />
               ))}
               <button
@@ -875,6 +1150,7 @@ export function BacktestEngine({ latestData, prevData }: Props) {
                 onChange={e => setConfig(c => ({ ...c, isSplitPct: parseInt(e.target.value) }))}
                 className="w-full accent-blue-600"
               />
+              <p className="text-xs text-gray-400 mt-1">建議：2 年 IS + 1 年 OOS，至少需要 1 年 OOS 才有統計意義</p>
             </div>
 
             <div className="mb-6">
@@ -899,7 +1175,9 @@ export function BacktestEngine({ latestData, prevData }: Props) {
                   : 'bg-blue-600 hover:bg-blue-700'
               }`}
             >
-              {isRunning ? '計算中...' : '▶ 執行回測'}
+              {isRunning
+                ? (runPhase === 'scanning' ? '掃描中...' : runPhase === 'loading' ? '載入資料...' : '計算中...')
+                : '▶ 執行回測'}
             </button>
           </div>
         </div>
@@ -912,7 +1190,32 @@ export function BacktestEngine({ latestData, prevData }: Props) {
             <div className="flex items-center justify-center py-20">
               <div className="text-center">
                 <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-                <p className="text-gray-600 dark:text-gray-400">計算中，請稍候...</p>
+                {runPhase === 'scanning' && (
+                  <p className="text-gray-600 dark:text-gray-400">掃描產業選取範圍...</p>
+                )}
+                {runPhase === 'loading' && (
+                  <div>
+                    <p className="text-gray-600 dark:text-gray-400">
+                      載入個股歷史資料
+                      {scanInfo ? `（共 ${scanInfo.subCount} 個產業）` : ''}...
+                    </p>
+                    {!scanInfo && (
+                      <p className="text-xs text-orange-500 mt-2">
+                        個股資料尚未回填，回測將以 sub-industry 等權替代。
+                        建議執行：python pipeline/main.py --backfill --years 3
+                      </p>
+                    )}
+                  </div>
+                )}
+                {runPhase === 'running' && (
+                  <p className="text-gray-600 dark:text-gray-400">
+                    執行回測...
+                    {scanInfo ? `（${scanInfo.totalDays} 個交易日）` : ''}
+                  </p>
+                )}
+                {!runPhase && (
+                  <p className="text-gray-600 dark:text-gray-400">計算中，請稍候...</p>
+                )}
               </div>
             </div>
           )}
@@ -1016,30 +1319,48 @@ export function BacktestEngine({ latestData, prevData }: Props) {
                 </ResponsiveContainer>
               </div>
 
-              {/* Monthly Heatmap */}
+              {/* Monthly Heatmap (Task 5E: supports multi-year) */}
               <div className={sectionCls}>
                 <h3 className="font-semibold text-gray-900 dark:text-white mb-3">月度報酬熱圖</h3>
-                <div className="flex flex-wrap gap-1.5">
-                  {monthlyData.map(m => {
-                    const intensity = Math.min(Math.abs(m.ret) / 5, 1)
-                    const bg = m.ret > 0
-                      ? `rgba(16,185,129,${0.15 + intensity * 0.7})`
-                      : m.ret < 0
-                      ? `rgba(239,68,68,${0.15 + intensity * 0.7})`
-                      : '#e5e7eb'
-                    return (
-                      <div
-                        key={m.ym}
-                        className={`rounded p-2 min-w-[72px] text-center text-xs ${m.isOOS ? 'ring-2 ring-orange-400' : ''}`}
-                        style={{ backgroundColor: bg }}
-                        title={`${m.ym}: ${m.ret.toFixed(2)}%${m.isOOS ? ' (OOS)' : ''}`}
-                      >
-                        <p className="font-medium text-gray-700 dark:text-gray-200">{m.ym.slice(2)}</p>
-                        <p className="font-bold text-gray-900 dark:text-white">{m.ret.toFixed(1)}%</p>
-                      </div>
-                    )
-                  })}
-                </div>
+                {(() => {
+                  // Group by year for multi-year layout
+                  const byYear: Record<string, typeof monthlyData> = {}
+                  monthlyData.forEach(m => {
+                    const y = m.ym.slice(0, 4)
+                    if (!byYear[y]) byYear[y] = []
+                    byYear[y].push(m)
+                  })
+                  return (
+                    <div className="space-y-2">
+                      {Object.entries(byYear).map(([year, months]) => (
+                        <div key={year}>
+                          <p className="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">{year}</p>
+                          <div className="flex flex-wrap gap-1">
+                            {months.map(m => {
+                              const intensity = Math.min(Math.abs(m.ret) / 5, 1)
+                              const bg = m.ret > 0
+                                ? `rgba(16,185,129,${0.15 + intensity * 0.7})`
+                                : m.ret < 0
+                                ? `rgba(239,68,68,${0.15 + intensity * 0.7})`
+                                : '#e5e7eb'
+                              return (
+                                <div
+                                  key={m.ym}
+                                  className={`rounded p-1.5 w-[62px] text-center text-xs ${m.isOOS ? 'ring-2 ring-orange-400' : ''}`}
+                                  style={{ backgroundColor: bg }}
+                                  title={`${m.ym}: ${m.ret.toFixed(2)}%${m.isOOS ? ' (OOS)' : ''}`}
+                                >
+                                  <p className="font-medium text-gray-700 dark:text-gray-200">{m.ym.slice(5)}</p>
+                                  <p className="font-bold text-gray-900 dark:text-white">{m.ret.toFixed(1)}%</p>
+                                </div>
+                              )
+                            })}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )
+                })()}
                 <p className="text-xs text-gray-400 mt-2">橘色邊框 = OOS 期間</p>
               </div>
 
@@ -1059,110 +1380,159 @@ export function BacktestEngine({ latestData, prevData }: Props) {
 
               {/* Rebal Logs */}
               <div className={sectionCls}>
-                <h3 className="font-semibold text-gray-900 dark:text-white mb-3">
+                <h3 className="font-semibold text-gray-900 dark:text-white mb-1">
                   換倉紀錄（共 {result.rebalLogs.length} 次）
                 </h3>
-                <div className="overflow-auto max-h-72">
+                <p className="text-xs text-gray-400 mb-3">點擊展開個股交易明細</p>
+                <div className="overflow-auto max-h-96">
                   <table className="w-full text-xs">
                     <thead className="bg-gray-50 dark:bg-gray-700 sticky top-0">
                       <tr>
+                        <th className="px-2 py-1 text-left w-4"></th>
                         <th className="px-2 py-1 text-left">換倉日期</th>
                         <th className="px-2 py-1 text-left">IS/OOS</th>
                         <th className="px-2 py-1 text-left">選出產業</th>
-                        <th className="px-2 py-1 text-left">新進(+)</th>
-                        <th className="px-2 py-1 text-left">出場(-)</th>
-                        <th className="px-2 py-1 text-left">持倉數</th>
+                        <th className="px-2 py-1 text-left">新進個股</th>
+                        <th className="px-2 py-1 text-left">出場個股</th>
+                        <th className="px-2 py-1 text-left">持倉總數</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {result.rebalLogs.map((log, i) => (
-                        <React.Fragment key={i}>
-                          <tr
-                            className={`border-t border-gray-100 dark:border-gray-700 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 ${log.isOOS ? 'bg-orange-50 dark:bg-orange-900/10' : ''}`}
-                            onClick={() => setExpandedRebalIdx(expandedRebalIdx === i ? null : i)}
-                          >
-                            <td className="px-2 py-1">{log.date}</td>
-                            <td className="px-2 py-1">
-                              <span className={`px-1.5 py-0.5 rounded text-xs ${log.isOOS ? 'bg-orange-200 text-orange-800' : 'bg-blue-100 text-blue-800'}`}>
-                                {log.isOOS ? 'OOS' : 'IS'}
-                              </span>
-                            </td>
-                            <td className="px-2 py-1 max-w-xs truncate">{log.selectedSubs.slice(0, 3).join(', ')}{log.selectedSubs.length > 3 ? '...' : ''}</td>
-                            <td className="px-2 py-1 text-green-600">{log.entering.length > 0 ? `+${log.entering.length}` : '—'}</td>
-                            <td className="px-2 py-1 text-red-500">{log.exiting.length > 0 ? `-${log.exiting.length}` : '—'}</td>
-                            <td className="px-2 py-1">{log.holdingCount}</td>
-                          </tr>
-                          {expandedRebalIdx === i && log.filterDetails.length > 0 && (
-                            <tr>
-                              <td colSpan={6} className="px-2 py-2 bg-gray-50 dark:bg-gray-800">
-                                <div className="overflow-auto">
-                                  <table className="w-full text-xs">
-                                    <thead>
-                                      <tr className="text-gray-500">
-                                        <th className="text-left px-1">Sub-industry</th>
-                                        {config.subFilters.map((f, fi) => (
-                                          <th key={fi} className="text-left px-1">
-                                            {ALL_INDICATORS.find(ind => ind.key === f.indicator)?.label ?? f.indicator}
-                                          </th>
-                                        ))}
-                                        <th className="text-left px-1">結果</th>
-                                      </tr>
-                                    </thead>
-                                    <tbody>
-                                      {log.filterDetails.map((fd, fi) => (
-                                        <tr key={fi} className={fd.passed ? 'text-green-700 dark:text-green-400' : 'text-gray-400'}>
-                                          <td className="px-1 py-0.5">{fd.subName}</td>
-                                          {fd.conditions.map((cond, ci) => (
-                                            <td key={ci} className="px-1 py-0.5">
-                                              {cond.currVal !== null
-                                                ? <span className={cond.passed ? 'text-green-600' : 'text-red-500'}>{cond.currVal.toFixed(2)}</span>
-                                                : <span className="text-gray-400">—</span>}
-                                            </td>
-                                          ))}
-                                          <td className="px-1 py-0.5">
-                                            {fd.passed ? '✓' : '✗'}
-                                          </td>
-                                        </tr>
-                                      ))}
-                                    </tbody>
-                                  </table>
-                                </div>
+                      {result.rebalLogs.map((log, i) => {
+                        const logTrades = result.tradeHistory.filter(t => t.rebalLogIdx === i)
+                        return (
+                          <React.Fragment key={i}>
+                            <tr
+                              className={`border-t border-gray-100 dark:border-gray-700 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 ${log.isOOS ? 'bg-orange-50 dark:bg-orange-900/10' : ''}`}
+                              onClick={() => setExpandedRebalIdx(expandedRebalIdx === i ? null : i)}
+                            >
+                              <td className="px-2 py-1 text-gray-400">{expandedRebalIdx === i ? '▼' : '▶'}</td>
+                              <td className="px-2 py-1">{log.date}</td>
+                              <td className="px-2 py-1">
+                                <span className={`px-1.5 py-0.5 rounded text-xs ${log.isOOS ? 'bg-orange-200 text-orange-800' : 'bg-blue-100 text-blue-800'}`}>
+                                  {log.isOOS ? 'OOS' : 'IS'}
+                                </span>
                               </td>
+                              <td className="px-2 py-1">{log.selectedSubs.length}</td>
+                              <td className="px-2 py-1 text-green-600">{log.stockEntriesCount > 0 ? `+${log.stockEntriesCount}` : '—'}</td>
+                              <td className="px-2 py-1 text-red-500">{log.stockExitsCount > 0 ? `-${log.stockExitsCount}` : '—'}</td>
+                              <td className="px-2 py-1">{log.holdingCount}</td>
                             </tr>
-                          )}
-                        </React.Fragment>
-                      ))}
+                            {expandedRebalIdx === i && (
+                              <tr>
+                                <td colSpan={7} className="px-2 py-2 bg-gray-50 dark:bg-gray-800/50">
+                                  <p className="text-xs text-gray-400 mb-2">
+                                    入場指數以買入當日收盤為 100，出場指數為出場當日累積 ret_1d 的複利結果。損益為個股持有期間的估算報酬，不含交易成本。
+                                  </p>
+                                  {logTrades.length === 0 ? (
+                                    <p className="text-xs text-gray-400 italic">無個股交易記錄</p>
+                                  ) : (
+                                    <div className="overflow-x-auto">
+                                      <table className="w-full text-xs">
+                                        <thead>
+                                          <tr className="text-gray-500 border-b border-gray-200 dark:border-gray-600">
+                                            <th className="text-left px-1 py-0.5">股票</th>
+                                            <th className="text-left px-1 py-0.5">所屬產業</th>
+                                            <th className="text-left px-1 py-0.5">入場日</th>
+                                            <th className="text-left px-1 py-0.5">出場日</th>
+                                            <th className="text-right px-1 py-0.5">持有天</th>
+                                            <th className="text-right px-1 py-0.5">入場指數</th>
+                                            <th className="text-right px-1 py-0.5">出場指數</th>
+                                            <th className="text-right px-1 py-0.5">損益%</th>
+                                            <th className="text-left px-1 py-0.5">出場原因</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                          {logTrades.map((t, ti) => {
+                                            const exitReasonLabel: Record<string, string> = {
+                                              rebal: '換倉出場', stop_loss: '固定停損', trailing_stop: '追蹤停損',
+                                              take_profit: '停利', time_stop: '時間停損', signal: '訊號出場',
+                                            }
+                                            const exitColor = t.exitReason === 'stop_loss' || t.exitReason === 'trailing_stop'
+                                              ? 'text-red-500' : t.exitReason === 'take_profit'
+                                              ? 'text-green-600' : 'text-gray-400'
+                                            return (
+                                              <tr key={ti} className="border-t border-gray-100 dark:border-gray-700">
+                                                <td className="px-1 py-0.5 font-mono">{t.ticker}</td>
+                                                <td className="px-1 py-0.5 max-w-[120px] truncate">{t.subName}</td>
+                                                <td className="px-1 py-0.5">{t.entryDate}</td>
+                                                <td className="px-1 py-0.5">{t.exitDate}</td>
+                                                <td className="px-1 py-0.5 text-right">{t.holdingDays}</td>
+                                                <td className="px-1 py-0.5 text-right">100</td>
+                                                <td className="px-1 py-0.5 text-right">{t.exitIndex.toFixed(2)}</td>
+                                                <td className={`px-1 py-0.5 text-right font-medium ${t.pnlPct >= 0 ? 'text-green-600' : 'text-red-500'}`}>
+                                                  {t.pnlPct >= 0 ? '+' : ''}{t.pnlPct.toFixed(2)}%
+                                                </td>
+                                                <td className={`px-1 py-0.5 ${exitColor}`}>{exitReasonLabel[t.exitReason] ?? t.exitReason}</td>
+                                              </tr>
+                                            )
+                                          })}
+                                        </tbody>
+                                      </table>
+                                    </div>
+                                  )}
+                                </td>
+                              </tr>
+                            )}
+                          </React.Fragment>
+                        )
+                      })}
                     </tbody>
                   </table>
                 </div>
               </div>
 
-              {/* Stop-loss exits */}
-              {result.rebalLogs.some(l => l.exitedToday.length > 0) && (
-                <div className={sectionCls}>
-                  <h3 className="font-semibold text-gray-900 dark:text-white mb-3">停損出場紀錄</h3>
-                  <div className="overflow-auto max-h-48">
-                    <table className="w-full text-xs">
-                      <thead className="bg-gray-50 dark:bg-gray-700">
-                        <tr>
-                          <th className="px-2 py-1 text-left">日期</th>
-                          <th className="px-2 py-1 text-left">出場標的</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {result.rebalLogs
-                          .filter(l => l.exitedToday.length > 0)
-                          .map((l, i) => (
+              {/* Stop-loss exits (Task 2) */}
+              {(() => {
+                const nonRebalTrades = result.tradeHistory.filter(t => t.exitReason !== 'rebal')
+                if (nonRebalTrades.length === 0) return null
+                const exitReasonLabel: Record<string, string> = {
+                  stop_loss: '固定停損', trailing_stop: '追蹤停損',
+                  take_profit: '停利', time_stop: '時間停損', signal: '訊號出場',
+                }
+                const exitColor = (r: string) =>
+                  r === 'stop_loss' || r === 'trailing_stop' ? 'text-red-500'
+                  : r === 'take_profit' ? 'text-green-600' : 'text-gray-500'
+                return (
+                  <div className={sectionCls}>
+                    <h3 className="font-semibold text-gray-900 dark:text-white mb-3">
+                      停損出場紀錄（共 {nonRebalTrades.length} 筆）
+                    </h3>
+                    <div className="overflow-auto max-h-64">
+                      <table className="w-full text-xs">
+                        <thead className="bg-gray-50 dark:bg-gray-700 sticky top-0">
+                          <tr>
+                            <th className="px-2 py-1 text-left">出場日期</th>
+                            <th className="px-2 py-1 text-left">股票</th>
+                            <th className="px-2 py-1 text-left">所屬產業</th>
+                            <th className="px-2 py-1 text-left">入場日</th>
+                            <th className="px-2 py-1 text-right">持有天</th>
+                            <th className="px-2 py-1 text-right">損益%</th>
+                            <th className="px-2 py-1 text-left">出場原因</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {nonRebalTrades.map((t, i) => (
                             <tr key={i} className="border-t border-gray-100 dark:border-gray-700">
-                              <td className="px-2 py-1">{l.date}</td>
-                              <td className="px-2 py-1 text-red-500">{l.exitedToday.join(', ')}</td>
+                              <td className="px-2 py-1">{t.exitDate}</td>
+                              <td className="px-2 py-1 font-mono">{t.ticker}</td>
+                              <td className="px-2 py-1 max-w-[120px] truncate">{t.subName}</td>
+                              <td className="px-2 py-1">{t.entryDate}</td>
+                              <td className="px-2 py-1 text-right">{t.holdingDays}</td>
+                              <td className={`px-2 py-1 text-right font-medium ${t.pnlPct >= 0 ? 'text-green-600' : 'text-red-500'}`}>
+                                {t.pnlPct >= 0 ? '+' : ''}{t.pnlPct.toFixed(2)}%
+                              </td>
+                              <td className={`px-2 py-1 ${exitColor(t.exitReason)}`}>
+                                {exitReasonLabel[t.exitReason] ?? t.exitReason}
+                              </td>
                             </tr>
                           ))}
-                      </tbody>
-                    </table>
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
-                </div>
-              )}
+                )
+              })()}
 
               {/* Latest Holdings */}
               {result.rebalLogs.length > 0 && (

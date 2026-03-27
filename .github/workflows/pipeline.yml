@@ -21,6 +21,12 @@ on:
         default: 'false'
         type: choice
         options: ['true', 'false']
+      backfill_years:
+        description: '回填年數（backfill=true 時有效，預設 1 年，填 3 = 三年歷史）'
+        required: false
+        default: '1'
+        type: choice
+        options: ['1', '2', '3']
 
 jobs:
   run-pipeline:
@@ -54,7 +60,7 @@ jobs:
         env:
           SUPABASE_URL:         ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
-        run: python pipeline/main.py --backfill
+        run: python pipeline/main.py --backfill --years ${{ github.event.inputs.backfill_years || '1' }}
 
       - name: Write success summary
         if: success()

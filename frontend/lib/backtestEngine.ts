@@ -5,10 +5,11 @@
  */
 
 import { createClient } from '@supabase/supabase-js'
+import { unstable_cache } from 'next/cache'
 import {
   SubReturn, StockReturn,
   DailySubSnapshot, DailyStockSnapshot,
-  SubFilter, BacktestConfig, Holding,
+  SubFilter, BacktestConfig, Holding, Trade, ExitReason,
   FilterDetail, FilterConditionDetail, RebalLog,
   PerfMetrics, BacktestResult,
 } from './types'
@@ -23,67 +24,57 @@ function makeClient() {
   )
 }
 
-const SUB_SELECT = [
-  'date', 'gics_code', 'ret_1d', 'ret_1w', 'ret_1m', 'ret_3m', 'ret_6m', 'ret_12m',
-  'mom_score', 'rank_today', 'rank_prev_week', 'delta_rank', 'stock_count',
-  'obv_trend', 'rvol', 'vol_mom', 'pv_divergence',
-  'sharpe_8w', 'sortino_8w', 'win_rate_8w', 'volatility_8w', 'skewness',
-  'information_ratio', 'momentum_decay_rate', 'breadth_adj_mom',
-  'downside_capture', 'calmar_ratio', 'rs_trend_slope',
-  'leader_lagger_ratio', 'cmf', 'mfi', 'vrsi', 'pvt_slope',
-  'vol_surge_score', 'beta', 'momentum_autocorr', 'price_trend_r2', 'ad_slope',
-  'breadth_pct',
-  'gics_universe(sector,industry_group,industry,sub_industry,etf_proxy)',
-].join(',')
-
-export async function fetchBacktestData(): Promise<{
+async function _fetchBacktestDataRaw(): Promise<{
   subHistory: DailySubSnapshot[]
   stockHistory: DailyStockSnapshot[]
 }> {
   const supabase = makeClient()
 
-  // Sub history: parallel fetch
-  const { count } = await supabase
-    .from('daily_sub_returns')
-    .select('*', { count: 'exact', head: true })
+  // 3 parallel calls: sub RPC + gics names + stock RPC
+  const [subResult, gicsResult, stockResult] = await Promise.all([
+    supabase.rpc('get_backtest_sub_history'),
+    supabase.from('gics_universe').select('gics_code,sector,industry_group,industry,sub_industry,etf_proxy'),
+    supabase.rpc('get_backtest_stock_history'),
+  ])
 
-  const total = count ?? 0
-  const pageSize = 1000
-  const pageCount = Math.ceil(total / pageSize)
+  if (subResult.error) console.error('sub RPC error:', subResult.error)
+  if (stockResult.error) console.error('stock RPC error:', stockResult.error)
 
-  const pages = await Promise.all(
-    Array.from({ length: pageCount }, (_, i) =>
-      supabase
-        .from('daily_sub_returns')
-        .select(SUB_SELECT)
-        .order('date', { ascending: true })
-        .range(i * pageSize, (i + 1) * pageSize - 1)
-    )
+  // Build gics name lookup (by gics_code)
+  const gicsMapByCode = new Map<string, SubReturn['gics_universe']>(
+    (gicsResult.data ?? []).map((g: NonNullable<SubReturn['gics_universe']>) => [
+      (g as unknown as { gics_code: string }).gics_code, g
+    ] as [string, typeof g])
   )
 
-  const allSubRows = pages.flatMap(p => (p.data ?? []) as SubReturn[])
-  const subByDate = new Map<string, SubReturn[]>()
-  for (const row of allSubRows) {
-    const arr = subByDate.get(row.date) ?? []
-    arr.push(row)
-    subByDate.set(row.date, arr)
-  }
-  const subHistory: DailySubSnapshot[] = Array.from(subByDate.entries())
-    .sort(([a], [b]) => a.localeCompare(b))
-    .map(([date, subs]) => ({ date, subs }))
+  // Sub history from RPC — already grouped by date
+  const subRaw: { date: string; subs: SubReturn[] }[] = Array.isArray(subResult.data)
+    ? subResult.data
+    : []
+  const subHistory: DailySubSnapshot[] = subRaw
+    .sort((a, b) => a.date.localeCompare(b.date))
+    .map(snap => ({
+      date: snap.date,
+      subs: (snap.subs ?? []).map(sub => ({
+        ...sub,
+        gics_universe: gicsMapByCode.get(sub.gics_code) ?? undefined,
+      })),
+    }))
 
-  // Stock history: single RPC call
-  const { data: stockRaw, error: stockErr } = await supabase
-    .rpc('get_backtest_stock_history')
-
-  if (stockErr) console.error('RPC error:', stockErr)
-
-  const stockHistory: DailyStockSnapshot[] = Array.isArray(stockRaw)
-    ? (stockRaw as DailyStockSnapshot[]).sort((a, b) => a.date.localeCompare(b.date))
+  // Stock history from RPC
+  const stockHistory: DailyStockSnapshot[] = Array.isArray(stockResult.data)
+    ? (stockResult.data as DailyStockSnapshot[]).sort((a, b) => a.date.localeCompare(b.date))
     : []
 
   return { subHistory, stockHistory }
 }
+
+// Cache for 30 minutes — shared across all concurrent requests on the same server instance
+export const fetchBacktestData = unstable_cache(
+  _fetchBacktestDataRaw,
+  ['backtest-data'],
+  { revalidate: 1800 }
+)
 
 // ── Engine helpers ────────────────────────────────────────────
 
@@ -126,35 +117,55 @@ export function checkFilter(
   return false
 }
 
-function capWeights(weights: number[], maxPct: number): number[] {
-  const max = maxPct / 100
-  let capped = weights.map(w => Math.min(w, max))
-  const total = capped.reduce((a, b) => a + b, 0)
-  return total > 0 ? capped.map(w => w / total) : capped
+function applyTwoCaps(
+  weights: number[],
+  gicsCodes: string[],
+  maxStockPct: number,
+  maxSubPct: number
+): number[] {
+  const maxStock = maxStockPct / 100
+  const maxSub = maxSubPct / 100
+
+  // Step 1: cap each individual stock
+  let w = weights.map(v => Math.min(v, maxStock))
+
+  // Step 2: cap sub-industry totals
+  const subGroups = new Map<string, number[]>()
+  gicsCodes.forEach((code, i) => {
+    if (!subGroups.has(code)) subGroups.set(code, [])
+    subGroups.get(code)!.push(i)
+  })
+  for (const [, indices] of subGroups) {
+    const subTotal = indices.reduce((sum, i) => sum + w[i], 0)
+    if (subTotal > maxSub) {
+      const scale = maxSub / subTotal
+      indices.forEach(i => { w[i] *= scale })
+    }
+  }
+
+  // Renormalize
+  const total = w.reduce((a, b) => a + b, 0)
+  return total > 0 ? w.map(v => v / total) : w
 }
 
 function calcWeights(
   tickers: string[],
+  gicsCodes: string[],
   subs: SubReturn[],
   stockMap: Map<string, StockReturn>,
   mode: BacktestConfig['weightMode'],
-  maxSingleWeight: number
+  maxStockWeight: number,
+  maxSubWeight: number
 ): number[] {
   const n = tickers.length
   if (n === 0) return []
 
-  if (mode === 'equal') return capWeights(Array(n).fill(1 / n), maxSingleWeight)
-
+  let raw: number[]
   if (mode === 'momentum') {
-    const scores = tickers.map(t => {
-      const st = stockMap.get(t)
-      return Math.max(st?.mom_score ?? 50, 0.001)
-    })
+    const scores = tickers.map(t => Math.max(stockMap.get(t)?.mom_score ?? 50, 0.001))
     const total = scores.reduce((a, b) => a + b, 0)
-    return capWeights(scores.map(s => s / total), maxSingleWeight)
-  }
-
-  if (mode === 'volatility') {
+    raw = scores.map(s => s / total)
+  } else if (mode === 'volatility') {
     const vols = tickers.map(t => {
       const st = stockMap.get(t)
       const sub = subs.find(s => s.gics_code === (st?.gics_code ?? t))
@@ -162,10 +173,12 @@ function calcWeights(
     })
     const invVols = vols.map(v => 1 / v)
     const total = invVols.reduce((a, b) => a + b, 0)
-    return capWeights(invVols.map(iv => iv / total), maxSingleWeight)
+    raw = invVols.map(iv => iv / total)
+  } else {
+    raw = Array(n).fill(1 / n)
   }
 
-  return Array(n).fill(1 / n)
+  return applyTwoCaps(raw, gicsCodes, maxStockWeight, maxSubWeight)
 }
 
 function calcPerf(
@@ -227,13 +240,15 @@ export function runBacktestSync(
   const rebalLogs: RebalLog[] = []
 
   let holdings: Holding[] = []
-  let pendingOrders: { ticker: string; gics_code: string; subName: string; weight: number }[] = []
+  let pendingOrders: { ticker: string; gics_code: string; subName: string; weight: number; rebalLogIdx: number }[] = []
   let equity = 1
   let spyEquity = 1
   let ewEquity = 1
   let nextRebalDay = 0
   let peakEquity = 1
   let totalExitCount = 0
+  const tradeHistory: Trade[] = []
+  let stopExitsSinceLastRebal = 0
 
   // Build stock map indexed by date
   const stockByDate = new Map<string, Map<string, StockReturn>>()
@@ -274,9 +289,12 @@ export function runBacktestSync(
         gics_code: o.gics_code,
         subName: o.subName,
         entryDay: day,
+        entryDate: date,
         entryEquity: equity * o.weight,
         peakCumReturn: 0,
         cumReturn: 0,
+        exitIndex: 100,
+        rebalLogIdx: o.rebalLogIdx,
       }))
       pendingOrders = []
     }
@@ -294,23 +312,36 @@ export function runBacktestSync(
         const dailyRet = (sub?.ret_1d ?? 0) / 100
         h.cumReturn = (1 + h.cumReturn / 100) * (1 + dailyRet) * 100 - 100
         h.peakCumReturn = Math.max(h.peakCumReturn, h.cumReturn)
+        h.exitIndex = (h.exitIndex ?? 100) * (1 + dailyRet)
 
         let shouldExit = false
-        if (config.stopLoss < 0 && h.cumReturn <= config.stopLoss) shouldExit = true
-        if (config.trailingStop > 0) {
-          if (h.peakCumReturn - h.cumReturn >= config.trailingStop) shouldExit = true
-        }
-        if (config.takeProfit > 0 && h.cumReturn >= config.takeProfit) shouldExit = true
-        if (config.timeStop > 0 && (day - h.entryDay) >= config.timeStop * 5) shouldExit = true
-        if (config.exitFilters.length > 0 && sub) {
+        let exitReason: ExitReason = 'rebal'
+        if (config.stopLoss < 0 && h.cumReturn <= config.stopLoss) { shouldExit = true; exitReason = 'stop_loss' }
+        if (!shouldExit && config.trailingStop > 0 && h.peakCumReturn - h.cumReturn >= config.trailingStop) { shouldExit = true; exitReason = 'trailing_stop' }
+        if (!shouldExit && config.takeProfit > 0 && h.cumReturn >= config.takeProfit) { shouldExit = true; exitReason = 'take_profit' }
+        if (!shouldExit && config.timeStop > 0 && (day - h.entryDay) >= config.timeStop * 5) { shouldExit = true; exitReason = 'time_stop' }
+        if (!shouldExit && config.exitFilters.length > 0 && sub) {
           const prevSub = prevSnap?.subs.find(s => s.gics_code === h.gics_code)
-          if (config.exitFilters.every(f => checkFilter(f, sub, prevSub))) shouldExit = true
+          if (config.exitFilters.every(f => checkFilter(f, sub, prevSub))) { shouldExit = true; exitReason = 'signal' }
         }
 
         if (shouldExit) {
           exitedToday.push(h.subName)
           totalExitCount++
+          stopExitsSinceLastRebal++
           portRet += equalW * (h.cumReturn / 100) - Math.abs(h.cumReturn * equalW) * config.tradingCost / 100
+          tradeHistory.push({
+            ticker: h.ticker,
+            gics_code: h.gics_code,
+            subName: h.subName,
+            entryDate: h.entryDate,
+            exitDate: date,
+            holdingDays: day - h.entryDay,
+            exitIndex: parseFloat(h.exitIndex.toFixed(4)),
+            pnlPct: parseFloat((h.exitIndex - 100).toFixed(2)),
+            exitReason,
+            rebalLogIdx: h.rebalLogIdx,
+          })
         } else {
           portRet += equalW * dailyRet
           updatedHoldings.push(h)
@@ -329,7 +360,7 @@ export function runBacktestSync(
 
     // Rebalance
     if (day >= nextRebalDay) {
-      nextRebalDay = day + config.rebalPeriod * 5
+      nextRebalDay = day + config.rebalPeriod
 
       const filterDetails: FilterDetail[] = []
       const passedSubs: SubReturn[] = []
@@ -407,10 +438,30 @@ export function runBacktestSync(
         + [...oldCodes].filter(c => !newCodes.has(c)).length
       equity *= (1 - (turnovers / Math.max(newTickers.length + holdings.length, 1)) * config.tradingCost / 100)
 
+      // Record rebal exits for current holdings
+      const rebalLogIdx = rebalLogs.length
+      for (const h of holdings) {
+        tradeHistory.push({
+          ticker: h.ticker,
+          gics_code: h.gics_code,
+          subName: h.subName,
+          entryDate: h.entryDate,
+          exitDate: date,
+          holdingDays: day - h.entryDay,
+          exitIndex: parseFloat((h.exitIndex ?? 100).toFixed(4)),
+          pnlPct: parseFloat(((h.exitIndex ?? 100) - 100).toFixed(2)),
+          exitReason: 'rebal',
+          rebalLogIdx: h.rebalLogIdx,
+        })
+      }
+      const stockExitsCount = holdings.length + stopExitsSinceLastRebal
+      stopExitsSinceLastRebal = 0
+
       if (newTickers.length > 0) {
         const tickerIds = newTickers.map(t => t.ticker)
-        const weights = calcWeights(tickerIds, snap.subs, dayStockMap, config.weightMode, config.maxSingleWeight)
-        pendingOrders = newTickers.map((t, wi) => ({ ...t, weight: weights[wi] ?? 1 / newTickers.length }))
+        const tickerGics = newTickers.map(t => t.gics_code)
+        const weights = calcWeights(tickerIds, tickerGics, snap.subs, dayStockMap, config.weightMode, config.maxStockWeight, config.maxSubWeight)
+        pendingOrders = newTickers.map((t, wi) => ({ ...t, weight: weights[wi] ?? 1 / newTickers.length, rebalLogIdx }))
       }
       holdings = []
 
@@ -420,15 +471,36 @@ export function runBacktestSync(
         entering, exiting,
         holdingCount: newTickers.length,
         exitedToday, filterDetails,
+        stockEntriesCount: newTickers.length,
+        stockExitsCount,
       })
     } else if (exitedToday.length > 0 && rebalLogs.length > 0) {
       rebalLogs[rebalLogs.length - 1].exitedToday.push(...exitedToday)
     }
   }
 
+  // Close any still-open holdings at end of backtest
+  if (holdings.length > 0) {
+    const lastDate = subHistory[N - 1]?.date ?? ''
+    for (const h of holdings) {
+      tradeHistory.push({
+        ticker: h.ticker,
+        gics_code: h.gics_code,
+        subName: h.subName,
+        entryDate: h.entryDate,
+        exitDate: lastDate,
+        holdingDays: N - 1 - h.entryDay,
+        exitIndex: parseFloat((h.exitIndex ?? 100).toFixed(4)),
+        pnlPct: parseFloat(((h.exitIndex ?? 100) - 100).toFixed(2)),
+        exitReason: 'rebal',
+        rebalLogIdx: h.rebalLogIdx,
+      })
+    }
+  }
+
   return {
     equityCurve, drawdownCurve, dailyReturns, spyCurve, ewCurve, dates,
-    rebalLogs,
+    rebalLogs, tradeHistory,
     fullPerf: calcPerf(dailyReturns, equityCurve, 0, dailyReturns.length),
     isPerf: calcPerf(dailyReturns, equityCurve, 0, isSplitDay),
     oosPerf: calcPerf(dailyReturns, equityCurve, isSplitDay, dailyReturns.length),
@@ -437,4 +509,41 @@ export function runBacktestSync(
     stockDataAvailable,
     isSplitDay,
   }
+}
+
+// ── Dry-run scan ──────────────────────────────────────────────
+// Quickly finds all sub-industries selected over the full history
+// (used to determine which stocks to fetch before a full backtest)
+
+export function dryRunScan(
+  config: BacktestConfig,
+  subHistory: DailySubSnapshot[]
+): string[] {
+  const N = subHistory.length
+  const selected = new Set<string>()
+  let nextRebalDay = 0
+
+  for (let day = 0; day < N; day++) {
+    if (day < nextRebalDay) continue
+    nextRebalDay = day + config.rebalPeriod
+
+    const snap = subHistory[day]
+    const prevSnap = day > 0 ? subHistory[day - 1] : null
+
+    const passed = snap.subs.filter(sub => {
+      const prevSub = prevSnap?.subs.find(s => s.gics_code === sub.gics_code)
+      return config.subFilters.length === 0 ||
+        config.subFilters.every(f => checkFilter(f, sub, prevSub))
+    })
+
+    const ranked = [...passed].sort((a, b) => {
+      const av = (a[config.rankBy as keyof SubReturn] as number | null) ?? 0
+      const bv = (b[config.rankBy as keyof SubReturn] as number | null) ?? 0
+      return config.rankDir === 'desc' ? bv - av : av - bv
+    })
+
+    ranked.slice(0, config.topN).forEach(s => selected.add(s.gics_code))
+  }
+
+  return Array.from(selected)
 }
