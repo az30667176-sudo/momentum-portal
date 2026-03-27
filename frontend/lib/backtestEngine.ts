@@ -37,8 +37,8 @@ async function _fetchBacktestDataRaw(): Promise<{
     supabase.rpc('get_backtest_stock_history'),
   ])
 
-  if (subResult.error) console.error('sub RPC error:', subResult.error)
-  if (stockResult.error) console.error('stock RPC error:', stockResult.error)
+  if (subResult.error) console.error('sub RPC error:', JSON.stringify(subResult.error))
+  if (stockResult.error) console.error('stock RPC error:', JSON.stringify(stockResult.error))
 
   // Build gics name lookup (by gics_code)
   const gicsMapByCode = new Map<string, SubReturn['gics_universe']>(
