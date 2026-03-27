@@ -37,7 +37,11 @@ async function _fetchBacktestDataRaw(): Promise<{
     supabase.rpc('get_backtest_stock_history'),
   ])
 
-  if (subResult.error) console.error('sub RPC error:', JSON.stringify(subResult.error))
+  if (subResult.error) {
+    console.error('sub RPC error:', JSON.stringify(subResult.error))
+    // Throw so unstable_cache does NOT cache this failed result
+    throw new Error(`sub RPC failed: ${subResult.error.message ?? JSON.stringify(subResult.error)}`)
+  }
   if (stockResult.error) console.error('stock RPC error:', JSON.stringify(stockResult.error))
 
   // Build gics name lookup (by gics_code)
@@ -51,6 +55,10 @@ async function _fetchBacktestDataRaw(): Promise<{
   const subRaw: { date: string; subs: SubReturn[] }[] = Array.isArray(subResult.data)
     ? subResult.data
     : []
+
+  if (subRaw.length < 20) {
+    throw new Error(`sub RPC returned only ${subRaw.length} days — DB may be mid-write`)
+  }
   const subHistory: DailySubSnapshot[] = subRaw
     .sort((a, b) => a.date.localeCompare(b.date))
     .map(snap => ({

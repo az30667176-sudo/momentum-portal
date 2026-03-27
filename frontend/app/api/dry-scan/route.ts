@@ -10,9 +10,7 @@ export async function POST(req: NextRequest) {
     const { config } = (await req.json()) as { config: BacktestConfig }
     const { subHistory } = await fetchBacktestData()
 
-    if (subHistory.length < 20) {
-      return NextResponse.json({ error: '歷史資料不足 20 天' }, { status: 400 })
-    }
+
 
     const gicsCodes = dryRunScan(config, subHistory)
     return NextResponse.json({ gicsCodes, subCount: gicsCodes.length, totalDays: subHistory.length })
