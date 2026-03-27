@@ -161,8 +161,8 @@ export interface Trade {
   entryDate: string
   exitDate: string
   holdingDays: number
-  exitIndex: number    // 100 at entry, compounded by sub ret_1d daily
-  pnlPct: number       // exitIndex / 100 - 1 (%)
+  weight: number       // portfolio weight at entry (0–1)
+  pnlPct: number       // cumulative return % during holding
   exitReason: ExitReason
   rebalLogIdx: number  // which RebalLog entry caused the entry
 }
@@ -177,6 +177,7 @@ export interface Holding {
   peakCumReturn: number
   cumReturn: number
   exitIndex: number    // tracks daily: starts 100, compounded each day
+  weight: number       // portfolio weight at entry (0–1)
   rebalLogIdx: number  // which RebalLog this holding entered from
 }
 

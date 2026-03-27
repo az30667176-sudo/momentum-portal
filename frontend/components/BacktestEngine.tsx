@@ -466,7 +466,6 @@ export function BacktestEngine({ latestData, prevData }: Props) {
   const [robustStep, setRobustStep] = useState(1)
   const [robustResults, setRobustResults] = useState<{ param: number; oosS: number; perf: PerfMetrics }[]>([])
   const [isRobustRunning, setIsRobustRunning] = useState(false)
-  const [expandedRebalIdx, setExpandedRebalIdx] = useState<number | null>(null)
   const [rebalCustom, setRebalCustom] = useState(false)
   const [runPhase, setRunPhase] = useState<null | 'scanning' | 'loading' | 'running'>(null)
   const [scanInfo, setScanInfo] = useState<{ subCount: number; totalDays: number } | null>(null)
@@ -1378,153 +1377,108 @@ export function BacktestEngine({ latestData, prevData }: Props) {
                 </ResponsiveContainer>
               </div>
 
-              {/* Rebal Logs */}
+              {/* Rebal Logs — compact summary */}
               <div className={sectionCls}>
-                <h3 className="font-semibold text-gray-900 dark:text-white mb-1">
+                <h3 className="font-semibold text-gray-900 dark:text-white mb-3">
                   換倉紀錄（共 {result.rebalLogs.length} 次）
                 </h3>
-                <p className="text-xs text-gray-400 mb-3">點擊展開個股交易明細</p>
-                <div className="overflow-auto max-h-96">
+                <div className="overflow-auto max-h-64">
                   <table className="w-full text-xs">
                     <thead className="bg-gray-50 dark:bg-gray-700 sticky top-0">
                       <tr>
-                        <th className="px-2 py-1 text-left w-4"></th>
                         <th className="px-2 py-1 text-left">換倉日期</th>
                         <th className="px-2 py-1 text-left">IS/OOS</th>
-                        <th className="px-2 py-1 text-left">選出產業</th>
-                        <th className="px-2 py-1 text-left">新進個股</th>
-                        <th className="px-2 py-1 text-left">出場個股</th>
-                        <th className="px-2 py-1 text-left">持倉總數</th>
+                        <th className="px-2 py-1 text-right">選出產業</th>
+                        <th className="px-2 py-1 text-right">新進個股</th>
+                        <th className="px-2 py-1 text-right">出場個股</th>
+                        <th className="px-2 py-1 text-right">持倉總數</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {result.rebalLogs.map((log, i) => {
-                        const logTrades = result.tradeHistory.filter(t => t.rebalLogIdx === i)
-                        return (
-                          <React.Fragment key={i}>
-                            <tr
-                              className={`border-t border-gray-100 dark:border-gray-700 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 ${log.isOOS ? 'bg-orange-50 dark:bg-orange-900/10' : ''}`}
-                              onClick={() => setExpandedRebalIdx(expandedRebalIdx === i ? null : i)}
-                            >
-                              <td className="px-2 py-1 text-gray-400">{expandedRebalIdx === i ? '▼' : '▶'}</td>
-                              <td className="px-2 py-1">{log.date}</td>
-                              <td className="px-2 py-1">
-                                <span className={`px-1.5 py-0.5 rounded text-xs ${log.isOOS ? 'bg-orange-200 text-orange-800' : 'bg-blue-100 text-blue-800'}`}>
-                                  {log.isOOS ? 'OOS' : 'IS'}
-                                </span>
-                              </td>
-                              <td className="px-2 py-1">{log.selectedSubs.length}</td>
-                              <td className="px-2 py-1 text-green-600">{log.stockEntriesCount > 0 ? `+${log.stockEntriesCount}` : '—'}</td>
-                              <td className="px-2 py-1 text-red-500">{log.stockExitsCount > 0 ? `-${log.stockExitsCount}` : '—'}</td>
-                              <td className="px-2 py-1">{log.holdingCount}</td>
-                            </tr>
-                            {expandedRebalIdx === i && (
-                              <tr>
-                                <td colSpan={7} className="px-2 py-2 bg-gray-50 dark:bg-gray-800/50">
-                                  <p className="text-xs text-gray-400 mb-2">
-                                    入場指數以買入當日收盤為 100，出場指數為出場當日累積 ret_1d 的複利結果。損益為個股持有期間的估算報酬，不含交易成本。
-                                  </p>
-                                  {logTrades.length === 0 ? (
-                                    <p className="text-xs text-gray-400 italic">無個股交易記錄</p>
-                                  ) : (
-                                    <div className="overflow-x-auto">
-                                      <table className="w-full text-xs">
-                                        <thead>
-                                          <tr className="text-gray-500 border-b border-gray-200 dark:border-gray-600">
-                                            <th className="text-left px-1 py-0.5">股票</th>
-                                            <th className="text-left px-1 py-0.5">所屬產業</th>
-                                            <th className="text-left px-1 py-0.5">入場日</th>
-                                            <th className="text-left px-1 py-0.5">出場日</th>
-                                            <th className="text-right px-1 py-0.5">持有天</th>
-                                            <th className="text-right px-1 py-0.5">入場指數</th>
-                                            <th className="text-right px-1 py-0.5">出場指數</th>
-                                            <th className="text-right px-1 py-0.5">損益%</th>
-                                            <th className="text-left px-1 py-0.5">出場原因</th>
-                                          </tr>
-                                        </thead>
-                                        <tbody>
-                                          {logTrades.map((t, ti) => {
-                                            const exitReasonLabel: Record<string, string> = {
-                                              rebal: '換倉出場', stop_loss: '固定停損', trailing_stop: '追蹤停損',
-                                              take_profit: '停利', time_stop: '時間停損', signal: '訊號出場',
-                                            }
-                                            const exitColor = t.exitReason === 'stop_loss' || t.exitReason === 'trailing_stop'
-                                              ? 'text-red-500' : t.exitReason === 'take_profit'
-                                              ? 'text-green-600' : 'text-gray-400'
-                                            return (
-                                              <tr key={ti} className="border-t border-gray-100 dark:border-gray-700">
-                                                <td className="px-1 py-0.5 font-mono">{t.ticker}</td>
-                                                <td className="px-1 py-0.5 max-w-[120px] truncate">{t.subName}</td>
-                                                <td className="px-1 py-0.5">{t.entryDate}</td>
-                                                <td className="px-1 py-0.5">{t.exitDate}</td>
-                                                <td className="px-1 py-0.5 text-right">{t.holdingDays}</td>
-                                                <td className="px-1 py-0.5 text-right">100</td>
-                                                <td className="px-1 py-0.5 text-right">{t.exitIndex.toFixed(2)}</td>
-                                                <td className={`px-1 py-0.5 text-right font-medium ${t.pnlPct >= 0 ? 'text-green-600' : 'text-red-500'}`}>
-                                                  {t.pnlPct >= 0 ? '+' : ''}{t.pnlPct.toFixed(2)}%
-                                                </td>
-                                                <td className={`px-1 py-0.5 ${exitColor}`}>{exitReasonLabel[t.exitReason] ?? t.exitReason}</td>
-                                              </tr>
-                                            )
-                                          })}
-                                        </tbody>
-                                      </table>
-                                    </div>
-                                  )}
-                                </td>
-                              </tr>
-                            )}
-                          </React.Fragment>
-                        )
-                      })}
+                      {result.rebalLogs.map((log, i) => (
+                        <tr key={i} className={`border-t border-gray-100 dark:border-gray-700 ${log.isOOS ? 'bg-orange-50 dark:bg-orange-900/10' : ''}`}>
+                          <td className="px-2 py-1">{log.date}</td>
+                          <td className="px-2 py-1">
+                            <span className={`px-1.5 py-0.5 rounded text-xs ${log.isOOS ? 'bg-orange-200 text-orange-800' : 'bg-blue-100 text-blue-800'}`}>
+                              {log.isOOS ? 'OOS' : 'IS'}
+                            </span>
+                          </td>
+                          <td className="px-2 py-1 text-right">{log.selectedSubs.length}</td>
+                          <td className="px-2 py-1 text-right text-green-600">{log.stockEntriesCount > 0 ? `+${log.stockEntriesCount}` : '—'}</td>
+                          <td className="px-2 py-1 text-right text-red-500">{log.stockExitsCount > 0 ? `-${log.stockExitsCount}` : '—'}</td>
+                          <td className="px-2 py-1 text-right">{log.holdingCount}</td>
+                        </tr>
+                      ))}
                     </tbody>
                   </table>
                 </div>
               </div>
 
-              {/* Stop-loss exits (Task 2) */}
-              {(() => {
-                const nonRebalTrades = result.tradeHistory.filter(t => t.exitReason !== 'rebal')
-                if (nonRebalTrades.length === 0) return null
+              {/* Flat Trade History */}
+              {result.tradeHistory.length > 0 && (() => {
                 const exitReasonLabel: Record<string, string> = {
-                  stop_loss: '固定停損', trailing_stop: '追蹤停損',
+                  rebal: '換倉', stop_loss: '固定停損', trailing_stop: '追蹤停損',
                   take_profit: '停利', time_stop: '時間停損', signal: '訊號出場',
                 }
                 const exitColor = (r: string) =>
                   r === 'stop_loss' || r === 'trailing_stop' ? 'text-red-500'
-                  : r === 'take_profit' ? 'text-green-600' : 'text-gray-500'
+                  : r === 'take_profit' ? 'text-green-600'
+                  : r === 'signal' ? 'text-yellow-600'
+                  : 'text-gray-400'
+                // Detect real ticker: not an 8-char uppercase hex (gics_code fallback)
+                const isRealTicker = (t: string) => !/^[0-9A-F]{8}$/.test(t)
+                const sorted = [...result.tradeHistory].sort((a, b) => a.entryDate.localeCompare(b.entryDate))
+                const winCount = sorted.filter(t => t.pnlPct > 0).length
                 return (
                   <div className={sectionCls}>
-                    <h3 className="font-semibold text-gray-900 dark:text-white mb-3">
-                      停損出場紀錄（共 {nonRebalTrades.length} 筆）
+                    <h3 className="font-semibold text-gray-900 dark:text-white mb-1">
+                      個股交易明細（共 {sorted.length} 筆）
                     </h3>
-                    <div className="overflow-auto max-h-64">
+                    <p className="text-xs text-gray-400 mb-3">
+                      勝率 {sorted.length > 0 ? Math.round(winCount / sorted.length * 100) : 0}%　·　損益為 ret_1d 複利估算，不含交易成本
+                    </p>
+                    <div className="overflow-auto max-h-96">
                       <table className="w-full text-xs">
                         <thead className="bg-gray-50 dark:bg-gray-700 sticky top-0">
                           <tr>
-                            <th className="px-2 py-1 text-left">出場日期</th>
                             <th className="px-2 py-1 text-left">股票</th>
                             <th className="px-2 py-1 text-left">所屬產業</th>
                             <th className="px-2 py-1 text-left">入場日</th>
+                            <th className="px-2 py-1 text-left">出場日</th>
                             <th className="px-2 py-1 text-right">持有天</th>
+                            <th className="px-2 py-1 text-right">持倉比重</th>
                             <th className="px-2 py-1 text-right">損益%</th>
                             <th className="px-2 py-1 text-left">出場原因</th>
                           </tr>
                         </thead>
                         <tbody>
-                          {nonRebalTrades.map((t, i) => (
-                            <tr key={i} className="border-t border-gray-100 dark:border-gray-700">
-                              <td className="px-2 py-1">{t.exitDate}</td>
-                              <td className="px-2 py-1 font-mono">{t.ticker}</td>
-                              <td className="px-2 py-1 max-w-[120px] truncate">{t.subName}</td>
-                              <td className="px-2 py-1">{t.entryDate}</td>
-                              <td className="px-2 py-1 text-right">{t.holdingDays}</td>
-                              <td className={`px-2 py-1 text-right font-medium ${t.pnlPct >= 0 ? 'text-green-600' : 'text-red-500'}`}>
+                          {sorted.map((t, i) => (
+                            <tr key={i} className="border-t border-gray-100 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700/30">
+                              <td className="px-2 py-1 font-mono">
+                                {isRealTicker(t.ticker) ? (
+                                  <a
+                                    href={`https://finance.yahoo.com/quote/${t.ticker}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-blue-600 hover:underline dark:text-blue-400"
+                                  >
+                                    {t.ticker}
+                                  </a>
+                                ) : (
+                                  <span className="text-gray-400 text-[10px]">{t.subName.slice(0, 8)}</span>
+                                )}
+                              </td>
+                              <td className="px-2 py-1 max-w-[140px] truncate text-gray-500">{t.subName}</td>
+                              <td className="px-2 py-1 text-gray-500">{t.entryDate}</td>
+                              <td className="px-2 py-1 text-gray-500">{t.exitDate}</td>
+                              <td className="px-2 py-1 text-right text-gray-500">{t.holdingDays}</td>
+                              <td className="px-2 py-1 text-right text-gray-500">
+                                {t.weight != null ? `${(t.weight * 100).toFixed(1)}%` : '—'}
+                              </td>
+                              <td className={`px-2 py-1 text-right font-semibold ${t.pnlPct >= 0 ? 'text-green-600' : 'text-red-500'}`}>
                                 {t.pnlPct >= 0 ? '+' : ''}{t.pnlPct.toFixed(2)}%
                               </td>
-                              <td className={`px-2 py-1 ${exitColor(t.exitReason)}`}>
-                                {exitReasonLabel[t.exitReason] ?? t.exitReason}
-                              </td>
+                              <td className={`px-2 py-1 ${exitColor(t.exitReason)}`}>{exitReasonLabel[t.exitReason] ?? t.exitReason}</td>
                             </tr>
                           ))}
                         </tbody>
