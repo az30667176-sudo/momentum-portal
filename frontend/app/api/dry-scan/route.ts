@@ -1,27 +1,19 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { BacktestConfig } from '@/lib/types'
+import { fetchSubHistory, dryRunScan } from '@/lib/backtestEngine'
 
 export const dynamic = 'force-dynamic'
 export const maxDuration = 30
 
-const EDGE_FN_URL = `${process.env.SUPABASE_URL}/functions/v1/dry-scan`
-
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.text()
+    const { config } = (await req.json()) as { config: BacktestConfig }
 
-    const resp = await fetch(EDGE_FN_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${process.env.SUPABASE_SERVICE_KEY}`,
-      },
-      body,
-    })
-
-    const data = await resp.json()
-    return NextResponse.json(data, { status: resp.status })
+    const subHistory = await fetchSubHistory()
+    const gicsCodes = dryRunScan(config, subHistory)
+    return NextResponse.json({ gicsCodes, subCount: gicsCodes.length, totalDays: subHistory.length })
   } catch (err) {
-    console.error('dry-scan proxy error:', err)
+    console.error('dry-scan error:', err)
     return NextResponse.json({ error: String(err) }, { status: 500 })
   }
 }

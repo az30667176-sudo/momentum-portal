@@ -24,89 +24,151 @@ function makeClient() {
   )
 }
 
-async function _fetchBacktestDataRaw(): Promise<{
+// Fetch sub history via parallel range queries (avoids RPC json_agg timeout).
+// daily_sub_returns has ~40K rows; max_rows=10000 → 5 chunks covers it safely.
+async function _fetchSubHistoryRaw(): Promise<DailySubSnapshot[]> {
+  const supabase = makeClient()
+  const CHUNK = 10000
+  const NUM_CHUNKS = 6 // covers up to 60K rows
+
+  const SELECT_SUB = 'date,gics_code,ret_1d,ret_1w,ret_1m,ret_3m,ret_6m,ret_12m,mom_6m,mom_12m,mom_score,rank_today,rank_prev_week,delta_rank,obv_trend,rvol,vol_mom,pv_divergence,stock_count,breadth_pct,volatility_8w'
+
+  const [gicsResult, ...subChunks] = await Promise.all([
+    supabase.from('gics_universe').select('gics_code,sector,industry_group,industry,sub_industry,etf_proxy'),
+    ...Array.from({ length: NUM_CHUNKS }, (_, i) =>
+      supabase
+        .from('daily_sub_returns')
+        .select(SELECT_SUB)
+        .order('date', { ascending: true })
+        .order('gics_code', { ascending: true })
+        .range(i * CHUNK, (i + 1) * CHUNK - 1)
+    ),
+  ])
+
+  const gicsMap = new Map<string, SubReturn['gics_universe']>(
+    (gicsResult.data ?? []).map((g: Record<string, unknown>) => [
+      g.gics_code as string, g as unknown as SubReturn['gics_universe']
+    ])
+  )
+
+  const subByDate = new Map<string, SubReturn[]>()
+  for (const chunk of subChunks) {
+    if (chunk.error) throw new Error(`sub range query failed: ${chunk.error.message}`)
+    for (const row of (chunk.data ?? []) as Record<string, unknown>[]) {
+      const date = String(row.date).slice(0, 10)
+      if (!subByDate.has(date)) subByDate.set(date, [])
+      subByDate.get(date)!.push({
+        date,
+        gics_code: row.gics_code as string,
+        ret_1d: row.ret_1d != null ? Number(row.ret_1d) : null,
+        ret_1w: row.ret_1w != null ? Number(row.ret_1w) : null,
+        ret_1m: row.ret_1m != null ? Number(row.ret_1m) : null,
+        ret_3m: row.ret_3m != null ? Number(row.ret_3m) : null,
+        ret_6m: row.ret_6m != null ? Number(row.ret_6m) : null,
+        ret_12m: row.ret_12m != null ? Number(row.ret_12m) : null,
+        mom_6m: row.mom_6m != null ? Number(row.mom_6m) : null,
+        mom_12m: row.mom_12m != null ? Number(row.mom_12m) : null,
+        mom_score: row.mom_score != null ? Number(row.mom_score) : null,
+        rank_today: row.rank_today != null ? Number(row.rank_today) : null,
+        rank_prev_week: row.rank_prev_week != null ? Number(row.rank_prev_week) : null,
+        delta_rank: row.delta_rank != null ? Number(row.delta_rank) : null,
+        obv_trend: row.obv_trend != null ? Number(row.obv_trend) : null,
+        rvol: row.rvol != null ? Number(row.rvol) : null,
+        vol_mom: row.vol_mom != null ? Number(row.vol_mom) : null,
+        pv_divergence: row.pv_divergence as string | null,
+        stock_count: row.stock_count != null ? Number(row.stock_count) : null,
+        breadth_pct: row.breadth_pct != null ? Number(row.breadth_pct) : null,
+        volatility_8w: row.volatility_8w != null ? Number(row.volatility_8w) : null,
+        gics_universe: gicsMap.get(row.gics_code as string),
+      })
+    }
+  }
+
+  const subHistory: DailySubSnapshot[] = Array.from(subByDate.entries())
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([date, subs]) => ({ date, subs }))
+
+  if (subHistory.length < 20) {
+    throw new Error(`sub data only ${subHistory.length} days — DB may be mid-write`)
+  }
+  return subHistory
+}
+
+// Cached sub history — 5-minute cache, v1 key
+export const fetchSubHistory = unstable_cache(
+  _fetchSubHistoryRaw,
+  ['sub-history-v1'],
+  { revalidate: 300 }
+)
+
+// Collect the dates on which rebalancing occurs (pure function, no DB)
+export function collectRebalDates(config: BacktestConfig, subHistory: DailySubSnapshot[]): string[] {
+  const dates: string[] = []
+  let nextRebalDay = 0
+  for (let day = 0; day < subHistory.length; day++) {
+    if (day >= nextRebalDay) {
+      dates.push(subHistory[day].date)
+      nextRebalDay = day + config.rebalPeriod
+    }
+  }
+  return dates
+}
+
+// Fetch stock data only for the given rebalancing dates (uncached — depends on config)
+export async function fetchStockHistoryForDates(dates: string[]): Promise<DailyStockSnapshot[]> {
+  if (dates.length === 0) return []
+  const supabase = makeClient()
+  const CHUNK = 10000
+  // dates × ~1500 stocks per date; +2 safety chunks
+  const NUM_CHUNKS = Math.min(Math.ceil(dates.length * 1600 / CHUNK) + 2, 20)
+
+  const chunks = await Promise.all(
+    Array.from({ length: NUM_CHUNKS }, (_, i) =>
+      supabase
+        .from('daily_stock_returns')
+        .select('date,ticker,gics_code,ret_1d,ret_1w,ret_1m,ret_3m,mom_score,rank_in_sub,rvol,obv_trend')
+        .in('date', dates)
+        .order('date', { ascending: true })
+        .order('ticker', { ascending: true })
+        .range(i * CHUNK, (i + 1) * CHUNK - 1)
+    )
+  )
+
+  const stockByDate = new Map<string, StockReturn[]>()
+  for (const chunk of chunks) {
+    if (chunk.error) { console.error('stock range error:', chunk.error.message); continue }
+    for (const row of (chunk.data ?? []) as Record<string, unknown>[]) {
+      const date = String(row.date).slice(0, 10)
+      if (!stockByDate.has(date)) stockByDate.set(date, [])
+      stockByDate.get(date)!.push({
+        date,
+        ticker: row.ticker as string,
+        gics_code: row.gics_code as string,
+        ret_1d: row.ret_1d != null ? Number(row.ret_1d) : null,
+        ret_1w: row.ret_1w != null ? Number(row.ret_1w) : null,
+        ret_1m: row.ret_1m != null ? Number(row.ret_1m) : null,
+        ret_3m: row.ret_3m != null ? Number(row.ret_3m) : null,
+        mom_score: row.mom_score != null ? Number(row.mom_score) : null,
+        rank_in_sub: row.rank_in_sub != null ? Number(row.rank_in_sub) : null,
+        rvol: row.rvol != null ? Number(row.rvol) : null,
+        obv_trend: row.obv_trend != null ? Number(row.obv_trend) : null,
+      })
+    }
+  }
+
+  return Array.from(stockByDate.entries())
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([date, stocks]) => ({ date, stocks }))
+}
+
+// Backward-compatible wrapper for run-robustness (stock data not needed for param sweep)
+export async function fetchBacktestData(): Promise<{
   subHistory: DailySubSnapshot[]
   stockHistory: DailyStockSnapshot[]
 }> {
-  const supabase = makeClient()
-
-  // Split 3 years into 6 half-year parallel calls (~19K rows each) to avoid RPC timeout
-  const fmt = (d: Date) => d.toISOString().split('T')[0]
-  const today = new Date()
-
-  // Build 6 non-overlapping 6-month windows going backwards from today
-  const subChunkPromises = Array.from({ length: 6 }, (_, i) => {
-    const end = new Date(today)
-    end.setMonth(end.getMonth() - i * 6)
-    const start = new Date(end)
-    start.setMonth(start.getMonth() - 6)
-    if (i < 5) start.setDate(start.getDate() + 1) // avoid boundary overlap except oldest chunk
-    return supabase.rpc('get_backtest_sub_history_range', {
-      p_start_date: fmt(start),
-      p_end_date: fmt(end),
-    })
-  })
-
-  const [gicsResult, stockResult, ...subChunks] = await Promise.all([
-    supabase.from('gics_universe').select('gics_code,sector,industry_group,industry,sub_industry,etf_proxy'),
-    supabase.rpc('get_backtest_stock_history'),
-    ...subChunkPromises,
-  ])
-
-  for (let i = 0; i < subChunks.length; i++) {
-    if (subChunks[i].error) {
-      const msg = subChunks[i].error!.message ?? JSON.stringify(subChunks[i].error)
-      throw new Error(`sub-chunk${i + 1} RPC failed: ${msg}`)
-    }
-  }
-  if (stockResult.error) console.error('stock RPC error:', JSON.stringify(stockResult.error))
-
-  // Build gics name lookup
-  const gicsMapByCode = new Map<string, SubReturn['gics_universe']>(
-    (gicsResult.data ?? []).map((g: NonNullable<SubReturn['gics_universe']>) => [
-      (g as unknown as { gics_code: string }).gics_code, g
-    ] as [string, typeof g])
-  )
-
-  // Merge 6 chunks (Map deduplicates by date)
-  const subByDate = new Map<string, { date: string; subs: SubReturn[] }>()
-  for (const r of subChunks) {
-    if (Array.isArray(r.data)) {
-      for (const snap of r.data as { date: string; subs: SubReturn[] }[]) {
-        subByDate.set(snap.date, snap)
-      }
-    }
-  }
-  const subRaw = Array.from(subByDate.values())
-
-  if (subRaw.length < 20) {
-    throw new Error(`sub RPC returned only ${subRaw.length} days — DB may be mid-write`)
-  }
-
-  const subHistory: DailySubSnapshot[] = subRaw
-    .sort((a, b) => a.date.localeCompare(b.date))
-    .map(snap => ({
-      date: snap.date,
-      subs: (snap.subs ?? []).map(sub => ({
-        ...sub,
-        gics_universe: gicsMapByCode.get(sub.gics_code) ?? undefined,
-      })),
-    }))
-
-  // Stock history from RPC
-  const stockHistory: DailyStockSnapshot[] = Array.isArray(stockResult.data)
-    ? (stockResult.data as DailyStockSnapshot[]).sort((a, b) => a.date.localeCompare(b.date))
-    : []
-
-  return { subHistory, stockHistory }
+  const subHistory = await fetchSubHistory()
+  return { subHistory, stockHistory: [] }
 }
-
-// Cache for 5 minutes — v4 key busts stale cache
-export const fetchBacktestData = unstable_cache(
-  _fetchBacktestDataRaw,
-  ['backtest-data-v4'],
-  { revalidate: 300 }
-)
 
 // ── Engine helpers ────────────────────────────────────────────
 
