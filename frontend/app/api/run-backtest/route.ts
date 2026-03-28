@@ -18,11 +18,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(result)
   } catch (err) {
     console.error('run-backtest error:', err)
-    const msg = String(err)
-    const isMidWrite = msg.includes('mid-write') || msg.includes('RPC failed')
-    return NextResponse.json(
-      { error: isMidWrite ? 'Supabase 正在寫入資料，請稍候再試' : msg },
-      { status: 500 }
-    )
+    return NextResponse.json({ error: String(err) }, { status: 500 })
   }
 }
