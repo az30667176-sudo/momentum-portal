@@ -30,30 +30,33 @@ async function _fetchBacktestDataRaw(): Promise<{
 }> {
   const supabase = makeClient()
 
-  // Split 3 years of sub history into 3 parallel year-range calls to avoid RPC timeout
-  // (117K rows in one json_agg times out; ~39K rows per call is fine)
+  // Split 3 years into 6 half-year parallel calls (~19K rows each) to avoid RPC timeout
   const fmt = (d: Date) => d.toISOString().split('T')[0]
-  const shiftYear = (d: Date, years: number) => {
-    const r = new Date(d); r.setFullYear(r.getFullYear() + years); return r
-  }
-  const addDay = (d: Date) => { const r = new Date(d); r.setDate(r.getDate() + 1); return r }
   const today = new Date()
-  const y1 = shiftYear(today, -1)
-  const y2 = shiftYear(today, -2)
-  const y3 = shiftYear(today, -3)
 
-  const [subR1, subR2, subR3, gicsResult, stockResult] = await Promise.all([
-    supabase.rpc('get_backtest_sub_history_range', { p_start_date: fmt(y3),        p_end_date: fmt(y2) }),
-    supabase.rpc('get_backtest_sub_history_range', { p_start_date: fmt(addDay(y2)), p_end_date: fmt(y1) }),
-    supabase.rpc('get_backtest_sub_history_range', { p_start_date: fmt(addDay(y1)), p_end_date: fmt(today) }),
+  // Build 6 non-overlapping 6-month windows going backwards from today
+  const subChunkPromises = Array.from({ length: 6 }, (_, i) => {
+    const end = new Date(today)
+    end.setMonth(end.getMonth() - i * 6)
+    const start = new Date(end)
+    start.setMonth(start.getMonth() - 6)
+    if (i < 5) start.setDate(start.getDate() + 1) // avoid boundary overlap except oldest chunk
+    return supabase.rpc('get_backtest_sub_history_range', {
+      p_start_date: fmt(start),
+      p_end_date: fmt(end),
+    })
+  })
+
+  const [gicsResult, stockResult, ...subChunks] = await Promise.all([
     supabase.from('gics_universe').select('gics_code,sector,industry_group,industry,sub_industry,etf_proxy'),
     supabase.rpc('get_backtest_stock_history'),
+    ...subChunkPromises,
   ])
 
-  for (const [label, r] of [['sub-y1', subR1], ['sub-y2', subR2], ['sub-y3', subR3]] as const) {
-    if ((r as typeof subR1).error) {
-      const msg = (r as typeof subR1).error!.message ?? JSON.stringify((r as typeof subR1).error)
-      throw new Error(`${label} RPC failed: ${msg}`)
+  for (let i = 0; i < subChunks.length; i++) {
+    if (subChunks[i].error) {
+      const msg = subChunks[i].error!.message ?? JSON.stringify(subChunks[i].error)
+      throw new Error(`sub-chunk${i + 1} RPC failed: ${msg}`)
     }
   }
   if (stockResult.error) console.error('stock RPC error:', JSON.stringify(stockResult.error))
@@ -65,9 +68,9 @@ async function _fetchBacktestDataRaw(): Promise<{
     ] as [string, typeof g])
   )
 
-  // Merge 3 year chunks (Map deduplicates by date)
+  // Merge 6 chunks (Map deduplicates by date)
   const subByDate = new Map<string, { date: string; subs: SubReturn[] }>()
-  for (const r of [subR1, subR2, subR3]) {
+  for (const r of subChunks) {
     if (Array.isArray(r.data)) {
       for (const snap of r.data as { date: string; subs: SubReturn[] }[]) {
         subByDate.set(snap.date, snap)
@@ -98,10 +101,10 @@ async function _fetchBacktestDataRaw(): Promise<{
   return { subHistory, stockHistory }
 }
 
-// Cache for 5 minutes — v3 key busts stale cache from old single-RPC approach
+// Cache for 5 minutes — v4 key busts stale cache
 export const fetchBacktestData = unstable_cache(
   _fetchBacktestDataRaw,
-  ['backtest-data-v3'],
+  ['backtest-data-v4'],
   { revalidate: 300 }
 )
 
