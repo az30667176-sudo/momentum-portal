@@ -30,35 +30,56 @@ async function _fetchBacktestDataRaw(): Promise<{
 }> {
   const supabase = makeClient()
 
-  // 3 parallel calls: sub RPC + gics names + stock RPC
-  const [subResult, gicsResult, stockResult] = await Promise.all([
-    supabase.rpc('get_backtest_sub_history'),
+  // Split 3 years of sub history into 3 parallel year-range calls to avoid RPC timeout
+  // (117K rows in one json_agg times out; ~39K rows per call is fine)
+  const fmt = (d: Date) => d.toISOString().split('T')[0]
+  const shiftYear = (d: Date, years: number) => {
+    const r = new Date(d); r.setFullYear(r.getFullYear() + years); return r
+  }
+  const addDay = (d: Date) => { const r = new Date(d); r.setDate(r.getDate() + 1); return r }
+  const today = new Date()
+  const y1 = shiftYear(today, -1)
+  const y2 = shiftYear(today, -2)
+  const y3 = shiftYear(today, -3)
+
+  const [subR1, subR2, subR3, gicsResult, stockResult] = await Promise.all([
+    supabase.rpc('get_backtest_sub_history_range', { p_start_date: fmt(y3),        p_end_date: fmt(y2) }),
+    supabase.rpc('get_backtest_sub_history_range', { p_start_date: fmt(addDay(y2)), p_end_date: fmt(y1) }),
+    supabase.rpc('get_backtest_sub_history_range', { p_start_date: fmt(addDay(y1)), p_end_date: fmt(today) }),
     supabase.from('gics_universe').select('gics_code,sector,industry_group,industry,sub_industry,etf_proxy'),
     supabase.rpc('get_backtest_stock_history'),
   ])
 
-  if (subResult.error) {
-    console.error('sub RPC error:', JSON.stringify(subResult.error))
-    // Throw so unstable_cache does NOT cache this failed result
-    throw new Error(`sub RPC failed: ${subResult.error.message ?? JSON.stringify(subResult.error)}`)
+  for (const [label, r] of [['sub-y1', subR1], ['sub-y2', subR2], ['sub-y3', subR3]] as const) {
+    if ((r as typeof subR1).error) {
+      const msg = (r as typeof subR1).error!.message ?? JSON.stringify((r as typeof subR1).error)
+      throw new Error(`${label} RPC failed: ${msg}`)
+    }
   }
   if (stockResult.error) console.error('stock RPC error:', JSON.stringify(stockResult.error))
 
-  // Build gics name lookup (by gics_code)
+  // Build gics name lookup
   const gicsMapByCode = new Map<string, SubReturn['gics_universe']>(
     (gicsResult.data ?? []).map((g: NonNullable<SubReturn['gics_universe']>) => [
       (g as unknown as { gics_code: string }).gics_code, g
     ] as [string, typeof g])
   )
 
-  // Sub history from RPC — already grouped by date
-  const subRaw: { date: string; subs: SubReturn[] }[] = Array.isArray(subResult.data)
-    ? subResult.data
-    : []
+  // Merge 3 year chunks (Map deduplicates by date)
+  const subByDate = new Map<string, { date: string; subs: SubReturn[] }>()
+  for (const r of [subR1, subR2, subR3]) {
+    if (Array.isArray(r.data)) {
+      for (const snap of r.data as { date: string; subs: SubReturn[] }[]) {
+        subByDate.set(snap.date, snap)
+      }
+    }
+  }
+  const subRaw = Array.from(subByDate.values())
 
   if (subRaw.length < 20) {
     throw new Error(`sub RPC returned only ${subRaw.length} days — DB may be mid-write`)
   }
+
   const subHistory: DailySubSnapshot[] = subRaw
     .sort((a, b) => a.date.localeCompare(b.date))
     .map(snap => ({
@@ -77,10 +98,10 @@ async function _fetchBacktestDataRaw(): Promise<{
   return { subHistory, stockHistory }
 }
 
-// Cache for 5 minutes — v2 key busts any stale Vercel Data Cache entries
+// Cache for 5 minutes — v3 key busts stale cache from old single-RPC approach
 export const fetchBacktestData = unstable_cache(
   _fetchBacktestDataRaw,
-  ['backtest-data-v2'],
+  ['backtest-data-v3'],
   { revalidate: 300 }
 )
 
