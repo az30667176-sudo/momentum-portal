@@ -7,8 +7,8 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
 import postgres from "https://deno.land/x/postgresjs@v3.4.4/mod.js"
 import {
-  BacktestConfig, DailySubSnapshot, DailyStockSnapshot,
-  SubReturn, StockReturn, GicsUniverse,
+  BacktestConfig, DailySubSnapshot,
+  SubReturn, GicsUniverse,
   runBacktestSync,
 } from "../_shared/engine.ts"
 
@@ -30,8 +30,8 @@ serve(async (req: Request) => {
     const sql = postgres(dbUrl, { ssl: "require", prepare: false, max: 3 })
 
     try {
-      // Run 3 queries in parallel: sub history, stock history, gics names
-      const [subRows, stockRows, gicsRows] = await Promise.all([
+      // 2 queries in parallel: sub history + gics names (stock history omitted to stay within memory limits)
+      const [subRows, gicsRows] = await Promise.all([
         sql`
           SELECT
             date::text AS date, gics_code,
@@ -42,14 +42,6 @@ serve(async (req: Request) => {
             stock_count, breadth_pct, volatility_8w
           FROM daily_sub_returns
           ORDER BY date, gics_code
-        `,
-        sql`
-          SELECT
-            date::text AS date, ticker, gics_code,
-            ret_1d, ret_1w, ret_1m, ret_3m,
-            mom_score, rank_in_sub, rvol, obv_trend
-          FROM daily_stock_returns
-          ORDER BY date, ticker
         `,
         sql`
           SELECT gics_code, sector, industry_group, industry, sub_industry, etf_proxy
@@ -103,31 +95,7 @@ serve(async (req: Request) => {
         throw new Error(`sub data only ${subHistory.length} days — DB may be mid-write`)
       }
 
-      // Group stock rows by date
-      const stockByDate = new Map<string, StockReturn[]>()
-      for (const row of stockRows) {
-        const date = row.date as string
-        if (!stockByDate.has(date)) stockByDate.set(date, [])
-        stockByDate.get(date)!.push({
-          date,
-          ticker: row.ticker as string,
-          gics_code: row.gics_code as string,
-          ret_1d: row.ret_1d != null ? Number(row.ret_1d) : null,
-          ret_1w: row.ret_1w != null ? Number(row.ret_1w) : null,
-          ret_1m: row.ret_1m != null ? Number(row.ret_1m) : null,
-          ret_3m: row.ret_3m != null ? Number(row.ret_3m) : null,
-          mom_score: row.mom_score != null ? Number(row.mom_score) : null,
-          rank_in_sub: row.rank_in_sub != null ? Number(row.rank_in_sub) : null,
-          rvol: row.rvol != null ? Number(row.rvol) : null,
-          obv_trend: row.obv_trend != null ? Number(row.obv_trend) : null,
-        })
-      }
-
-      const stockHistory: DailyStockSnapshot[] = Array.from(stockByDate.entries())
-        .sort(([a], [b]) => a.localeCompare(b))
-        .map(([date, stocks]) => ({ date, stocks }))
-
-      const result = runBacktestSync(config, subHistory, stockHistory)
+      const result = runBacktestSync(config, subHistory, [])
 
       return new Response(JSON.stringify(result), {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
