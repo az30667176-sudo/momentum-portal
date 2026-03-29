@@ -24,26 +24,25 @@ function makeClient() {
   )
 }
 
-// Fetch sub history via parallel range queries (avoids RPC json_agg timeout).
-// ~4 years × 155 subs × 252 days ≈ 156K rows; 20 chunks × 10K = 200K covers it.
+// Fetch sub history via batched range queries (avoids RPC json_agg timeout).
+// Batches of 3 concurrent queries prevent connection-pool exhaustion on free tier.
+// Date filter limits to 3 years (~117K rows) to keep OFFSET-based pagination fast.
 async function _fetchSubHistoryRaw(): Promise<DailySubSnapshot[]> {
   const supabase = makeClient()
   const CHUNK = 10000
-  const NUM_CHUNKS = 20 // covers up to 200K rows (~5 years)
+  const BATCH = 3   // concurrent queries per round
+  const MAX_CHUNKS = 15 // safety cap (covers 150K rows = ~3.8 years)
+
+  const threeYearsAgo = new Date()
+  threeYearsAgo.setFullYear(threeYearsAgo.getFullYear() - 3)
+  const startDate = threeYearsAgo.toISOString().split('T')[0]
 
   const SELECT_SUB = 'date,gics_code,ret_1d,ret_1w,ret_1m,ret_3m,ret_6m,ret_12m,mom_6m,mom_12m,mom_score,rank_today,rank_prev_week,delta_rank,obv_trend,rvol,vol_mom,pv_divergence,stock_count,breadth_pct,volatility_8w'
 
-  const [gicsResult, ...subChunks] = await Promise.all([
-    supabase.from('gics_universe').select('gics_code,sector,industry_group,industry,sub_industry,etf_proxy'),
-    ...Array.from({ length: NUM_CHUNKS }, (_, i) =>
-      supabase
-        .from('daily_sub_returns')
-        .select(SELECT_SUB)
-        .order('date', { ascending: true })
-        .order('gics_code', { ascending: true })
-        .range(i * CHUNK, (i + 1) * CHUNK - 1)
-    ),
-  ])
+  // Fetch gics universe first (fast, 155 rows)
+  const gicsResult = await supabase
+    .from('gics_universe')
+    .select('gics_code,sector,industry_group,industry,sub_industry,etf_proxy')
 
   const gicsMap = new Map<string, SubReturn['gics_universe']>(
     (gicsResult.data ?? []).map((g: Record<string, unknown>) => [
@@ -51,10 +50,35 @@ async function _fetchSubHistoryRaw(): Promise<DailySubSnapshot[]> {
     ])
   )
 
+  // Fetch sub rows in sequential batches of BATCH concurrent queries
+  const allSubRows: Record<string, unknown>[] = []
+  let chunkIdx = 0
+  let done = false
+
+  while (!done && chunkIdx < MAX_CHUNKS) {
+    const batchSize = Math.min(BATCH, MAX_CHUNKS - chunkIdx)
+    const batchResults = await Promise.all(
+      Array.from({ length: batchSize }, (_, j) =>
+        supabase
+          .from('daily_sub_returns')
+          .select(SELECT_SUB)
+          .gte('date', startDate)
+          .order('date', { ascending: true })
+          .order('gics_code', { ascending: true })
+          .range((chunkIdx + j) * CHUNK, (chunkIdx + j + 1) * CHUNK - 1)
+      )
+    )
+    chunkIdx += batchSize
+
+    for (const chunk of batchResults) {
+      if (chunk.error) throw new Error(`sub range query failed: ${chunk.error.message}`)
+      allSubRows.push(...(chunk.data as Record<string, unknown>[]))
+      if ((chunk.data?.length ?? 0) < CHUNK) done = true
+    }
+  }
+
   const subByDate = new Map<string, SubReturn[]>()
-  for (const chunk of subChunks) {
-    if (chunk.error) throw new Error(`sub range query failed: ${chunk.error.message}`)
-    for (const row of (chunk.data ?? []) as Record<string, unknown>[]) {
+  for (const row of allSubRows) {
       const date = String(row.date).slice(0, 10)
       if (!subByDate.has(date)) subByDate.set(date, [])
       subByDate.get(date)!.push({
@@ -81,7 +105,6 @@ async function _fetchSubHistoryRaw(): Promise<DailySubSnapshot[]> {
         volatility_8w: row.volatility_8w != null ? Number(row.volatility_8w) : null,
         gics_universe: gicsMap.get(row.gics_code as string),
       })
-    }
   }
 
   const subHistory: DailySubSnapshot[] = Array.from(subByDate.entries())
