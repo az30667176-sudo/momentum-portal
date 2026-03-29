@@ -46,8 +46,17 @@ async function _fetchSubHistoryRaw(): Promise<DailySubSnapshot[]> {
     windows.push({ from, to })
   }
 
-  // Use * to fetch all indicator columns (pvt_slope, mfi, cmf, etc.)
-  const SELECT_SUB = '*'
+  // Explicit column list (avoids transferring unused columns like mom_6m, delta_rank etc.)
+  const SELECT_SUB = [
+    'date','gics_code','pv_divergence','rank_today','stock_count',
+    'ret_1d','ret_1w','ret_1m','ret_3m','ret_6m','ret_12m',
+    'mom_score','obv_trend','rvol','vol_mom','vol_surge_score',
+    'sharpe_8w','sortino_8w','volatility_8w','calmar_ratio','win_rate_8w','skewness',
+    'information_ratio','momentum_decay_rate','breadth_adj_mom','rs_trend_slope',
+    'leader_lagger_ratio','downside_capture',
+    'cmf','mfi','vrsi','pvt_slope',
+    'beta','momentum_autocorr','price_trend_r2','ad_slope','breadth_pct',
+  ].join(',')
 
   // Fetch gics universe first (fast, 155 rows)
   const gicsResult = await supabase
