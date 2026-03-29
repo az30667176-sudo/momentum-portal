@@ -5,8 +5,9 @@ import { SubReturn, StockReturn, StockHeatmapEntry } from '@/lib/types'
 import { StockHeatmap } from '@/components/StockHeatmap'
 
 type Mode = 'by-sub' | 'by-return' | 'by-momentum'
-type ReturnWindow = '1w' | '1m' | '3m' | '6m'
+type ReturnWindow = '1w' | '1m' | '3m' | '6m' | '1y'
 type IndexFilter = 'all' | 'SP500' | 'SP400' | 'SP600'
+type MomQuartile = '0' | '1' | '2' | '3'  // 0=後段, 1=中低, 2=中高, 3=領先
 
 interface Props {
   subData: SubReturn[]
@@ -15,13 +16,23 @@ interface Props {
   heatmapDate?: string | null
 }
 
+// Get a return value including fields not in the TS type but present in DB data
+function getRetVal(s: StockReturn, w: ReturnWindow): number | null {
+  if (w === '1w') return s.ret_1w
+  if (w === '1m') return s.ret_1m
+  if (w === '3m') return s.ret_3m
+  if (w === '6m') return (s as any).ret_6m ?? null
+  if (w === '1y') return (s as any).ret_12m ?? null
+  return null
+}
+
 export function StockRanking({ subData, stockData, heatmapEntries = [], heatmapDate = null }: Props) {
   const [mode, setMode] = useState<Mode>('by-sub')
   const [returnWindow, setReturnWindow] = useState<ReturnWindow>('1m')
   const [indexFilter, setIndexFilter] = useState<IndexFilter>('all')
   const [search, setSearch] = useState('')
   const [page, setPage] = useState(0)
-  const [momFilter, setMomFilter] = useState<string | null>(null)
+  const [momQuartile, setMomQuartile] = useState<MomQuartile | null>(null)
   const PAGE_SIZE = 50
 
   // Helper to get nested values from joined data
@@ -30,13 +41,22 @@ export function StockRanking({ subData, stockData, heatmapEntries = [], heatmapD
   const getSector = (s: StockReturn) => (s as any).gics_universe?.sector ?? ''
   const getSubIndustry = (s: StockReturn) => (s as any).gics_universe?.sub_industry ?? ''
 
-  // StockReturn has ret_1d, ret_1w, ret_1m, ret_3m — no ret_6m
-  const returnField: Record<ReturnWindow, keyof StockReturn> = {
-    '1w': 'ret_1w',
-    '1m': 'ret_1m',
-    '3m': 'ret_3m',
-    '6m': 'ret_3m',  // fallback: ret_6m not in StockReturn type
-  }
+  // Compute percentile boundaries (p25, p50, p75) from actual mom_score distribution
+  const momThresholds = useMemo(() => {
+    const scores = stockData
+      .map(s => s.mom_score)
+      .filter((v): v is number => v != null)
+      .sort((a, b) => a - b)
+    if (scores.length < 4) return null
+    const n = scores.length
+    return {
+      p25: scores[Math.floor(n * 0.25)],
+      p50: scores[Math.floor(n * 0.50)],
+      p75: scores[Math.floor(n * 0.75)],
+      min: scores[0],
+      max: scores[n - 1],
+    }
+  }, [stockData])
 
   const filtered = useMemo(() => {
     let data = stockData
@@ -45,23 +65,31 @@ export function StockRanking({ subData, stockData, heatmapEntries = [], heatmapD
       const q = search.toLowerCase()
       data = data.filter(s => s.ticker.toLowerCase().includes(q) || getCompany(s).toLowerCase().includes(q))
     }
-    if (mode === 'by-momentum' && momFilter) {
-      const [lo, hi] = momFilter.split('-').map(Number)
+    if (mode === 'by-momentum' && momQuartile !== null && momThresholds) {
+      const { p25, p50, p75, max } = momThresholds
       data = data.filter(s => {
-        const sc = s.mom_score ?? 0
-        return sc >= lo && sc < hi
+        if (s.mom_score == null) return false
+        const sc = s.mom_score
+        if (momQuartile === '0') return sc < p25
+        if (momQuartile === '1') return sc >= p25 && sc < p50
+        if (momQuartile === '2') return sc >= p50 && sc < p75
+        if (momQuartile === '3') return sc >= p75
+        return true
       })
     }
     return data
-  }, [stockData, indexFilter, search, mode, momFilter])
+  }, [stockData, indexFilter, search, mode, momQuartile, momThresholds])
 
   const sorted = useMemo(() => {
     if (mode === 'by-return') {
-      const field = returnField[returnWindow]
-      return [...filtered].sort((a, b) => ((b[field] as number) ?? -Infinity) - ((a[field] as number) ?? -Infinity))
+      return [...filtered].sort((a, b) => {
+        const av = getRetVal(a, returnWindow) ?? -Infinity
+        const bv = getRetVal(b, returnWindow) ?? -Infinity
+        return bv - av
+      })
     }
     if (mode === 'by-momentum') {
-      return [...filtered].sort((a, b) => ((b.mom_score ?? 0) - (a.mom_score ?? 0)))
+      return [...filtered].sort((a, b) => ((b.mom_score ?? -Infinity) - (a.mom_score ?? -Infinity)))
     }
     return filtered
   }, [filtered, mode, returnWindow])
@@ -79,8 +107,20 @@ export function StockRanking({ subData, stockData, heatmapEntries = [], heatmapD
     return ''
   }
 
-const modeBtnCls = (m: Mode) =>
+  const modeBtnCls = (m: Mode) =>
     `px-4 py-2 text-sm font-medium rounded-lg transition-colors ${mode === m ? 'bg-blue-600 text-white' : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'}`
+
+  const momQuartileLabels: { q: MomQuartile; label: string; range: string }[] = momThresholds ? [
+    { q: '0', label: '後段', range: `< ${momThresholds.p25.toFixed(0)}` },
+    { q: '1', label: '中低', range: `${momThresholds.p25.toFixed(0)}–${momThresholds.p50.toFixed(0)}` },
+    { q: '2', label: '中高', range: `${momThresholds.p50.toFixed(0)}–${momThresholds.p75.toFixed(0)}` },
+    { q: '3', label: '領先', range: `≥ ${momThresholds.p75.toFixed(0)}` },
+  ] : [
+    { q: '0', label: '後段', range: '0–25' },
+    { q: '1', label: '中低', range: '25–50' },
+    { q: '2', label: '中高', range: '50–75' },
+    { q: '3', label: '領先', range: '75–100' },
+  ]
 
   return (
     <div>
@@ -107,7 +147,7 @@ const modeBtnCls = (m: Mode) =>
           <div className="flex flex-wrap gap-3 mb-4 items-center">
             {mode === 'by-return' && (
               <div className="flex gap-1">
-                {(['1w','1m','3m','6m'] as ReturnWindow[]).map(w => (
+                {(['1w','1m','3m','6m','1y'] as ReturnWindow[]).map(w => (
                   <button key={w} onClick={() => { setReturnWindow(w); setPage(0) }}
                     className={`px-3 py-1.5 text-xs rounded font-medium transition-colors ${returnWindow === w ? 'bg-blue-600 text-white' : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-600'}`}>
                     {w.toUpperCase()}
@@ -117,9 +157,9 @@ const modeBtnCls = (m: Mode) =>
             )}
             {mode === 'by-momentum' && (
               <div className="flex gap-1">
-                {[['後段','0-25'],['中低','25-50'],['中高','50-75'],['領先','75-100']].map(([label, range]) => (
-                  <button key={range} onClick={() => { setMomFilter(momFilter === range ? null : range); setPage(0) }}
-                    className={`px-3 py-1.5 text-xs rounded font-medium transition-colors ${momFilter === range ? 'bg-blue-600 text-white' : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-600'}`}>
+                {momQuartileLabels.map(({ q, label, range }) => (
+                  <button key={q} onClick={() => { setMomQuartile(momQuartile === q ? null : q); setPage(0) }}
+                    className={`px-3 py-1.5 text-xs rounded font-medium transition-colors ${momQuartile === q ? 'bg-blue-600 text-white' : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-600'}`}>
                     {label} ({range})
                   </button>
                 ))}
@@ -170,7 +210,7 @@ const modeBtnCls = (m: Mode) =>
                       </td>
                       {mode === 'by-return' ? (
                         <>
-                          <td className="px-3 py-2 font-mono text-sm">{fmtPct(s[returnField[returnWindow]] as number)}</td>
+                          <td className="px-3 py-2 font-mono text-sm">{fmtPct(getRetVal(s, returnWindow))}</td>
                           <td className="px-3 py-2 font-mono text-blue-600 text-sm">{s.mom_score?.toFixed(1) ?? '—'}</td>
                         </>
                       ) : (
