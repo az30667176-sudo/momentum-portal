@@ -228,18 +228,30 @@ export async function getStockHistory(ticker: string): Promise<StockReturn[]> {
 
 export async function getPrevSubReturns(): Promise<SubReturn[]> {
   const supabase = createServerClient()
-  // Get the second-latest date
-  const { data: dates } = await supabase
+  // Get the latest date first, then query for the most recent date BEFORE it.
+  // Cannot use .limit(2) on the raw table because there are ~155 rows per date —
+  // the first 2 rows would both be from the same (latest) date.
+  const { data: latest } = await supabase
     .from('daily_sub_returns')
     .select('date')
     .order('date', { ascending: false })
-    .limit(2)
-  if (!dates || dates.length < 2) return []
-  const prevDate = dates[1].date
+    .limit(1)
+    .single()
+  if (!latest) return []
+
+  const { data: prev } = await supabase
+    .from('daily_sub_returns')
+    .select('date')
+    .lt('date', latest.date)
+    .order('date', { ascending: false })
+    .limit(1)
+    .single()
+  if (!prev) return []
+
   const { data, error } = await supabase
     .from('daily_sub_returns')
     .select('*, gics_universe ( sector, industry_group, industry, sub_industry, etf_proxy )')
-    .eq('date', prevDate)
+    .eq('date', prev.date)
   if (error || !data) return []
   return data as SubReturn[]
 }
