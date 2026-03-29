@@ -298,7 +298,14 @@ function FilterBlock({ filter, onChange, onDelete, onSelectIndicator }: FilterBl
           {types.map(t => (
             <button
               key={t}
-              onClick={() => onChange({ ...filter, type: t })}
+              onClick={() => {
+                const defaults: Partial<typeof filter> =
+                  t === 'static'     ? { op: '>=' } :
+                  t === 'delta'      ? { op: 'rise' } :
+                  t === 'crossover'  ? { direction: 'neg_to_pos' } :
+                  t === 'rank_break' ? { mode: 'top_pct' } : {}
+                onChange({ ...filter, type: t, ...defaults })
+              }}
               className={`px-2 py-0.5 text-xs rounded ${
                 filter.type === t
                   ? 'bg-blue-600 text-white'
