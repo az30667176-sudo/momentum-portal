@@ -37,7 +37,9 @@ async function _fetchSubHistoryRaw(): Promise<DailySubSnapshot[]> {
   threeYearsAgo.setFullYear(threeYearsAgo.getFullYear() - 3)
   const startDate = threeYearsAgo.toISOString().split('T')[0]
 
-  const SELECT_SUB = 'date,gics_code,ret_1d,ret_1w,ret_1m,ret_3m,ret_6m,ret_12m,mom_6m,mom_12m,mom_score,rank_today,rank_prev_week,delta_rank,obv_trend,rvol,vol_mom,pv_divergence,stock_count,breadth_pct,volatility_8w'
+  // Use * to fetch all indicator columns (pvt_slope, mfi, cmf, etc.)
+  // so backtest filters match the same data available in the live preview
+  const SELECT_SUB = '*'
 
   // Fetch gics universe first (fast, 155 rows)
   const gicsResult = await supabase
@@ -81,30 +83,21 @@ async function _fetchSubHistoryRaw(): Promise<DailySubSnapshot[]> {
   for (const row of allSubRows) {
       const date = String(row.date).slice(0, 10)
       if (!subByDate.has(date)) subByDate.set(date, [])
+      // Spread all numeric columns from the row, then attach gics_universe.
+      // Using spread ensures future indicator columns (pvt_slope, mfi, cmf, etc.)
+      // are included without needing to enumerate them explicitly.
+      const numericFields: Record<string, number | null> = {}
+      for (const [k, v] of Object.entries(row)) {
+        if (k === 'date' || k === 'gics_code' || k === 'pv_divergence') continue
+        numericFields[k] = v != null ? Number(v) : null
+      }
       subByDate.get(date)!.push({
+        ...numericFields,
         date,
         gics_code: row.gics_code as string,
-        ret_1d: row.ret_1d != null ? Number(row.ret_1d) : null,
-        ret_1w: row.ret_1w != null ? Number(row.ret_1w) : null,
-        ret_1m: row.ret_1m != null ? Number(row.ret_1m) : null,
-        ret_3m: row.ret_3m != null ? Number(row.ret_3m) : null,
-        ret_6m: row.ret_6m != null ? Number(row.ret_6m) : null,
-        ret_12m: row.ret_12m != null ? Number(row.ret_12m) : null,
-        mom_6m: row.mom_6m != null ? Number(row.mom_6m) : null,
-        mom_12m: row.mom_12m != null ? Number(row.mom_12m) : null,
-        mom_score: row.mom_score != null ? Number(row.mom_score) : null,
-        rank_today: row.rank_today != null ? Number(row.rank_today) : null,
-        rank_prev_week: row.rank_prev_week != null ? Number(row.rank_prev_week) : null,
-        delta_rank: row.delta_rank != null ? Number(row.delta_rank) : null,
-        obv_trend: row.obv_trend != null ? Number(row.obv_trend) : null,
-        rvol: row.rvol != null ? Number(row.rvol) : null,
-        vol_mom: row.vol_mom != null ? Number(row.vol_mom) : null,
         pv_divergence: row.pv_divergence as string | null,
-        stock_count: row.stock_count != null ? Number(row.stock_count) : null,
-        breadth_pct: row.breadth_pct != null ? Number(row.breadth_pct) : null,
-        volatility_8w: row.volatility_8w != null ? Number(row.volatility_8w) : null,
         gics_universe: gicsMap.get(row.gics_code as string),
-      })
+      } as unknown as SubReturn)
   }
 
   const subHistory: DailySubSnapshot[] = Array.from(subByDate.entries())
@@ -117,10 +110,10 @@ async function _fetchSubHistoryRaw(): Promise<DailySubSnapshot[]> {
   return subHistory
 }
 
-// Cached sub history — 5-minute cache, v2 key (busts old 6-chunk cache)
+// Cached sub history — 5-minute cache, v3 key (busts cache after select-* change)
 export const fetchSubHistory = unstable_cache(
   _fetchSubHistoryRaw,
-  ['sub-history-v2'],
+  ['sub-history-v3'],
   { revalidate: 300 }
 )
 
