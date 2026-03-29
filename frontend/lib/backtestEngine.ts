@@ -34,9 +34,9 @@ async function _fetchSubHistoryRaw(): Promise<DailySubSnapshot[]> {
   const BATCH = 1   // sequential — avoids concurrent OFFSET scan timeout
   const MAX_CHUNKS = 12 // safety cap (covers 60K rows)
 
-  const oneYearAgo = new Date()
-  oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1)
-  const startDate = oneYearAgo.toISOString().split('T')[0]
+  const threeYearsAgo = new Date()
+  threeYearsAgo.setFullYear(threeYearsAgo.getFullYear() - 3)
+  const startDate = threeYearsAgo.toISOString().split('T')[0]
 
   // Use * to fetch all indicator columns (pvt_slope, mfi, cmf, etc.)
   // so backtest filters match the same data available in the live preview
