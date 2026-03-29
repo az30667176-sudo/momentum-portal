@@ -5,29 +5,24 @@ import { SubReturn } from '@/lib/types'
 import Link from 'next/link'
 
 type SubWindow = 'mom' | '1d' | '1w' | '1m' | '3m' | '6m' | '12m'
-type SortBy = 'rank' | 'score' | 'ret_1d' | 'ret_3m' | 'sector'
+type DisplayMode = 'momentum' | 'return'
+type ReturnWindow = '1w' | '1m' | '3m' | '6m' | '12m'
+type SortBy =
+  | 'rank'
+  | 'rank_asc'
+  | 'sector'
+  | 'delta_rank'
+  | 'breadth'
+  | 'rvol'
+  | 'ret_desc'
+  | 'ret_asc'
 
-const WINDOWS: { key: SubWindow; label: string }[] = [
-  { key: 'mom', label: '動能' },
-  { key: '1d', label: '1D' },
-  { key: '1w', label: '1W' },
-  { key: '1m', label: '1M' },
-  { key: '3m', label: '3M' },
-  { key: '6m', label: '6M' },
-  { key: '12m', label: '12M' },
-]
-
-function getRetField(w: SubWindow): keyof SubReturn {
-  const map: Record<SubWindow, keyof SubReturn> = {
-    mom: 'mom_score',
-    '1d': 'ret_1d',
-    '1w': 'ret_1w',
-    '1m': 'ret_1m',
-    '3m': 'ret_3m',
-    '6m': 'ret_6m',
-    '12m': 'ret_12m',
-  }
-  return map[w]
+const returnField: Record<ReturnWindow, keyof SubReturn> = {
+  '1w': 'ret_1w',
+  '1m': 'ret_1m',
+  '3m': 'ret_3m',
+  '6m': 'ret_6m',
+  '12m': 'ret_12m',
 }
 
 function getMomColor(score: number | null): string {
@@ -70,22 +65,49 @@ interface Props {
 }
 
 export function Heatmap({ data, latestDate }: Props) {
-  const [activeWindow, setActiveWindow] = useState<SubWindow>('mom')
+  const [displayMode, setDisplayMode] = useState<DisplayMode>('momentum')
+  const [returnWindow, setReturnWindow] = useState<ReturnWindow>('12m')
   const [sortBy, setSortBy] = useState<SortBy>('sector')
 
-  const retField = getRetField(activeWindow)
+  // Legacy activeWindow kept for color/value logic
+  const activeWindow: SubWindow = displayMode === 'momentum' ? 'mom' : returnWindow
+
+  function handleSetDisplayMode(mode: DisplayMode) {
+    setDisplayMode(mode)
+    if (mode === 'return') {
+      setReturnWindow('12m')
+      setSortBy('ret_desc')
+    } else {
+      setSortBy('sector')
+    }
+  }
+
+  function handleSetReturnWindow(w: ReturnWindow) {
+    setReturnWindow(w)
+    setSortBy('ret_desc')
+  }
 
   const sorted = useMemo(() => {
     const arr = [...data]
     switch (sortBy) {
       case 'rank':
         return arr.sort((a, b) => (a.rank_today ?? 999) - (b.rank_today ?? 999))
-      case 'score':
-        return arr.sort((a, b) => (b.mom_score ?? 0) - (a.mom_score ?? 0))
-      case 'ret_1d':
-        return arr.sort((a, b) => (b.ret_1d ?? -999) - (a.ret_1d ?? -999))
-      case 'ret_3m':
-        return arr.sort((a, b) => (b.ret_3m ?? -999) - (a.ret_3m ?? -999))
+      case 'rank_asc':
+        return arr.sort((a, b) => (b.rank_today ?? 0) - (a.rank_today ?? 0))
+      case 'delta_rank':
+        return arr.sort((a, b) => (b.delta_rank ?? -999) - (a.delta_rank ?? -999))
+      case 'breadth':
+        return arr.sort((a, b) => (b.breadth_pct ?? -999) - (a.breadth_pct ?? -999))
+      case 'rvol':
+        return arr.sort((a, b) => (b.rvol ?? -999) - (a.rvol ?? -999))
+      case 'ret_desc': {
+        const field = returnField[returnWindow]
+        return arr.sort((a, b) => ((b[field] as number) ?? -999) - ((a[field] as number) ?? -999))
+      }
+      case 'ret_asc': {
+        const field = returnField[returnWindow]
+        return arr.sort((a, b) => ((a[field] as number) ?? 999) - ((b[field] as number) ?? 999))
+      }
       case 'sector':
       default:
         return arr.sort((a, b) => {
@@ -95,7 +117,7 @@ export function Heatmap({ data, latestDate }: Props) {
           return (a.rank_today ?? 999) - (b.rank_today ?? 999)
         })
     }
-  }, [data, sortBy])
+  }, [data, sortBy, returnWindow])
 
   // When sorting by sector, group by sector; otherwise one flat group
   const groups = useMemo(() => {
@@ -112,75 +134,94 @@ export function Heatmap({ data, latestDate }: Props) {
   }, [sorted, sortBy])
 
   function getColor(row: SubReturn): string {
-    if (activeWindow === 'mom') return getMomColor(row.mom_score)
-    return getRetColor(row[retField] as number | null)
+    if (displayMode === 'momentum') return getMomColor(row.mom_score)
+    return getRetColor(row[returnField[returnWindow]] as number | null)
   }
 
   function getMainValue(row: SubReturn): string {
-    if (activeWindow === 'mom') return fmtScore(row.mom_score)
-    return fmtRet(row[retField] as number | null)
+    if (displayMode === 'momentum') return fmtScore(row.mom_score)
+    return fmtRet(row[returnField[returnWindow]] as number | null)
   }
 
   const totalRows = data.length
-
-  // Compute summary stats for header
-  const topQuartile = sorted.filter(r => (r.rank_today ?? 999) <= Math.ceil(totalRows / 4)).length
   const advancing = sorted.filter(r => (r.ret_1d ?? 0) > 0).length
+
+  const btnBase = 'px-3 py-1.5 text-xs rounded font-medium transition-colors'
+  const btnActive = 'bg-blue-600 text-white'
+  const btnInactive = 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
 
   return (
     <div className="p-4 md:p-6 max-w-screen-2xl mx-auto">
       {/* ── Header ── */}
-      <div className="flex flex-col sm:flex-row sm:items-start justify-between mb-5 gap-3">
+      <div className="flex flex-col sm:flex-row sm:items-start justify-between mb-4 gap-3">
         <div>
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
             Momentum Portal
           </h1>
           <div className="flex gap-4 mt-1 text-sm text-gray-500">
             {latestDate && <span>Data as of <strong className="text-gray-700 dark:text-gray-300">{latestDate}</strong></span>}
-            <Link href="/" className="text-xs text-blue-500 hover:underline">← 個股視圖</Link>
-          <span>{totalRows} sub-industries</span>
+            <span>{totalRows} sub-industries</span>
             <span className="text-green-600">{advancing} advancing</span>
             <span className="text-gray-400">{totalRows - advancing} declining</span>
           </div>
         </div>
+      </div>
 
-        {/* ── Controls ── */}
-        <div className="flex flex-wrap gap-2 items-center shrink-0">
-          {/* Time window pills */}
-          <div className="flex gap-0.5 bg-gray-100 dark:bg-gray-800 rounded-lg p-1">
-            {WINDOWS.map(({ key, label }) => (
-              <button
-                key={key}
-                onClick={() => setActiveWindow(key)}
-                className={`px-2.5 py-1 rounded text-xs font-semibold transition-colors ${
-                  activeWindow === key
-                    ? 'bg-white dark:bg-gray-600 shadow text-gray-900 dark:text-white'
-                    : 'text-gray-500 hover:text-gray-800 dark:hover:text-gray-200'
-                }`}
-              >
-                {label}
-              </button>
-            ))}
-          </div>
-
-          {/* Sort */}
-          <select
-            value={sortBy}
-            onChange={(e) => setSortBy(e.target.value as SortBy)}
-            className="text-xs border border-gray-200 dark:border-gray-600 rounded-lg px-2.5 py-1.5 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200"
+      {/* ── Control bar ── */}
+      <div className="flex flex-col gap-2 mb-4">
+        {/* Row 1: Display mode */}
+        <div className="flex gap-1">
+          <button
+            onClick={() => handleSetDisplayMode('momentum')}
+            className={`${btnBase} ${displayMode === 'momentum' ? btnActive : btnInactive}`}
           >
-            <option value="sector">Sort: Sector</option>
-            <option value="rank">Sort: Rank</option>
-            <option value="score">Sort: Mom Score</option>
-            <option value="ret_1d">Sort: 1D Return</option>
-            <option value="ret_3m">Sort: 3M Return</option>
-          </select>
+            動能分數
+          </button>
+          <button
+            onClick={() => handleSetDisplayMode('return')}
+            className={`${btnBase} ${displayMode === 'return' ? btnActive : btnInactive}`}
+          >
+            報酬
+          </button>
         </div>
+
+        {/* Row 2: Sort/window controls conditional on displayMode */}
+        {displayMode === 'momentum' ? (
+          <div className="flex flex-wrap gap-1">
+            <button onClick={() => setSortBy('rank')} className={`${btnBase} ${sortBy === 'rank' ? btnActive : btnInactive}`}>強→弱</button>
+            <button onClick={() => setSortBy('rank_asc')} className={`${btnBase} ${sortBy === 'rank_asc' ? btnActive : btnInactive}`}>弱→強</button>
+            <button onClick={() => setSortBy('sector')} className={`${btnBase} ${sortBy === 'sector' ? btnActive : btnInactive}`}>GICS順序</button>
+            <button onClick={() => setSortBy('delta_rank')} className={`${btnBase} ${sortBy === 'delta_rank' ? btnActive : btnInactive}`}>ΔRank最大</button>
+            <button onClick={() => setSortBy('breadth')} className={`${btnBase} ${sortBy === 'breadth' ? btnActive : btnInactive}`}>廣度最高</button>
+            <button onClick={() => setSortBy('rvol')} className={`${btnBase} ${sortBy === 'rvol' ? btnActive : btnInactive}`}>RVol最高</button>
+          </div>
+        ) : (
+          <div className="flex flex-wrap gap-2 items-center">
+            {/* Time windows */}
+            <div className="flex gap-1">
+              {(['1w', '1m', '3m', '6m', '12m'] as ReturnWindow[]).map(w => (
+                <button
+                  key={w}
+                  onClick={() => handleSetReturnWindow(w)}
+                  className={`${btnBase} ${returnWindow === w ? btnActive : btnInactive}`}
+                >
+                  {w === '12m' ? '1Y' : w.toUpperCase()}
+                </button>
+              ))}
+            </div>
+            {/* Sort direction */}
+            <div className="flex gap-1 border-l border-gray-200 dark:border-gray-600 pl-2">
+              <button onClick={() => setSortBy('ret_desc')} className={`${btnBase} ${sortBy === 'ret_desc' ? btnActive : btnInactive}`}>強→弱</button>
+              <button onClick={() => setSortBy('ret_asc')} className={`${btnBase} ${sortBy === 'ret_asc' ? btnActive : btnInactive}`}>弱→強</button>
+              <button onClick={() => setSortBy('sector')} className={`${btnBase} ${sortBy === 'sector' ? btnActive : btnInactive}`}>GICS順序</button>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* ── Color legend ── */}
       <div className="flex items-center gap-1 mb-4 text-xs text-gray-400">
-        {activeWindow === 'mom' ? (
+        {displayMode === 'momentum' ? (
           <>
             <span>Momentum:</span>
             {[

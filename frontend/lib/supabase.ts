@@ -342,6 +342,36 @@ export async function getDailySubHistory(): Promise<DailySubSnapshot[]> {
     .map(([date, subs]) => ({ date, subs }))
 }
 
+export async function getLatestStockReturns(): Promise<StockReturn[]> {
+  const supabase = createServerClient()
+
+  // Get latest date
+  const { data: latest } = await supabase
+    .from('daily_stock_returns')
+    .select('date')
+    .order('date', { ascending: false })
+    .limit(1)
+    .single()
+  if (!latest) return []
+
+  // Fetch all stocks for that date in two parallel range queries (bypass 1000-row cap)
+  const [p1, p2] = await Promise.all([
+    supabase
+      .from('daily_stock_returns')
+      .select(`*, stock_universe!inner(company, index_member, gics_code), gics_universe(sector, sub_industry)`)
+      .eq('date', latest.date)
+      .order('mom_score', { ascending: false, nullsFirst: false })
+      .range(0, 999),
+    supabase
+      .from('daily_stock_returns')
+      .select(`*, stock_universe!inner(company, index_member, gics_code), gics_universe(sector, sub_industry)`)
+      .eq('date', latest.date)
+      .order('mom_score', { ascending: false, nullsFirst: false })
+      .range(1000, 1999),
+  ])
+  return [...(p1.data ?? []), ...(p2.data ?? [])] as unknown as StockReturn[]
+}
+
 export async function getDailyStockHistory(): Promise<DailyStockSnapshot[]> {
   const supabase = createServerClient()
 

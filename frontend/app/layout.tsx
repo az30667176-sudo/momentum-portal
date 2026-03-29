@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import { NavBar } from '@/components/NavBar'
 
 export const metadata: Metadata = {
   title: 'Momentum Portal',
@@ -13,7 +14,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="zh-TW">
-      <body>{children}</body>
+      <body className="pt-14">
+        <NavBar />
+        {children}
+      </body>
     </html>
   )
 }
