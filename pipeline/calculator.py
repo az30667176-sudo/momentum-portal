@@ -211,36 +211,77 @@ def calc_cross_sectional_rank(scores: dict) -> dict:
     return {gics_code: rank + 1 for rank, (gics_code, _) in enumerate(items)}
 
 
-def calc_momentum_score(ret_3m: float | None,
-                        ret_6m: float | None,
-                        all_ret3m: list[float],
-                        all_ret6m: list[float]) -> float:
-    """
-    計算 0-100 的綜合動能分數。
-    公式：0.5 × Z(ret_3m) + 0.5 × Z(ret_6m)，轉換到 0-100。
+def _zscore_percentile(val: float | None, all_vals: list) -> float:
+    """將單一值轉換為截面百分位（0–100）。"""
+    clean = [v for v in all_vals if v is not None and not np.isnan(float(v))]
+    if not clean or val is None or np.isnan(float(val)):
+        return 50.0
+    mn = np.mean(clean)
+    std = np.std(clean, ddof=1)
+    if std < 1e-8:
+        return 50.0
+    return float(stats.norm.cdf((float(val) - mn) / std) * 100)
 
-    Parameters
-    ----------
-    ret_3m, ret_6m : float | None
-        該 sub-industry 的 3M / 6M 報酬
-    all_ret3m, all_ret6m : list[float]
-        全部 145 個 sub-industry 的對應值（截面計算用）
-    """
-    def zscore_percentile(val, all_vals):
-        clean = [v for v in all_vals if v is not None and not np.isnan(v)]
-        if not clean or val is None:
-            return 50.0
-        mn = np.mean(clean)
-        std = np.std(clean, ddof=1)
-        if std == 0:
-            return 50.0
-        z = (val - mn) / std
-        # 轉換到 0-100（norm CDF）
-        return float(stats.norm.cdf(z) * 100)
 
-    p3m = zscore_percentile(ret_3m, all_ret3m)
-    p6m = zscore_percentile(ret_6m, all_ret6m)
-    return round(0.5 * p3m + 0.5 * p6m, 2)
+def calc_momentum_score(
+    ret_1m:            float | None,
+    ret_3m:            float | None,
+    mom_6m:            float | None,
+    price_trend_r2:    float | None,
+    momentum_autocorr: float | None,
+    information_ratio: float | None,
+    all_ret1m:   list,
+    all_ret3m:   list,
+    all_mom6m:   list,
+    all_r2:      list,
+    all_autocorr: list,
+    all_ir:      list,
+) -> float:
+    """
+    Sub-industry 綜合動能分數（0–100），三維度加權合成：
+
+      50% 報酬動能  = 0.25 × Z(ret_1m) + 0.40 × Z(ret_3m) + 0.35 × Z(mom_6m_skip)
+      25% 動能品質  = 0.50 × Z(price_trend_r2) + 0.50 × Z(momentum_autocorr_26w)
+      25% 相對強度  = Z(information_ratio_26w)
+
+    Z = 當日截面百分位（所有板塊中的相對位置），結果 0–100。
+    各分項缺值時以 50（中性）填補，不因缺資料而懲罰。
+    """
+    # Component A: multi-horizon momentum (50%)
+    p_1m = _zscore_percentile(ret_1m, all_ret1m)
+    p_3m = _zscore_percentile(ret_3m, all_ret3m)
+    p_6m = _zscore_percentile(mom_6m, all_mom6m)
+    comp_a = 0.25 * p_1m + 0.40 * p_3m + 0.35 * p_6m
+
+    # Component B: trend quality (25%)
+    p_r2       = _zscore_percentile(price_trend_r2,    all_r2)
+    p_autocorr = _zscore_percentile(momentum_autocorr, all_autocorr)
+    comp_b = 0.5 * p_r2 + 0.5 * p_autocorr
+
+    # Component C: relative strength vs market (25%)
+    comp_c = _zscore_percentile(information_ratio, all_ir)
+
+    return round(0.50 * comp_a + 0.25 * comp_b + 0.25 * comp_c, 2)
+
+
+def calc_stock_momentum_score(
+    ret_1m:    float | None,
+    ret_3m:    float | None,
+    ret_6m:    float | None,
+    all_ret1m: list,
+    all_ret3m: list,
+    all_ret6m: list,
+) -> float:
+    """
+    個股簡化動能分數（0–100）。
+    個股層級缺乏 IR / trend R² 截面資料，採三時間窗口報酬加權。
+
+      0.25 × Z(ret_1m) + 0.40 × Z(ret_3m) + 0.35 × Z(ret_6m)
+    """
+    p_1m = _zscore_percentile(ret_1m, all_ret1m)
+    p_3m = _zscore_percentile(ret_3m, all_ret3m)
+    p_6m = _zscore_percentile(ret_6m, all_ret6m)
+    return round(0.25 * p_1m + 0.40 * p_3m + 0.35 * p_6m, 2)
 
 
 # ─── Sub-industry 等權聚合 ────────────────────────────────────
@@ -374,9 +415,16 @@ def aggregate_sub_industry(
     bw = spy_weekly[-n_common:] if n_common > 0 else []
 
     # ── 新增指標 ──────────────────────────────────────────────
+    # 26週窗口：IR 和 autocorr 用固定窗口，確保截面可比性
+    W26 = 26
+    sw_26 = sw[-W26:] if len(sw) >= W26 else sw
+    bw_26 = bw[-W26:] if len(bw) >= W26 else bw
+
     if bw:
-        excess = [s - b for s, b in zip(sw, bw)]
-        result['information_ratio'] = calc_information_ratio(excess)
+        # information_ratio：固定 26 週窗口，跨板塊截面比較一致
+        excess_26 = [s - b for s, b in zip(sw_26, bw_26)]
+        result['information_ratio'] = calc_information_ratio(excess_26)
+        # downside_capture / beta：保留全歷史（需要足夠樣本才穩定）
         result['downside_capture']  = calc_downside_capture(sw, bw)
         result['beta']              = calc_beta(sw, bw)
     else:
@@ -385,7 +433,8 @@ def aggregate_sub_industry(
         result['beta']              = None
 
     result['calmar_ratio']      = calc_calmar_ratio(sub_weekly)
-    result['momentum_autocorr'] = calc_momentum_autocorrelation(sub_weekly)
+    # momentum_autocorr：固定 26 週窗口，跨板塊截面比較一致
+    result['momentum_autocorr'] = calc_momentum_autocorrelation(sw_26)
 
     # Rolling risk metrics (8-week window)
     rolling = calc_rolling_metrics(sub_weekly[-8:] if len(sub_weekly) >= 8 else sub_weekly)

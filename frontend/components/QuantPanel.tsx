@@ -257,6 +257,42 @@ export function QuantPanel({ data: d }: Props) {
   return (
     <div className="space-y-6">
 
+      {/* ── Mom Score Formula Card ── */}
+      <div className="rounded-lg p-4 bg-blue-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-800">
+        <div className="text-sm font-semibold text-blue-700 dark:text-blue-300 mb-3">
+          Mom Score 計算公式
+        </div>
+        <div className="space-y-2">
+          <div className="flex items-start gap-2">
+            <span className="shrink-0 text-xs font-bold text-blue-700 dark:text-blue-300 w-8">50%</span>
+            <div>
+              <div className="text-xs font-medium text-blue-700 dark:text-blue-300">報酬動能</div>
+              <div className="text-[11px] text-blue-500 dark:text-blue-400 font-mono">0.25×Z(1M) + 0.40×Z(3M) + 0.35×Z(6M skip-month)</div>
+              <div className="text-[10px] text-blue-400 dark:text-blue-500 mt-0.5">短中長期三個時間窗口，6M 採 skip-month 設計避免短期反轉干擾</div>
+            </div>
+          </div>
+          <div className="flex items-start gap-2">
+            <span className="shrink-0 text-xs font-bold text-blue-700 dark:text-blue-300 w-8">25%</span>
+            <div>
+              <div className="text-xs font-medium text-blue-700 dark:text-blue-300">動能品質</div>
+              <div className="text-[11px] text-blue-500 dark:text-blue-400 font-mono">0.50×Z(Price R²) + 0.50×Z(Autocorr 26W)</div>
+              <div className="text-[10px] text-blue-400 dark:text-blue-500 mt-0.5">趨勢是否乾淨、動能是否持續 — 獎勵直線上漲，懲罰震盪後拉回</div>
+            </div>
+          </div>
+          <div className="flex items-start gap-2">
+            <span className="shrink-0 text-xs font-bold text-blue-700 dark:text-blue-300 w-8">25%</span>
+            <div>
+              <div className="text-xs font-medium text-blue-700 dark:text-blue-300">相對強度</div>
+              <div className="text-[11px] text-blue-500 dark:text-blue-400 font-mono">Z(Information Ratio 26W)</div>
+              <div className="text-[10px] text-blue-400 dark:text-blue-500 mt-0.5">過去 26 週超額報酬穩定性 — 跑贏大盤且一致的板塊得到加分</div>
+            </div>
+          </div>
+        </div>
+        <div className="mt-3 pt-2.5 border-t border-blue-200 dark:border-blue-800 text-[10px] text-blue-400 dark:text-blue-500">
+          Z = 當日截面百分位（0–100），每日重新對所有板塊計算。分數越高代表同期動能最強、趨勢最乾淨、最跑贏大盤。
+        </div>
+      </div>
+
       {/* ── Group 1: Momentum Quality ── */}
       <div>
         <GroupHeader zh="動能品質" en="Momentum Quality" />
@@ -264,7 +300,7 @@ export function QuantPanel({ data: d }: Props) {
           <MetricCard
             label="Information Ratio"
             value={fmtNum(d.information_ratio, 2)}
-            desc="超額報酬穩定性（全年 ~84 週）· 動能是否真的跑贏大盤"
+            desc="近 26 週超額報酬穩定性 · 同時進入 Mom Score 相對強度分項"
             valueColor={irColor}
             barColor={barColorFor(irColor)}
             barMin={-1} barMax={2} barValue={d.information_ratio}
@@ -397,7 +433,7 @@ export function QuantPanel({ data: d }: Props) {
           <MetricCard
             label="Mom Autocorr"
             value={fmtNum(d.momentum_autocorr, 2)}
-            desc="全年週報酬 lag-1 自相關 · 正數趨勢持續，負數易反轉"
+            desc="近 26 週週報酬 lag-1 自相關 · 同時進入 Mom Score 動能品質分項"
             valueColor={autocorrColor}
             barColor={barColorFor(autocorrColor)}
             barMin={-1} barMax={1} barValue={d.momentum_autocorr}

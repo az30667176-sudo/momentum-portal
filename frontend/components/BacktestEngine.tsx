@@ -72,7 +72,7 @@ const ALL_INDICATORS = INDICATOR_GROUPS.flatMap(g => g.options)
 // ── Indicator Hints (Task 3) ──────────────────────────────────
 
 const INDICATOR_HINTS: Record<string, { range: string; suggestion: string }> = {
-  information_ratio:      { range: '通常 -2 到 +3',      suggestion: '> 0.5 動能可靠，< 0 跑輸大盤' },
+  information_ratio:      { range: '通常 -2 到 +3',      suggestion: '> 0.5 動能可靠，< 0 跑輸大盤（26週窗口，亦進入 Mom Score）' },
   momentum_decay_rate:    { range: '通常 -30 到 +30',     suggestion: '> 5 動能加速，< -5 動能衰退（出場預警）' },
   breadth_adj_mom:        { range: '通常 -20 到 +30',     suggestion: '> 10 廣泛且強勁，< 0 動能虛假' },
   rs_trend_slope:         { range: '通常 -0.05 到 +0.05', suggestion: '> 0 相對強度上升，< 0 弱化' },
@@ -87,7 +87,7 @@ const INDICATOR_HINTS: Record<string, { range: string; suggestion: string }> = {
   rvol:                   { range: '通常 0.2 到 3',        suggestion: '> 1.5 爆量，1.0~1.5 正常，< 0.7 量縮' },
   vol_surge_score:        { range: '0 到 100',            suggestion: '> 75 強烈量能訊號，50~75 溫和，< 25 量縮' },
   beta:                   { range: '通常 0.2 到 1.8',      suggestion: '< 0.8 獨立強勢，0.8~1.2 跟隨大盤，> 1.2 高相關' },
-  momentum_autocorr:      { range: '-1 到 +1',            suggestion: '> 0.2 趨勢持續（適合趨勢策略），< -0.2 均值回歸' },
+  momentum_autocorr:      { range: '-1 到 +1',            suggestion: '> 0.2 趨勢持續（適合趨勢策略），< -0.2 均值回歸（26週窗口，亦進入 Mom Score）' },
   price_trend_r2:         { range: '0 到 1',              suggestion: '> 0.85 趨勢乾淨，0.5~0.85 有震盪，< 0.5 高度震盪' },
 }
 

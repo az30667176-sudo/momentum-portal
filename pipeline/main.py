@@ -61,7 +61,7 @@ def run_pipeline_for_date(
     from pipeline.calculator import (
         calc_returns, calc_rolling_metrics, calc_trend_metrics,
         calc_cross_sectional_rank, calc_momentum_score,
-        aggregate_sub_industry,
+        calc_stock_momentum_score, aggregate_sub_industry,
     )
     from pipeline.writer import (
         upsert_daily_sub_returns, upsert_daily_stock_returns,
@@ -142,14 +142,19 @@ def run_pipeline_for_date(
         logger.warning(f"  No metrics computed for {target_date}")
         return {"success": 0, "failed": 1, "date": str(target_date)}
 
-    # 截面計算：動能分數和排名
-    all_ret1m = [v.get("ret_1m") for v in sub_metrics.values()]
-    all_ret3m = [v.get("ret_3m") for v in sub_metrics.values()]
-    all_ret6m = [v.get("ret_6m") for v in sub_metrics.values()]
+    # 截面計算：新版三維度動能分數和排名
+    all_ret1m    = [v.get("ret_1m")            for v in sub_metrics.values()]
+    all_ret3m    = [v.get("ret_3m")            for v in sub_metrics.values()]
+    all_mom6m    = [v.get("mom_6m")            for v in sub_metrics.values()]
+    all_r2       = [v.get("price_trend_r2")    for v in sub_metrics.values()]
+    all_autocorr = [v.get("momentum_autocorr") for v in sub_metrics.values()]
+    all_ir       = [v.get("information_ratio") for v in sub_metrics.values()]
 
     mom_scores = {
         gc: calc_momentum_score(
-            v.get("ret_3m"), v.get("ret_6m"), all_ret3m, all_ret6m
+            v.get("ret_1m"), v.get("ret_3m"), v.get("mom_6m"),
+            v.get("price_trend_r2"), v.get("momentum_autocorr"), v.get("information_ratio"),
+            all_ret1m, all_ret3m, all_mom6m, all_r2, all_autocorr, all_ir,
         )
         for gc, v in sub_metrics.items()
     }
@@ -215,7 +220,7 @@ def run_pipeline_for_date(
     success, failed = upsert_daily_sub_returns(supabase, records)
 
     # ── 個股指標 ──────────────────────────────────────────────
-    from pipeline.calculator import calc_returns, calc_momentum_score
+    from pipeline.calculator import calc_returns, calc_stock_momentum_score
     from pipeline.volume import calc_rvol
 
     stock_records = []
@@ -263,12 +268,14 @@ def run_pipeline_for_date(
             })
 
     if stock_records:
-        # Cross-sectional mom_score for stocks (same formula as sub-industries)
+        # Cross-sectional mom_score for stocks (simplified 3-horizon formula)
+        all_r1m = [r["ret_1m"] for r in stock_records]
         all_r3m = [r["ret_3m"] for r in stock_records]
         all_r6m = [r["ret_6m"] for r in stock_records]
         for r in stock_records:
-            r["mom_score"] = calc_momentum_score(
-                r["ret_3m"], r["ret_6m"], all_r3m, all_r6m
+            r["mom_score"] = calc_stock_momentum_score(
+                r["ret_1m"], r["ret_3m"], r["ret_6m"],
+                all_r1m, all_r3m, all_r6m,
             )
 
         s2, f2 = upsert_daily_stock_returns(supabase, stock_records)
