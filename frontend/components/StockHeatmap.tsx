@@ -6,7 +6,7 @@ import Link from 'next/link'
 
 // ── Types ────────────────────────────────────────────────────
 
-type TimeWindow = '1d' | '1w' | '1m' | '3m'
+type TimeWindow = '1d' | '1w' | '1m' | '3m' | '6m' | '1y'
 type SizeFilter = 'all' | 'large' | 'mid' | 'small'
 type CellSize = 'sm' | 'md' | 'lg'
 
@@ -15,6 +15,8 @@ const WINDOWS: { key: TimeWindow; label: string }[] = [
   { key: '1w', label: '1W' },
   { key: '1m', label: '1M' },
   { key: '3m', label: '3M' },
+  { key: '6m', label: '6M' },
+  { key: '1y', label: '1Y' },
 ]
 
 const SIZES: { key: SizeFilter; label: string; sub: string }[] = [
@@ -60,21 +62,24 @@ function momColor(val: number | null): CellColor {
   return { bg: '#7f1d1d', text: '#fecaca', border: '#6b1515' }
 }
 
+function getWindowVal(entry: StockHeatmapEntry, window: TimeWindow): number | null {
+  if (window === '1d') return entry.ret_1d
+  if (window === '1w') return entry.ret_1w
+  if (window === '1m') return entry.ret_1m
+  if (window === '3m') return entry.ret_3m
+  if (window === '6m') return entry.ret_6m
+  if (window === '1y') return entry.ret_12m
+  return null
+}
+
 function getColor(entry: StockHeatmapEntry, window: TimeWindow): CellColor {
   if (!entry.hasReturns) return { bg: '#f9fafb', text: '#d1d5db', border: '#f3f4f6' }
-  const val = window === '1d' ? entry.ret_1d
-            : window === '1w' ? entry.ret_1w
-            : window === '1m' ? entry.ret_1m
-            : entry.ret_3m
-  return retColor(val)
+  return retColor(getWindowVal(entry, window))
 }
 
 function getDisplayValue(entry: StockHeatmapEntry, window: TimeWindow): string {
   if (!entry.hasReturns) return '—'
-  const val = window === '1d' ? entry.ret_1d
-            : window === '1w' ? entry.ret_1w
-            : window === '1m' ? entry.ret_1m
-            : entry.ret_3m
+  const val = getWindowVal(entry, window)
   if (val == null) return '—'
   return (val >= 0 ? '+' : '') + val.toFixed(1) + '%'
 }
@@ -82,12 +87,7 @@ function getDisplayValue(entry: StockHeatmapEntry, window: TimeWindow): string {
 // ── Sector returns (avg of stocks) ───────────────────────────
 
 function calcSectorReturn(stocks: StockHeatmapEntry[], window: TimeWindow): number | null {
-  const vals = stocks
-    .map(s => window === '1d' ? s.ret_1d
-            : window === '1w' ? s.ret_1w
-            : window === '1m' ? s.ret_1m
-            : s.ret_3m)
-    .filter((v): v is number => v != null)
+  const vals = stocks.map(s => getWindowVal(s, window)).filter((v): v is number => v != null)
   if (!vals.length) return null
   return vals.reduce((a, b) => a + b, 0) / vals.length
 }
@@ -369,11 +369,7 @@ export function StockHeatmap({ entries, date }: Props) {
     // Sort stocks within each sub by the active window desc
     for (const sec of Object.values(sectors)) {
       for (const arr of Object.values(sec)) {
-        arr.sort((a, b) => {
-          const va = (activeWindow === '1d' ? a.ret_1d : activeWindow === '1w' ? a.ret_1w : activeWindow === '1m' ? a.ret_1m : a.ret_3m) ?? -999
-          const vb = (activeWindow === '1d' ? b.ret_1d : activeWindow === '1w' ? b.ret_1w : activeWindow === '1m' ? b.ret_1m : b.ret_3m) ?? -999
-          return vb - va
-        })
+        arr.sort((a, b) => (getWindowVal(b, activeWindow) ?? -999) - (getWindowVal(a, activeWindow) ?? -999))
       }
     }
     return sectors
@@ -392,10 +388,7 @@ export function StockHeatmap({ entries, date }: Props) {
 
   const hasData = entries.some(e => e.hasReturns)
   const advancing = filtered.filter(e => {
-    const v = activeWindow === '1d' ? e.ret_1d
-            : activeWindow === '1w' ? e.ret_1w
-            : activeWindow === '1m' ? e.ret_1m
-            : e.ret_3m
+    const v = getWindowVal(e, activeWindow)
     return v != null && v > 0
   }).length
 
