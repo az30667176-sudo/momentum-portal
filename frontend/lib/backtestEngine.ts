@@ -395,7 +395,7 @@ export function runBacktestSync(
     const snap = subHistory[day]
     const date = snap.date
     dates.push(date)
-    const prevSnap = day > 0 ? subHistory[day - 1] : null
+    const prevSnap = day >= config.rebalPeriod ? subHistory[day - config.rebalPeriod] : null
     const isOOS = day >= isSplitDay
 
     // SPY proxy: average of all sub ret_1d
@@ -668,7 +668,7 @@ export function dryRunScan(
     nextRebalDay = day + config.rebalPeriod
 
     const snap = subHistory[day]
-    const prevSnap = day > 0 ? subHistory[day - 1] : null
+    const prevSnap = day >= config.rebalPeriod ? subHistory[day - config.rebalPeriod] : null
 
     const passed = snap.subs.filter(sub => {
       const prevSub = prevSnap?.subs.find(s => s.gics_code === sub.gics_code)

@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useMemo, useCallback } from 'react'
+import React, { useState, useMemo, useCallback, useEffect } from 'react'
 import Link from 'next/link'
 import {
   LineChart, Line, AreaChart, Area, BarChart, Bar,
@@ -455,9 +455,10 @@ interface Props {
 
 // ── Main Component ────────────────────────────────────────────
 
-export function BacktestEngine({ latestData, prevData }: Props) {
+export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props) {
   const [activeTab, setActiveTab] = useState<'config' | 'results' | 'robustness'>('config')
   const [config, setConfig] = useState<BacktestConfig>(DEFAULT_CONFIG)
+  const [prevData, setPrevData] = useState<SubReturn[]>(prevDataInitial)
   const [isRunning, setIsRunning] = useState(false)
   const [result, setResult] = useState<BacktestResult | null>(null)
   const [robustParam, setRobustParam] = useState('rebalPeriod')
@@ -501,6 +502,14 @@ export function BacktestEngine({ latestData, prevData }: Props) {
       }
     }).sort((a, b) => (b.passed ? 1 : 0) - (a.passed ? 1 : 0))
   }, [latestData, config.subFilters, prevData])
+
+  // Re-fetch prevData when rebalPeriod changes so preview delta matches backtest comparison period
+  useEffect(() => {
+    fetch(`/api/prev-sub-returns?daysBack=${config.rebalPeriod}`)
+      .then(r => r.json())
+      .then((d: SubReturn[]) => { if (Array.isArray(d) && d.length > 0) setPrevData(d) })
+      .catch(() => {})
+  }, [config.rebalPeriod])
 
   const runBacktest = useCallback(async () => {
     setIsRunning(true)
@@ -757,10 +766,122 @@ export function BacktestEngine({ latestData, prevData }: Props) {
       {/* ── Tab 1: Config ── */}
       {activeTab === 'config' && (
         <div>
-          {/* Section A: Sub Filters */}
+          {/* Section A: Rebal & Position (was C) */}
           <div className={sectionCls}>
             <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
-              A. 產業篩選條件
+              A. 換倉 &amp; 部位設定
+            </h2>
+
+            <div className="mb-4">
+              <p className={`${labelCls} mb-2`}>換倉週期</p>
+              <div className="flex gap-2 flex-wrap">
+                {([5, 10, 20, 40] as const).map(p => (
+                  <button
+                    key={p}
+                    onClick={() => { setConfig(c => ({ ...c, rebalPeriod: p })); setRebalCustom(false) }}
+                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                      !rebalCustom && config.rebalPeriod === p
+                        ? 'bg-blue-600 text-white'
+                        : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+                    }`}
+                  >
+                    {p === 5 ? '1W' : p === 10 ? '2W' : p === 20 ? '4W' : '8W'}
+                  </button>
+                ))}
+                <button
+                  onClick={() => setRebalCustom(true)}
+                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                    rebalCustom
+                      ? 'bg-blue-600 text-white'
+                      : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+                  }`}
+                >
+                  自訂
+                </button>
+              </div>
+              {rebalCustom && (
+                <div className="mt-2 flex items-center gap-2">
+                  <span className={`${labelCls} text-sm`}>換倉週期：</span>
+                  <input
+                    type="number"
+                    min={1}
+                    max={90}
+                    value={config.rebalPeriod}
+                    onChange={e => setConfig(c => ({ ...c, rebalPeriod: Math.min(90, Math.max(1, parseInt(e.target.value) || 1)) }))}
+                    className={`${inputCls} w-20`}
+                  />
+                  <span className={labelCls}>個交易日</span>
+                  <p className="text-xs text-gray-400 ml-2">1 = 每日換倉，5 = 每週，10 = 每兩週</p>
+                </div>
+              )}
+            </div>
+
+            <div className="mb-4">
+              <p className={`${labelCls} mb-2`}>權重模式</p>
+              <div className="flex gap-4">
+                {(['equal', 'momentum', 'volatility'] as WeightMode[]).map(mode => (
+                  <label key={mode} className="flex items-center gap-2 text-sm cursor-pointer">
+                    <input
+                      type="radio"
+                      checked={config.weightMode === mode}
+                      onChange={() => setConfig(c => ({ ...c, weightMode: mode }))}
+                      className="accent-blue-600"
+                    />
+                    <span className="text-gray-700 dark:text-gray-300">
+                      {mode === 'equal' ? '等權重' : mode === 'momentum' ? '動能分數加權' : '波動率反向加權'}
+                    </span>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+              <div>
+                <p className={`${labelCls} mb-1`}>單一個股上限：{config.maxStockWeight}%</p>
+                <input
+                  type="range"
+                  min={5}
+                  max={50}
+                  step={5}
+                  value={config.maxStockWeight}
+                  onChange={e => setConfig(c => ({ ...c, maxStockWeight: parseInt(e.target.value) }))}
+                  className="w-full accent-blue-600"
+                />
+                <p className="text-xs text-gray-400 mt-1">每檔個股的最大持倉比例</p>
+              </div>
+              <div>
+                <p className={`${labelCls} mb-1`}>單一產業上限：{config.maxSubWeight}%</p>
+                <input
+                  type="range"
+                  min={10}
+                  max={100}
+                  step={10}
+                  value={config.maxSubWeight}
+                  onChange={e => setConfig(c => ({ ...c, maxSubWeight: parseInt(e.target.value) }))}
+                  className="w-full accent-indigo-500"
+                />
+                <p className="text-xs text-gray-400 mt-1">同一個 sub-industry 的所有個股合計上限</p>
+              </div>
+            </div>
+
+            <div className="mb-2">
+              <p className={`${labelCls} mb-1`}>Buffer Rule：{config.bufferRule} 位</p>
+              <input
+                type="range"
+                min={0}
+                max={25}
+                value={config.bufferRule}
+                onChange={e => setConfig(c => ({ ...c, bufferRule: parseInt(e.target.value) }))}
+                className="w-full accent-blue-600"
+              />
+              <p className="text-xs text-gray-400 mt-1">新候選排名需領先現持倉 {config.bufferRule} 位才換入</p>
+            </div>
+          </div>
+
+          {/* Section B: Sub Filters (was A) */}
+          <div className={sectionCls}>
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
+              B. 產業篩選條件
             </h2>
             <div className="flex flex-col lg:flex-row gap-4">
               {/* Left: filter blocks */}
@@ -909,10 +1030,10 @@ export function BacktestEngine({ latestData, prevData }: Props) {
             )}
           </div>
 
-          {/* Section B: Stock Selection */}
+          {/* Section C: Stock Selection (was B) */}
           <div className={sectionCls}>
             <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
-              B. 個股選取規則
+              C. 個股選取規則
             </h2>
             <div className="flex flex-wrap items-center gap-2 text-sm">
               <span className={labelCls}>依</span>
@@ -938,118 +1059,6 @@ export function BacktestEngine({ latestData, prevData }: Props) {
                 className={`${inputCls} w-16`}
               />
               <span className={labelCls}>檔</span>
-            </div>
-          </div>
-
-          {/* Section C: Rebal & Position */}
-          <div className={sectionCls}>
-            <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
-              C. 換倉 &amp; 部位設定
-            </h2>
-
-            <div className="mb-4">
-              <p className={`${labelCls} mb-2`}>換倉週期</p>
-              <div className="flex gap-2 flex-wrap">
-                {([5, 10, 20, 40] as const).map(p => (
-                  <button
-                    key={p}
-                    onClick={() => { setConfig(c => ({ ...c, rebalPeriod: p })); setRebalCustom(false) }}
-                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                      !rebalCustom && config.rebalPeriod === p
-                        ? 'bg-blue-600 text-white'
-                        : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
-                    }`}
-                  >
-                    {p === 5 ? '1W' : p === 10 ? '2W' : p === 20 ? '4W' : '8W'}
-                  </button>
-                ))}
-                <button
-                  onClick={() => setRebalCustom(true)}
-                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                    rebalCustom
-                      ? 'bg-blue-600 text-white'
-                      : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
-                  }`}
-                >
-                  自訂
-                </button>
-              </div>
-              {rebalCustom && (
-                <div className="mt-2 flex items-center gap-2">
-                  <span className={`${labelCls} text-sm`}>換倉週期：</span>
-                  <input
-                    type="number"
-                    min={1}
-                    max={90}
-                    value={config.rebalPeriod}
-                    onChange={e => setConfig(c => ({ ...c, rebalPeriod: Math.min(90, Math.max(1, parseInt(e.target.value) || 1)) }))}
-                    className={`${inputCls} w-20`}
-                  />
-                  <span className={labelCls}>個交易日</span>
-                  <p className="text-xs text-gray-400 ml-2">1 = 每日換倉，5 = 每週，10 = 每兩週</p>
-                </div>
-              )}
-            </div>
-
-            <div className="mb-4">
-              <p className={`${labelCls} mb-2`}>權重模式</p>
-              <div className="flex gap-4">
-                {(['equal', 'momentum', 'volatility'] as WeightMode[]).map(mode => (
-                  <label key={mode} className="flex items-center gap-2 text-sm cursor-pointer">
-                    <input
-                      type="radio"
-                      checked={config.weightMode === mode}
-                      onChange={() => setConfig(c => ({ ...c, weightMode: mode }))}
-                      className="accent-blue-600"
-                    />
-                    <span className="text-gray-700 dark:text-gray-300">
-                      {mode === 'equal' ? '等權重' : mode === 'momentum' ? '動能分數加權' : '波動率反向加權'}
-                    </span>
-                  </label>
-                ))}
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-              <div>
-                <p className={`${labelCls} mb-1`}>單一個股上限：{config.maxStockWeight}%</p>
-                <input
-                  type="range"
-                  min={5}
-                  max={50}
-                  step={5}
-                  value={config.maxStockWeight}
-                  onChange={e => setConfig(c => ({ ...c, maxStockWeight: parseInt(e.target.value) }))}
-                  className="w-full accent-blue-600"
-                />
-                <p className="text-xs text-gray-400 mt-1">每檔個股的最大持倉比例</p>
-              </div>
-              <div>
-                <p className={`${labelCls} mb-1`}>單一產業上限：{config.maxSubWeight}%</p>
-                <input
-                  type="range"
-                  min={10}
-                  max={100}
-                  step={10}
-                  value={config.maxSubWeight}
-                  onChange={e => setConfig(c => ({ ...c, maxSubWeight: parseInt(e.target.value) }))}
-                  className="w-full accent-indigo-500"
-                />
-                <p className="text-xs text-gray-400 mt-1">同一個 sub-industry 的所有個股合計上限</p>
-              </div>
-            </div>
-
-            <div className="mb-2">
-              <p className={`${labelCls} mb-1`}>Buffer Rule：{config.bufferRule} 位</p>
-              <input
-                type="range"
-                min={0}
-                max={25}
-                value={config.bufferRule}
-                onChange={e => setConfig(c => ({ ...c, bufferRule: parseInt(e.target.value) }))}
-                className="w-full accent-blue-600"
-              />
-              <p className="text-xs text-gray-400 mt-1">新候選排名需領先現持倉 {config.bufferRule} 位才換入</p>
             </div>
           </div>
 

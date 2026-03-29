@@ -256,6 +256,42 @@ export async function getPrevSubReturns(): Promise<SubReturn[]> {
   return data as SubReturn[]
 }
 
+// Fetch sub returns from exactly N trading days ago.
+// Used by the preview to match the backtest engine's rebalPeriod comparison.
+export async function getSubReturnsNDaysAgo(tradingDaysBack: number): Promise<SubReturn[]> {
+  const supabase = createServerClient()
+  // Get the latest date
+  const { data: latest } = await supabase
+    .from('daily_sub_returns')
+    .select('date')
+    .order('date', { ascending: false })
+    .limit(1)
+    .single()
+  if (!latest) return []
+
+  // Fetch enough rows to find N distinct dates back from latest.
+  // ~155 rows per date, so (N+1)*160 rows comfortably covers N dates.
+  const rowsNeeded = Math.min((tradingDaysBack + 1) * 160, 10000)
+  const { data: dateRows } = await supabase
+    .from('daily_sub_returns')
+    .select('date')
+    .lte('date', latest.date)
+    .order('date', { ascending: false })
+    .limit(rowsNeeded)
+  if (!dateRows) return []
+
+  const uniqueDates = [...new Set(dateRows.map(r => r.date as string))]
+  if (uniqueDates.length <= tradingDaysBack) return []
+  const targetDate = uniqueDates[tradingDaysBack]
+
+  const { data, error } = await supabase
+    .from('daily_sub_returns')
+    .select('*, gics_universe ( sector, industry_group, industry, sub_industry, etf_proxy )')
+    .eq('date', targetDate)
+  if (error || !data) return []
+  return data as SubReturn[]
+}
+
 export async function getLatestSubReturn(gicsCode: string): Promise<SubReturn | null> {
   const supabase = createServerClient()
 
