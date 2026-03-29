@@ -1482,7 +1482,7 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
                                     {t.ticker}
                                   </a>
                                 ) : (
-                                  <span className="text-gray-400 text-[10px]">{t.subName.slice(0, 8)}</span>
+                                  <span className="text-gray-400 text-[10px]" title={t.subName}>— <span className="text-[9px]">(sub)</span></span>
                                 )}
                               </td>
                               <td className="px-2 py-1 max-w-[140px] truncate text-gray-500">{t.subName}</td>
