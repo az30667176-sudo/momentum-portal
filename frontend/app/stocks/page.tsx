@@ -1,16 +1,22 @@
-import { getLatestSubReturns, getLatestStockReturns } from '@/lib/supabase'
+import { getLatestSubReturns, getLatestStockReturns, getStockHeatmap } from '@/lib/supabase'
 import { StockRanking } from '@/components/StockRanking'
 
 export const revalidate = 3600
 
 export default async function StocksPage() {
-  const [subData, stockData] = await Promise.all([
+  const [subData, stockData, { entries: heatmapEntries, date: heatmapDate }] = await Promise.all([
     getLatestSubReturns(),
     getLatestStockReturns(),
+    getStockHeatmap(),
   ])
   return (
     <main className="p-4">
-      <StockRanking subData={subData} stockData={stockData} />
+      <StockRanking
+        subData={subData}
+        stockData={stockData}
+        heatmapEntries={heatmapEntries}
+        heatmapDate={heatmapDate}
+      />
     </main>
   )
 }

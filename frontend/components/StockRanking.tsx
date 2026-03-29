@@ -1,7 +1,8 @@
 'use client'
 import React, { useState, useMemo } from 'react'
 import Link from 'next/link'
-import { SubReturn, StockReturn } from '@/lib/types'
+import { SubReturn, StockReturn, StockHeatmapEntry } from '@/lib/types'
+import { StockHeatmap } from '@/components/StockHeatmap'
 
 type Mode = 'by-sub' | 'by-return' | 'by-momentum'
 type ReturnWindow = '1w' | '1m' | '3m' | '6m'
@@ -10,15 +11,16 @@ type IndexFilter = 'all' | 'SP500' | 'SP400' | 'SP600'
 interface Props {
   subData: SubReturn[]
   stockData: StockReturn[]  // includes nested stock_universe and gics_universe from join
+  heatmapEntries?: StockHeatmapEntry[]
+  heatmapDate?: string | null
 }
 
-export function StockRanking({ subData, stockData }: Props) {
+export function StockRanking({ subData, stockData, heatmapEntries = [], heatmapDate = null }: Props) {
   const [mode, setMode] = useState<Mode>('by-sub')
   const [returnWindow, setReturnWindow] = useState<ReturnWindow>('1m')
   const [indexFilter, setIndexFilter] = useState<IndexFilter>('all')
   const [search, setSearch] = useState('')
   const [page, setPage] = useState(0)
-  const [expandedSubs, setExpandedSubs] = useState<Set<string>>(new Set())
   const [momFilter, setMomFilter] = useState<string | null>(null)
   const PAGE_SIZE = 50
 
@@ -77,19 +79,7 @@ export function StockRanking({ subData, stockData }: Props) {
     return ''
   }
 
-  // Group by sub for mode 1
-  const subGroups = useMemo(() => {
-    if (mode !== 'by-sub') return {}
-    const groups: Record<string, StockReturn[]> = {}
-    for (const s of stockData) {
-      const key = s.gics_code
-      if (!groups[key]) groups[key] = []
-      groups[key].push(s)
-    }
-    return groups
-  }, [stockData, mode])
-
-  const modeBtnCls = (m: Mode) =>
+const modeBtnCls = (m: Mode) =>
     `px-4 py-2 text-sm font-medium rounded-lg transition-colors ${mode === m ? 'bg-blue-600 text-white' : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'}`
 
   return (
@@ -103,63 +93,10 @@ export function StockRanking({ subData, stockData }: Props) {
         <button className={modeBtnCls('by-momentum')} onClick={() => { setMode('by-momentum'); setPage(0) }}>依動能排名</button>
       </div>
 
-      {/* Mode 1: by sub */}
+      {/* Mode 1: by sub — individual stock heatmap tiles */}
       {mode === 'by-sub' && (
-        <div className="space-y-2">
-          {subData.map(sub => {
-            const stocks = subGroups[sub.gics_code] ?? []
-            if (stocks.length === 0) return null
-            const isOpen = expandedSubs.has(sub.gics_code)
-            const subName = sub.gics_universe?.sub_industry ?? sub.gics_code
-            return (
-              <div key={sub.gics_code} className="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
-                <button
-                  className="w-full flex items-center justify-between px-4 py-3 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 text-left"
-                  onClick={() => {
-                    const next = new Set(expandedSubs)
-                    if (isOpen) next.delete(sub.gics_code); else next.add(sub.gics_code)
-                    setExpandedSubs(next)
-                  }}
-                >
-                  <div className="flex items-center gap-3">
-                    <span className="font-medium text-sm text-gray-900 dark:text-white">{subName}</span>
-                    <span className="text-xs text-gray-500">{stocks.length} 檔</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-xs font-mono text-blue-600">{sub.mom_score?.toFixed(1) ?? '—'}</span>
-                    <span className="text-gray-400 text-xs">{isOpen ? '▲' : '▼'}</span>
-                  </div>
-                </button>
-                {isOpen && (
-                  <div className="overflow-x-auto">
-                    <table className="w-full text-xs">
-                      <thead className="bg-gray-50 dark:bg-gray-700">
-                        <tr>
-                          {['#','Ticker','公司名','1D','1M','3M','Mom Score','RVol'].map(h => (
-                            <th key={h} className="px-3 py-2 text-left text-gray-600 dark:text-gray-300 font-medium">{h}</th>
-                          ))}
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {[...stocks].sort((a,b) => (b.mom_score??0)-(a.mom_score??0)).map((s, i) => (
-                          <tr key={s.ticker} className="border-t border-gray-100 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800">
-                            <td className="px-3 py-1.5 text-gray-500">{i+1}</td>
-                            <td className="px-3 py-1.5"><Link href={`/stock/${s.ticker}`} className="text-blue-600 hover:underline font-medium">{s.ticker}</Link></td>
-                            <td className="px-3 py-1.5 text-gray-700 dark:text-gray-300 max-w-[160px] truncate">{getCompany(s)}</td>
-                            <td className="px-3 py-1.5">{fmtPct(s.ret_1d)}</td>
-                            <td className="px-3 py-1.5">{fmtPct(s.ret_1m)}</td>
-                            <td className="px-3 py-1.5">{fmtPct(s.ret_3m)}</td>
-                            <td className="px-3 py-1.5 font-mono text-blue-600">{s.mom_score?.toFixed(1) ?? '—'}</td>
-                            <td className="px-3 py-1.5">{s.rvol?.toFixed(2) ?? '—'}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                )}
-              </div>
-            )
-          })}
+        <div className="-mx-4 -mb-4">
+          <StockHeatmap entries={heatmapEntries} date={heatmapDate} />
         </div>
       )}
 
