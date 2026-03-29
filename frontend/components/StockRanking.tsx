@@ -20,9 +20,9 @@ function getRetVal(s: StockReturn, col: SortCol): number | null {
   if (col === '1w')  return s.ret_1w
   if (col === '1m')  return s.ret_1m
   if (col === '3m')  return s.ret_3m
-  if (col === '6m')  return (s as any).ret_6m  ?? null
-  if (col === '1y')  return (s as any).ret_12m ?? null
-  if (col === 'mom') return s.mom_score         ?? null
+  if (col === '6m')  return s.ret_6m
+  if (col === '1y')  return s.ret_12m
+  if (col === 'mom') return s.mom_score ?? null
   return null
 }
 
@@ -182,8 +182,8 @@ export function StockRanking({ subData, stockData, heatmapEntries = [], heatmapD
                       <td className="px-3 py-2 font-mono text-xs">{fmtPct(s.ret_1w)}</td>
                       <td className="px-3 py-2 font-mono text-xs">{fmtPct(s.ret_1m)}</td>
                       <td className="px-3 py-2 font-mono text-xs">{fmtPct(s.ret_3m)}</td>
-                      <td className="px-3 py-2 font-mono text-xs">{fmtPct((s as any).ret_6m  ?? null)}</td>
-                      <td className="px-3 py-2 font-mono text-xs">{fmtPct((s as any).ret_12m ?? null)}</td>
+                      <td className="px-3 py-2 font-mono text-xs">{fmtPct(s.ret_6m)}</td>
+                      <td className="px-3 py-2 font-mono text-xs">{fmtPct(s.ret_12m)}</td>
                       <td className="px-3 py-2 font-mono text-xs text-blue-600">
                         {momVal != null ? momVal.toFixed(1) : <span className="text-gray-300">—</span>}
                       </td>

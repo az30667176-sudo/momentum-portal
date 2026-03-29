@@ -215,7 +215,7 @@ def run_pipeline_for_date(
     success, failed = upsert_daily_sub_returns(supabase, records)
 
     # ── 個股指標 ──────────────────────────────────────────────
-    from pipeline.calculator import calc_returns
+    from pipeline.calculator import calc_returns, calc_momentum_score
     from pipeline.volume import calc_rvol
 
     stock_records = []
@@ -254,13 +254,23 @@ def run_pipeline_for_date(
                 "ret_1w":      rets.get("ret_1w"),
                 "ret_1m":      rets.get("ret_1m"),
                 "ret_3m":      rets.get("ret_3m"),
+                "ret_6m":      rets.get("ret_6m"),
+                "ret_12m":     rets.get("ret_12m"),
                 "rank_in_sub": rank_map.get(t),
                 "rvol":        rvol,
-                "mom_score":   None,
+                "mom_score":   None,   # filled in cross-sectionally below
                 "obv_trend":   None,
             })
 
     if stock_records:
+        # Cross-sectional mom_score for stocks (same formula as sub-industries)
+        all_r3m = [r["ret_3m"] for r in stock_records]
+        all_r6m = [r["ret_6m"] for r in stock_records]
+        for r in stock_records:
+            r["mom_score"] = calc_momentum_score(
+                r["ret_3m"], r["ret_6m"], all_r3m, all_r6m
+            )
+
         s2, f2 = upsert_daily_stock_returns(supabase, stock_records)
         logger.info(f"  Stock records: {s2} upserted, {f2} failed")
 

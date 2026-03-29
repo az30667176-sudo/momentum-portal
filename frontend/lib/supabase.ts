@@ -144,7 +144,7 @@ export async function getStockHeatmap(): Promise<{
   let returnsMap = new Map<string, StockReturn>()
 
   if (latestDate) {
-    const retSelect = 'ticker, ret_1d, ret_1w, ret_1m, ret_3m, mom_score, rank_in_sub, rvol'
+    const retSelect = 'ticker, ret_1d, ret_1w, ret_1m, ret_3m, ret_6m, ret_12m, mom_score, rank_in_sub, rvol'
     const [rPage1, rPage2] = await Promise.all([
       supabase.from('daily_stock_returns').select(retSelect).eq('date', latestDate).range(0, 999),
       supabase.from('daily_stock_returns').select(retSelect).eq('date', latestDate).range(1000, 1999),
@@ -174,6 +174,8 @@ export async function getStockHeatmap(): Promise<{
       ret_1w: ret?.ret_1w ?? null,
       ret_1m: ret?.ret_1m ?? null,
       ret_3m: ret?.ret_3m ?? null,
+      ret_6m: ret?.ret_6m ?? null,
+      ret_12m: ret?.ret_12m ?? null,
       mom_score: ret?.mom_score ?? null,
       rank_in_sub: ret?.rank_in_sub ?? null,
       rvol: ret?.rvol ?? null,

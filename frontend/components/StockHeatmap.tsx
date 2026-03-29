@@ -6,7 +6,7 @@ import Link from 'next/link'
 
 // ── Types ────────────────────────────────────────────────────
 
-type TimeWindow = '1d' | '1w' | '1m' | '3m' | 'mom'
+type TimeWindow = '1d' | '1w' | '1m' | '3m'
 type SizeFilter = 'all' | 'large' | 'mid' | 'small'
 type CellSize = 'sm' | 'md' | 'lg'
 
@@ -15,7 +15,6 @@ const WINDOWS: { key: TimeWindow; label: string }[] = [
   { key: '1w', label: '1W' },
   { key: '1m', label: '1M' },
   { key: '3m', label: '3M' },
-  { key: 'mom', label: '動能' },
 ]
 
 const SIZES: { key: SizeFilter; label: string; sub: string }[] = [
@@ -63,7 +62,6 @@ function momColor(val: number | null): CellColor {
 
 function getColor(entry: StockHeatmapEntry, window: TimeWindow): CellColor {
   if (!entry.hasReturns) return { bg: '#f9fafb', text: '#d1d5db', border: '#f3f4f6' }
-  if (window === 'mom') return momColor(entry.mom_score)
   const val = window === '1d' ? entry.ret_1d
             : window === '1w' ? entry.ret_1w
             : window === '1m' ? entry.ret_1m
@@ -73,7 +71,6 @@ function getColor(entry: StockHeatmapEntry, window: TimeWindow): CellColor {
 
 function getDisplayValue(entry: StockHeatmapEntry, window: TimeWindow): string {
   if (!entry.hasReturns) return '—'
-  if (window === 'mom') return entry.mom_score != null ? entry.mom_score.toFixed(0) : '—'
   const val = window === '1d' ? entry.ret_1d
             : window === '1w' ? entry.ret_1w
             : window === '1m' ? entry.ret_1m
@@ -86,11 +83,10 @@ function getDisplayValue(entry: StockHeatmapEntry, window: TimeWindow): string {
 
 function calcSectorReturn(stocks: StockHeatmapEntry[], window: TimeWindow): number | null {
   const vals = stocks
-    .map(s => window === 'mom' ? s.mom_score
-              : window === '1d' ? s.ret_1d
-              : window === '1w' ? s.ret_1w
-              : window === '1m' ? s.ret_1m
-              : s.ret_3m)
+    .map(s => window === '1d' ? s.ret_1d
+            : window === '1w' ? s.ret_1w
+            : window === '1m' ? s.ret_1m
+            : s.ret_3m)
     .filter((v): v is number => v != null)
   if (!vals.length) return null
   return vals.reduce((a, b) => a + b, 0) / vals.length
@@ -107,21 +103,29 @@ function Tooltip({ entry, visible }: { entry: StockHeatmapEntry; visible: boolea
         <div className="text-gray-400 text-[11px] mb-2 leading-tight truncate">{entry.company}</div>
         <div className="grid grid-cols-2 gap-x-3 gap-y-0.5 text-[11px]">
           {[
-            ['1D', entry.ret_1d],
-            ['1W', entry.ret_1w],
-            ['1M', entry.ret_1m],
-            ['3M', entry.ret_3m],
+            ['1D',  entry.ret_1d],
+            ['1W',  entry.ret_1w],
+            ['1M',  entry.ret_1m],
+            ['3M',  entry.ret_3m],
+            ['6M',  entry.ret_6m],
+            ['1Y',  entry.ret_12m],
           ].map(([label, val]) => (
             <div key={String(label)} className="flex justify-between">
               <span className="text-gray-500">{label}</span>
               <span className={
-                val == null ? 'text-gray-500'
+                val == null ? 'text-gray-600'
                 : (val as number) >= 0 ? 'text-emerald-400' : 'text-red-400'
               }>
                 {val != null ? `${(val as number) >= 0 ? '+' : ''}${(val as number).toFixed(1)}%` : '—'}
               </span>
             </div>
           ))}
+          {entry.mom_score != null && (
+            <>
+              <span className="text-gray-500">Mom</span>
+              <span className="text-blue-400 font-semibold">{entry.mom_score.toFixed(0)}</span>
+            </>
+          )}
           {entry.rvol != null && (
             <>
               <span className="text-gray-500">RVol</span>
@@ -173,7 +177,7 @@ function StockCell({
           }}
           className={`
             ${sz.w} ${sz.h} rounded-md border cursor-pointer select-none
-            flex flex-col justify-center px-1.5
+            flex flex-col justify-center px-1.5 overflow-hidden
             transition-transform duration-100 ease-out
             ${hovered ? 'scale-105 shadow-lg z-10 relative' : ''}
           `}
@@ -181,9 +185,14 @@ function StockCell({
           <div className={`${sz.ticker} font-bold leading-none tracking-tight`}>
             {entry.ticker}
           </div>
-          <div className={`${sz.ret} font-semibold leading-none mt-1 opacity-90`}>
+          <div className={`${sz.ret} font-semibold leading-none mt-0.5 opacity-90`}>
             {value}
           </div>
+          {entry.mom_score != null && (
+            <div className="text-[9px] leading-none mt-0.5 opacity-70 font-medium">
+              M:{entry.mom_score.toFixed(0)}
+            </div>
+          )}
         </div>
       </Link>
       <Tooltip entry={entry} visible={hovered} />
@@ -280,7 +289,7 @@ function SectorBlock({
             style={{ backgroundColor: retColor2.bg, color: retColor2.text }}
             className="ml-auto text-xs font-bold px-2.5 py-1 rounded-lg"
           >
-            {window === 'mom' ? `Score ${sectorRet.toFixed(0)}` : `${sectorRet >= 0 ? '+' : ''}${sectorRet.toFixed(1)}%`}
+            {sectorRet >= 0 ? '+' : ''}{sectorRet.toFixed(1)}%
           </div>
         )}
       </div>
@@ -361,8 +370,8 @@ export function StockHeatmap({ entries, date }: Props) {
     for (const sec of Object.values(sectors)) {
       for (const arr of Object.values(sec)) {
         arr.sort((a, b) => {
-          const va = (activeWindow === 'mom' ? a.mom_score : activeWindow === '1d' ? a.ret_1d : activeWindow === '1w' ? a.ret_1w : activeWindow === '1m' ? a.ret_1m : a.ret_3m) ?? -999
-          const vb = (activeWindow === 'mom' ? b.mom_score : activeWindow === '1d' ? b.ret_1d : activeWindow === '1w' ? b.ret_1w : activeWindow === '1m' ? b.ret_1m : b.ret_3m) ?? -999
+          const va = (activeWindow === '1d' ? a.ret_1d : activeWindow === '1w' ? a.ret_1w : activeWindow === '1m' ? a.ret_1m : a.ret_3m) ?? -999
+          const vb = (activeWindow === '1d' ? b.ret_1d : activeWindow === '1w' ? b.ret_1w : activeWindow === '1m' ? b.ret_1m : b.ret_3m) ?? -999
           return vb - va
         })
       }
@@ -383,7 +392,10 @@ export function StockHeatmap({ entries, date }: Props) {
 
   const hasData = entries.some(e => e.hasReturns)
   const advancing = filtered.filter(e => {
-    const v = activeWindow === '1d' ? e.ret_1d : activeWindow === '1w' ? e.ret_1w : activeWindow === '1m' ? e.ret_1m : e.ret_3m
+    const v = activeWindow === '1d' ? e.ret_1d
+            : activeWindow === '1w' ? e.ret_1w
+            : activeWindow === '1m' ? e.ret_1m
+            : e.ret_3m
     return v != null && v > 0
   }).length
 
@@ -400,14 +412,6 @@ export function StockHeatmap({ entries, date }: Props) {
               </span>
               <span className="text-xs text-gray-400">個股</span>
             </div>
-
-            {/* Nav link to sector view */}
-            <Link
-              href="/sectors"
-              className="text-xs text-gray-400 hover:text-gray-600 border border-gray-200 rounded-md px-2 py-1 transition-colors"
-            >
-              Sector View →
-            </Link>
 
             <div className="w-px h-5 bg-gray-200 dark:bg-gray-700 mx-1" />
 

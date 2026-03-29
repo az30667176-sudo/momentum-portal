@@ -68,6 +68,8 @@ export interface StockReturn {
   ret_1w: number | null
   ret_1m: number | null
   ret_3m: number | null
+  ret_6m: number | null
+  ret_12m: number | null
   mom_score: number | null
   rank_in_sub: number | null
   rvol: number | null
@@ -95,6 +97,8 @@ export interface StockHeatmapEntry {
   ret_1w: number | null
   ret_1m: number | null
   ret_3m: number | null
+  ret_6m: number | null
+  ret_12m: number | null
   mom_score: number | null
   rank_in_sub: number | null
   rvol: number | null
