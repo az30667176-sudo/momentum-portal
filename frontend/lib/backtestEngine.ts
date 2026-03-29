@@ -509,13 +509,16 @@ export function runBacktestSync(
         .map(code => snap.subs.find(s => s.gics_code === code)?.gics_universe?.sub_industry ?? code)
 
       const dayStockMap = stockByDate.get(date) ?? new Map()
+      // Only do stock selection if THIS date has stock data (last 50 rebal dates);
+      // older dates fall back to sub-level to avoid zero-holding periods.
+      const hasStockDataToday = dayStockMap.size > 0
       const newTickers: { ticker: string; gics_code: string; subName: string }[] = []
 
       for (const sub of selectedSubs) {
         if (!finalCodes.has(sub.gics_code)) continue
         const subName = sub.gics_universe?.sub_industry ?? sub.gics_code
 
-        if (stockDataAvailable) {
+        if (hasStockDataToday) {
           const subStocks: StockReturn[] = []
           for (const [, st] of dayStockMap) {
             if (st.gics_code === sub.gics_code) subStocks.push(st)
