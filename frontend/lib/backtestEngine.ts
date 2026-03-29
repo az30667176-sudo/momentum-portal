@@ -25,11 +25,11 @@ function makeClient() {
 }
 
 // Fetch sub history via parallel range queries (avoids RPC json_agg timeout).
-// daily_sub_returns has ~40K rows; max_rows=10000 → 5 chunks covers it safely.
+// ~4 years × 155 subs × 252 days ≈ 156K rows; 20 chunks × 10K = 200K covers it.
 async function _fetchSubHistoryRaw(): Promise<DailySubSnapshot[]> {
   const supabase = makeClient()
   const CHUNK = 10000
-  const NUM_CHUNKS = 6 // covers up to 60K rows
+  const NUM_CHUNKS = 20 // covers up to 200K rows (~5 years)
 
   const SELECT_SUB = 'date,gics_code,ret_1d,ret_1w,ret_1m,ret_3m,ret_6m,ret_12m,mom_6m,mom_12m,mom_score,rank_today,rank_prev_week,delta_rank,obv_trend,rvol,vol_mom,pv_divergence,stock_count,breadth_pct,volatility_8w'
 
@@ -94,10 +94,10 @@ async function _fetchSubHistoryRaw(): Promise<DailySubSnapshot[]> {
   return subHistory
 }
 
-// Cached sub history — 5-minute cache, v1 key
+// Cached sub history — 5-minute cache, v2 key (busts old 6-chunk cache)
 export const fetchSubHistory = unstable_cache(
   _fetchSubHistoryRaw,
-  ['sub-history-v1'],
+  ['sub-history-v2'],
   { revalidate: 300 }
 )
 
@@ -401,10 +401,16 @@ export function runBacktestSync(
     if (holdings.length > 0) {
       const equalW = 1 / holdings.length
       const updatedHoldings: Holding[] = []
+      const dayStockMap = stockByDate.get(date) ?? new Map()
 
       for (const h of holdings) {
         const sub = snap.subs.find(s => s.gics_code === h.gics_code)
-        const dailyRet = (sub?.ret_1d ?? 0) / 100
+        // Use actual stock ret_1d on rebal dates (when stock data is available);
+        // fall back to sub-industry return on non-rebal days
+        const stock = dayStockMap.get(h.ticker)
+        const dailyRet = stock?.ret_1d != null
+          ? stock.ret_1d / 100
+          : (sub?.ret_1d ?? 0) / 100
         h.cumReturn = (1 + h.cumReturn / 100) * (1 + dailyRet) * 100 - 100
         h.peakCumReturn = Math.max(h.peakCumReturn, h.cumReturn)
         h.exitIndex = (h.exitIndex ?? 100) * (1 + dailyRet)
