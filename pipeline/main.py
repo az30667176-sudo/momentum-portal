@@ -162,8 +162,7 @@ def run_pipeline_for_date(
     ranks = calc_cross_sectional_rank(mom_scores)
 
     # 截面計算 momentum_decay_rate（1M 百分位 - 3M 百分位）
-    from pipeline.calculator import (calc_momentum_decay_rate,
-                                      calc_breadth_adjusted_momentum)
+    from pipeline.calculator import calc_momentum_decay_rate
     from scipy import stats as _stats
 
     def _percentile(val, all_vals):
@@ -180,9 +179,6 @@ def run_pipeline_for_date(
         score_3m = _percentile(metrics.get("ret_3m"), all_ret3m)
         score_1m = _percentile(metrics.get("ret_1m"), all_ret1m)
         metrics['momentum_decay_rate'] = calc_momentum_decay_rate(score_3m, score_1m)
-        metrics['breadth_adj_mom'] = calc_breadth_adjusted_momentum(
-            metrics.get("ret_3m"), metrics.get("breadth_pct")
-        )
 
     # 組裝最終 records
     records = []
@@ -205,13 +201,15 @@ def run_pipeline_for_date(
         # 合入所有指標
         for key in ["ret_1d", "ret_1w", "ret_1m", "ret_3m",
                     "ret_6m", "ret_12m", "mom_6m", "mom_12m",
-                    "obv_trend", "rvol", "vol_mom", "pv_divergence",
-                    "sharpe_8w", "sortino_8w", "win_rate_8w", "volatility_8w", "skewness",
-                    "information_ratio", "momentum_decay_rate", "breadth_adj_mom",
-                    "downside_capture", "calmar_ratio", "rs_trend_slope",
-                    "leader_lagger_ratio", "cmf", "mfi", "vrsi", "pvt_slope",
+                    "obv_trend", "rvol", "vol_mom",
+                    "sharpe_8w", "sortino_8w", "volatility_8w",
+                    "information_ratio", "momentum_decay_rate",
+                    "downside_capture", "calmar_ratio",
+                    "leader_lagger_ratio", "cmf",
                     "vol_surge_score", "beta", "momentum_autocorr",
-                    "price_trend_r2", "ad_slope"]:
+                    "price_trend_r2",
+                    "price_vs_ma5", "price_vs_ma20", "price_vs_ma100", "price_vs_ma200",
+                    "breadth_20ma", "breadth_50ma", "high_proximity"]:
             record[key] = metrics.get(key)
 
         records.append(record)

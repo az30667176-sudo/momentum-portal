@@ -144,66 +144,6 @@ def calc_vol_momentum(volume: pd.Series,
         return None
 
 
-def calc_pv_divergence(close: pd.Series,
-                        volume: pd.Series,
-                        lookback_days: int = 10) -> str:
-    """
-    判斷量價背離類型。
-
-    四種情形：
-    - "confirmed"     ：量增價漲，資金確認
-    - "price_vol_neg" ：量縮價漲，注意假突破
-    - "capitulation"  ：量增價跌，可能洗盤/底部
-    - "weak"          ：量縮價跌，趨勢疲弱
-
-    Parameters
-    ----------
-    close : pd.Series
-        收盤價
-    volume : pd.Series
-        成交量
-    lookback_days : int
-        判斷用的天數
-
-    Returns
-    -------
-    str
-        四種類型之一
-    """
-    try:
-        df = pd.concat([close, volume], axis=1).dropna()
-        df.columns = ["close", "volume"]
-
-        if len(df) < lookback_days * 2:
-            return "weak"
-
-        recent = df.iloc[-lookback_days:]
-        prior = df.iloc[-lookback_days * 2:-lookback_days]
-
-        # 價格方向：近期收益率
-        price_return = (recent["close"].iloc[-1] /
-                        recent["close"].iloc[0] - 1)
-        price_up = price_return > 0.005  # 0.5% 的緩衝，避免噪音
-
-        # 成交量方向：近期均量 vs 前期均量
-        recent_vol_avg = recent["volume"].mean()
-        prior_vol_avg = prior["volume"].mean()
-        vol_up = recent_vol_avg > prior_vol_avg * 1.1  # 10% 的緩衝
-
-        if price_up and vol_up:
-            return "confirmed"
-        elif price_up and not vol_up:
-            return "price_vol_neg"
-        elif not price_up and vol_up:
-            return "capitulation"
-        else:
-            return "weak"
-
-    except Exception as e:
-        logger.debug(f"PV divergence calc failed: {e}")
-        return "weak"
-
-
 # ─── 進階資金流指標 ───────────────────────────────────────────
 
 def calc_chaikin_money_flow(high, low, close, volume, period=20) -> float | None:
@@ -224,97 +164,6 @@ def calc_chaikin_money_flow(high, low, close, volume, period=20) -> float | None
             return None
         cmf = mfv.iloc[-period:].sum() / vol_sum
         return round(float(cmf), 4)
-    except Exception:
-        return None
-
-
-def calc_money_flow_index(high, low, close, volume, period=14) -> float | None:
-    """
-    MFI = 100 - (100 / (1 + pos_mf_sum / neg_mf_sum))
-    0-100，> 80 超買，< 20 超賣
-    """
-    try:
-        df = pd.concat([high, low, close, volume], axis=1).dropna()
-        df.columns = ['h', 'l', 'c', 'v']
-        if len(df) < period + 1:
-            return None
-        tp = (df['h'] + df['l'] + df['c']) / 3
-        rmf = tp * df['v']
-        tp_diff = tp.diff()
-        pos_sum = rmf.where(tp_diff > 0, 0).iloc[-period:].sum()
-        neg_sum = rmf.where(tp_diff < 0, 0).iloc[-period:].sum()
-        if neg_sum == 0:
-            return 100.0
-        mfi = 100 - (100 / (1 + pos_sum / neg_sum))
-        return round(float(mfi), 2)
-    except Exception:
-        return None
-
-
-def calc_volume_weighted_rsi(close, volume, period=14) -> float | None:
-    """
-    VRSI：成交量加權的 RSI
-    """
-    try:
-        df = pd.concat([close, volume], axis=1).dropna()
-        df.columns = ['c', 'v']
-        if len(df) < period + 1:
-            return None
-        delta = df['c'].diff()
-        gain = delta.clip(lower=0) * df['v']
-        loss = (-delta.clip(upper=0)) * df['v']
-        avg_gain = gain.iloc[-period:].mean()
-        avg_loss = loss.iloc[-period:].mean()
-        if avg_loss == 0:
-            return 100.0
-        vrsi = 100 - (100 / (1 + avg_gain / avg_loss))
-        return round(float(vrsi), 2)
-    except Exception:
-        return None
-
-
-def calc_ad_slope(high, low, close, volume, lookback_weeks=8) -> float | None:
-    """
-    A/D Line 斜率，除以均量標準化
-    """
-    try:
-        df = pd.concat([high, low, close, volume], axis=1).dropna()
-        df.columns = ['h', 'l', 'c', 'v']
-        days = lookback_weeks * 5
-        if len(df) < days:
-            return None
-        hl = (df['h'] - df['l']).replace(0, np.nan)
-        clv = ((df['c'] - df['l']) - (df['h'] - df['c'])) / hl
-        ad = (clv * df['v']).cumsum()
-        recent = ad.iloc[-days:].values
-        x = np.arange(len(recent))
-        slope = np.polyfit(x, recent, 1)[0]
-        avg_vol = df['v'].iloc[-days:].mean()
-        if avg_vol > 0:
-            slope = slope / avg_vol
-        return round(float(slope), 6)
-    except Exception:
-        return None
-
-
-def calc_pvt_slope(close, volume, lookback_weeks=8) -> float | None:
-    """
-    PVT = cumsum(volume × pct_change(close))，取斜率並除以均量標準化
-    """
-    try:
-        df = pd.concat([close, volume], axis=1).dropna()
-        df.columns = ['c', 'v']
-        days = lookback_weeks * 5
-        if len(df) < days:
-            return None
-        pvt = (df['v'] * df['c'].pct_change().fillna(0)).cumsum()
-        recent = pvt.iloc[-days:].values
-        x = np.arange(len(recent))
-        slope = np.polyfit(x, recent, 1)[0]
-        avg_vol = df['v'].iloc[-days:].mean()
-        if avg_vol > 0:
-            slope = slope / avg_vol
-        return round(float(slope), 6)
     except Exception:
         return None
 
@@ -355,4 +204,3 @@ if __name__ == "__main__":
     print(f"OBV Trend:      {calc_obv_trend(close, volume)}")
     print(f"RVol:           {calc_rvol(volume)}")
     print(f"Vol Momentum:   {calc_vol_momentum(volume)}")
-    print(f"PV Divergence:  {calc_pv_divergence(close, volume)}")

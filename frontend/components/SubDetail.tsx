@@ -36,18 +36,6 @@ const CARD_CONFIGS: Record<string, CardConfig> = {
     color: d => d.momentum_decay_rate != null ? (d.momentum_decay_rate < 0 ? 'text-red-500 dark:text-red-400' : 'text-green-600 dark:text-green-400') : 'text-gray-400',
     desc: '1M%位 − 3M%位 · 負=預警',
   },
-  breadth_adj_mom: {
-    label: 'Breadth Adj',
-    value: d => d.breadth_adj_mom != null ? d.breadth_adj_mom.toFixed(2) : '—',
-    color: d => d.breadth_adj_mom != null ? (d.breadth_adj_mom > 0 ? 'text-green-600 dark:text-green-400' : 'text-red-500 dark:text-red-400') : 'text-gray-400',
-    desc: '廣度調整動能',
-  },
-  rs_trend_slope: {
-    label: 'RS Slope',
-    value: d => d.rs_trend_slope != null ? d.rs_trend_slope.toFixed(4) : '—',
-    color: d => d.rs_trend_slope != null ? (d.rs_trend_slope > 0 ? 'text-green-600 dark:text-green-400' : 'text-red-500 dark:text-red-400') : 'text-gray-400',
-    desc: '相對強弱趨勢斜率',
-  },
   sortino_8w: {
     label: 'Sortino',
     value: d => d.sortino_8w != null ? d.sortino_8w.toFixed(2) : '—',
@@ -58,7 +46,7 @@ const CARD_CONFIGS: Record<string, CardConfig> = {
     label: 'Calmar',
     value: d => d.calmar_ratio != null ? d.calmar_ratio.toFixed(2) : '—',
     color: d => d.calmar_ratio != null ? (d.calmar_ratio > 0 ? 'text-green-600 dark:text-green-400' : 'text-red-500 dark:text-red-400') : 'text-gray-400',
-    desc: '報酬/最大回撤 · 近12週',
+    desc: '近 52 週年化報酬 ÷ 最大回撤（峰谷法）',
   },
   volatility_8w: {
     label: 'Volatility',
@@ -84,18 +72,6 @@ const CARD_CONFIGS: Record<string, CardConfig> = {
     color: d => d.cmf != null ? (d.cmf > 0 ? 'text-green-600 dark:text-green-400' : 'text-red-500 dark:text-red-400') : 'text-gray-400',
     desc: 'Chaikin Money Flow · 近20日',
   },
-  mfi: {
-    label: 'MFI',
-    value: d => d.mfi != null ? d.mfi.toFixed(1) : '—',
-    color: d => d.mfi != null ? (d.mfi > 70 ? 'text-red-500 dark:text-red-400' : d.mfi < 30 ? 'text-green-600 dark:text-green-400' : 'text-gray-700 dark:text-gray-300') : 'text-gray-400',
-    desc: '量價RSI · 近14日 · >80超買',
-  },
-  pvt_slope: {
-    label: 'PVT Slope',
-    value: d => d.pvt_slope != null ? d.pvt_slope.toFixed(3) : '—',
-    color: d => d.pvt_slope != null ? (d.pvt_slope > 0 ? 'text-green-600 dark:text-green-400' : 'text-red-500 dark:text-red-400') : 'text-gray-400',
-    desc: 'PVT斜率 · 近8週',
-  },
   rvol: {
     label: 'RVol',
     value: d => d.rvol != null ? `${d.rvol.toFixed(2)}x` : '—',
@@ -120,16 +96,47 @@ const CARD_CONFIGS: Record<string, CardConfig> = {
     color: d => d.vol_mom != null ? (d.vol_mom > 1 ? 'text-green-600 dark:text-green-400' : 'text-gray-700 dark:text-gray-300') : 'text-gray-400',
     desc: '成交量動能 · 近/前期比',
   },
-  pv_divergence: {
-    label: 'PV Signal',
-    value: d => d.pv_divergence ?? '—',
-    color: d => {
-      if (d.pv_divergence === 'confirmed')      return 'text-green-600 dark:text-green-400'
-      if (d.pv_divergence === 'price_vol_neg')  return 'text-orange-500 dark:text-orange-400'
-      if (d.pv_divergence === 'capitulation')   return 'text-purple-600 dark:text-purple-400'
-      return 'text-gray-400'
-    },
-    desc: '價量確認信號',
+  price_vs_ma5: {
+    label: 'vs MA5',
+    value: d => d.price_vs_ma5 != null ? `${d.price_vs_ma5 >= 0 ? '+' : ''}${d.price_vs_ma5.toFixed(2)}%` : '—',
+    color: d => d.price_vs_ma5 != null ? (d.price_vs_ma5 >= 0 ? 'text-green-600 dark:text-green-400' : 'text-red-500 dark:text-red-400') : 'text-gray-400',
+    desc: '指數 vs 5日均線偏離%',
+  },
+  price_vs_ma20: {
+    label: 'vs MA20',
+    value: d => d.price_vs_ma20 != null ? `${d.price_vs_ma20 >= 0 ? '+' : ''}${d.price_vs_ma20.toFixed(2)}%` : '—',
+    color: d => d.price_vs_ma20 != null ? (d.price_vs_ma20 >= 0 ? 'text-green-600 dark:text-green-400' : 'text-red-500 dark:text-red-400') : 'text-gray-400',
+    desc: '指數 vs 20日均線偏離%',
+  },
+  price_vs_ma100: {
+    label: 'vs MA100',
+    value: d => d.price_vs_ma100 != null ? `${d.price_vs_ma100 >= 0 ? '+' : ''}${d.price_vs_ma100.toFixed(2)}%` : '—',
+    color: d => d.price_vs_ma100 != null ? (d.price_vs_ma100 >= 0 ? 'text-green-600 dark:text-green-400' : 'text-red-500 dark:text-red-400') : 'text-gray-400',
+    desc: '指數 vs 100日均線偏離%',
+  },
+  price_vs_ma200: {
+    label: 'vs MA200',
+    value: d => d.price_vs_ma200 != null ? `${d.price_vs_ma200 >= 0 ? '+' : ''}${d.price_vs_ma200.toFixed(2)}%` : '—',
+    color: d => d.price_vs_ma200 != null ? (d.price_vs_ma200 >= 0 ? 'text-green-600 dark:text-green-400' : 'text-red-500 dark:text-red-400') : 'text-gray-400',
+    desc: '指數 vs 200日均線偏離%',
+  },
+  breadth_20ma: {
+    label: 'B. 20MA',
+    value: d => d.breadth_20ma != null ? `${d.breadth_20ma.toFixed(1)}%` : '—',
+    color: d => d.breadth_20ma != null ? (d.breadth_20ma >= 70 ? 'text-green-600 dark:text-green-400' : d.breadth_20ma >= 40 ? 'text-yellow-600 dark:text-yellow-400' : 'text-red-500 dark:text-red-400') : 'text-gray-400',
+    desc: '個股站上20日均線比例',
+  },
+  breadth_50ma: {
+    label: 'B. 50MA',
+    value: d => d.breadth_50ma != null ? `${d.breadth_50ma.toFixed(1)}%` : '—',
+    color: d => d.breadth_50ma != null ? (d.breadth_50ma >= 70 ? 'text-green-600 dark:text-green-400' : d.breadth_50ma >= 40 ? 'text-yellow-600 dark:text-yellow-400' : 'text-red-500 dark:text-red-400') : 'text-gray-400',
+    desc: '個股站上50日均線比例',
+  },
+  high_proximity: {
+    label: '52W High',
+    value: d => d.high_proximity != null ? `${(d.high_proximity * 100).toFixed(1)}%` : '—',
+    color: d => d.high_proximity != null ? (d.high_proximity >= 0.95 ? 'text-green-600 dark:text-green-400' : d.high_proximity >= 0.80 ? 'text-yellow-600 dark:text-yellow-400' : 'text-red-500 dark:text-red-400') : 'text-gray-400',
+    desc: '距52週高點比例',
   },
   beta: {
     label: 'Beta',
@@ -152,11 +159,12 @@ const CARD_CONFIGS: Record<string, CardConfig> = {
 }
 
 const INDICATOR_GROUPS: { label: string; keys: string[] }[] = [
-  { label: '動能品質',   keys: ['information_ratio', 'momentum_decay_rate', 'breadth_adj_mom', 'rs_trend_slope'] },
+  { label: '動能品質',   keys: ['information_ratio', 'momentum_decay_rate'] },
   { label: '風險調整',   keys: ['sortino_8w', 'calmar_ratio', 'volatility_8w'] },
   { label: '板塊結構',   keys: ['leader_lagger_ratio', 'downside_capture'] },
-  { label: '資金流動',   keys: ['cmf', 'mfi', 'pvt_slope', 'rvol', 'vol_surge_score', 'obv_trend', 'vol_mom', 'pv_divergence'] },
+  { label: '資金流動',   keys: ['cmf', 'rvol', 'vol_surge_score', 'obv_trend', 'vol_mom'] },
   { label: '策略適性',   keys: ['beta', 'momentum_autocorr', 'price_trend_r2'] },
+  { label: '均線與廣度', keys: ['price_vs_ma5', 'price_vs_ma20', 'price_vs_ma100', 'price_vs_ma200', 'breadth_20ma', 'breadth_50ma', 'high_proximity'] },
 ]
 
 const DEFAULT_CARDS = ['rvol', 'obv_trend', 'cmf', 'momentum_decay_rate']
@@ -190,9 +198,6 @@ function getSignals(d: SubReturn): { label: string; color: string }[] {
     if      (d.rvol >= 1.5) chips.push({ label: `⚡ High Volume ${d.rvol.toFixed(1)}x`, color: 'bg-yellow-100 text-yellow-800 border-yellow-300' })
     else if (d.rvol < 0.7)  chips.push({ label: 'Low Volume',                           color: 'bg-gray-100 text-gray-600 border-gray-300' })
   }
-  if (d.pv_divergence === 'confirmed')    chips.push({ label: '✓ Volume Confirmed', color: 'bg-blue-100 text-blue-700 border-blue-300' })
-  if (d.pv_divergence === 'price_vol_neg') chips.push({ label: '⚠ Volume Divergence', color: 'bg-orange-100 text-orange-700 border-orange-300' })
-  if (d.pv_divergence === 'capitulation') chips.push({ label: '↩ Capitulation',     color: 'bg-purple-100 text-purple-700 border-purple-300' })
   return chips
 }
 

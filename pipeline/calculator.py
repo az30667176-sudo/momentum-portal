@@ -82,12 +82,10 @@ def calc_rolling_metrics(weekly_returns: list[float]) -> dict:
     Returns
     -------
     dict
-        sharpe_8w, sortino_8w, win_rate_8w, volatility_8w, skewness
+        sharpe_8w, sortino_8w, volatility_8w
     """
     if len(weekly_returns) < 4:
-        return {k: None for k in
-                ["sharpe_8w", "sortino_8w", "win_rate_8w",
-                 "volatility_8w", "skewness"]}
+        return {k: None for k in ["sharpe_8w", "sortino_8w", "volatility_8w"]}
 
     wr = np.array(weekly_returns, dtype=float)
     mn = np.nanmean(wr)
@@ -103,20 +101,12 @@ def calc_rolling_metrics(weekly_returns: list[float]) -> dict:
     ds = np.std(downside, ddof=1) if len(downside) > 1 else std
     sortino = (mn / ds) * np.sqrt(52) if ds > 0 else 0.0
 
-    win_rate = np.sum(wr > 0) / len(wr) * 100
     volatility = std * np.sqrt(52)
 
-    try:
-        skew = float(stats.skew(wr))
-    except Exception:
-        skew = 0.0
-
     return {
-        "sharpe_8w":    round(sharpe, 4),
-        "sortino_8w":   round(sortino, 4),
-        "win_rate_8w":  round(win_rate, 2),
+        "sharpe_8w":     round(sharpe, 4),
+        "sortino_8w":    round(sortino, 4),
         "volatility_8w": round(volatility, 4),
-        "skewness":     round(skew, 4),
     }
 
 
@@ -317,10 +307,9 @@ def aggregate_sub_industry(
         包含所有報酬、風險和量化指標，以及 stock_count
     """
     from pipeline.volume import (calc_obv_trend, calc_rvol,
-                                  calc_vol_momentum, calc_pv_divergence,
-                                  calc_chaikin_money_flow, calc_money_flow_index,
-                                  calc_volume_weighted_rsi, calc_ad_slope,
-                                  calc_pvt_slope, calc_vol_surge_score)
+                                  calc_vol_momentum,
+                                  calc_chaikin_money_flow,
+                                  calc_vol_surge_score)
 
     valid = [t for t in tickers if t in close_all.columns
              and not close_all[t].dropna().empty]
@@ -342,21 +331,15 @@ def aggregate_sub_industry(
                 "obv_trend": calc_obv_trend(close, volume),
                 "rvol":      calc_rvol(volume),
                 "vol_mom":   calc_vol_momentum(volume),
-                "pv_div":    calc_pv_divergence(close, volume),
             }
             has_hl = (high_all is not None and low_all is not None
                       and t in high_all.columns and t in low_all.columns)
             if has_hl:
                 high = high_all[t].dropna()
                 low  = low_all[t].dropna()
-                vol_entry["cmf"]       = calc_chaikin_money_flow(high, low, close, volume)
-                vol_entry["mfi"]       = calc_money_flow_index(high, low, close, volume)
-                vol_entry["vrsi"]      = calc_volume_weighted_rsi(close, volume)
-                vol_entry["ad_slope"]  = calc_ad_slope(high, low, close, volume)
-                vol_entry["pvt_slope"] = calc_pvt_slope(close, volume)
+                vol_entry["cmf"] = calc_chaikin_money_flow(high, low, close, volume)
             else:
-                for k in ["cmf", "mfi", "vrsi", "ad_slope", "pvt_slope"]:
-                    vol_entry[k] = None
+                vol_entry["cmf"] = None
             vol_results.append(vol_entry)
 
     # 等權平均所有數值指標（報酬類）
@@ -371,16 +354,9 @@ def aggregate_sub_industry(
 
     # 量價指標等權平均
     if vol_results:
-        for vk in ["obv_trend", "rvol", "vol_mom",
-                   "cmf", "mfi", "vrsi", "ad_slope", "pvt_slope"]:
+        for vk in ["obv_trend", "rvol", "vol_mom", "cmf"]:
             vals = [v[vk] for v in vol_results if v.get(vk) is not None]
             result[vk] = round(float(np.nanmean(vals)), 4) if vals else None
-
-        # pv_divergence：取眾數
-        pvs = [v["pv_div"] for v in vol_results if v.get("pv_div")]
-        if pvs:
-            from collections import Counter
-            result["pv_divergence"] = Counter(pvs).most_common(1)[0][0]
 
     result["stock_count"] = len(valid)
 
@@ -452,11 +428,17 @@ def aggregate_sub_industry(
     }
     result['leader_lagger_ratio'] = calc_leader_lagger_ratio(ticker_rets_20d)
 
-    # RS Trend Slope：需要歷史序列，由外部傳入後補算
-    result['rs_trend_slope'] = None
-
     # Vol Surge Score
     result['vol_surge_score'] = calc_vol_surge_score(prev_rvols or [])
+
+    # ── 新指標：均線相對位置、廣度、52週高點 ──────────────────
+    result['price_vs_ma5']   = calc_price_vs_ma(price_index, 5)
+    result['price_vs_ma20']  = calc_price_vs_ma(price_index, 20)
+    result['price_vs_ma100'] = calc_price_vs_ma(price_index, 100)
+    result['price_vs_ma200'] = calc_price_vs_ma(price_index, 200)
+    result['high_proximity'] = calc_high_proximity(price_index)
+    result['breadth_20ma']   = calc_breadth_ma(close_all, valid, 20)
+    result['breadth_50ma']   = calc_breadth_ma(close_all, valid, 50)
 
     return result
 
@@ -489,16 +471,6 @@ def calc_momentum_decay_rate(score_3m: float | None, score_1m: float | None) -> 
     return round(float(score_1m - score_3m), 2)
 
 
-def calc_breadth_adjusted_momentum(ret_3m: float | None, breadth_pct: float | None) -> float | None:
-    """
-    = ret_3m × (breadth_pct / 100)
-    懲罰少數股票撐盤的假動能
-    """
-    if ret_3m is None or breadth_pct is None:
-        return None
-    return round(float(ret_3m * breadth_pct / 100), 4)
-
-
 def calc_downside_capture(weekly_sub: list[float], weekly_spy: list[float]) -> float | None:
     """
     只取 SPY 為負的週，計算 sub 平均下跌 / SPY 平均下跌
@@ -519,34 +491,24 @@ def calc_downside_capture(weekly_sub: list[float], weekly_spy: list[float]) -> f
     return round(float(sub_avg / spy_avg), 4)
 
 
-def calc_calmar_ratio(weekly_returns: list[float], weeks: int = 12) -> float | None:
+def calc_calmar_ratio(weekly_returns: list[float], weeks: int = 52) -> float | None:
     """
-    = 年化週報酬(mean × 52) / abs(最差單週報酬)
+    Calmar = 年化報酬 / 最大回撤（Max Drawdown）
+    使用近 52 週週報酬，計算累積曲線的真實最大回撤（峰谷法）
+    > 2 優秀，0.5~2 尚可，< 0.5 風險高
     """
     if not weekly_returns or len(weekly_returns) < 4:
         return None
     arr = np.array(weekly_returns[-weeks:], dtype=float)
-    ann_ret = np.nanmean(arr) * 52
-    max_dd = abs(np.nanmin(arr))
+    ann_ret = float(np.nanmean(arr) * 52)
+    # 從週報酬建立累積淨值曲線，計算真實 Max Drawdown
+    eq = np.cumprod(1 + arr / 100)
+    peak = np.maximum.accumulate(eq)
+    drawdowns = (peak - eq) / peak * 100
+    max_dd = float(np.nanmax(drawdowns))
     if max_dd < 1e-8:
         return None
-    return round(float(ann_ret / max_dd), 4)
-
-
-def calc_rs_trend_slope(rs_history: list[float], lookback: int = 4) -> float | None:
-    """
-    對最近 lookback 筆 rs_ratio 做線性迴歸取斜率
-    正數=RS 正在建立，負數=RS 正在弱化
-    """
-    if not rs_history or len(rs_history) < lookback:
-        return None
-    recent = np.array(rs_history[-lookback:], dtype=float)
-    x = np.arange(len(recent))
-    try:
-        slope = np.polyfit(x, recent, 1)[0]
-        return round(float(slope), 6)
-    except Exception:
-        return None
+    return round(ann_ret / max_dd, 4)
 
 
 def calc_leader_lagger_ratio(ticker_returns_20d: dict) -> float | None:
@@ -622,6 +584,59 @@ def calc_price_trend_r2(close: pd.Series, lookback_days: int = 63) -> float | No
         return round(float(r ** 2), 4)
     except Exception:
         return None
+
+
+def calc_price_vs_ma(price_index: pd.Series, period: int) -> float | None:
+    """
+    板塊等權價格指數相對於 MA 的偏離百分比。
+    = (今日指數 / 近 period 日均值 - 1) × 100
+    正數 = 指數在 MA 上方（上升趨勢），負數 = 在 MA 下方（下降趨勢）
+    """
+    idx = price_index.dropna()
+    if len(idx) < period + 1:
+        return None
+    ma = float(idx.iloc[-period:].mean())
+    if ma == 0:
+        return None
+    return round(float((idx.iloc[-1] / ma - 1) * 100), 4)
+
+
+def calc_breadth_ma(close_all: pd.DataFrame, tickers: list[str], period: int) -> float | None:
+    """
+    板塊內個股站上 period 日均線的比例（0–100%）。
+    > 70% 板塊健康，< 30% 板塊廣泛走弱。
+    用於區分「少數股票撐盤」和「廣泛參與的真動能」。
+    """
+    above, total = 0, 0
+    for t in tickers:
+        if t not in close_all.columns:
+            continue
+        close = close_all[t].dropna()
+        if len(close) < period + 1:
+            continue
+        ma = float(close.iloc[-period:].mean())
+        total += 1
+        if close.iloc[-1] > ma:
+            above += 1
+    if total == 0:
+        return None
+    return round(above / total * 100, 2)
+
+
+def calc_high_proximity(price_index: pd.Series, lookback: int = 252) -> float | None:
+    """
+    板塊等權價格指數相對於近 lookback 日最高點的比例。
+    = 今日指數 / 近 252 日最高點
+    > 0.95 接近突破，= 1.0 創新高，< 0.80 距高點顯著回撤
+    """
+    idx = price_index.dropna()
+    if len(idx) < 5:
+        return None
+    n = min(lookback, len(idx))
+    high = float(idx.iloc[-n:].max())
+    if high == 0:
+        return None
+    return round(float(idx.iloc[-1] / high), 4)
 
 
 if __name__ == "__main__":

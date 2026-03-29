@@ -118,25 +118,6 @@ function barColorFor(colorClass: string): string {
   return BAR_GRAY
 }
 
-// ── PV Divergence badge ────────────────────────────────────────
-
-const PV_BADGES: Record<string, { label: string; cls: string }> = {
-  confirmed:     { label: '量價齊揚', cls: 'bg-green-100 text-green-700 border-green-300' },
-  price_vol_neg: { label: '量縮價漲', cls: 'bg-red-100 text-red-700 border-red-300' },
-  capitulation:  { label: '量增價跌', cls: 'bg-blue-100 text-blue-700 border-blue-300' },
-  weak:          { label: '量縮價跌', cls: 'bg-gray-100 text-gray-500 border-gray-300' },
-}
-
-function PvBadge({ pv }: { pv: string | null }) {
-  if (!pv || !PV_BADGES[pv]) return null
-  const b = PV_BADGES[pv]
-  return (
-    <span className={`mt-1.5 inline-block text-[10px] font-medium px-1.5 py-0.5 rounded border ${b.cls}`}>
-      {b.label}
-    </span>
-  )
-}
-
 // ── Group header ───────────────────────────────────────────────
 
 function GroupHeader({ zh, en }: { zh: string; en: string }) {
@@ -207,15 +188,6 @@ export function QuantPanel({ data: d }: Props) {
     { t: 0.1,  color: GREEN, above: true },
     { t: -0.1, color: GRAY,  above: true },
   ], RED)
-
-  const mfiColor = (() => {
-    if (d.mfi == null) return GRAY
-    if (d.mfi > 80) return RED
-    if (d.mfi < 20) return BLUE
-    return GREEN
-  })()
-
-  const pvtColor = d.pvt_slope != null ? (d.pvt_slope > 0 ? GREEN : RED) : GRAY
 
   const rvolColor = (() => {
     if (d.rvol == null) return GRAY
@@ -331,7 +303,7 @@ export function QuantPanel({ data: d }: Props) {
           <MetricCard
             label="Calmar Ratio"
             value={fmtNum(d.calmar_ratio, 2)}
-            desc="近 12 週年化報酬 ÷ 最大單週回撤 · 反映近期風險回報"
+            desc="近 52 週年化報酬 ÷ 最大回撤（峰谷法）· Calmar Ratio"
             valueColor={calmarColor}
             barColor={barColorFor(calmarColor)}
             barMin={-2} barMax={6} barValue={d.calmar_ratio}
@@ -381,23 +353,6 @@ export function QuantPanel({ data: d }: Props) {
             valueColor={cmfColor}
             barColor={barColorFor(cmfColor)}
             barMin={-1} barMax={1} barValue={d.cmf}
-            extra={<PvBadge pv={d.pv_divergence} />}
-          />
-          <MetricCard
-            label="MFI"
-            value={d.mfi != null ? Math.round(d.mfi).toString() : '—'}
-            desc="近 14 日量價版 RSI · 0–100，> 80 超買，< 20 超賣"
-            valueColor={mfiColor}
-            barColor={barColorFor(mfiColor)}
-            barMin={0} barMax={100} barValue={d.mfi}
-          />
-          <MetricCard
-            label="PVT Slope"
-            value={d.pvt_slope != null ? d.pvt_slope.toFixed(4) : '—'}
-            desc="近 8 週 Price-Volume Trend 斜率 · 正數代表資金持續流入"
-            valueColor={pvtColor}
-            barColor={barColorFor(pvtColor)}
-            barMin={-0.01} barMax={0.01} barValue={d.pvt_slope}
           />
           <MetricCard
             label="RVol"
@@ -446,6 +401,69 @@ export function QuantPanel({ data: d }: Props) {
             valueColor={r2Color}
             barColor={barColorFor(r2Color)}
             barMin={0} barMax={1} barValue={d.price_trend_r2}
+          />
+        </div>
+      </div>
+
+      {/* ── Group 6: MA Regime & Breadth ── */}
+      <div>
+        <GroupHeader zh="均線與廣度" en="MA Regime & Breadth" />
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+          <MetricCard
+            label="vs MA5"
+            value={d.price_vs_ma5 != null ? `${d.price_vs_ma5 >= 0 ? '+' : ''}${d.price_vs_ma5.toFixed(2)}%` : '—'}
+            desc="等權指數 vs 5日均線 · 正=在均線上方"
+            valueColor={d.price_vs_ma5 != null ? (d.price_vs_ma5 >= 0 ? GREEN : RED) : GRAY}
+            barColor={d.price_vs_ma5 != null ? (d.price_vs_ma5 >= 0 ? BAR_GREEN : BAR_RED) : BAR_GRAY}
+            barMin={-10} barMax={10} barValue={d.price_vs_ma5}
+          />
+          <MetricCard
+            label="vs MA20"
+            value={d.price_vs_ma20 != null ? `${d.price_vs_ma20 >= 0 ? '+' : ''}${d.price_vs_ma20.toFixed(2)}%` : '—'}
+            desc="等權指數 vs 20日均線 · 正=上升趨勢確立"
+            valueColor={d.price_vs_ma20 != null ? (d.price_vs_ma20 >= 0 ? GREEN : RED) : GRAY}
+            barColor={d.price_vs_ma20 != null ? (d.price_vs_ma20 >= 0 ? BAR_GREEN : BAR_RED) : BAR_GRAY}
+            barMin={-15} barMax={15} barValue={d.price_vs_ma20}
+          />
+          <MetricCard
+            label="vs MA100"
+            value={d.price_vs_ma100 != null ? `${d.price_vs_ma100 >= 0 ? '+' : ''}${d.price_vs_ma100.toFixed(2)}%` : '—'}
+            desc="等權指數 vs 100日均線 · 中期趨勢判斷"
+            valueColor={d.price_vs_ma100 != null ? (d.price_vs_ma100 >= 0 ? GREEN : RED) : GRAY}
+            barColor={d.price_vs_ma100 != null ? (d.price_vs_ma100 >= 0 ? BAR_GREEN : BAR_RED) : BAR_GRAY}
+            barMin={-20} barMax={20} barValue={d.price_vs_ma100}
+          />
+          <MetricCard
+            label="vs MA200"
+            value={d.price_vs_ma200 != null ? `${d.price_vs_ma200 >= 0 ? '+' : ''}${d.price_vs_ma200.toFixed(2)}%` : '—'}
+            desc="等權指數 vs 200日均線 · 長期多空判斷"
+            valueColor={d.price_vs_ma200 != null ? (d.price_vs_ma200 >= 0 ? GREEN : RED) : GRAY}
+            barColor={d.price_vs_ma200 != null ? (d.price_vs_ma200 >= 0 ? BAR_GREEN : BAR_RED) : BAR_GRAY}
+            barMin={-25} barMax={25} barValue={d.price_vs_ma200}
+          />
+          <MetricCard
+            label="Breadth 20MA"
+            value={d.breadth_20ma != null ? `${d.breadth_20ma.toFixed(1)}%` : '—'}
+            desc="個股站上 20日均線比例 · > 70% 廣泛強勢，< 30% 廣泛走弱"
+            valueColor={d.breadth_20ma != null ? (d.breadth_20ma >= 70 ? GREEN : d.breadth_20ma >= 40 ? YELLOW : RED) : GRAY}
+            barColor={d.breadth_20ma != null ? (d.breadth_20ma >= 70 ? BAR_GREEN : d.breadth_20ma >= 40 ? BAR_YELLOW : BAR_RED) : BAR_GRAY}
+            barMin={0} barMax={100} barValue={d.breadth_20ma}
+          />
+          <MetricCard
+            label="Breadth 50MA"
+            value={d.breadth_50ma != null ? `${d.breadth_50ma.toFixed(1)}%` : '—'}
+            desc="個股站上 50日均線比例 · 中期廣度，趨勢持續性指標"
+            valueColor={d.breadth_50ma != null ? (d.breadth_50ma >= 70 ? GREEN : d.breadth_50ma >= 40 ? YELLOW : RED) : GRAY}
+            barColor={d.breadth_50ma != null ? (d.breadth_50ma >= 70 ? BAR_GREEN : d.breadth_50ma >= 40 ? BAR_YELLOW : BAR_RED) : BAR_GRAY}
+            barMin={0} barMax={100} barValue={d.breadth_50ma}
+          />
+          <MetricCard
+            label="52W High Prox"
+            value={d.high_proximity != null ? `${(d.high_proximity * 100).toFixed(1)}%` : '—'}
+            desc="等權指數 / 52週高點 · > 95% 接近突破，= 100% 創新高"
+            valueColor={d.high_proximity != null ? (d.high_proximity >= 0.95 ? GREEN : d.high_proximity >= 0.80 ? YELLOW : RED) : GRAY}
+            barColor={d.high_proximity != null ? (d.high_proximity >= 0.95 ? BAR_GREEN : d.high_proximity >= 0.80 ? BAR_YELLOW : BAR_RED) : BAR_GRAY}
+            barMin={50} barMax={105} barValue={d.high_proximity != null ? d.high_proximity * 100 : null}
           />
         </div>
       </div>

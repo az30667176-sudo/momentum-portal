@@ -48,14 +48,15 @@ async function _fetchSubHistoryRaw(): Promise<DailySubSnapshot[]> {
 
   // Explicit column list (avoids transferring unused columns like mom_6m, delta_rank etc.)
   const SELECT_SUB = [
-    'date','gics_code','pv_divergence','rank_today','stock_count',
-    'ret_1d','ret_1w','ret_1m','ret_3m','ret_6m','ret_12m',
+    'date','gics_code','rank_today','stock_count',
+    'ret_1d','ret_1w','ret_1m','ret_3m','ret_6m','ret_12m','mom_6m',
     'mom_score','obv_trend','rvol','vol_mom','vol_surge_score',
-    'sharpe_8w','sortino_8w','volatility_8w','calmar_ratio','win_rate_8w','skewness',
-    'information_ratio','momentum_decay_rate','breadth_adj_mom','rs_trend_slope',
-    'leader_lagger_ratio','downside_capture',
-    'cmf','mfi','vrsi','pvt_slope',
-    'beta','momentum_autocorr','price_trend_r2','ad_slope','breadth_pct',
+    'sharpe_8w','sortino_8w','volatility_8w','calmar_ratio',
+    'information_ratio','momentum_decay_rate',
+    'downside_capture','leader_lagger_ratio','cmf',
+    'beta','momentum_autocorr','price_trend_r2',
+    'price_vs_ma5','price_vs_ma20','price_vs_ma100','price_vs_ma200',
+    'breadth_20ma','breadth_50ma','high_proximity',
   ].join(',')
 
   // Fetch gics universe first (fast, 155 rows)
@@ -103,14 +104,13 @@ async function _fetchSubHistoryRaw(): Promise<DailySubSnapshot[]> {
       // are included without needing to enumerate them explicitly.
       const numericFields: Record<string, number | null> = {}
       for (const [k, v] of Object.entries(row)) {
-        if (k === 'date' || k === 'gics_code' || k === 'pv_divergence') continue
+        if (k === 'date' || k === 'gics_code') continue
         numericFields[k] = v != null ? Number(v) : null
       }
       subByDate.get(date)!.push({
         ...numericFields,
         date,
         gics_code: row.gics_code as string,
-        pv_divergence: row.pv_divergence as string | null,
         gics_universe: gicsMap.get(row.gics_code as string),
       } as unknown as SubReturn)
   }

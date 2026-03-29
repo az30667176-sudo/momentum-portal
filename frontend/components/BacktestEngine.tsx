@@ -22,8 +22,6 @@ const INDICATOR_GROUPS = [
       { key: 'mom_score', label: 'Mom Score' },
       { key: 'information_ratio', label: 'Information Ratio' },
       { key: 'momentum_decay_rate', label: 'Momentum Decay Rate' },
-      { key: 'breadth_adj_mom', label: 'Breadth-Adj Momentum' },
-      { key: 'rs_trend_slope', label: 'RS Trend Slope' },
       { key: 'ret_1d', label: '1D Return' },
       { key: 'ret_1w', label: '1W Return' },
       { key: 'ret_1m', label: '1M Return' },
@@ -51,10 +49,10 @@ const INDICATOR_GROUPS = [
     group: '資金流動',
     options: [
       { key: 'cmf', label: 'CMF' },
-      { key: 'mfi', label: 'MFI' },
-      { key: 'pvt_slope', label: 'PVT Slope' },
       { key: 'rvol', label: 'RVol' },
       { key: 'vol_surge_score', label: 'Vol Surge Score' },
+      { key: 'obv_trend', label: 'OBV Trend' },
+      { key: 'vol_mom', label: 'Vol Momentum' },
     ]
   },
   {
@@ -65,6 +63,18 @@ const INDICATOR_GROUPS = [
       { key: 'price_trend_r2', label: 'Price Trend R²' },
     ]
   },
+  {
+    group: '均線與廣度',
+    options: [
+      { key: 'price_vs_ma5', label: 'vs MA5' },
+      { key: 'price_vs_ma20', label: 'vs MA20' },
+      { key: 'price_vs_ma100', label: 'vs MA100' },
+      { key: 'price_vs_ma200', label: 'vs MA200' },
+      { key: 'breadth_20ma', label: 'Breadth 20MA' },
+      { key: 'breadth_50ma', label: 'Breadth 50MA' },
+      { key: 'high_proximity', label: '52W High Proximity' },
+    ]
+  },
 ]
 
 const ALL_INDICATORS = INDICATOR_GROUPS.flatMap(g => g.options)
@@ -72,23 +82,28 @@ const ALL_INDICATORS = INDICATOR_GROUPS.flatMap(g => g.options)
 // ── Indicator Hints (Task 3) ──────────────────────────────────
 
 const INDICATOR_HINTS: Record<string, { range: string; suggestion: string }> = {
-  information_ratio:      { range: '通常 -2 到 +3',      suggestion: '> 0.5 動能可靠，< 0 跑輸大盤（26週窗口，亦進入 Mom Score）' },
-  momentum_decay_rate:    { range: '通常 -30 到 +30',     suggestion: '> 5 動能加速，< -5 動能衰退（出場預警）' },
-  breadth_adj_mom:        { range: '通常 -20 到 +30',     suggestion: '> 10 廣泛且強勁，< 0 動能虛假' },
-  rs_trend_slope:         { range: '通常 -0.05 到 +0.05', suggestion: '> 0 相對強度上升，< 0 弱化' },
-  sortino_8w:             { range: '通常 -2 到 +5',       suggestion: '> 1.5 優良，0.8~1.5 尚可，< 0.8 偏差' },
-  calmar_ratio:           { range: '通常 -1 到 +5',       suggestion: '> 2 優秀，0.5~2 尚可，< 0.5 風險高' },
-  volatility_8w:          { range: '年化 %，通常 10 到 40', suggestion: '< 15 低波動，15~25 中等，> 25 高波動' },
-  leader_lagger_ratio:    { range: '通常 0.2 到 5',       suggestion: '> 2 健康輪動，< 0.5 少數股票撐盤' },
-  downside_capture:       { range: '通常 0.3 到 1.5',     suggestion: '< 0.7 防禦強，0.7~1.0 中性，> 1.0 高 beta' },
-  cmf:                    { range: '-1 到 +1',            suggestion: '> 0.1 資金流入，< -0.1 資金流出' },
-  mfi:                    { range: '0 到 100',            suggestion: '20~60 健康，> 80 超買警示，< 20 超賣' },
-  pvt_slope:              { range: '極小數值（標準化後）',  suggestion: '> 0 資金持續流入，< 0 資金流出' },
-  rvol:                   { range: '通常 0.2 到 3',        suggestion: '> 1.5 爆量，1.0~1.5 正常，< 0.7 量縮' },
-  vol_surge_score:        { range: '0 到 100',            suggestion: '> 75 強烈量能訊號，50~75 溫和，< 25 量縮' },
-  beta:                   { range: '通常 0.2 到 1.8',      suggestion: '< 0.8 獨立強勢，0.8~1.2 跟隨大盤，> 1.2 高相關' },
-  momentum_autocorr:      { range: '-1 到 +1',            suggestion: '> 0.2 趨勢持續（適合趨勢策略），< -0.2 均值回歸（26週窗口，亦進入 Mom Score）' },
-  price_trend_r2:         { range: '0 到 1',              suggestion: '> 0.85 趨勢乾淨，0.5~0.85 有震盪，< 0.5 高度震盪' },
+  information_ratio:      { range: '通常 -2 到 +3',        suggestion: '> 0.5 動能可靠，< 0 跑輸大盤（26週窗口，亦進入 Mom Score）' },
+  momentum_decay_rate:    { range: '通常 -30 到 +30',       suggestion: '> 5 動能加速，< -5 動能衰退（出場預警）' },
+  sortino_8w:             { range: '通常 -2 到 +5',         suggestion: '> 1.5 優良，0.8~1.5 尚可，< 0.8 偏差' },
+  calmar_ratio:           { range: '通常 -1 到 +5',         suggestion: '> 2 優秀，0.5~2 尚可，< 0.5 風險高（峰谷法 MDD，52週窗口）' },
+  volatility_8w:          { range: '年化 %，通常 10 到 40',  suggestion: '< 15 低波動，15~25 中等，> 25 高波動' },
+  leader_lagger_ratio:    { range: '通常 0.2 到 5',         suggestion: '> 2 健康輪動，< 0.5 少數股票撐盤' },
+  downside_capture:       { range: '通常 0.3 到 1.5',       suggestion: '< 0.7 防禦強，0.7~1.0 中性，> 1.0 高 beta' },
+  cmf:                    { range: '-1 到 +1',              suggestion: '> 0.1 資金流入，< -0.1 資金流出' },
+  rvol:                   { range: '通常 0.2 到 3',          suggestion: '> 1.5 爆量，1.0~1.5 正常，< 0.7 量縮' },
+  vol_surge_score:        { range: '0 到 100',              suggestion: '> 75 強烈量能訊號，50~75 溫和，< 25 量縮' },
+  obv_trend:              { range: '標準化斜率，通常 -0.1 到 +0.1', suggestion: '> 0 OBV 上升（資金流入），< 0 OBV 下降（流出）' },
+  vol_mom:                { range: '通常 0.5 到 2',          suggestion: '> 1 成交量加速，< 1 量縮退潮' },
+  beta:                   { range: '通常 0.2 到 1.8',        suggestion: '< 0.8 獨立強勢，0.8~1.2 跟隨大盤，> 1.2 高相關' },
+  momentum_autocorr:      { range: '-1 到 +1',              suggestion: '> 0.2 趨勢持續（適合趨勢策略），< -0.2 均值回歸（26週窗口，亦進入 Mom Score）' },
+  price_trend_r2:         { range: '0 到 1',                suggestion: '> 0.85 趨勢乾淨，0.5~0.85 有震盪，< 0.5 高度震盪' },
+  price_vs_ma5:           { range: '通常 -8% 到 +8%',        suggestion: '> 0 短線多頭，< -3% 短線過度偏離均線' },
+  price_vs_ma20:          { range: '通常 -12% 到 +12%',      suggestion: '> 0 中線多頭，< -5% 中線走弱' },
+  price_vs_ma100:         { range: '通常 -20% 到 +20%',      suggestion: '> 0 板塊中期強勢，< 0 中期趨勢轉弱' },
+  price_vs_ma200:         { range: '通常 -25% 到 +25%',      suggestion: '> 0 長線多頭趨勢，< 0 長線熊市' },
+  breadth_20ma:           { range: '0% 到 100%',            suggestion: '> 70% 板塊廣泛健康，40~70% 中性，< 40% 廣泛走弱' },
+  breadth_50ma:           { range: '0% 到 100%',            suggestion: '> 70% 多數個股站穩均線，< 30% 板塊廣泛破線' },
+  high_proximity:         { range: '0 到 1（e.g. 0.95=95%）', suggestion: '> 0.95 接近突破新高，= 1.0 創新高，< 0.80 距高點顯著回撤' },
 }
 
 // ── Indicator Details (Task 4) ────────────────────────────────
@@ -144,18 +159,6 @@ const INDICATOR_DETAILS: Record<string, IndicatorDetail> = {
     useCases: ['> 0.85 代表趨勢極度乾淨，換倉時機好掌握', '< 0.5 代表高度震盪，不適合趨勢跟隨', '排除橫盤震盪的假動能板塊'],
     bestFilterTypes: ['Static（≥ 0.7）', 'Rank Break（前 33%）'],
   },
-  breadth_adj_mom: {
-    group: '動能品質', definition: '廣度調整後的動能，過濾少數股票撐盤的假動能',
-    calculation: 'ret_3m × (breadth_pct / 100)',
-    useCases: ['懲罰只有少數股票在漲的板塊', '高 BA Momentum 代表漲勢廣泛且真實', '避免選到「一檔大型股拉高整個板塊」的情況'],
-    bestFilterTypes: ['Static（≥ 8）', 'Rank Break（前 25%）'],
-  },
-  rs_trend_slope: {
-    group: '動能品質', definition: '相對強度趨勢斜率，衡量 RS 是否正在建立',
-    calculation: '近 4 週 rs_ratio 的線性迴歸斜率',
-    useCases: ['RS 正在上升比 RS 當前高更重要', '正斜率代表相對強度正在建立，是早期訊號', '負斜率代表相對強度正在弱化，準備出場'],
-    bestFilterTypes: ['Crossover（由負轉正）', 'Static（≥ 0）'],
-  },
   downside_capture: {
     group: '板塊結構', definition: '大盤下跌時的跟跌比例，衡量下行保護能力',
     calculation: 'SPY 週報酬為負時，sub-industry 平均下跌 / SPY 平均下跌',
@@ -180,18 +183,6 @@ const INDICATOR_DETAILS: Record<string, IndicatorDetail> = {
     useCases: ['低波動策略更適合週頻換倉', '< 15% 為低波動，> 25% 為高波動', '配合 Sortino 一起篩選風險控管好的板塊'],
     bestFilterTypes: ['Static（≤ 20）', 'Rank Break（最低 N 個）'],
   },
-  mfi: {
-    group: '資金流動', definition: 'Money Flow Index，量價版 RSI，0-100 標準化',
-    calculation: '近 14 日 Positive MF / Negative MF，轉成 0-100',
-    useCases: ['20~60 為健康區間，> 80 超買，< 20 超賣', '從 40 以下往上突破是強入場訊號', '跨產業可直接比較（0-100 標準化）'],
-    bestFilterTypes: ['Static（介於 30-70）', 'Crossover（由低轉高）'],
-  },
-  pvt_slope: {
-    group: '資金流動', definition: 'Price-Volume Trend 斜率，比 OBV 更精確的資金力道',
-    calculation: 'cumsum(volume × pct_change) 近 8 週線性斜率，除以均量標準化',
-    useCases: ['正斜率代表資金持續流入且力道增強', '比 OBV 更精確：漲 3% 的貢獻比漲 0.1% 大得多', '由負轉正是資金開始建倉的訊號'],
-    bestFilterTypes: ['Crossover（由負轉正）', 'Static（≥ 0）'],
-  },
   rvol: {
     group: '資金流動', definition: '相對成交量，今日量相對於近期均量的倍數',
     calculation: '當日成交量 / 近 20 日平均成交量',
@@ -203,6 +194,60 @@ const INDICATOR_DETAILS: Record<string, IndicatorDetail> = {
     calculation: '連續高量週數 + RVol 峰值 + 近 8 週高量比例，三個子指標等權平均',
     useCases: ['> 75 代表強烈且持續的資金流入訊號', '比單週 RVol 更穩健（排除一次性爆量）', '連續三週以上放量才算真正的資金進場'],
     bestFilterTypes: ['Static（≥ 60）', 'Rank Break（前 25%）'],
+  },
+  obv_trend: {
+    group: '資金流動', definition: 'On-Balance Volume 趨勢斜率，衡量累積資金流向',
+    calculation: 'OBV 近 40 日線性迴歸斜率，除以均量標準化',
+    useCases: ['正值代表資金持續流入（OBV 上升）', '負值代表資金流出', '比單日 RVol 更穩定，不受一次性爆量干擾'],
+    bestFilterTypes: ['Static（≥ 0）', 'Crossover（由負轉正）'],
+  },
+  vol_mom: {
+    group: '資金流動', definition: '成交量動能，近期量相對於前期量的比例',
+    calculation: '近 10 日均量 / 前 10-20 日均量',
+    useCases: ['> 1.2 成交量加速（市場關注度上升）', '< 0.8 成交量萎縮（市場興趣消退）', '配合 CMF 判斷量增是買入還是賣出'],
+    bestFilterTypes: ['Static（≥ 1.1）', 'Crossover（由 < 1 到 ≥ 1）'],
+  },
+  price_vs_ma5: {
+    group: '均線與廣度', definition: '板塊等權指數相對 5 日均線的偏離百分比',
+    calculation: '(今日指數 / 近 5 日均值 − 1) × 100',
+    useCases: ['> 0 短線多頭', '< -3% 短線過度拉伸，可能回撤', '配合 vs MA20 一起看短線與中線共振'],
+    bestFilterTypes: ['Static（≥ 0）', 'Crossover（由負轉正）'],
+  },
+  price_vs_ma20: {
+    group: '均線與廣度', definition: '板塊等權指數相對 20 日均線的偏離百分比',
+    calculation: '(今日指數 / 近 20 日均值 − 1) × 100',
+    useCases: ['> 0 中線多頭確認', '> 5% 強勢板塊（均線支撐紮實）', '< 0 中線趨勢轉弱'],
+    bestFilterTypes: ['Static（≥ 0）', 'Rank Break（前 33%）'],
+  },
+  price_vs_ma100: {
+    group: '均線與廣度', definition: '板塊等權指數相對 100 日均線的偏離百分比',
+    calculation: '(今日指數 / 近 100 日均值 − 1) × 100',
+    useCases: ['> 0 板塊中期趨勢健康', '< -5% 中期趨勢已轉弱，謹慎做多', '是篩除熊市板塊的有效過濾器'],
+    bestFilterTypes: ['Static（≥ 0）'],
+  },
+  price_vs_ma200: {
+    group: '均線與廣度', definition: '板塊等權指數相對 200 日均線的偏離百分比（黃金分割線）',
+    calculation: '(今日指數 / 近 200 日均值 − 1) × 100',
+    useCases: ['> 0 長線多頭格局', '< 0 長線熊市，動能策略表現較差', '最重要的長期趨勢過濾器'],
+    bestFilterTypes: ['Static（≥ 0）'],
+  },
+  breadth_20ma: {
+    group: '均線與廣度', definition: '板塊內個股站上 20 日均線的比例',
+    calculation: 'count(close > MA20) / total_tickers × 100',
+    useCases: ['> 70% 廣泛健康，動能真實', '< 30% 板塊廣泛走弱，動能虛假', '區分「少數股票撐盤」和「廣泛參與」'],
+    bestFilterTypes: ['Static（≥ 60）', 'Rank Break（前 33%）'],
+  },
+  breadth_50ma: {
+    group: '均線與廣度', definition: '板塊內個股站上 50 日均線的比例',
+    calculation: 'count(close > MA50) / total_tickers × 100',
+    useCases: ['> 70% 代表板塊中期趨勢健康', '< 40% 多數個股已破中線，謹慎', '中線版廣度，比 20MA 廣度更穩定'],
+    bestFilterTypes: ['Static（≥ 55）', 'Rank Break（前 33%）'],
+  },
+  high_proximity: {
+    group: '均線與廣度', definition: '板塊等權指數距 52 週最高點的比例',
+    calculation: '今日指數 / 近 252 日最高點',
+    useCases: ['≥ 0.95 接近突破新高（強勢板塊訊號）', '= 1.0 創 52 週新高', '< 0.80 距高點顯著回撤，動能較弱'],
+    bestFilterTypes: ['Static（≥ 0.85）', 'Rank Break（前 25%）'],
   },
 }
 
