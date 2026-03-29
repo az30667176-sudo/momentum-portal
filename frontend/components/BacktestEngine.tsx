@@ -543,9 +543,11 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
           body: JSON.stringify({ config }),
         })
         if (scanRes.ok) {
-          const scanData = await scanRes.json()
-          cachedScan = { subCount: scanData.subCount, totalDays: scanData.totalDays }
-          try { sessionStorage.setItem(cacheKey, JSON.stringify(cachedScan)) } catch {}
+          try {
+            const scanData = await scanRes.json()
+            cachedScan = { subCount: scanData.subCount, totalDays: scanData.totalDays }
+            try { sessionStorage.setItem(cacheKey, JSON.stringify(cachedScan)) } catch {}
+          } catch {}
         }
       }
       if (cachedScan) setScanInfo(cachedScan)
@@ -562,13 +564,15 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
         body: JSON.stringify({ config }),
       })
       if (!res.ok) {
-        const { error } = await res.json()
-        // Clear sessionStorage dry-scan cache so next run fetches fresh
+        let errorMsg = `回測失敗（HTTP ${res.status}）`
+        try { const d = await res.json(); errorMsg = d.error ?? errorMsg } catch { errorMsg = (await res.text().catch(() => '')) || errorMsg }
         try { sessionStorage.removeItem(cacheKey) } catch {}
-        alert(error ?? '回測失敗')
+        alert(errorMsg)
         return
       }
-      setResult(await res.json())
+      let resultData: BacktestResult
+      try { resultData = await res.json() } catch { alert('回測失敗：伺服器回傳格式錯誤'); return }
+      setResult(resultData)
     } catch (err) {
       alert('回測失敗：' + String(err))
     } finally {
@@ -589,11 +593,14 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
         body: JSON.stringify({ config, param: robustParam, values }),
       })
       if (!res.ok) {
-        const { error } = await res.json()
-        alert(error ?? '穩健性測試失敗')
+        let errorMsg = `穩健性測試失敗（HTTP ${res.status}）`
+        try { const d = await res.json(); errorMsg = d.error ?? errorMsg } catch { errorMsg = (await res.text().catch(() => '')) || errorMsg }
+        alert(errorMsg)
         return
       }
-      setRobustResults(await res.json())
+      let robustData: typeof robustResults
+      try { robustData = await res.json() } catch { alert('穩健性測試失敗：伺服器回傳格式錯誤'); return }
+      setRobustResults(robustData)
     } catch (err) {
       alert('穩健性測試失敗：' + String(err))
     } finally {

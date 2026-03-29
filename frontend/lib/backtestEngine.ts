@@ -565,7 +565,9 @@ export function runBacktestSync(
 
         if (hasStockDataToday) {
           const subStocks: StockReturn[] = []
-          for (const [, st] of dayStockMap) {
+          for (const [k, st] of dayStockMap) {
+            // Skip gics_code-keyed entries (each stock is inserted twice: by ticker and by gics_code)
+            if (k === st.gics_code) continue
             if (st.gics_code === sub.gics_code) subStocks.push(st)
           }
           subStocks
