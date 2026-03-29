@@ -301,8 +301,9 @@ def main():
         check_today_exists, get_prev_week_ranks,
     )
 
-    # 2. 非交易日跳過（backfill 模式不跳過）
-    if not args.backfill and not is_market_open_today():
+    # 2. 非交易日跳過（backfill 模式 或 FORCE_RERUN=true 時不跳過）
+    force_rerun_early = os.environ.get("FORCE_RERUN", "false").lower() == "true"
+    if not args.backfill and not force_rerun_early and not is_market_open_today():
         logger.info("Not a trading day. Exiting.")
         sys.exit(0)
 
