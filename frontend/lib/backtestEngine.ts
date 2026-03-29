@@ -30,9 +30,9 @@ function makeClient() {
 // Date filter limits to 1 year (~40K rows) to keep queries fast.
 async function _fetchSubHistoryRaw(): Promise<DailySubSnapshot[]> {
   const supabase = makeClient()
-  const CHUNK = 5000
+  const CHUNK = 10000
   const BATCH = 1   // sequential — avoids concurrent OFFSET scan timeout
-  const MAX_CHUNKS = 12 // safety cap (covers 60K rows)
+  const MAX_CHUNKS = 20 // safety cap (covers 200K rows = ~5 years)
 
   const threeYearsAgo = new Date()
   threeYearsAgo.setFullYear(threeYearsAgo.getFullYear() - 3)
@@ -136,7 +136,7 @@ export function collectRebalDates(config: BacktestConfig, subHistory: DailySubSn
 export async function fetchStockHistoryForDates(dates: string[]): Promise<DailyStockSnapshot[]> {
   if (dates.length === 0) return []
   const supabase = makeClient()
-  const CHUNK = 5000
+  const CHUNK = 10000
   const BATCH = 1
   const MAX_CHUNKS = Math.min(Math.ceil(dates.length * 1600 / CHUNK) + 3, 80)
 
