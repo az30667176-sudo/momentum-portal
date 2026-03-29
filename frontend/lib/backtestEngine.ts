@@ -32,16 +32,16 @@ function makeClient() {
 async function _fetchSubHistoryRaw(): Promise<DailySubSnapshot[]> {
   const supabase = makeClient()
 
-  // Build 1-month date windows covering the last 3 years
-  // Smaller windows (~22 trading days × 155 rows ≈ 3,400 rows) complete well
-  // within Supabase free-tier statement_timeout (as low as 3s).
+  // Build 3-month date windows covering the last 3 years.
+  // Each window ≈ 65 trading days × 155 rows ≈ 10K rows.
+  // statement_timeout is now 30s (set via SQL ALTER ROLE), so each query is safe.
   const now = new Date()
   const cursor = new Date(now)
   cursor.setFullYear(cursor.getFullYear() - 3)
   const windows: { from: string; to: string }[] = []
   while (cursor < now) {
     const from = cursor.toISOString().split('T')[0]
-    cursor.setMonth(cursor.getMonth() + 1)
+    cursor.setMonth(cursor.getMonth() + 3)
     const to = cursor > now ? now.toISOString().split('T')[0] : cursor.toISOString().split('T')[0]
     windows.push({ from, to })
   }
@@ -60,22 +60,29 @@ async function _fetchSubHistoryRaw(): Promise<DailySubSnapshot[]> {
     ])
   )
 
-  // Fetch each date window sequentially (PARALLEL=1).
-  // Free-tier statement_timeout can be as low as 3s; sequential prevents
-  // concurrent load while each query stays small enough to complete in time.
+  // Fetch 3 windows in parallel (OFFSET=0, ~10K rows each, <5s per query).
+  // statement_timeout=30s (set via ALTER ROLE) keeps this safe.
+  const PARALLEL = 3
   const allSubRows: Record<string, unknown>[] = []
 
-  for (const w of windows) {
-    const { data, error } = await supabase
-      .from('daily_sub_returns')
-      .select(SELECT_SUB)
-      .gte('date', w.from)
-      .lt('date', w.to)
-      .order('date', { ascending: true })
-      .order('gics_code', { ascending: true })
-      .range(0, 3999)  // ~3,400 rows per month — safe upper bound
-    if (error) throw new Error(`sub range query failed: ${error.message}`)
-    allSubRows.push(...(data as Record<string, unknown>[]))
+  for (let i = 0; i < windows.length; i += PARALLEL) {
+    const batch = windows.slice(i, i + PARALLEL)
+    const results = await Promise.all(
+      batch.map(w =>
+        supabase
+          .from('daily_sub_returns')
+          .select(SELECT_SUB)
+          .gte('date', w.from)
+          .lt('date', w.to)
+          .order('date', { ascending: true })
+          .order('gics_code', { ascending: true })
+          .range(0, 11999)
+      )
+    )
+    for (const chunk of results) {
+      if (chunk.error) throw new Error(`sub range query failed: ${chunk.error.message}`)
+      allSubRows.push(...(chunk.data as Record<string, unknown>[]))
+    }
   }
 
   const subByDate = new Map<string, SubReturn[]>()
@@ -136,9 +143,10 @@ export async function fetchStockHistoryForDates(dates: string[]): Promise<DailyS
   if (dates.length === 0) return []
   const supabase = makeClient()
 
-  // Split rebal dates into batches of 5 (5 dates × ~1500 stocks ≈ 7,500 rows each).
-  // Sequential to avoid concurrent load on free-tier DB.
-  const DATE_BATCH = 5
+  // Split rebal dates into batches of 10 (10 dates × ~1500 stocks ≈ 15K rows each),
+  // 3 batches in parallel. statement_timeout=30s keeps each query safe.
+  const DATE_BATCH = 10
+  const PARALLEL = 3
   const dateBatches: string[][] = []
   for (let i = 0; i < dates.length; i += DATE_BATCH) {
     dateBatches.push(dates.slice(i, i + DATE_BATCH))
@@ -146,16 +154,23 @@ export async function fetchStockHistoryForDates(dates: string[]): Promise<DailyS
 
   const allStockRows: Record<string, unknown>[] = []
 
-  for (const batchDates of dateBatches) {
-    const { data, error } = await supabase
-      .from('daily_stock_returns')
-      .select('date,ticker,gics_code,ret_1d,ret_1w,ret_1m,ret_3m,mom_score,rank_in_sub,rvol,obv_trend')
-      .in('date', batchDates)
-      .order('date', { ascending: true })
-      .order('ticker', { ascending: true })
-      .range(0, 7999)  // ~7,500 rows per batch — safe upper bound
-    if (error) { console.error('stock range error:', error.message); continue }
-    allStockRows.push(...(data as Record<string, unknown>[]))
+  for (let i = 0; i < dateBatches.length; i += PARALLEL) {
+    const round = dateBatches.slice(i, i + PARALLEL)
+    const results = await Promise.all(
+      round.map(batchDates =>
+        supabase
+          .from('daily_stock_returns')
+          .select('date,ticker,gics_code,ret_1d,ret_1w,ret_1m,ret_3m,mom_score,rank_in_sub,rvol,obv_trend')
+          .in('date', batchDates)
+          .order('date', { ascending: true })
+          .order('ticker', { ascending: true })
+          .range(0, 15999)
+      )
+    )
+    for (const chunk of results) {
+      if (chunk.error) { console.error('stock range error:', chunk.error.message); continue }
+      allStockRows.push(...(chunk.data as Record<string, unknown>[]))
+    }
   }
 
   const stockByDate = new Map<string, StockReturn[]>()
