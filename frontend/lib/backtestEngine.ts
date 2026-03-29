@@ -133,38 +133,39 @@ export function collectRebalDates(config: BacktestConfig, subHistory: DailySubSn
   return dates
 }
 
-// Fetch stock data for all rebalancing dates using sequential range queries.
-// BATCH=1 prevents concurrent OFFSET scans from timing out on Supabase free tier.
+// Fetch stock data for rebalancing dates using date-batch queries (no OFFSET).
+// Splitting dates into batches of 10 keeps each query to ~15K rows with OFFSET=0,
+// eliminating the statement timeout caused by high-OFFSET scans.
 export async function fetchStockHistoryForDates(dates: string[]): Promise<DailyStockSnapshot[]> {
   if (dates.length === 0) return []
   const supabase = makeClient()
-  const CHUNK = 10000
-  const BATCH = 2
-  const MAX_CHUNKS = Math.min(Math.ceil(dates.length * 1600 / CHUNK) + 3, 80)
+
+  // Split rebal dates into batches of 10 (10 dates × ~1500 stocks ≈ 15K rows each)
+  const DATE_BATCH = 10
+  const PARALLEL = 3
+  const dateBatches: string[][] = []
+  for (let i = 0; i < dates.length; i += DATE_BATCH) {
+    dateBatches.push(dates.slice(i, i + DATE_BATCH))
+  }
 
   const allStockRows: Record<string, unknown>[] = []
-  let chunkIdx = 0
-  let done = false
 
-  while (!done && chunkIdx < MAX_CHUNKS) {
-    const batchSize = Math.min(BATCH, MAX_CHUNKS - chunkIdx)
-    const batchResults = await Promise.all(
-      Array.from({ length: batchSize }, (_, j) =>
+  for (let i = 0; i < dateBatches.length; i += PARALLEL) {
+    const round = dateBatches.slice(i, i + PARALLEL)
+    const results = await Promise.all(
+      round.map(batchDates =>
         supabase
           .from('daily_stock_returns')
           .select('date,ticker,gics_code,ret_1d,ret_1w,ret_1m,ret_3m,mom_score,rank_in_sub,rvol,obv_trend')
-          .in('date', dates)
+          .in('date', batchDates)
           .order('date', { ascending: true })
           .order('ticker', { ascending: true })
-          .range((chunkIdx + j) * CHUNK, (chunkIdx + j + 1) * CHUNK - 1)
+          .range(0, 15999)  // OFFSET=0 always — no scan penalty
       )
     )
-    chunkIdx += batchSize
-
-    for (const chunk of batchResults) {
+    for (const chunk of results) {
       if (chunk.error) { console.error('stock range error:', chunk.error.message); continue }
       allStockRows.push(...(chunk.data as Record<string, unknown>[]))
-      if ((chunk.data?.length ?? 0) < CHUNK) done = true
     }
   }
 
