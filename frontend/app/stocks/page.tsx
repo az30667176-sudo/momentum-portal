@@ -1,7 +1,7 @@
 import { getLatestSubReturns, getLatestStockReturns, getStockHeatmap } from '@/lib/supabase'
 import { StockRanking } from '@/components/StockRanking'
 
-export const revalidate = 3600
+export const revalidate = 0
 
 export default async function StocksPage() {
   const [subData, stockData, { entries: heatmapEntries, date: heatmapDate }] = await Promise.all([
