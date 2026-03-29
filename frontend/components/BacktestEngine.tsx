@@ -1317,7 +1317,6 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
                     )}
                     <Line type="monotone" dataKey="strategy" name="策略" stroke="#3b82f6" dot={false} strokeWidth={2} />
                     <Line type="monotone" dataKey="spy" name="SPY(等權)" stroke="#9ca3af" dot={false} strokeWidth={1} />
-                    <Line type="monotone" dataKey="ew" name="等權Top20" stroke="#10b981" dot={false} strokeWidth={1} strokeDasharray="4 2" />
                   </LineChart>
                 </ResponsiveContainer>
               </div>
