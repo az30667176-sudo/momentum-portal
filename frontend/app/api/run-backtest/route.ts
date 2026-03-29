@@ -20,8 +20,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Two-pass: collect rebal dates, then fetch stock data only for those dates
-    const allRebalDates = collectRebalDates(config, subHistory)
-    const rebalDates = allRebalDates.slice(-50)
+    const rebalDates = collectRebalDates(config, subHistory)
     const stockHistory = await fetchStockHistoryForDates(rebalDates)
 
     const result = runBacktestSync(config, subHistory, stockHistory)
