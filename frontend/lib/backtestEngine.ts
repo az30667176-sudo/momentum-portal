@@ -24,22 +24,27 @@ function makeClient() {
   )
 }
 
-// Fetch sub history via sequential range queries.
-// BATCH=1 (sequential) avoids concurrent OFFSET scans that exhaust the free-tier
-// connection pool and cause statement timeouts on 2nd/3rd backtest runs.
-// Date filter limits to 1 year (~40K rows) to keep queries fast.
+// Fetch sub history using date-window batches instead of OFFSET-based pagination.
+// OFFSET queries on large tables cause Supabase free-tier statement timeouts because
+// each OFFSET N forces the DB to scan N rows from the start.
+// Date-window queries always use OFFSET=0 (fast index seek), eliminating timeouts.
+// Each 3-month window ≈ 65 trading days × 155 rows ≈ 10,075 rows — well under 12,000 limit.
 async function _fetchSubHistoryRaw(): Promise<DailySubSnapshot[]> {
   const supabase = makeClient()
-  const CHUNK = 10000
-  const BATCH = 2   // 2 concurrent queries balances speed vs free-tier timeout
-  const MAX_CHUNKS = 20 // safety cap (covers 200K rows = ~5 years)
 
-  const threeYearsAgo = new Date()
-  threeYearsAgo.setFullYear(threeYearsAgo.getFullYear() - 3)
-  const startDate = threeYearsAgo.toISOString().split('T')[0]
+  // Build 3-month date windows covering the last 3 years
+  const now = new Date()
+  const cursor = new Date(now)
+  cursor.setFullYear(cursor.getFullYear() - 3)
+  const windows: { from: string; to: string }[] = []
+  while (cursor < now) {
+    const from = cursor.toISOString().split('T')[0]
+    cursor.setMonth(cursor.getMonth() + 3)
+    const to = cursor > now ? now.toISOString().split('T')[0] : cursor.toISOString().split('T')[0]
+    windows.push({ from, to })
+  }
 
   // Use * to fetch all indicator columns (pvt_slope, mfi, cmf, etc.)
-  // so backtest filters match the same data available in the live preview
   const SELECT_SUB = '*'
 
   // Fetch gics universe first (fast, 155 rows)
@@ -53,30 +58,27 @@ async function _fetchSubHistoryRaw(): Promise<DailySubSnapshot[]> {
     ])
   )
 
-  // Fetch sub rows in sequential batches of BATCH concurrent queries
+  // Fetch each date window in batches of 3 (safe: OFFSET is always 0)
+  const BATCH = 3
   const allSubRows: Record<string, unknown>[] = []
-  let chunkIdx = 0
-  let done = false
 
-  while (!done && chunkIdx < MAX_CHUNKS) {
-    const batchSize = Math.min(BATCH, MAX_CHUNKS - chunkIdx)
+  for (let i = 0; i < windows.length; i += BATCH) {
+    const batchWindows = windows.slice(i, i + BATCH)
     const batchResults = await Promise.all(
-      Array.from({ length: batchSize }, (_, j) =>
+      batchWindows.map(w =>
         supabase
           .from('daily_sub_returns')
           .select(SELECT_SUB)
-          .gte('date', startDate)
+          .gte('date', w.from)
+          .lt('date', w.to)
           .order('date', { ascending: true })
           .order('gics_code', { ascending: true })
-          .range((chunkIdx + j) * CHUNK, (chunkIdx + j + 1) * CHUNK - 1)
+          .range(0, 11999)  // OFFSET=0 always — no scan penalty
       )
     )
-    chunkIdx += batchSize
-
     for (const chunk of batchResults) {
       if (chunk.error) throw new Error(`sub range query failed: ${chunk.error.message}`)
       allSubRows.push(...(chunk.data as Record<string, unknown>[]))
-      if ((chunk.data?.length ?? 0) < CHUNK) done = true
     }
   }
 
@@ -111,10 +113,10 @@ async function _fetchSubHistoryRaw(): Promise<DailySubSnapshot[]> {
   return subHistory
 }
 
-// Cached sub history — 5-minute cache, v4 key (busts cache after sequential-batch change)
+// Cached sub history — 5-minute cache, v5 key (busts cache after date-window refactor)
 export const fetchSubHistory = unstable_cache(
   _fetchSubHistoryRaw,
-  ['sub-history-v4'],
+  ['sub-history-v5'],
   { revalidate: 300 }
 )
 
