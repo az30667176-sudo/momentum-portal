@@ -1,15 +1,17 @@
 /**
  * run-backtest Edge Function
- * Queries daily_sub_returns directly via Postgres (no PostgREST / no json_agg),
- * runs the backtest engine, returns result.
+ * Two-pass approach to support individual stock selection within memory limits:
+ *   Pass 1: Build sub history, collect rebalancing dates (~150 dates for 3-year backtest)
+ *   Pass 2: Fetch stock data ONLY for those rebal dates (150 × 1500 = ~225K rows, ~40MB)
+ *   Pass 3: Re-run backtest with full stock data
  */
 
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
 import postgres from "https://deno.land/x/postgresjs@v3.4.4/mod.js"
 import {
-  BacktestConfig, DailySubSnapshot,
-  SubReturn, GicsUniverse,
-  runBacktestSync,
+  BacktestConfig, DailySubSnapshot, DailyStockSnapshot,
+  SubReturn, StockReturn, GicsUniverse,
+  runBacktestSync, collectRebalDates,
 } from "../_shared/engine.ts"
 
 const corsHeaders = {
@@ -25,12 +27,11 @@ serve(async (req: Request) => {
   try {
     const { config } = (await req.json()) as { config: BacktestConfig }
 
-    // Direct Postgres connection — bypasses PostgREST row limits & json_agg
     const dbUrl = Deno.env.get("SUPABASE_DB_URL")!
     const sql = postgres(dbUrl, { ssl: "require", prepare: false, max: 3 })
 
     try {
-      // 2 queries in parallel: sub history + gics names (stock history omitted to stay within memory limits)
+      // ── Step 1: Load sub history + gics in parallel ───────────
       const [subRows, gicsRows] = await Promise.all([
         sql`
           SELECT
@@ -49,18 +50,16 @@ serve(async (req: Request) => {
         `,
       ])
 
-      // Build gics lookup map
       const gicsMap = new Map<string, GicsUniverse>()
       for (const g of gicsRows) {
         gicsMap.set(g.gics_code as string, g as unknown as GicsUniverse)
       }
 
-      // Group sub rows by date
       const subByDate = new Map<string, SubReturn[]>()
       for (const row of subRows) {
         const date = row.date as string
         if (!subByDate.has(date)) subByDate.set(date, [])
-        const sub: SubReturn = {
+        subByDate.get(date)!.push({
           date,
           gics_code: row.gics_code as string,
           ret_1d: row.ret_1d != null ? Number(row.ret_1d) : null,
@@ -83,8 +82,7 @@ serve(async (req: Request) => {
           breadth_pct: row.breadth_pct != null ? Number(row.breadth_pct) : null,
           volatility_8w: row.volatility_8w != null ? Number(row.volatility_8w) : null,
           gics_universe: gicsMap.get(row.gics_code as string),
-        }
-        subByDate.get(date)!.push(sub)
+        })
       }
 
       const subHistory: DailySubSnapshot[] = Array.from(subByDate.entries())
@@ -95,7 +93,47 @@ serve(async (req: Request) => {
         throw new Error(`sub data only ${subHistory.length} days — DB may be mid-write`)
       }
 
-      const result = runBacktestSync(config, subHistory, [])
+      // ── Step 2: Collect rebal dates, fetch stock data only for those ──
+      // Limit to last 50 rebal dates to stay within 150MB Edge Function memory limit.
+      // Older rebal events fall back to sub-level selection gracefully.
+      const allRebalDates = collectRebalDates(config, subHistory)
+      const rebalDates = allRebalDates.slice(-50)
+
+      const stockRows = await sql`
+        SELECT
+          date::text AS date, ticker, gics_code,
+          ret_1d, ret_1w, ret_1m, ret_3m,
+          mom_score, rank_in_sub, rvol, obv_trend
+        FROM daily_stock_returns
+        WHERE date::text = ANY(${sql.array(rebalDates)})
+        ORDER BY date, ticker
+      `
+
+      const stockByDate = new Map<string, StockReturn[]>()
+      for (const row of stockRows) {
+        const date = row.date as string
+        if (!stockByDate.has(date)) stockByDate.set(date, [])
+        stockByDate.get(date)!.push({
+          date,
+          ticker: row.ticker as string,
+          gics_code: row.gics_code as string,
+          ret_1d: row.ret_1d != null ? Number(row.ret_1d) : null,
+          ret_1w: row.ret_1w != null ? Number(row.ret_1w) : null,
+          ret_1m: row.ret_1m != null ? Number(row.ret_1m) : null,
+          ret_3m: row.ret_3m != null ? Number(row.ret_3m) : null,
+          mom_score: row.mom_score != null ? Number(row.mom_score) : null,
+          rank_in_sub: row.rank_in_sub != null ? Number(row.rank_in_sub) : null,
+          rvol: row.rvol != null ? Number(row.rvol) : null,
+          obv_trend: row.obv_trend != null ? Number(row.obv_trend) : null,
+        })
+      }
+
+      const stockHistory: DailyStockSnapshot[] = Array.from(stockByDate.entries())
+        .sort(([a], [b]) => a.localeCompare(b))
+        .map(([date, stocks]) => ({ date, stocks }))
+
+      // ── Step 3: Full backtest with stock selection ─────────────
+      const result = runBacktestSync(config, subHistory, stockHistory)
 
       return new Response(JSON.stringify(result), {
         headers: { ...corsHeaders, "Content-Type": "application/json" },

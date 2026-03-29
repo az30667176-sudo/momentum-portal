@@ -24,18 +24,19 @@ function makeClient() {
   )
 }
 
-// Fetch sub history via batched range queries (avoids RPC json_agg timeout).
-// Batches of 3 concurrent queries prevent connection-pool exhaustion on free tier.
-// Date filter limits to 3 years (~117K rows) to keep OFFSET-based pagination fast.
+// Fetch sub history via sequential range queries.
+// BATCH=1 (sequential) avoids concurrent OFFSET scans that exhaust the free-tier
+// connection pool and cause statement timeouts on 2nd/3rd backtest runs.
+// Date filter limits to 1 year (~40K rows) to keep queries fast.
 async function _fetchSubHistoryRaw(): Promise<DailySubSnapshot[]> {
   const supabase = makeClient()
-  const CHUNK = 10000
-  const BATCH = 3   // concurrent queries per round
-  const MAX_CHUNKS = 15 // safety cap (covers 150K rows = ~3.8 years)
+  const CHUNK = 5000
+  const BATCH = 1   // sequential — avoids concurrent OFFSET scan timeout
+  const MAX_CHUNKS = 12 // safety cap (covers 60K rows)
 
-  const threeYearsAgo = new Date()
-  threeYearsAgo.setFullYear(threeYearsAgo.getFullYear() - 3)
-  const startDate = threeYearsAgo.toISOString().split('T')[0]
+  const oneYearAgo = new Date()
+  oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1)
+  const startDate = oneYearAgo.toISOString().split('T')[0]
 
   // Use * to fetch all indicator columns (pvt_slope, mfi, cmf, etc.)
   // so backtest filters match the same data available in the live preview
@@ -110,10 +111,10 @@ async function _fetchSubHistoryRaw(): Promise<DailySubSnapshot[]> {
   return subHistory
 }
 
-// Cached sub history — 5-minute cache, v3 key (busts cache after select-* change)
+// Cached sub history — 5-minute cache, v4 key (busts cache after sequential-batch change)
 export const fetchSubHistory = unstable_cache(
   _fetchSubHistoryRaw,
-  ['sub-history-v3'],
+  ['sub-history-v4'],
   { revalidate: 300 }
 )
 
@@ -130,15 +131,14 @@ export function collectRebalDates(config: BacktestConfig, subHistory: DailySubSn
   return dates
 }
 
-// Fetch stock data for all rebalancing dates using batched queries.
-// Batches of 3 prevent connection-pool exhaustion on free tier.
-// For 3y weekly rebal: ~151 dates × 1500 stocks = ~226K rows → ~8 batches of 3.
+// Fetch stock data for all rebalancing dates using sequential range queries.
+// BATCH=1 prevents concurrent OFFSET scans from timing out on Supabase free tier.
 export async function fetchStockHistoryForDates(dates: string[]): Promise<DailyStockSnapshot[]> {
   if (dates.length === 0) return []
   const supabase = makeClient()
-  const CHUNK = 10000
-  const BATCH = 3
-  const MAX_CHUNKS = Math.min(Math.ceil(dates.length * 1600 / CHUNK) + 3, 40)
+  const CHUNK = 5000
+  const BATCH = 1
+  const MAX_CHUNKS = Math.min(Math.ceil(dates.length * 1600 / CHUNK) + 3, 80)
 
   const allStockRows: Record<string, unknown>[] = []
   let chunkIdx = 0

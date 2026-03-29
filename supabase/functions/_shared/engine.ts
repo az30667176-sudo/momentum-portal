@@ -609,6 +609,23 @@ export function runBacktestSync(
   }
 }
 
+// ── Collect rebal dates (fast pass — no full computation) ─────
+
+export function collectRebalDates(
+  config: BacktestConfig,
+  subHistory: DailySubSnapshot[]
+): string[] {
+  const dates: string[] = []
+  let nextRebalDay = 0
+  for (let day = 0; day < subHistory.length; day++) {
+    if (day >= nextRebalDay) {
+      dates.push(subHistory[day].date)
+      nextRebalDay = day + config.rebalPeriod
+    }
+  }
+  return dates
+}
+
 // ── Dry scan ──────────────────────────────────────────────────
 
 export function dryRunScan(
