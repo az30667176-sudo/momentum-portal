@@ -31,7 +31,7 @@ function makeClient() {
 async function _fetchSubHistoryRaw(): Promise<DailySubSnapshot[]> {
   const supabase = makeClient()
   const CHUNK = 10000
-  const BATCH = 1   // sequential — avoids concurrent OFFSET scan timeout
+  const BATCH = 2   // 2 concurrent queries balances speed vs free-tier timeout
   const MAX_CHUNKS = 20 // safety cap (covers 200K rows = ~5 years)
 
   const threeYearsAgo = new Date()
@@ -137,7 +137,7 @@ export async function fetchStockHistoryForDates(dates: string[]): Promise<DailyS
   if (dates.length === 0) return []
   const supabase = makeClient()
   const CHUNK = 10000
-  const BATCH = 1
+  const BATCH = 2
   const MAX_CHUNKS = Math.min(Math.ceil(dates.length * 1600 / CHUNK) + 3, 80)
 
   const allStockRows: Record<string, unknown>[] = []
