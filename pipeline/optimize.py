@@ -228,9 +228,20 @@ def make_objective(
     objective: str,
     param_ranges: dict,
 ):
+    """
+    indicator_candidates (optional, in param_ranges):
+      List of dicts: [{indicator, op ('>=','<='), min, max}, ...]
+      When provided, Optuna will also decide which indicators to activate
+      as sub-filters and what threshold to use for each.
+      When absent, fixed_config.subFilters is used unchanged.
+    """
+    indicator_candidates: list[dict] = param_ranges.get('indicator_candidates', [])
+    search_filters = len(indicator_candidates) > 0
+
     def objective_fn(trial: optuna.Trial) -> float:
         pr = param_ranges
 
+        # ── Numeric params ────────────────────────────────────────
         topN = trial.suggest_int('topN', pr.get('topN_min', 2), pr.get('topN_max', 8))
         stocksPerSub = trial.suggest_int(
             'stocksPerSub', pr.get('stocksPerSub_min', 1), pr.get('stocksPerSub_max', 5)
@@ -257,8 +268,45 @@ def make_objective(
             'takeProfit', pr.get('takeProfit_min', 0), pr.get('takeProfit_max', 50)
         )
 
+        # ── Indicator / filter search ─────────────────────────────
+        # For each candidate indicator, Optuna decides:
+        #   1. activate this filter? (yes/no)
+        #   2. if yes, what threshold?
+        active_filters: list[dict] = []
+        filter_summary: dict[str, dict] = {}
+
+        if search_filters:
+            for cand in indicator_candidates:
+                ind = cand['indicator']
+                min_val = float(cand.get('min', 0))
+                max_val = float(cand.get('max', 100))
+                op = cand.get('op', '>=')
+
+                # Skip degenerate ranges
+                if min_val >= max_val:
+                    continue
+
+                activate = trial.suggest_categorical(f'use_filter_{ind}', [True, False])
+                if activate:
+                    threshold = trial.suggest_float(f'threshold_{ind}', min_val, max_val)
+                    active_filters.append({
+                        'id': f'opt_{ind}',
+                        'type': 'static',
+                        'op': op,
+                        'indicator': ind,
+                        'value': threshold,
+                    })
+                    filter_summary[ind] = {'threshold': round(threshold, 3), 'op': op}
+
+            trial.set_user_attr('filter_summary', json.dumps(filter_summary))
+            sub_filters_to_use = active_filters
+        else:
+            # Use fixed filters from user's strategy settings
+            sub_filters_to_use = fixed_config.get('subFilters', [])
+
         config = BacktestConfig.from_dict({
             **fixed_config,
+            'subFilters': sub_filters_to_use,
             'topN': topN,
             'stocksPerSub': stocksPerSub,
             'rebalPeriod': rebalPeriod,
@@ -273,7 +321,7 @@ def make_objective(
         result = run_backtest(config, sub_history, stock_by_date, spy_returns)
         score = compute_score(result, objective)
 
-        # Store extra metrics as user attributes for the results table
+        # Store metrics as user attributes
         trial.set_user_attr('is_sharpe', result.isPerf.sharpe)
         trial.set_user_attr('oos_sharpe', result.oosPerf.sharpe)
         trial.set_user_attr('is_calmar', result.isPerf.calmar)
@@ -348,10 +396,16 @@ def main():
         for t in study.trials:
             if t.value is None:
                 continue
+            filter_summary_raw = t.user_attrs.get('filter_summary', '{}')
+            try:
+                filter_summary = json.loads(filter_summary_raw) if isinstance(filter_summary_raw, str) else filter_summary_raw
+            except Exception:
+                filter_summary = {}
             all_trials.append({
                 'trial': t.number,
                 'score': round(t.value, 4),
                 'params': t.params,
+                'filter_summary': filter_summary,
                 'is_sharpe': t.user_attrs.get('is_sharpe'),
                 'oos_sharpe': t.user_attrs.get('oos_sharpe'),
                 'is_calmar': t.user_attrs.get('is_calmar'),

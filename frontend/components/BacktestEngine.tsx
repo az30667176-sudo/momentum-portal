@@ -532,6 +532,10 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
   const [optObjective, setOptObjective] = useState<'oos_sharpe' | 'oos_calmar' | 'oos_pf'>('oos_sharpe')
   const [optIsSplit, setOptIsSplit] = useState(70)
   const [optNTrials] = useState(100)
+  const [optSearchFilters, setOptSearchFilters] = useState(false)
+  const [optIndicatorCandidates, setOptIndicatorCandidates] = useState<
+    { indicator: string; label: string; op: '>=' | '<='; min: number; max: number }[]
+  >([])
   const [optRanges, setOptRanges] = useState({
     topN_min: 2, topN_max: 8,
     stocksPerSub_min: 1, stocksPerSub_max: 5,
@@ -589,6 +593,12 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
       isSplitPct: optIsSplit,
     }
     try {
+      const paramRanges = {
+        ...optRanges,
+        ...(optSearchFilters && optIndicatorCandidates.length > 0
+          ? { indicator_candidates: optIndicatorCandidates.map(c => ({ indicator: c.indicator, op: c.op, min: c.min, max: c.max })) }
+          : {}),
+      }
       const res = await fetch('/api/start-optimization', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -597,7 +607,7 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
           objective: optObjective,
           isSplitPct: optIsSplit,
           fixedConfig,
-          paramRanges: optRanges,
+          paramRanges,
         }),
       })
       const data = await res.json()
@@ -1933,12 +1943,134 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
             <div className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-3 mb-4 text-xs text-gray-500 dark:text-gray-400">
               <p className="font-medium text-gray-700 dark:text-gray-300 mb-1">固定（不搜尋）</p>
               <div className="flex flex-wrap gap-x-4 gap-y-1">
-                <span>篩選條件：{config.subFilters.length} 個 + 出場 {config.exitFilters.length} 個</span>
                 <span>排名：{config.rankBy} {config.rankDir}</span>
                 <span>加權：{config.weightMode}</span>
                 <span>成本：{config.tradingCost}%</span>
                 <span>SPY MA 過濾：{config.spyMaFilter ? '開' : '關'}</span>
+                {!optSearchFilters && <span>篩選條件：{config.subFilters.length} 個（使用目前設定）</span>}
               </div>
+            </div>
+
+            {/* Indicator search section */}
+            <div className="border border-gray-200 dark:border-gray-600 rounded-lg p-3 mb-4">
+              <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    id="opt-search-filters"
+                    checked={optSearchFilters}
+                    onChange={e => setOptSearchFilters(e.target.checked)}
+                    className="rounded"
+                  />
+                  <label htmlFor="opt-search-filters" className="text-sm font-medium text-gray-800 dark:text-gray-200 cursor-pointer">
+                    讓 Optuna 搜尋篩選條件（指標 + 門檻值）
+                  </label>
+                </div>
+              </div>
+
+              {optSearchFilters && (
+                <div>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mb-3">
+                    勾選想讓 Optuna 嘗試的指標，設定門檻搜尋範圍（min ~ max）及方向。Optuna 會決定要不要用每個指標、以及最佳門檻值。
+                  </p>
+
+                  {/* Indicator list grouped by category */}
+                  <div className="space-y-3">
+                    {INDICATOR_GROUPS.map(group => (
+                      <div key={group.group}>
+                        <p className="text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">{group.group}</p>
+                        <div className="space-y-1">
+                          {group.options.map(opt => {
+                            const existing = optIndicatorCandidates.find(c => c.indicator === opt.key)
+                            const isSelected = !!existing
+                            return (
+                              <div key={opt.key} className="flex items-center gap-2 text-xs">
+                                <input
+                                  type="checkbox"
+                                  checked={isSelected}
+                                  onChange={e => {
+                                    if (e.target.checked) {
+                                      // Default ranges per indicator
+                                      const defaults: Record<string, { op: '>=' | '<='; min: number; max: number }> = {
+                                        mom_score:        { op: '>=', min: 40, max: 85 },
+                                        sharpe_8w:        { op: '>=', min: 0, max: 2.5 },
+                                        sortino_8w:       { op: '>=', min: 0, max: 3 },
+                                        calmar_ratio:     { op: '>=', min: 0.5, max: 4 },
+                                        volatility_8w:    { op: '<=', min: 10, max: 30 },
+                                        information_ratio:{ op: '>=', min: 0, max: 1 },
+                                        momentum_decay_rate: { op: '>=', min: -5, max: 10 },
+                                        obv_trend:        { op: '>=', min: -0.5, max: 2 },
+                                        rvol:             { op: '>=', min: 0.8, max: 2 },
+                                        vol_surge_score:  { op: '>=', min: 30, max: 80 },
+                                        vol_mom:          { op: '>=', min: 0.8, max: 1.5 },
+                                        cmf:              { op: '>=', min: -0.1, max: 0.3 },
+                                        beta:             { op: '<=', min: 0.5, max: 1.5 },
+                                        momentum_autocorr:{ op: '>=', min: 0, max: 0.5 },
+                                        price_trend_r2:   { op: '>=', min: 0.5, max: 0.95 },
+                                        price_vs_ma5:     { op: '>=', min: -2, max: 5 },
+                                        price_vs_ma20:    { op: '>=', min: -3, max: 8 },
+                                        price_vs_ma100:   { op: '>=', min: -5, max: 15 },
+                                        price_vs_ma200:   { op: '>=', min: -5, max: 20 },
+                                        breadth_20ma:     { op: '>=', min: 40, max: 85 },
+                                        breadth_50ma:     { op: '>=', min: 35, max: 80 },
+                                        high_proximity:   { op: '>=', min: 0.7, max: 0.98 },
+                                        leader_lagger_ratio: { op: '>=', min: 0.8, max: 3 },
+                                        downside_capture: { op: '<=', min: 0.5, max: 1.2 },
+                                      }
+                                      const d = defaults[opt.key] ?? { op: '>=', min: 0, max: 100 }
+                                      setOptIndicatorCandidates(prev => [...prev, { indicator: opt.key, label: opt.label, ...d }])
+                                    } else {
+                                      setOptIndicatorCandidates(prev => prev.filter(c => c.indicator !== opt.key))
+                                    }
+                                  }}
+                                />
+                                <span className="w-32 text-gray-600 dark:text-gray-400">{opt.label}</span>
+                                {isSelected && existing && (
+                                  <>
+                                    <select
+                                      value={existing.op}
+                                      onChange={e => setOptIndicatorCandidates(prev =>
+                                        prev.map(c => c.indicator === opt.key ? { ...c, op: e.target.value as '>=' | '<=' } : c)
+                                      )}
+                                      className="border border-gray-300 dark:border-gray-600 rounded px-1 py-0.5 bg-white dark:bg-gray-700 dark:text-white text-xs"
+                                    >
+                                      <option value=">=">≥</option>
+                                      <option value="<=">≤</option>
+                                    </select>
+                                    <input
+                                      type="number" step="any"
+                                      value={existing.min}
+                                      onChange={e => setOptIndicatorCandidates(prev =>
+                                        prev.map(c => c.indicator === opt.key ? { ...c, min: Number(e.target.value) } : c)
+                                      )}
+                                      className="w-16 border border-gray-300 dark:border-gray-600 rounded px-1 py-0.5 bg-white dark:bg-gray-700 dark:text-white text-xs"
+                                    />
+                                    <span className="text-gray-400">–</span>
+                                    <input
+                                      type="number" step="any"
+                                      value={existing.max}
+                                      onChange={e => setOptIndicatorCandidates(prev =>
+                                        prev.map(c => c.indicator === opt.key ? { ...c, max: Number(e.target.value) } : c)
+                                      )}
+                                      className="w-16 border border-gray-300 dark:border-gray-600 rounded px-1 py-0.5 bg-white dark:bg-gray-700 dark:text-white text-xs"
+                                    />
+                                  </>
+                                )}
+                              </div>
+                            )
+                          })}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {optIndicatorCandidates.length > 0 && (
+                    <p className="text-xs text-blue-500 mt-2">
+                      已選 {optIndicatorCandidates.length} 個候選指標 → Optuna 將從中挑選最佳組合
+                    </p>
+                  )}
+                </div>
+              )}
             </div>
 
             {/* Parameter ranges toggle */}
@@ -2068,7 +2200,9 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
                               <thead className="bg-gray-50 dark:bg-gray-700 text-gray-500 dark:text-gray-400">
                                 <tr>
                                   {['#','分數','OOS Sharpe','OOS Calmar','OOS PF','OOS年化','OOS MDD',
-                                    'topN','stk/sub','rebal','maxStkW','maxSubW','buf','SL','TS','TP','套用'].map(h => (
+                                    'topN','stk/sub','rebal','maxStkW','maxSubW','buf','SL','TS','TP',
+                                    ...(top10[0]?.filter_summary && Object.keys(top10[0].filter_summary).length > 0 ? ['篩選條件'] : []),
+                                    '套用'].map(h => (
                                     <th key={h} className="px-2 py-1.5 text-right first:text-left last:text-center whitespace-nowrap">{h}</th>
                                   ))}
                                 </tr>
@@ -2094,6 +2228,17 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
                                       <td className="px-2 py-1.5 text-right">{(p.stop_loss_pct ?? 0) > 0 ? `-${p.stop_loss_pct?.toFixed(0)}%` : '—'}</td>
                                       <td className="px-2 py-1.5 text-right">{(p.trailingStop ?? 0) > 0 ? `${p.trailingStop?.toFixed(0)}%` : '—'}</td>
                                       <td className="px-2 py-1.5 text-right">{(p.takeProfit ?? 0) > 0 ? `${p.takeProfit?.toFixed(0)}%` : '—'}</td>
+                                      {t.filter_summary && Object.keys(t.filter_summary).length > 0 && (
+                                        <td className="px-2 py-1.5 max-w-[180px]">
+                                          <div className="flex flex-wrap gap-0.5">
+                                            {Object.entries(t.filter_summary).map(([ind, info]: any) => (
+                                              <span key={ind} className="bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 px-1 py-0.5 rounded text-[10px] whitespace-nowrap">
+                                                {ind.replace(/_/g,' ')} {info.op} {typeof info.threshold === 'number' ? info.threshold.toFixed(2) : info.threshold}
+                                              </span>
+                                            ))}
+                                          </div>
+                                        </td>
+                                      )}
                                       <td className="px-2 py-1.5 text-center">
                                         <button
                                           onClick={() => applyOptParams({
