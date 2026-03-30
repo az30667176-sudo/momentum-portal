@@ -150,6 +150,33 @@ def upsert_daily_stock_returns(supabase: Client,
     return success, failed
 
 
+def get_dates_with_new_indicators(supabase: Client) -> set[str]:
+    """
+    回傳 daily_sub_returns 中已有 price_vs_ma200（非 null）的所有日期。
+    backfill 時用來跳過已計算完畢的日期，避免重複運算。
+    """
+    dates: set[str] = set()
+    page_size = 1000
+    offset = 0
+    try:
+        while True:
+            result = (supabase.table("daily_sub_returns")
+                      .select("date")
+                      .not_.is_("price_vs_ma200", "null")
+                      .range(offset, offset + page_size - 1)
+                      .execute())
+            batch = result.data or []
+            for r in batch:
+                dates.add(str(r["date"])[:10])
+            if len(batch) < page_size:
+                break
+            offset += page_size
+        logger.info(f"Smart backfill: {len(dates)} 個日期已有新指標，將跳過")
+    except Exception as e:
+        logger.warning(f"無法查詢已計算日期（{e}），將處理所有日期")
+    return dates
+
+
 def check_today_exists(supabase: Client) -> bool:
     """
     檢查今天的 daily_sub_returns 資料是否已存在。

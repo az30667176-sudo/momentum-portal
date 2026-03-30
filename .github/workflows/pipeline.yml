@@ -68,6 +68,21 @@ jobs:
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
         run: python pipeline/main.py --backfill --years ${{ github.event.inputs.backfill_years || '1' }} --part ${{ github.event.inputs.backfill_part || '0' }}
 
+      - name: Commit updated price cache
+        if: success()
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/prices.parquet
+          # 只有快取有變動時才 commit（避免空 commit）
+          if git diff --cached --quiet; then
+            echo "No cache changes to commit."
+          else
+            git commit -m "chore: update price cache $(date -u '+%Y-%m-%d') [skip ci]"
+            git push
+            echo "Price cache committed and pushed."
+          fi
+
       - name: Write success summary
         if: success()
         run: |

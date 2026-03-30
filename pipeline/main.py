@@ -300,10 +300,10 @@ def main():
 
     # 1. 匯入模組
     from pipeline.universe import fetch_sp1500_universe, get_gics_universe_records
-    from pipeline.fetcher import fetch_prices, fetch_spy_prices, is_market_open_today, HISTORY_DAYS
+    from pipeline.fetcher import fetch_prices_cached, fetch_spy_prices, is_market_open_today, HISTORY_DAYS
     from pipeline.writer import (
         init_supabase, upsert_gics_universe, upsert_stock_universe,
-        check_today_exists, get_prev_week_ranks,
+        check_today_exists, get_prev_week_ranks, get_dates_with_new_indicators,
     )
 
     # 2. 非交易日跳過（backfill 模式 或 FORCE_RERUN=true 時不跳過）
@@ -369,18 +369,17 @@ def main():
         })
     upsert_stock_universe(supabase, stock_records)
 
-    # 7. 下載價格
-    logger.info("Downloading price data...")
+    # 7. 下載價格（使用快取，只下載增量）
+    logger.info("Loading price data (incremental cache)...")
     tickers = universe_df["ticker"].tolist()
-    # backfill 時需要足夠多的歷史股價，否則舊日期沒有資料
-    price_history_days = (args.years * 365 + 100) if args.backfill else HISTORY_DAYS
     try:
-        close_all, volume_all, high_all, low_all = fetch_prices(tickers, history_days=price_history_days)
-        spy_close = fetch_spy_prices(history_days=price_history_days)
-        logger.info(f"Downloaded: {close_all.shape[1]} tickers, "
+        # force_full=True 只在手動指定 --rebuild-cache 時使用（暫未實作，預留）
+        close_all, volume_all, high_all, low_all, open_all = fetch_prices_cached(tickers)
+        spy_close = fetch_spy_prices(history_days=HISTORY_DAYS)
+        logger.info(f"Price data ready: {close_all.shape[1]} tickers, "
                     f"{close_all.shape[0]} days")
     except Exception as e:
-        logger.error(f"Failed to download prices: {e}")
+        logger.error(f"Failed to load price data: {e}")
         sys.exit(1)
 
     # 8. 取上週排名（計算 delta_rank 用）
@@ -395,10 +394,9 @@ def main():
         target_days = args.years * 252
         logger.info(f"BACKFILL MODE: processing past {args.years} year(s) (~{target_days} trading days)...")
         trading_dates = []
-        # 掃描足夠多的日曆天以覆蓋目標交易日數（每年約 365 個日曆天）
         for i in range(args.years * 365 + 60):
             d = date.today() - timedelta(days=i)
-            if d.weekday() < 5:  # 週一到週五
+            if d.weekday() < 5:
                 trading_dates.append(d)
             if len(trading_dates) >= target_days:
                 break
@@ -414,16 +412,26 @@ def main():
             trading_dates = trading_dates[total_dates // 2:]
             logger.info(f"Part 2/2: processing newest {len(trading_dates)} of {total_dates} dates")
 
-        logger.info(f"Backfill: {len(trading_dates)} trading days to process")
+        # 智慧跳過：查詢 DB 中已有新指標（price_vs_ma200 非 null）的日期
+        already_done = get_dates_with_new_indicators(supabase)
+        skipped = sum(1 for d in trading_dates if str(d) in already_done)
+        pending = [d for d in trading_dates if str(d) not in already_done]
+        logger.info(
+            f"Backfill: {len(trading_dates)} 天總計，"
+            f"跳過 {skipped} 天（已計算），"
+            f"待處理 {len(pending)} 天"
+        )
 
-        # 估算 daily_stock_returns 資料量警告（~1,500 rows/天 × 0.5KB ≈ ~750KB/天）
-        estimated_mb = len(trading_dates) * 1500 * 512 / 1024 / 1024
+        # 估算資料量警告
+        estimated_mb = len(pending) * 1500 * 512 / 1024 / 1024
         if estimated_mb > 400:
-            logger.warning(f"WARNING: Estimated daily_stock_returns size ~{estimated_mb:.0f}MB, "
-                           "approaching Supabase 500MB limit. Consider checking DB usage.")
+            logger.warning(
+                f"WARNING: 預估 daily_stock_returns 增量約 {estimated_mb:.0f}MB，"
+                "接近 Supabase 500MB 上限，請確認 DB 用量。"
+            )
 
-        for i, target_date in enumerate(trading_dates):
-            logger.info(f"Backfill [{i + 1}/{len(trading_dates)}] {target_date}")
+        for i, target_date in enumerate(pending):
+            logger.info(f"Backfill [{i + 1}/{len(pending)}] {target_date}")
             result = run_pipeline_for_date(
                 target_date, universe_df, close_all, volume_all,
                 spy_close, supabase, prev_ranks,
