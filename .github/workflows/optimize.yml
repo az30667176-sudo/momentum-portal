@@ -1,0 +1,43 @@
+name: Optuna Optimization
+
+on:
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: 'Optimization run ID (from Supabase optimization_runs table)'
+        required: true
+        type: string
+
+jobs:
+  optimize:
+    name: Run Optuna Optimization
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run optimization
+        env:
+          SUPABASE_URL:         ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: python pipeline/optimize.py --run-id ${{ github.event.inputs.run_id }}
+
+      - name: Write summary
+        if: always()
+        run: |
+          echo "## Optuna Optimization Run #${{ github.event.inputs.run_id }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Completed at: $(date -u '+%Y-%m-%d %H:%M UTC')" >> $GITHUB_STEP_SUMMARY
+          echo "- Status: ${{ job.status }}" >> $GITHUB_STEP_SUMMARY

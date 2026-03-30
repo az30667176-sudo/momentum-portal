@@ -510,7 +510,7 @@ interface Props {
 // ── Main Component ────────────────────────────────────────────
 
 export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props) {
-  const [activeTab, setActiveTab] = useState<'config' | 'results' | 'robustness'>('config')
+  const [activeTab, setActiveTab] = useState<'config' | 'results' | 'robustness' | 'optimize'>('config')
   const [config, setConfig] = useState<BacktestConfig>(DEFAULT_CONFIG)
   const [prevData, setPrevData] = useState<SubReturn[]>(prevDataInitial)
   const [isRunning, setIsRunning] = useState(false)
@@ -527,6 +527,105 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
   const [selectedIndicatorKey, setSelectedIndicatorKey] = useState<string | null>(null)
   const [chartRange, setChartRange] = useState<'all' | 'is' | 'oos'>('all')
   const [selectedRobustPoint, setSelectedRobustPoint] = useState<{ param: number; perf: PerfMetrics } | null>(null)
+
+  // ── Optimization state ────────────────────────────────────────
+  const [optObjective, setOptObjective] = useState<'oos_sharpe' | 'oos_calmar' | 'oos_pf'>('oos_sharpe')
+  const [optIsSplit, setOptIsSplit] = useState(70)
+  const [optNTrials] = useState(100)
+  const [optRanges, setOptRanges] = useState({
+    topN_min: 2, topN_max: 8,
+    stocksPerSub_min: 1, stocksPerSub_max: 5,
+    rebalPeriod_options: [5, 10, 20, 40],
+    maxStockWeight_min: 5, maxStockWeight_max: 30,
+    maxSubWeight_min: 10, maxSubWeight_max: 60,
+    bufferRule_min: 0, bufferRule_max: 3,
+    stopLoss_min: 0, stopLoss_max: 20,
+    trailingStop_min: 0, trailingStop_max: 20,
+    takeProfit_min: 0, takeProfit_max: 50,
+  })
+  const [optIsRunning, setOptIsRunning] = useState(false)
+  const [optRunId, setOptRunId] = useState<number | null>(null)
+  const [optError, setOptError] = useState<string | null>(null)
+  const [optRuns, setOptRuns] = useState<any[]>([])
+  const [optShowRanges, setOptShowRanges] = useState(false)
+
+  // Poll optimization runs from Supabase
+  const loadOptRuns = useCallback(async () => {
+    try {
+      const res = await fetch('/api/optimization-runs')
+      if (res.ok) {
+        const data = await res.json()
+        setOptRuns(data)
+      }
+    } catch {}
+  }, [])
+
+  useEffect(() => {
+    if (activeTab === 'optimize') loadOptRuns()
+  }, [activeTab, loadOptRuns])
+
+  // Auto-poll when a run is in progress
+  useEffect(() => {
+    if (!optRunId) return
+    const latestRun = optRuns.find(r => r.id === optRunId)
+    if (latestRun?.status === 'completed' || latestRun?.status === 'failed') return
+    const timer = setInterval(loadOptRuns, 15000)
+    return () => clearInterval(timer)
+  }, [optRunId, optRuns, loadOptRuns])
+
+  const startOptimization = useCallback(async () => {
+    setOptIsRunning(true)
+    setOptError(null)
+    const fixedConfig = {
+      subFilters: config.subFilters,
+      exitFilters: config.exitFilters,
+      rankBy: config.rankBy,
+      rankDir: config.rankDir,
+      stockRankBy: config.stockRankBy,
+      weightMode: config.weightMode,
+      tradingCost: config.tradingCost,
+      spyMaFilter: config.spyMaFilter,
+      spyMaPeriod: config.spyMaPeriod,
+      isSplitPct: optIsSplit,
+    }
+    try {
+      const res = await fetch('/api/start-optimization', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          nTrials: optNTrials,
+          objective: optObjective,
+          isSplitPct: optIsSplit,
+          fixedConfig,
+          paramRanges: optRanges,
+        }),
+      })
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error ?? 'unknown error')
+      setOptRunId(data.runId)
+      await loadOptRuns()
+    } catch (e: any) {
+      setOptError(String(e.message ?? e))
+    } finally {
+      setOptIsRunning(false)
+    }
+  }, [config, optObjective, optIsSplit, optNTrials, optRanges, loadOptRuns])
+
+  const applyOptParams = useCallback((params: Record<string, any>) => {
+    setConfig(prev => ({
+      ...prev,
+      topN: params.topN ?? prev.topN,
+      stocksPerSub: params.stocksPerSub ?? prev.stocksPerSub,
+      rebalPeriod: params.rebalPeriod ?? prev.rebalPeriod,
+      maxStockWeight: params.maxStockWeight ?? prev.maxStockWeight,
+      maxSubWeight: params.maxSubWeight ?? prev.maxSubWeight,
+      bufferRule: params.bufferRule ?? prev.bufferRule,
+      stopLoss: params.stopLoss ?? prev.stopLoss,
+      trailingStop: params.trailingStop ?? prev.trailingStop,
+      takeProfit: params.takeProfit ?? prev.takeProfit,
+    }))
+    setActiveTab('config')
+  }, [])
 
 
   // Live preview
@@ -809,7 +908,7 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
 
       {/* Tab Bar */}
       <div className="flex border-b border-gray-200 dark:border-gray-700 mb-6">
-        {(['config', 'results', 'robustness'] as const).map(tab => (
+        {(['config', 'results', 'robustness', 'optimize'] as const).map(tab => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
@@ -819,7 +918,7 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
                 : 'border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400'
             }`}
           >
-            {tab === 'config' ? '策略設定' : tab === 'results' ? '回測結果' : '參數穩健性'}
+            {tab === 'config' ? '策略設定' : tab === 'results' ? '回測結果' : tab === 'robustness' ? '參數穩健性' : '⚡ Optuna 優化'}
           </button>
         ))}
       </div>
@@ -1791,6 +1890,248 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
               </div>
             </>
           )}
+        </div>
+      )}
+
+      {/* ── Tab 4: Optuna Optimization ── */}
+      {activeTab === 'optimize' && (
+        <div className="space-y-6">
+
+          {/* Settings card */}
+          <div className={sectionCls}>
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Optuna 自動優化</h2>
+            <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
+              固定目前策略設定（篩選條件、排名方式、成本），透過 GitHub Actions 在雲端跑 {optNTrials} 次 Bayesian 搜尋，找出最佳參數組合。約需 <span className="font-medium text-blue-500">8–12 分鐘</span>。
+            </p>
+
+            <div className="grid grid-cols-2 gap-4 mb-4">
+              <div>
+                <label className="block text-xs text-gray-500 dark:text-gray-400 mb-1">優化目標</label>
+                <select
+                  value={optObjective}
+                  onChange={e => setOptObjective(e.target.value as any)}
+                  className="w-full text-sm border border-gray-300 dark:border-gray-600 rounded px-2 py-1.5 bg-white dark:bg-gray-700 dark:text-white"
+                >
+                  <option value="oos_sharpe">OOS Sharpe（含懲罰過擬合）</option>
+                  <option value="oos_calmar">OOS Calmar（含懲罰過擬合）</option>
+                  <option value="oos_pf">OOS Profit Factor（含懲罰過擬合）</option>
+                </select>
+              </div>
+              <div>
+                <label className="block text-xs text-gray-500 dark:text-gray-400 mb-1">IS / OOS 分割 (%)</label>
+                <input
+                  type="number" min={50} max={90} step={5}
+                  value={optIsSplit}
+                  onChange={e => setOptIsSplit(Number(e.target.value))}
+                  className="w-full text-sm border border-gray-300 dark:border-gray-600 rounded px-2 py-1.5 bg-white dark:bg-gray-700 dark:text-white"
+                />
+                <p className="text-xs text-gray-400 mt-1">前 {optIsSplit}% 樣本內，後 {100 - optIsSplit}% 樣本外</p>
+              </div>
+            </div>
+
+            {/* Fixed params summary */}
+            <div className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-3 mb-4 text-xs text-gray-500 dark:text-gray-400">
+              <p className="font-medium text-gray-700 dark:text-gray-300 mb-1">固定（不搜尋）</p>
+              <div className="flex flex-wrap gap-x-4 gap-y-1">
+                <span>篩選條件：{config.subFilters.length} 個 + 出場 {config.exitFilters.length} 個</span>
+                <span>排名：{config.rankBy} {config.rankDir}</span>
+                <span>加權：{config.weightMode}</span>
+                <span>成本：{config.tradingCost}%</span>
+                <span>SPY MA 過濾：{config.spyMaFilter ? '開' : '關'}</span>
+              </div>
+            </div>
+
+            {/* Parameter ranges toggle */}
+            <button
+              onClick={() => setOptShowRanges(v => !v)}
+              className="text-sm text-blue-500 hover:text-blue-700 mb-3 flex items-center gap-1"
+            >
+              {optShowRanges ? '▾' : '▸'} 參數搜尋範圍（進階）
+            </button>
+
+            {optShowRanges && (
+              <div className="grid grid-cols-2 gap-3 mb-4 text-sm">
+                {[
+                  { label: 'topN', minKey: 'topN_min', maxKey: 'topN_max', step: 1 },
+                  { label: 'stocksPerSub', minKey: 'stocksPerSub_min', maxKey: 'stocksPerSub_max', step: 1 },
+                  { label: 'maxStockWeight (%)', minKey: 'maxStockWeight_min', maxKey: 'maxStockWeight_max', step: 1 },
+                  { label: 'maxSubWeight (%)', minKey: 'maxSubWeight_min', maxKey: 'maxSubWeight_max', step: 5 },
+                  { label: 'bufferRule', minKey: 'bufferRule_min', maxKey: 'bufferRule_max', step: 1 },
+                  { label: 'stopLoss (%)', minKey: 'stopLoss_min', maxKey: 'stopLoss_max', step: 1 },
+                  { label: 'trailingStop (%)', minKey: 'trailingStop_min', maxKey: 'trailingStop_max', step: 1 },
+                  { label: 'takeProfit (%)', minKey: 'takeProfit_min', maxKey: 'takeProfit_max', step: 5 },
+                ].map(({ label, minKey, maxKey, step }) => (
+                  <div key={label} className="flex items-center gap-2">
+                    <span className="w-36 text-xs text-gray-500 dark:text-gray-400">{label}</span>
+                    <input
+                      type="number" step={step}
+                      value={(optRanges as any)[minKey]}
+                      onChange={e => setOptRanges(r => ({ ...r, [minKey]: Number(e.target.value) }))}
+                      className="w-16 border border-gray-300 dark:border-gray-600 rounded px-1.5 py-1 bg-white dark:bg-gray-700 dark:text-white text-xs"
+                    />
+                    <span className="text-gray-400">–</span>
+                    <input
+                      type="number" step={step}
+                      value={(optRanges as any)[maxKey]}
+                      onChange={e => setOptRanges(r => ({ ...r, [maxKey]: Number(e.target.value) }))}
+                      className="w-16 border border-gray-300 dark:border-gray-600 rounded px-1.5 py-1 bg-white dark:bg-gray-700 dark:text-white text-xs"
+                    />
+                  </div>
+                ))}
+                <div className="col-span-2 flex items-center gap-2">
+                  <span className="text-xs text-gray-500 dark:text-gray-400 w-36">rebalPeriod 選項</span>
+                  {[5, 10, 20, 40].map(v => (
+                    <label key={v} className="flex items-center gap-1 text-xs">
+                      <input
+                        type="checkbox"
+                        checked={optRanges.rebalPeriod_options.includes(v)}
+                        onChange={e => setOptRanges(r => ({
+                          ...r,
+                          rebalPeriod_options: e.target.checked
+                            ? [...r.rebalPeriod_options, v].sort((a, b) => a - b)
+                            : r.rebalPeriod_options.filter(x => x !== v),
+                        }))}
+                      />
+                      {v}天
+                    </label>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {optError && (
+              <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-700 rounded p-3 mb-3 text-sm text-red-600 dark:text-red-400">
+                {optError}
+              </div>
+            )}
+
+            <div className="flex gap-3 items-center">
+              <button
+                onClick={startOptimization}
+                disabled={optIsRunning}
+                className="px-5 py-2.5 bg-purple-600 hover:bg-purple-700 disabled:bg-purple-300 text-white rounded-lg font-medium text-sm transition-colors"
+              >
+                {optIsRunning ? '送出中...' : `⚡ 開始 Optuna 優化（${optNTrials} trials）`}
+              </button>
+              <button
+                onClick={loadOptRuns}
+                className="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-400"
+              >
+                ↻ 刷新結果
+              </button>
+            </div>
+          </div>
+
+          {/* Results */}
+          {optRuns.length > 0 && (
+            <div className={sectionCls}>
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-3">優化記錄</h3>
+              <div className="space-y-4">
+                {optRuns.map(run => {
+                  const statusColor =
+                    run.status === 'completed' ? 'text-emerald-500' :
+                    run.status === 'running'   ? 'text-blue-500' :
+                    run.status === 'failed'    ? 'text-red-500' : 'text-gray-400'
+                  const top10: any[] = (run.all_trials ?? []).slice(0, 10)
+                  return (
+                    <div key={run.id} className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+                      <div className="flex justify-between items-start mb-3">
+                        <div>
+                          <span className="font-medium text-gray-900 dark:text-white text-sm">
+                            Run #{run.id} — {run.objective} | IS {run.is_split_pct}% | {run.n_trials} trials
+                          </span>
+                          <p className="text-xs text-gray-400 mt-0.5">
+                            {new Date(run.run_at).toLocaleString('zh-TW')}
+                          </p>
+                        </div>
+                        <span className={`text-sm font-medium ${statusColor}`}>
+                          {run.status === 'pending' ? '⏳ 等待中' :
+                           run.status === 'running' ? '⚙️ 執行中' :
+                           run.status === 'completed' ? '✅ 完成' : '❌ 失敗'}
+                        </span>
+                      </div>
+                      {run.status === 'running' && (
+                        <p className="text-xs text-blue-500 mb-3 animate-pulse">
+                          GitHub Actions 執行中，約 8–12 分鐘後完成。請點「刷新結果」查看進度。
+                        </p>
+                      )}
+                      {run.status === 'failed' && run.error_message && (
+                        <p className="text-xs text-red-500 mb-3">{run.error_message}</p>
+                      )}
+                      {run.status === 'completed' && top10.length > 0 && (
+                        <>
+                          <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">
+                            最佳分數：<span className="font-bold text-emerald-500">{run.best_score?.toFixed(4)}</span>
+                          </p>
+                          <div className="overflow-x-auto">
+                            <table className="w-full text-xs">
+                              <thead className="bg-gray-50 dark:bg-gray-700 text-gray-500 dark:text-gray-400">
+                                <tr>
+                                  {['#','分數','OOS Sharpe','OOS Calmar','OOS PF','OOS年化','OOS MDD',
+                                    'topN','stk/sub','rebal','maxStkW','maxSubW','buf','SL','TS','TP','套用'].map(h => (
+                                    <th key={h} className="px-2 py-1.5 text-right first:text-left last:text-center whitespace-nowrap">{h}</th>
+                                  ))}
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {top10.map((t, i) => {
+                                  const p = t.params ?? {}
+                                  return (
+                                    <tr key={i} className={`border-t border-gray-100 dark:border-gray-700 ${i === 0 ? 'bg-emerald-50 dark:bg-emerald-900/10' : ''}`}>
+                                      <td className="px-2 py-1.5 font-medium">#{i+1}</td>
+                                      <td className="px-2 py-1.5 text-right font-bold text-emerald-600">{t.score?.toFixed(3)}</td>
+                                      <td className="px-2 py-1.5 text-right">{t.oos_sharpe?.toFixed(3)}</td>
+                                      <td className="px-2 py-1.5 text-right">{t.oos_calmar?.toFixed(2)}</td>
+                                      <td className="px-2 py-1.5 text-right">{t.oos_pf?.toFixed(2)}</td>
+                                      <td className="px-2 py-1.5 text-right">{t.oos_annret?.toFixed(1)}%</td>
+                                      <td className="px-2 py-1.5 text-right text-red-500">{t.oos_mdd?.toFixed(1)}%</td>
+                                      <td className="px-2 py-1.5 text-right">{p.topN}</td>
+                                      <td className="px-2 py-1.5 text-right">{p.stocksPerSub}</td>
+                                      <td className="px-2 py-1.5 text-right">{p.rebalPeriod}d</td>
+                                      <td className="px-2 py-1.5 text-right">{p.maxStockWeight?.toFixed(0)}%</td>
+                                      <td className="px-2 py-1.5 text-right">{p.maxSubWeight?.toFixed(0)}%</td>
+                                      <td className="px-2 py-1.5 text-right">{p.bufferRule}</td>
+                                      <td className="px-2 py-1.5 text-right">{(p.stop_loss_pct ?? 0) > 0 ? `-${p.stop_loss_pct?.toFixed(0)}%` : '—'}</td>
+                                      <td className="px-2 py-1.5 text-right">{(p.trailingStop ?? 0) > 0 ? `${p.trailingStop?.toFixed(0)}%` : '—'}</td>
+                                      <td className="px-2 py-1.5 text-right">{(p.takeProfit ?? 0) > 0 ? `${p.takeProfit?.toFixed(0)}%` : '—'}</td>
+                                      <td className="px-2 py-1.5 text-center">
+                                        <button
+                                          onClick={() => applyOptParams({
+                                            topN: p.topN,
+                                            stocksPerSub: p.stocksPerSub,
+                                            rebalPeriod: p.rebalPeriod,
+                                            maxStockWeight: p.maxStockWeight,
+                                            maxSubWeight: p.maxSubWeight,
+                                            bufferRule: p.bufferRule,
+                                            stopLoss: (p.stop_loss_pct ?? 0) > 0 ? -p.stop_loss_pct : 0,
+                                            trailingStop: p.trailingStop ?? 0,
+                                            takeProfit: p.takeProfit ?? 0,
+                                          })}
+                                          className="px-2 py-0.5 bg-blue-600 hover:bg-blue-700 text-white rounded text-xs"
+                                        >
+                                          套用
+                                        </button>
+                                      </td>
+                                    </tr>
+                                  )
+                                })}
+                              </tbody>
+                            </table>
+                          </div>
+                        </>
+                      )}
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+          )}
+
+          <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-700 rounded-lg p-3 text-xs text-yellow-700 dark:text-yellow-400">
+            <p className="font-medium mb-1">⚠️ 首次使用前需在 Vercel 設定環境變數</p>
+            <p>GITHUB_TOKEN — Personal Access Token（需 workflow 權限）</p>
+            <p>GITHUB_REPO — 你的 repo，例如 az30667176-sudo/momentum-portal</p>
+          </div>
         </div>
       )}
     </div>
