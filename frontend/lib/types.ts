@@ -224,6 +224,8 @@ export interface PerfMetrics {
   sortino: number
   mdd: number
   wr: number
+  calmar: number
+  profitFactor: number
 }
 
 export interface BacktestResult {

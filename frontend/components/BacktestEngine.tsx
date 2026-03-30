@@ -1362,9 +1362,13 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
                   { label: 'Sharpe Ratio', val: result.fullPerf.sharpe.toFixed(2), sub: '全期' },
                   { label: 'Sortino Ratio', val: result.fullPerf.sortino.toFixed(2), sub: '全期' },
                   { label: 'Max Drawdown', val: `${result.fullPerf.mdd.toFixed(1)}%`, sub: '全期' },
+                  { label: 'Calmar Ratio', val: result.fullPerf.calmar.toFixed(2), sub: '年化報酬 / MDD' },
+                  { label: 'Profit Factor', val: result.fullPerf.profitFactor.toFixed(2), sub: '獲利日 / 虧損日' },
                   { label: '日勝率', val: `${result.fullPerf.wr}%`, sub: '全期' },
                   { label: 'IS 年化報酬', val: `${result.isPerf.annRet}%`, sub: `前 ${config.isSplitPct}%` },
                   { label: 'OOS 年化報酬', val: `${result.oosPerf.annRet}%`, sub: `後 ${100 - config.isSplitPct}%` },
+                  { label: 'OOS Calmar', val: result.oosPerf.calmar.toFixed(2), sub: `後 ${100 - config.isSplitPct}%` },
+                  { label: 'OOS Profit Factor', val: result.oosPerf.profitFactor.toFixed(2), sub: `後 ${100 - config.isSplitPct}%` },
                   { label: '換倉次數', val: `${result.totalRebalCount}`, sub: `出場 ${result.totalExitCount} 次` },
                 ].map(card => (
                   <div key={card.label} className={cardCls}>
@@ -1729,6 +1733,8 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
                         ['Sharpe', selectedRobustPoint.perf.sharpe.toFixed(2)],
                         ['Sortino', selectedRobustPoint.perf.sortino.toFixed(2)],
                         ['Max DD', `${selectedRobustPoint.perf.mdd.toFixed(1)}%`],
+                        ['Calmar', selectedRobustPoint.perf.calmar.toFixed(2)],
+                        ['Profit Factor', selectedRobustPoint.perf.profitFactor.toFixed(2)],
                         ['日勝率', `${selectedRobustPoint.perf.wr}%`],
                       ].map(([label, val]) => (
                         <div key={label} className="text-center">
@@ -1750,6 +1756,8 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
                       <th className="px-3 py-2 text-right">OOS Sharpe</th>
                       <th className="px-3 py-2 text-right">OOS 年化報酬</th>
                       <th className="px-3 py-2 text-right">OOS Max DD</th>
+                      <th className="px-3 py-2 text-right">OOS Calmar</th>
+                      <th className="px-3 py-2 text-right">OOS PF</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -1759,6 +1767,8 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
                         <td className="px-3 py-2 text-right font-medium">{r.oosS.toFixed(3)}</td>
                         <td className="px-3 py-2 text-right">{r.perf.annRet.toFixed(2)}%</td>
                         <td className="px-3 py-2 text-right text-red-500">{r.perf.mdd.toFixed(1)}%</td>
+                        <td className="px-3 py-2 text-right">{r.perf.calmar.toFixed(2)}</td>
+                        <td className="px-3 py-2 text-right">{r.perf.profitFactor.toFixed(2)}</td>
                       </tr>
                     ))}
                   </tbody>

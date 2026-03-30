@@ -377,7 +377,7 @@ function calcPerf(
   const r = dailyRets.slice(start, end)
   const e = eq.slice(start, end)
   const n = r.length
-  if (n < 2) return { annRet: 0, sharpe: 0, sortino: 0, mdd: 0, wr: 0 }
+  if (n < 2) return { annRet: 0, sharpe: 0, sortino: 0, mdd: 0, wr: 0, calmar: 0, profitFactor: 0 }
 
   const mn = r.reduce((a, b) => a + b, 0) / n
   const variance = r.reduce((a, b) => a + (b - mn) ** 2, 0) / n
@@ -398,12 +398,21 @@ function calcPerf(
   })
 
   const wr = Math.round(r.filter(x => x > 0).length / n * 100)
+
+  const calmar = mdd > 0 ? parseFloat((annRet / mdd).toFixed(2)) : 0
+
+  const grossProfit = r.filter(x => x > 0).reduce((a, b) => a + b, 0)
+  const grossLoss   = Math.abs(r.filter(x => x < 0).reduce((a, b) => a + b, 0))
+  const profitFactor = grossLoss > 0 ? parseFloat((grossProfit / grossLoss).toFixed(2)) : 0
+
   return {
     annRet: parseFloat(annRet.toFixed(2)),
     sharpe: parseFloat(sharpe.toFixed(2)),
     sortino: parseFloat(sortino.toFixed(2)),
     mdd: parseFloat(mdd.toFixed(2)),
     wr,
+    calmar,
+    profitFactor,
   }
 }
 
