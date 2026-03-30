@@ -444,7 +444,8 @@ export function runBacktestSync(
     const exitedToday: string[] = []
 
     if (holdings.length > 0) {
-      const equalW = 1 / holdings.length
+      // Fix: use h.weight (assigned at rebalance) instead of always 1/N.
+      // After mid-period exits, remaining weights sum < 1 — implicit cash drag, which is realistic.
       const updatedHoldings: Holding[] = []
       const dayStockMap = stockByDate.get(date) ?? new Map()
 
@@ -471,11 +472,17 @@ export function runBacktestSync(
           if (config.exitFilters.every(f => checkFilter(f, sub, prevSub))) { shouldExit = true; exitReason = 'signal' }
         }
 
+        // Fix 1+2: always use h.weight (not 1/N) and dailyRet (not cumReturn).
+        // Previous code added cumReturn on exit day, double-counting all prior daily returns
+        // that were already compounded into equity on previous days.
+        portRet += h.weight * dailyRet
+
         if (shouldExit) {
           exitedToday.push(h.subName)
           totalExitCount++
           stopExitsSinceLastRebal++
-          portRet += equalW * (h.cumReturn / 100) - Math.abs(h.cumReturn * equalW) * config.tradingCost / 100
+          // Fix 3: trading cost proportional to position weight, not cumReturn
+          portRet -= h.weight * config.tradingCost / 100
           tradeHistory.push({
             ticker: h.ticker,
             gics_code: h.gics_code,
@@ -483,13 +490,12 @@ export function runBacktestSync(
             entryDate: h.entryDate,
             exitDate: date,
             holdingDays: day - h.entryDay,
-            weight: h.weight ?? equalW,
+            weight: h.weight,
             pnlPct: parseFloat((h.exitIndex - 100).toFixed(2)),
             exitReason,
             rebalLogIdx: h.rebalLogIdx,
           })
         } else {
-          portRet += equalW * dailyRet
           updatedHoldings.push(h)
         }
       }
