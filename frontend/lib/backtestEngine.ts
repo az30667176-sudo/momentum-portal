@@ -449,6 +449,10 @@ export function runBacktestSync(
     stockByDate.set(snap.date, m)
   }
 
+  // Track the most recent non-empty stock map so rebal dates without exact
+  // stock data can still pick individual stocks instead of falling back to sub-level.
+  let lastKnownStockMap = new Map<string, StockReturn>()
+
   for (let day = 0; day < N; day++) {
     const snap = subHistory[day]
     const date = snap.date
@@ -611,18 +615,21 @@ export function runBacktestSync(
         .map(code => snap.subs.find(s => s.gics_code === code)?.gics_universe?.sub_industry ?? code)
 
       const dayStockMap = stockByDate.get(date) ?? new Map()
-      // Only do stock selection if THIS date has stock data (last 50 rebal dates);
-      // older dates fall back to sub-level to avoid zero-holding periods.
-      const hasStockDataToday = dayStockMap.size > 0
+      // Update last known map whenever we have fresh data
+      if (dayStockMap.size > 0) lastKnownStockMap = dayStockMap
+      // Use current date's data if available; otherwise fall back to most recent known data.
+      // This ensures individual stock trades even when daily_stock_returns is missing for a specific date.
+      const effectiveStockMap = dayStockMap.size > 0 ? dayStockMap : lastKnownStockMap
+      const hasStockData = effectiveStockMap.size > 0
       const newTickers: { ticker: string; gics_code: string; subName: string }[] = []
 
       for (const sub of selectedSubs) {
         if (!finalCodes.has(sub.gics_code)) continue
         const subName = sub.gics_universe?.sub_industry ?? sub.gics_code
 
-        if (hasStockDataToday) {
+        if (hasStockData) {
           const subStocks: StockReturn[] = []
-          for (const [k, st] of dayStockMap) {
+          for (const [k, st] of effectiveStockMap) {
             // Skip gics_code-keyed entries (each stock is inserted twice: by ticker and by gics_code)
             if (k === st.gics_code) continue
             if (st.gics_code === sub.gics_code) subStocks.push(st)
