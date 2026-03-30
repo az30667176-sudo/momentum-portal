@@ -1443,9 +1443,23 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
                   })
                   return (
                     <div className="space-y-2">
-                      {Object.entries(byYear).map(([year, months]) => (
+                      {Object.entries(byYear).map(([year, months]) => {
+                        // Compute yearly return (compounded from monthly)
+                        const yearlyRet = months.reduce((acc, m) => acc * (1 + m.ret / 100), 1) - 1
+                        const isPartial = months.length < 12
+                        const annualizedRet = isPartial && months.length > 0
+                          ? Math.pow(1 + yearlyRet, 12 / months.length) - 1
+                          : yearlyRet
+                        const yearPct = (annualizedRet * 100).toFixed(1)
+                        const yearColor = annualizedRet > 0 ? 'text-emerald-500' : annualizedRet < 0 ? 'text-red-500' : 'text-gray-400'
+                        return (
                         <div key={year}>
-                          <p className="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">{year}</p>
+                          <p className="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">
+                            {year}
+                            <span className={`ml-2 font-bold ${yearColor}`}>
+                              {yearPct}%{isPartial ? ' *' : ''}
+                            </span>
+                          </p>
                           <div className="flex flex-wrap gap-1">
                             {months.map(m => {
                               const intensity = Math.min(Math.abs(m.ret) / 5, 1)
@@ -1468,11 +1482,12 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
                             })}
                           </div>
                         </div>
-                      ))}
+                        )
+                      })}
                     </div>
                   )
                 })()}
-                <p className="text-xs text-gray-400 mt-2">橘色邊框 = OOS 期間</p>
+                <p className="text-xs text-gray-400 mt-2">橘色邊框 = OOS 期間｜* = 未滿一年（年化）</p>
               </div>
 
               {/* Histogram */}
