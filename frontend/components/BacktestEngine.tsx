@@ -272,6 +272,8 @@ const DEFAULT_CONFIG: BacktestConfig = {
   timeStop: 0,
   tradingCost: 0.1,
   isSplitPct: 70,
+  spyMaFilter: false,
+  spyMaPeriod: 200,
 }
 
 // ── checkFilter ───────────────────────────────────────────────
@@ -1233,6 +1235,43 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
                 onChange={e => setConfig(c => ({ ...c, tradingCost: parseInt(e.target.value) / 100 }))}
                 className="w-full accent-blue-600"
               />
+            </div>
+
+            {/* ── Market Regime Filter ── */}
+            <div className="border border-gray-200 dark:border-gray-700 rounded-xl p-4 space-y-3">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-xs font-semibold text-gray-700 dark:text-gray-300">大盤機制過濾</p>
+                  <p className="text-[10px] text-gray-400 dark:text-gray-500 mt-0.5">大盤 &lt; MA(N) 時停止開新倉</p>
+                </div>
+                <button
+                  onClick={() => setConfig(c => ({ ...c, spyMaFilter: !c.spyMaFilter }))}
+                  className={`relative w-11 h-6 rounded-full transition-colors ${
+                    config.spyMaFilter ? 'bg-blue-600' : 'bg-gray-300 dark:bg-gray-600'
+                  }`}
+                >
+                  <span className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow transition-transform ${
+                    config.spyMaFilter ? 'translate-x-5' : 'translate-x-0'
+                  }`} />
+                </button>
+              </div>
+              {config.spyMaFilter && (
+                <div>
+                  <p className={`${labelCls} mb-1`}>MA 週期：{config.spyMaPeriod} 日</p>
+                  <input
+                    type="range"
+                    min={20}
+                    max={250}
+                    step={5}
+                    value={config.spyMaPeriod}
+                    onChange={e => setConfig(c => ({ ...c, spyMaPeriod: parseInt(e.target.value) }))}
+                    className="w-full accent-blue-600"
+                  />
+                  <div className="flex justify-between text-[10px] text-gray-400 mt-0.5">
+                    <span>20日</span><span>100日</span><span>200日</span><span>250日</span>
+                  </div>
+                </div>
+              )}
             </div>
 
             <button

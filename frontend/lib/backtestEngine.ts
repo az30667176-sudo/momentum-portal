@@ -608,7 +608,17 @@ export function runBacktestSync(
       const stockExitsCount = holdings.length + stopExitsSinceLastRebal
       stopExitsSinceLastRebal = 0
 
-      if (newTickers.length > 0) {
+      // Global regime filter: block new entries when SPY proxy < MA(N)
+      const spyInRegime = (() => {
+        if (!config.spyMaFilter) return true
+        const period = Math.max(2, config.spyMaPeriod ?? 200)
+        const window = spyCurve.slice(Math.max(0, spyCurve.length - period))
+        if (window.length < Math.min(period, 20)) return true  // insufficient history
+        const ma = window.reduce((a, b) => a + b, 0) / window.length
+        return spyEquity >= ma
+      })()
+
+      if (newTickers.length > 0 && spyInRegime) {
         const tickerIds = newTickers.map(t => t.ticker)
         const tickerGics = newTickers.map(t => t.gics_code)
         const weights = calcWeights(tickerIds, tickerGics, snap.subs, dayStockMap, config.weightMode, config.maxStockWeight, config.maxSubWeight)

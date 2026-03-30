@@ -144,6 +144,8 @@ export interface BacktestConfig {
   timeStop: number
   tradingCost: number
   isSplitPct: number
+  spyMaFilter: boolean  // global regime filter: block new entries when SPY proxy < MA
+  spyMaPeriod: number   // MA lookback in trading days (e.g. 200)
 }
 
 export type ExitReason = 'rebal' | 'stop_loss' | 'trailing_stop' | 'take_profit' | 'time_stop' | 'signal'
