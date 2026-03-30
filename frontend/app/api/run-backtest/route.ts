@@ -3,6 +3,7 @@ import { BacktestConfig } from '@/lib/types'
 import {
   fetchSubHistory,
   fetchStockHistoryForDates,
+  fetchSpyHistory,
   collectRebalDates,
   runBacktestSync,
 } from '@/lib/backtestEngine'
@@ -27,9 +28,12 @@ export async function POST(req: NextRequest) {
     oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1)
     const cutoff = oneYearAgo.toISOString().split('T')[0]
     const recentRebalDates = rebalDates.filter(d => d >= cutoff)
-    const stockHistory = await fetchStockHistoryForDates(recentRebalDates)
+    const [stockHistory, spyReturns] = await Promise.all([
+      fetchStockHistoryForDates(recentRebalDates),
+      fetchSpyHistory(),
+    ])
 
-    const result = runBacktestSync(config, subHistory, stockHistory)
+    const result = runBacktestSync(config, subHistory, stockHistory, spyReturns)
     return NextResponse.json(result)
   } catch (err) {
     console.error('run-backtest error:', err)

@@ -132,6 +132,54 @@ export const fetchSubHistory = unstable_cache(
   { revalidate: 300 }
 )
 
+// ── SPY daily returns ─────────────────────────────────────────
+// Fetch real SPY adjusted-close returns from Yahoo Finance.
+// Falls back gracefully to an empty Map (engine uses EW average as fallback).
+
+async function _fetchSpyHistoryRaw(): Promise<Map<string, number>> {
+  try {
+    const url = 'https://query1.finance.yahoo.com/v8/finance/chart/SPY?interval=1d&range=4y'
+    const res = await fetch(url, {
+      headers: { 'User-Agent': 'Mozilla/5.0 (compatible; momentum-portal/1.0)' },
+    })
+    if (!res.ok) throw new Error(`Yahoo Finance HTTP ${res.status}`)
+    const json = await res.json() as {
+      chart: { result: Array<{
+        timestamp: number[]
+        indicators: {
+          adjclose?: Array<{ adjclose: (number | null)[] }>
+          quote?: Array<{ close: (number | null)[] }>
+        }
+      }> | null }
+    }
+    const result = json.chart.result?.[0]
+    if (!result) throw new Error('no chart result')
+    const timestamps = result.timestamp
+    const closes: (number | null)[] =
+      result.indicators.adjclose?.[0]?.adjclose ??
+      result.indicators.quote?.[0]?.close ?? []
+
+    const retMap = new Map<string, number>()
+    for (let i = 1; i < timestamps.length; i++) {
+      const c0 = closes[i - 1]
+      const c1 = closes[i]
+      if (c0 == null || c1 == null || c0 === 0) continue
+      const date = new Date(timestamps[i] * 1000).toISOString().split('T')[0]
+      retMap.set(date, parseFloat(((c1 / c0 - 1) * 100).toFixed(4)))
+    }
+    return retMap
+  } catch (e) {
+    console.error('[fetchSpyHistory] failed, falling back to EW average:', e)
+    return new Map()
+  }
+}
+
+export const fetchSpyHistory = unstable_cache(
+  _fetchSpyHistoryRaw,
+  ['spy-history-v1'],
+  { revalidate: 3600 }  // 1-hour cache (SPY data doesn't change intraday for strategy purposes)
+)
+
 // Collect the dates on which rebalancing occurs (pure function, no DB)
 export function collectRebalDates(config: BacktestConfig, subHistory: DailySubSnapshot[]): string[] {
   const dates: string[] = []
@@ -364,7 +412,8 @@ function calcPerf(
 export function runBacktestSync(
   config: BacktestConfig,
   subHistory: DailySubSnapshot[],
-  stockHistory: DailyStockSnapshot[]
+  stockHistory: DailyStockSnapshot[],
+  spyReturns: Map<string, number> = new Map()
 ): BacktestResult {
   const N = subHistory.length
   const isSplitDay = Math.floor(N * config.isSplitPct / 100)
@@ -405,12 +454,14 @@ export function runBacktestSync(
     const date = snap.date
     dates.push(date)
     const prevSnap = day >= config.rebalPeriod ? subHistory[day - config.rebalPeriod] : null
+    const prevDaySnap = day > 0 ? subHistory[day - 1] : null
     const isOOS = day >= isSplitDay
 
-    // SPY proxy: average of all sub ret_1d
+    // SPY: use real SPY daily return if available, else fallback to EW sub average
     const allRets = snap.subs.map(s => s.ret_1d ?? 0)
-    const avgRet = allRets.length > 0 ? allRets.reduce((a, b) => a + b, 0) / allRets.length : 0
-    spyEquity *= (1 + avgRet / 100)
+    const ewRet = allRets.length > 0 ? allRets.reduce((a, b) => a + b, 0) / allRets.length : 0
+    const spyRet = spyReturns.size > 0 ? (spyReturns.get(date) ?? ewRet) : ewRet
+    spyEquity *= (1 + spyRet / 100)
     spyCurve.push(spyEquity)
 
     // Equal-weight benchmark: top 20 by mom_score
@@ -468,8 +519,8 @@ export function runBacktestSync(
         if (!shouldExit && config.takeProfit > 0 && h.cumReturn >= config.takeProfit) { shouldExit = true; exitReason = 'take_profit' }
         if (!shouldExit && config.timeStop > 0 && (day - h.entryDay) >= config.timeStop * 5) { shouldExit = true; exitReason = 'time_stop' }
         if (!shouldExit && config.exitFilters.length > 0 && sub) {
-          const prevSub = prevSnap?.subs.find(s => s.gics_code === h.gics_code)
-          if (config.exitFilters.every(f => checkFilter(f, sub, prevSub))) { shouldExit = true; exitReason = 'signal' }
+          const prevSubForExit = prevDaySnap?.subs.find(s => s.gics_code === h.gics_code)
+          if (config.exitFilters.every(f => checkFilter(f, sub, prevSubForExit))) { shouldExit = true; exitReason = 'signal' }
         }
 
         // Fix 1+2: always use h.weight (not 1/N) and dailyRet (not cumReturn).
