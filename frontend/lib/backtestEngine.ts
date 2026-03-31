@@ -4,6 +4,7 @@
  * Imported by /api/run-backtest and /api/run-robustness.
  */
 
+import { gunzipSync } from 'zlib'
 import { createClient } from '@supabase/supabase-js'
 import { unstable_cache } from 'next/cache'
 import {
@@ -24,12 +25,71 @@ function makeClient() {
   )
 }
 
-// Fetch sub history using date-window batches instead of OFFSET-based pagination.
+// ── Sub history: Storage-first, DB fallback ───────────────────
+//
+// Architecture:
+//   L1: unstable_cache (in-process memory, 15 min TTL) — instant on same lambda instance
+//   L2: Supabase Storage gzipped JSON snapshot (~200ms download) — shared across ALL instances
+//   L3: Live 12-window DB fetch (5–15s) — only if pipeline hasn't run yet today
+//
+// The pipeline (GitHub Actions, runs daily after market close) exports the snapshot via
+// pipeline/cache_export.py.  All Vercel lambda cold-starts hit L2, not L3,
+// eliminating the thundering-herd timeout that caused repeated 504 errors.
+
+// L2: download the pre-built snapshot from Supabase Storage
+async function _fetchSubHistoryFromStorage(): Promise<DailySubSnapshot[] | null> {
+  try {
+    const supabase = makeClient()
+    const { data: blob, error } = await supabase.storage
+      .from('backtest-cache')
+      .download('sub-history.json.gz')
+    if (error || !blob) return null
+
+    const buffer = Buffer.from(await blob.arrayBuffer())
+    const text = gunzipSync(buffer).toString('utf-8')
+    const snapshot = JSON.parse(text) as {
+      built_at: string
+      rows: Record<string, unknown>[]
+      gics: Record<string, Record<string, unknown>>
+    }
+
+    const gicsMap = new Map(Object.entries(snapshot.gics))
+    const subByDate = new Map<string, SubReturn[]>()
+    for (const row of snapshot.rows) {
+      const date = String(row.date).slice(0, 10)
+      if (!subByDate.has(date)) subByDate.set(date, [])
+      const numericFields: Record<string, number | null> = {}
+      for (const [k, v] of Object.entries(row)) {
+        if (k === 'date' || k === 'gics_code') continue
+        numericFields[k] = v != null ? Number(v) : null
+      }
+      subByDate.get(date)!.push({
+        ...numericFields,
+        date,
+        gics_code: row.gics_code as string,
+        gics_universe: gicsMap.get(row.gics_code as string) as unknown as SubReturn['gics_universe'],
+      } as unknown as SubReturn)
+    }
+
+    const subHistory = Array.from(subByDate.entries())
+      .sort(([a], [b]) => a.localeCompare(b))
+      .map(([date, subs]) => ({ date, subs }))
+
+    if (subHistory.length < 20) return null
+    console.log(`[fetchSubHistory] Storage snapshot: ${subHistory.length} days (built ${snapshot.built_at})`)
+    return subHistory
+  } catch (e) {
+    console.warn('[fetchSubHistory] Storage snapshot failed, falling back to DB:', e)
+    return null
+  }
+}
+
+// L3: live 12-window DB fetch (fallback when Storage snapshot not yet built)
 // OFFSET queries on large tables cause Supabase free-tier statement timeouts because
 // each OFFSET N forces the DB to scan N rows from the start.
 // Date-window queries always use OFFSET=0 (fast index seek), eliminating timeouts.
 // Each 3-month window ≈ 65 trading days × 155 rows ≈ 10,075 rows — well under 12,000 limit.
-async function _fetchSubHistoryRaw(): Promise<DailySubSnapshot[]> {
+async function _fetchSubHistoryFromDB(): Promise<DailySubSnapshot[]> {
   const supabase = makeClient()
 
   // 3-month windows, all 12 fired in a single Promise.all (no batching).
@@ -116,14 +176,22 @@ async function _fetchSubHistoryRaw(): Promise<DailySubSnapshot[]> {
   if (subHistory.length < 20) {
     throw new Error(`sub data only ${subHistory.length} days — DB may be mid-write`)
   }
+  console.warn(`[fetchSubHistory] DB fallback: ${subHistory.length} days (Storage snapshot not ready)`)
   return subHistory
 }
 
-// Cached sub history — 15-minute cache (sub data updates once a day, long cache reduces
-// cold-start frequency and thundering-herd risk on Supabase free tier)
+// L1 wrapper: tries Storage first, falls back to live DB fetch
+async function _fetchSubHistoryRaw(): Promise<DailySubSnapshot[]> {
+  const fromStorage = await _fetchSubHistoryFromStorage()
+  if (fromStorage) return fromStorage
+  return _fetchSubHistoryFromDB()
+}
+
+// Cached sub history — 15-minute in-process cache (L1).
+// Cold starts on new lambda instances hit L2 (Storage), not L3 (DB).
 export const fetchSubHistory = unstable_cache(
   _fetchSubHistoryRaw,
-  ['sub-history-v8'],
+  ['sub-history-v9'],
   { revalidate: 900 }
 )
 

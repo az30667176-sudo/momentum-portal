@@ -450,7 +450,12 @@ def main():
         total_success += result["success"]
         total_failed += result["failed"]
 
-    # 10. 執行摘要
+    # 10. 匯出 backtest cache 快照到 Supabase Storage
+    # 前端直接下載此 gzipped JSON，取代 12 個平行 DB 查詢，徹底消除 504 timeout。
+    from pipeline.cache_export import export_backtest_cache
+    export_backtest_cache(supabase)
+
+    # 11. 執行摘要
     elapsed = time.time() - start_time
     logger.info("=" * 60)
     logger.info("Pipeline Complete")
