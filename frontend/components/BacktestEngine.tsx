@@ -2277,10 +2277,32 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
             </div>
           </div>
 
+          {/* Running banner */}
+          {optRunId && !optRuns.find(r => r.id === optRunId && (r.status === 'completed' || r.status === 'failed')) && (
+            <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded-lg p-4 flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-blue-700 dark:text-blue-300 animate-pulse">⚙️ GitHub Actions 優化執行中…</p>
+                <p className="text-xs text-blue-500 dark:text-blue-400 mt-0.5">預計 8–12 分鐘後完成，每 15 秒自動刷新。可手動點「刷新結果」查看最新狀態。</p>
+              </div>
+              <button onClick={loadOptRuns}
+                className="text-xs px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg">
+                刷新
+              </button>
+            </div>
+          )}
+
           {/* Results */}
-          {optRuns.length > 0 && (
-            <div className={sectionCls}>
-              <h3 className="font-semibold text-gray-900 dark:text-white mb-3">優化記錄</h3>
+          <div className={sectionCls}>
+            <div className="flex items-center justify-between mb-3">
+              <h3 className="font-semibold text-gray-900 dark:text-white">優化記錄</h3>
+              <button onClick={loadOptRuns}
+                className="text-xs px-2 py-1 border border-gray-300 dark:border-gray-600 rounded hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-500">
+                ↻ 刷新
+              </button>
+            </div>
+          {optRuns.length === 0 ? (
+            <p className="text-sm text-gray-400 dark:text-gray-500 text-center py-6">尚無優化記錄，點「開始 Optuna 優化」後再點「刷新結果」查看。</p>
+          ) : (
               <div className="space-y-4">
                 {optRuns.map(run => {
                   const statusColor =
@@ -2392,8 +2414,8 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
                   )
                 })}
               </div>
-            </div>
           )}
+            </div>
 
           <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-700 rounded-lg p-3 text-xs text-yellow-700 dark:text-yellow-400">
             <p className="font-medium mb-1">⚠️ 首次使用前需在 Vercel 設定環境變數</p>
