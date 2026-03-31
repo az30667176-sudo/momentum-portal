@@ -16,7 +16,7 @@ import os
 import sys
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from datetime import date, datetime, timedelta, timezone
+from datetime import date, timedelta
 from pathlib import Path
 
 import optuna
@@ -397,10 +397,11 @@ def main():
     param_ranges: dict = run.get('param_ranges', {})
 
     # Mark as running
-    supabase.from_('optimization_runs') \
+    running_resp = supabase.from_('optimization_runs') \
         .update({'status': 'running'}) \
         .eq('id', args.run_id) \
         .execute()
+    log.info(f'Marked as running: {running_resp}')
 
     try:
         # Fetch data (one-time cost, shared across all trials)
@@ -460,13 +461,13 @@ def main():
             best_params['stopLoss'] = 0
             best_params.pop('stop_loss_pct', None)
 
-        supabase.from_('optimization_runs').update({
+        update_resp = supabase.from_('optimization_runs').update({
             'status': 'completed',
             'best_score': study.best_value,
             'best_params': best_params,
             'all_trials': all_trials,
-            'completed_at': datetime.now(timezone.utc).isoformat(),
         }).eq('id', args.run_id).execute()
+        log.info(f'DB update response: {update_resp}')
 
         log.info(f'Optimization complete. Best score: {study.best_value:.4f}')
         log.info(f'Best params: {json.dumps(best_params, indent=2)}')
