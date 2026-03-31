@@ -70,29 +70,23 @@ async function _fetchSubHistoryRaw(): Promise<DailySubSnapshot[]> {
     ])
   )
 
-  // Fetch 3 windows in parallel (OFFSET=0, ~10K rows each, <5s per query).
-  // statement_timeout=30s (set via ALTER ROLE) keeps this safe.
-  const PARALLEL = 3
+  // Sequential queries (PARALLEL=1): prevents thundering-herd on Supabase free tier.
+  // Multiple simultaneous cache-miss requests each only hold 1 DB connection at a time,
+  // instead of 3 each (which caused "terminated" errors under rapid repeated usage).
+  // Trade-off: first load ~15s instead of ~8s, but cache (15 min) makes this rare.
   const allSubRows: Record<string, unknown>[] = []
 
-  for (let i = 0; i < windows.length; i += PARALLEL) {
-    const batch = windows.slice(i, i + PARALLEL)
-    const results = await Promise.all(
-      batch.map(w =>
-        supabase
-          .from('daily_sub_returns')
-          .select(SELECT_SUB)
-          .gte('date', w.from)
-          .lt('date', w.to)
-          .order('date', { ascending: true })
-          .order('gics_code', { ascending: true })
-          .range(0, 11999)
-      )
-    )
-    for (const chunk of results) {
-      if (chunk.error) throw new Error(`sub range query failed: ${chunk.error.message}`)
-      allSubRows.push(...(chunk.data as Record<string, unknown>[]))
-    }
+  for (const w of windows) {
+    const chunk = await supabase
+      .from('daily_sub_returns')
+      .select(SELECT_SUB)
+      .gte('date', w.from)
+      .lt('date', w.to)
+      .order('date', { ascending: true })
+      .order('gics_code', { ascending: true })
+      .range(0, 11999)
+    if (chunk.error) throw new Error(`sub range query failed: ${chunk.error.message}`)
+    allSubRows.push(...(chunk.data as Record<string, unknown>[]))
   }
 
   const subByDate = new Map<string, SubReturn[]>()
@@ -125,11 +119,12 @@ async function _fetchSubHistoryRaw(): Promise<DailySubSnapshot[]> {
   return subHistory
 }
 
-// Cached sub history — 5-minute cache, v5 key (busts cache after date-window refactor)
+// Cached sub history — 15-minute cache (sub data updates once a day, long cache reduces
+// cold-start frequency and thundering-herd risk on Supabase free tier)
 export const fetchSubHistory = unstable_cache(
   _fetchSubHistoryRaw,
-  ['sub-history-v5'],
-  { revalidate: 300 }
+  ['sub-history-v6'],
+  { revalidate: 900 }
 )
 
 // ── SPY daily returns ─────────────────────────────────────────
