@@ -647,6 +647,16 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
 
   const applyOptParams = useCallback((params: Record<string, any>) => {
     const ri = (v: any, fallback: any) => v != null ? Math.round(Number(v)) : fallback
+    // Build subFilters: fixed filters from run + any trial-specific indicator filters
+    const fixedSubs: SubFilter[] = Array.isArray(params.subFilters) ? params.subFilters : []
+    const trialSubs: SubFilter[] = Object.entries(params.filterSummary ?? {}).map(([indicator, info]: any) => ({
+      id: `opt_${indicator}_${Date.now()}`,
+      type: 'static' as FilterType,
+      indicator,
+      op: info.op as any,
+      value: typeof info.threshold === 'number' ? info.threshold : Number(info.threshold),
+    }))
+    const mergedSubs = [...fixedSubs, ...trialSubs]
     setConfig(prev => ({
       ...prev,
       topN: ri(params.topN, prev.topN),
@@ -663,6 +673,7 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
       weightMode: params.weightMode ?? prev.weightMode,
       tradingCost: params.tradingCost != null ? Math.round(Number(params.tradingCost) * 100) / 100 : prev.tradingCost,
       spyMaFilter: params.spyMaFilter !== undefined ? params.spyMaFilter : prev.spyMaFilter,
+      subFilters: mergedSubs.length > 0 ? mergedSubs : prev.subFilters,
     }))
     setActiveTab('config')
   }, [])
@@ -2415,6 +2426,13 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
                                             stopLoss: (p.stop_loss_pct ?? 0) > 0 ? -p.stop_loss_pct : 0,
                                             trailingStop: p.trailingStop ?? 0,
                                             takeProfit: p.takeProfit ?? 0,
+                                            rankBy: run.fixed_config?.rankBy,
+                                            rankDir: run.fixed_config?.rankDir,
+                                            weightMode: run.fixed_config?.weightMode,
+                                            tradingCost: run.fixed_config?.tradingCost,
+                                            spyMaFilter: run.fixed_config?.spyMaFilter,
+                                            subFilters: run.fixed_config?.subFilters ?? [],
+                                            filterSummary: t.filter_summary ?? {},
                                           })}
                                           className="px-2 py-0.5 bg-blue-600 hover:bg-blue-700 text-white rounded text-xs"
                                         >
