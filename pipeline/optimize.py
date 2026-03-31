@@ -72,15 +72,19 @@ def fetch_sub_history(supabase) -> list[dict]:
     ])
 
     today = date.today()
-    cursor = date(today.year - 3, today.month, today.day)
+    try:
+        start = date(today.year - 3, today.month, today.day)
+    except ValueError:
+        start = date(today.year - 3, today.month, 28)  # handle Feb 29 in non-leap year
+    cursor = start
     windows: list[tuple[str, str]] = []
     while cursor < today:
         frm = cursor.isoformat()
-        next_cursor = date(cursor.year, cursor.month + 3, cursor.day) if cursor.month <= 9 else \
-            date(cursor.year + 1, cursor.month - 9, cursor.day)
-        to = min(next_cursor, today).isoformat()
-        windows.append((frm, to))
-        cursor = next_cursor if next_cursor < today else today
+        next_cursor = cursor + timedelta(days=91)  # ~3 months, avoids month-day overflow
+        if next_cursor > today:
+            next_cursor = today
+        windows.append((frm, next_cursor.isoformat()))
+        cursor = next_cursor
 
     def fetch_window(w: tuple[str, str]) -> list[dict]:
         frm, to = w

@@ -566,11 +566,15 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
   const loadOptRuns = useCallback(async () => {
     try {
       const res = await fetch('/api/optimization-runs')
+      const data = await res.json()
       if (res.ok) {
-        const data = await res.json()
         setOptRuns(data)
+      } else {
+        setOptError(`載入記錄失敗：${data.error ?? res.status}`)
       }
-    } catch {}
+    } catch (e: any) {
+      setOptError(`載入記錄失敗：${e.message ?? e}`)
+    }
   }, [])
 
   useEffect(() => {
