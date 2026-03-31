@@ -642,21 +642,22 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
   }, [config, optObjective, optIsSplit, optNTrials, optRanges, loadOptRuns])
 
   const applyOptParams = useCallback((params: Record<string, any>) => {
+    const ri = (v: any, fallback: any) => v != null ? Math.round(Number(v)) : fallback
     setConfig(prev => ({
       ...prev,
-      topN: params.topN ?? prev.topN,
-      stocksPerSub: params.stocksPerSub ?? prev.stocksPerSub,
-      rebalPeriod: params.rebalPeriod ?? prev.rebalPeriod,
-      maxStockWeight: params.maxStockWeight ?? prev.maxStockWeight,
-      maxSubWeight: params.maxSubWeight ?? prev.maxSubWeight,
-      bufferRule: params.bufferRule ?? prev.bufferRule,
-      stopLoss: params.stopLoss ?? prev.stopLoss,
-      trailingStop: params.trailingStop ?? prev.trailingStop,
-      takeProfit: params.takeProfit ?? prev.takeProfit,
+      topN: ri(params.topN, prev.topN),
+      stocksPerSub: ri(params.stocksPerSub, prev.stocksPerSub),
+      rebalPeriod: ri(params.rebalPeriod, prev.rebalPeriod),
+      maxStockWeight: ri(params.maxStockWeight, prev.maxStockWeight),
+      maxSubWeight: ri(params.maxSubWeight, prev.maxSubWeight),
+      bufferRule: ri(params.bufferRule, prev.bufferRule),
+      stopLoss: params.stopLoss != null ? Math.round(Number(params.stopLoss)) : prev.stopLoss,
+      trailingStop: params.trailingStop != null ? Math.round(Number(params.trailingStop)) : prev.trailingStop,
+      takeProfit: params.takeProfit != null ? Math.round(Number(params.takeProfit)) : prev.takeProfit,
       rankBy: params.rankBy ?? prev.rankBy,
       rankDir: params.rankDir ?? prev.rankDir,
       weightMode: params.weightMode ?? prev.weightMode,
-      tradingCost: params.tradingCost ?? prev.tradingCost,
+      tradingCost: params.tradingCost != null ? Math.round(Number(params.tradingCost) * 100) / 100 : prev.tradingCost,
       spyMaFilter: params.spyMaFilter !== undefined ? params.spyMaFilter : prev.spyMaFilter,
     }))
     setActiveTab('config')
@@ -1292,7 +1293,7 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
                   <p className={`${labelCls} mb-1`}>固定停利：{config.takeProfit}%</p>
                   <input
                     type="range"
-                    min={10}
+                    min={1}
                     max={80}
                     value={config.takeProfit}
                     onChange={e => setConfig(c => ({ ...c, takeProfit: parseInt(e.target.value) }))}
@@ -2260,21 +2261,32 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
               </div>
             )}
 
-            <div className="flex gap-3 items-center">
-              <button
-                onClick={startOptimization}
-                disabled={optIsRunning}
-                className="px-5 py-2.5 bg-purple-600 hover:bg-purple-700 disabled:bg-purple-300 text-white rounded-lg font-medium text-sm transition-colors"
-              >
-                {optIsRunning ? '送出中...' : `⚡ 開始 Optuna 優化（${optNTrials} trials）`}
-              </button>
-              <button
-                onClick={loadOptRuns}
-                className="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-400"
-              >
-                ↻ 刷新結果
-              </button>
-            </div>
+            {(() => {
+              const latestRun = optRuns[0]
+              const runInProgress = optIsRunning ||
+                (optRunId != null && !optRuns.find(r => r.id === optRunId && (r.status === 'completed' || r.status === 'failed'))) ||
+                latestRun?.status === 'running' || latestRun?.status === 'pending'
+              const btnLabel = optIsRunning ? '送出中...' :
+                runInProgress ? `⚙️ 優化進行中，請稍候（約 8–12 分鐘）` :
+                `⚡ 開始 Optuna 優化（${optNTrials} trials）`
+              return (
+                <div className="flex gap-3 items-center flex-wrap">
+                  <button
+                    onClick={startOptimization}
+                    disabled={runInProgress}
+                    className="px-5 py-2.5 bg-purple-600 hover:bg-purple-700 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-lg font-medium text-sm transition-colors"
+                  >
+                    {btnLabel}
+                  </button>
+                  <button
+                    onClick={loadOptRuns}
+                    className="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-400"
+                  >
+                    ↻ 刷新結果
+                  </button>
+                </div>
+              )
+            })()}
           </div>
 
           {/* Running banner */}

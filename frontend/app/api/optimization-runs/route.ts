@@ -19,7 +19,7 @@ export async function GET() {
       .from('optimization_runs')
       .select('*')
       .order('id', { ascending: false })
-      .limit(10)
+      .limit(1)
 
     if (error) {
       console.error('[optimization-runs] Supabase error:', error)
