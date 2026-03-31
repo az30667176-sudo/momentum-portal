@@ -260,31 +260,33 @@ def make_objective(
     def objective_fn(trial: optuna.Trial) -> float:
         pr = param_ranges
 
-        # ── Numeric params ────────────────────────────────────────
-        topN = trial.suggest_int('topN', pr.get('topN_min', 2), pr.get('topN_max', 8))
+        # ── Numeric params (each with a meaningful step size) ────
+        topN = trial.suggest_int(
+            'topN', pr.get('topN_min', 2), pr.get('topN_max', 8), step=1
+        )
         stocksPerSub = trial.suggest_int(
-            'stocksPerSub', pr.get('stocksPerSub_min', 1), pr.get('stocksPerSub_max', 5)
+            'stocksPerSub', pr.get('stocksPerSub_min', 1), pr.get('stocksPerSub_max', 5), step=1
         )
         rebalPeriod = trial.suggest_categorical(
             'rebalPeriod', pr.get('rebalPeriod_options', [5, 10, 20, 40])
         )
         maxStockWeight = trial.suggest_float(
-            'maxStockWeight', pr.get('maxStockWeight_min', 5), pr.get('maxStockWeight_max', 30)
+            'maxStockWeight', pr.get('maxStockWeight_min', 5), pr.get('maxStockWeight_max', 30), step=2.5
         )
         maxSubWeight = trial.suggest_float(
-            'maxSubWeight', pr.get('maxSubWeight_min', 10), pr.get('maxSubWeight_max', 60)
+            'maxSubWeight', pr.get('maxSubWeight_min', 10), pr.get('maxSubWeight_max', 60), step=5.0
         )
         bufferRule = trial.suggest_int(
-            'bufferRule', pr.get('bufferRule_min', 0), pr.get('bufferRule_max', 3)
+            'bufferRule', pr.get('bufferRule_min', 0), pr.get('bufferRule_max', 3), step=1
         )
         stop_loss_pct = trial.suggest_float(
-            'stop_loss_pct', pr.get('stopLoss_min', 0), pr.get('stopLoss_max', 20)
+            'stop_loss_pct', pr.get('stopLoss_min', 0), pr.get('stopLoss_max', 20), step=1.0
         )
         trailing_stop = trial.suggest_float(
-            'trailingStop', pr.get('trailingStop_min', 0), pr.get('trailingStop_max', 20)
+            'trailingStop', pr.get('trailingStop_min', 0), pr.get('trailingStop_max', 20), step=1.0
         )
         take_profit = trial.suggest_float(
-            'takeProfit', pr.get('takeProfit_min', 0), pr.get('takeProfit_max', 50)
+            'takeProfit', pr.get('takeProfit_min', 0), pr.get('takeProfit_max', 50), step=2.5
         )
 
         # ── Categorical strategy params (optional search) ────────
@@ -313,9 +315,10 @@ def make_objective(
             spy_ma_filter = fixed_config.get('spyMaFilter', False)
 
         # ── Indicator / filter search ─────────────────────────────
-        # For each candidate indicator, Optuna decides:
-        #   1. activate this filter? (yes/no)
-        #   2. if yes, what threshold?
+        # All user-selected indicators are ALWAYS active.
+        # Optuna only optimises the threshold value for each one.
+        # (Previously each indicator had a yes/no activation switch, which
+        # caused some trials to drop the user's chosen filters entirely.)
         active_filters: list[dict] = []
         filter_summary: dict[str, dict] = {}
 
@@ -330,17 +333,24 @@ def make_objective(
                 if min_val >= max_val:
                     continue
 
-                activate = trial.suggest_categorical(f'use_filter_{ind}', [True, False])
-                if activate:
-                    threshold = trial.suggest_float(f'threshold_{ind}', min_val, max_val)
-                    active_filters.append({
-                        'id': f'opt_{ind}',
-                        'type': 'static',
-                        'op': op,
-                        'indicator': ind,
-                        'value': threshold,
-                    })
-                    filter_summary[ind] = {'threshold': round(threshold, 3), 'op': op}
+                # Step size: finer for ratios/scores, coarser for percentages
+                span = max_val - min_val
+                if span <= 2:
+                    step = round(span / 20, 4)   # e.g. 0–1 range → step 0.05
+                elif span <= 10:
+                    step = round(span / 20, 3)   # e.g. 0–5 → step 0.25
+                else:
+                    step = round(span / 20, 2)   # e.g. 0–100 → step 5
+
+                threshold = trial.suggest_float(f'threshold_{ind}', min_val, max_val, step=step)
+                active_filters.append({
+                    'id': f'opt_{ind}',
+                    'type': 'static',
+                    'op': op,
+                    'indicator': ind,
+                    'value': threshold,
+                })
+                filter_summary[ind] = {'threshold': round(threshold, 4), 'op': op}
 
             trial.set_user_attr('filter_summary', json.dumps(filter_summary))
             sub_filters_to_use = active_filters
