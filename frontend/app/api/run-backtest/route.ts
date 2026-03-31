@@ -2,9 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { BacktestConfig } from '@/lib/types'
 import {
   fetchSubHistory,
-  fetchStockHistoryForDates,
+  fetchStockHistoryByRebalPeriod,
   fetchSpyHistory,
-  collectRebalDates,
   runBacktestSync,
 } from '@/lib/backtestEngine'
 
@@ -20,12 +19,10 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: '歷史資料不足 20 天' }, { status: 400 })
     }
 
-    // Two-pass: collect rebal dates, then fetch stock data for all dates.
-    // Backfill has populated 3 years of daily_stock_returns, so no cutoff needed.
-    // ~150 rebal dates × ~1500 stocks / 10 per batch / 3 parallel ≈ 15-25s, safe under 60s.
-    const rebalDates = collectRebalDates(config, subHistory)
+    // Stock data is cached by rebalPeriod for 5 min — same rebalPeriod reuses cached data,
+    // so rapid repeated runs with the same rebalPeriod hit zero DB queries for stock data.
     const [stockHistory, spyReturns] = await Promise.all([
-      fetchStockHistoryForDates(rebalDates),
+      fetchStockHistoryByRebalPeriod(config.rebalPeriod),
       fetchSpyHistory(),
     ])
 

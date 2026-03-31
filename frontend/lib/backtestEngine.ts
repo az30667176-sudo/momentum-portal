@@ -255,6 +255,21 @@ export async function fetchStockHistoryForDates(dates: string[]): Promise<DailyS
 }
 
 // Backward-compatible wrapper for run-robustness (stock data not needed for param sweep)
+// Cached stock history keyed by rebalPeriod.
+// Rebalancing dates depend only on rebalPeriod (not topN/subFilters/etc.),
+// so runs with the same rebalPeriod share the same DB data within 5 minutes.
+async function _fetchStockHistoryByRebalPeriodRaw(rebalPeriod: number): Promise<DailyStockSnapshot[]> {
+  const subHistory = await fetchSubHistory()  // reuses the 5-min cache
+  const rebalDates = collectRebalDates({ rebalPeriod } as BacktestConfig, subHistory)
+  return fetchStockHistoryForDates(rebalDates)
+}
+
+export const fetchStockHistoryByRebalPeriod = unstable_cache(
+  _fetchStockHistoryByRebalPeriodRaw,
+  ['stock-history-rp'],
+  { revalidate: 300 }
+)
+
 export async function fetchBacktestData(): Promise<{
   subHistory: DailySubSnapshot[]
   stockHistory: DailyStockSnapshot[]

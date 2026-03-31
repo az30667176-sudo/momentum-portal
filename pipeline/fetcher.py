@@ -114,10 +114,10 @@ def _download_ohlcv(
     從 yfinance 批次下載 OHLCV（含 Open）。
     回傳 (close, volume, high, low, open)，index = 日期，columns = ticker。
     """
-    end   = datetime.today()
-    start = end - timedelta(days=history_days)
+    end   = datetime.today() + timedelta(days=1)  # yfinance end is exclusive → +1 to include today
+    start = end - timedelta(days=history_days + 1)
     logger.info(
-        f"下載 {start.date()} → {end.date()}（{history_days} 日曆天，"
+        f"下載 {start.date()} → {(end - timedelta(days=1)).date()}（{history_days} 日曆天，"
         f"{len(tickers)} 檔）"
     )
 
@@ -288,8 +288,8 @@ def fetch_prices(
 
 def fetch_spy_prices(history_days: int = HISTORY_DAYS) -> pd.Series:
     """抓取 SPY 收盤價作為 benchmark。"""
-    end   = datetime.today()
-    start = end - timedelta(days=history_days)
+    end   = datetime.today() + timedelta(days=1)  # exclusive → +1 to include today
+    start = end - timedelta(days=history_days + 1)
     raw   = yf.download("SPY", start=start, end=end,
                         auto_adjust=True, progress=False)
     return raw["Close"].squeeze()
