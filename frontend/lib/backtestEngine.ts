@@ -317,19 +317,67 @@ export async function fetchStockHistoryForDates(dates: string[]): Promise<DailyS
     .map(([date, stocks]) => ({ date, stocks }))
 }
 
-// Backward-compatible wrapper for run-robustness (stock data not needed for param sweep)
-// Cached stock history keyed by rebalPeriod.
-// Rebalancing dates depend only on rebalPeriod (not topN/subFilters/etc.),
-// so runs with the same rebalPeriod share the same DB data within 5 minutes.
+// Standard rebalPeriods that have pre-built Storage snapshots (built by pipeline/cache_export.py)
+const STANDARD_REBAL_PERIODS = [5, 10, 20, 40]
+
+// Try to load stock history from Storage snapshot (~200ms) before falling back to live DB fetch (~10s)
+async function _fetchStockHistoryFromStorage(rebalPeriod: number): Promise<DailyStockSnapshot[] | null> {
+  if (!STANDARD_REBAL_PERIODS.includes(rebalPeriod)) return null
+  try {
+    const supabase = makeClient()
+    const { data: blob, error } = await supabase.storage
+      .from('backtest-cache')
+      .download(`stock-history-rp${rebalPeriod}.json.gz`)
+    if (error || !blob) return null
+
+    const buffer = Buffer.from(await blob.arrayBuffer())
+    const text = gunzipSync(buffer).toString('utf-8')
+    const snapshot = JSON.parse(text) as { rows: Record<string, unknown>[] }
+
+    const stockByDate = new Map<string, StockReturn[]>()
+    for (const row of snapshot.rows) {
+      const date = String(row.date).slice(0, 10)
+      if (!stockByDate.has(date)) stockByDate.set(date, [])
+      stockByDate.get(date)!.push({
+        date,
+        ticker:      row.ticker as string,
+        gics_code:   row.gics_code as string,
+        ret_1d:      row.ret_1d != null ? Number(row.ret_1d) : null,
+        ret_1w:      row.ret_1w != null ? Number(row.ret_1w) : null,
+        ret_1m:      row.ret_1m != null ? Number(row.ret_1m) : null,
+        ret_3m:      row.ret_3m != null ? Number(row.ret_3m) : null,
+        ret_6m:      null,
+        ret_12m:     null,
+        mom_score:   row.mom_score != null ? Number(row.mom_score) : null,
+        rank_in_sub: row.rank_in_sub != null ? Number(row.rank_in_sub) : null,
+        rvol:        row.rvol != null ? Number(row.rvol) : null,
+        obv_trend:   row.obv_trend != null ? Number(row.obv_trend) : null,
+      })
+    }
+    const result = Array.from(stockByDate.entries())
+      .sort(([a], [b]) => a.localeCompare(b))
+      .map(([date, stocks]) => ({ date, stocks }))
+    console.log(`[fetchStockHistory] Storage rp=${rebalPeriod}: ${result.length} dates`)
+    return result
+  } catch (e) {
+    console.warn(`[fetchStockHistory] Storage rp=${rebalPeriod} failed, falling back to DB:`, e)
+    return null
+  }
+}
+
+// L1: unstable_cache (in-process, 5 min) → L2: Storage snapshot (~200ms) → L3: live DB fetch (~10s)
 async function _fetchStockHistoryByRebalPeriodRaw(rebalPeriod: number): Promise<DailyStockSnapshot[]> {
-  const subHistory = await fetchSubHistory()  // reuses the 5-min cache
+  const fromStorage = await _fetchStockHistoryFromStorage(rebalPeriod)
+  if (fromStorage) return fromStorage
+  // Fallback: live DB fetch (used when pipeline hasn't run yet today)
+  const subHistory = await fetchSubHistory()
   const rebalDates = collectRebalDates({ rebalPeriod } as BacktestConfig, subHistory)
   return fetchStockHistoryForDates(rebalDates)
 }
 
 export const fetchStockHistoryByRebalPeriod = unstable_cache(
   _fetchStockHistoryByRebalPeriodRaw,
-  ['stock-history-rp'],
+  ['stock-history-rp-v2'],
   { revalidate: 300 }
 )
 
