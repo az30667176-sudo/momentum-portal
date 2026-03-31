@@ -2170,19 +2170,59 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
               )}
             </div>
 
-            {/* Parameter ranges toggle */}
+            {/* Core parameter ranges – always visible */}
+            <div className="border border-gray-200 dark:border-gray-600 rounded-lg p-3 mb-4">
+              <p className="text-xs font-medium text-gray-700 dark:text-gray-300 mb-3">搜尋範圍（核心參數）</p>
+              <div className="space-y-3">
+                {[
+                  { label: '持有幾個產業 (topN)', minKey: 'topN_min', maxKey: 'topN_max', step: 1 },
+                  { label: '每產業幾支股 (stocksPerSub)', minKey: 'stocksPerSub_min', maxKey: 'stocksPerSub_max', step: 1 },
+                ].map(({ label, minKey, maxKey, step }) => (
+                  <div key={label} className="flex items-center gap-3 text-xs">
+                    <span className="w-44 text-gray-600 dark:text-gray-400">{label}</span>
+                    <input type="number" step={step}
+                      value={(optRanges as any)[minKey]}
+                      onChange={e => setOptRanges(r => ({ ...r, [minKey]: Number(e.target.value) }))}
+                      className="w-16 border border-gray-300 dark:border-gray-600 rounded px-1.5 py-1 bg-white dark:bg-gray-700 dark:text-white" />
+                    <span className="text-gray-400">–</span>
+                    <input type="number" step={step}
+                      value={(optRanges as any)[maxKey]}
+                      onChange={e => setOptRanges(r => ({ ...r, [maxKey]: Number(e.target.value) }))}
+                      className="w-16 border border-gray-300 dark:border-gray-600 rounded px-1.5 py-1 bg-white dark:bg-gray-700 dark:text-white" />
+                  </div>
+                ))}
+                <div className="flex items-center gap-3 text-xs">
+                  <span className="w-44 text-gray-600 dark:text-gray-400">換倉週期 (rebalPeriod)</span>
+                  <div className="flex gap-3">
+                    {[5, 10, 20, 40].map(v => (
+                      <label key={v} className="flex items-center gap-1 cursor-pointer">
+                        <input type="checkbox"
+                          checked={optRanges.rebalPeriod_options.includes(v)}
+                          onChange={e => setOptRanges(r => ({
+                            ...r,
+                            rebalPeriod_options: e.target.checked
+                              ? [...r.rebalPeriod_options, v].sort((a, b) => a - b)
+                              : r.rebalPeriod_options.filter(x => x !== v),
+                          }))} />
+                        {v}天
+                      </label>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Parameter ranges toggle – advanced */}
             <button
               onClick={() => setOptShowRanges(v => !v)}
               className="text-sm text-blue-500 hover:text-blue-700 mb-3 flex items-center gap-1"
             >
-              {optShowRanges ? '▾' : '▸'} 參數搜尋範圍（進階）
+              {optShowRanges ? '▾' : '▸'} 進階參數範圍（Weight Cap / Stop Loss）
             </button>
 
             {optShowRanges && (
               <div className="grid grid-cols-2 gap-3 mb-4 text-sm">
                 {[
-                  { label: 'topN', minKey: 'topN_min', maxKey: 'topN_max', step: 1 },
-                  { label: 'stocksPerSub', minKey: 'stocksPerSub_min', maxKey: 'stocksPerSub_max', step: 1 },
                   { label: 'maxStockWeight (%)', minKey: 'maxStockWeight_min', maxKey: 'maxStockWeight_max', step: 1 },
                   { label: 'maxSubWeight (%)', minKey: 'maxSubWeight_min', maxKey: 'maxSubWeight_max', step: 5 },
                   { label: 'bufferRule', minKey: 'bufferRule_min', maxKey: 'bufferRule_max', step: 1 },
@@ -2207,24 +2247,6 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
                     />
                   </div>
                 ))}
-                <div className="col-span-2 flex items-center gap-2">
-                  <span className="text-xs text-gray-500 dark:text-gray-400 w-36">rebalPeriod 選項</span>
-                  {[5, 10, 20, 40].map(v => (
-                    <label key={v} className="flex items-center gap-1 text-xs">
-                      <input
-                        type="checkbox"
-                        checked={optRanges.rebalPeriod_options.includes(v)}
-                        onChange={e => setOptRanges(r => ({
-                          ...r,
-                          rebalPeriod_options: e.target.checked
-                            ? [...r.rebalPeriod_options, v].sort((a, b) => a - b)
-                            : r.rebalPeriod_options.filter(x => x !== v),
-                        }))}
-                      />
-                      {v}天
-                    </label>
-                  ))}
-                </div>
               </div>
             )}
 
