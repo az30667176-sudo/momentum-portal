@@ -561,9 +561,11 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
   const [optError, setOptError] = useState<string | null>(null)
   const [optRuns, setOptRuns] = useState<any[]>([])
   const [optShowRanges, setOptShowRanges] = useState(false)
+  const [optIsRefreshing, setOptIsRefreshing] = useState(false)
 
   // Poll optimization runs from Supabase
   const loadOptRuns = useCallback(async () => {
+    setOptIsRefreshing(true)
     try {
       const res = await fetch('/api/optimization-runs')
       const data = await res.json()
@@ -574,6 +576,8 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
       }
     } catch (e: any) {
       setOptError(`載入記錄失敗：${e.message ?? e}`)
+    } finally {
+      setOptIsRefreshing(false)
     }
   }, [])
 
@@ -2280,9 +2284,10 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
                   </button>
                   <button
                     onClick={loadOptRuns}
-                    className="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-400"
+                    disabled={optIsRefreshing}
+                    className="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-400 disabled:opacity-50"
                   >
-                    ↻ 刷新結果
+                    {optIsRefreshing ? '刷新中…' : '↻ 刷新結果'}
                   </button>
                 </div>
               )
@@ -2297,8 +2302,9 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
                 <p className="text-xs text-blue-500 dark:text-blue-400 mt-0.5">預計 8–12 分鐘後完成，每 15 秒自動刷新。可手動點「刷新結果」查看最新狀態。</p>
               </div>
               <button onClick={loadOptRuns}
-                className="text-xs px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg">
-                刷新
+                disabled={optIsRefreshing}
+                className="text-xs px-3 py-1.5 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white rounded-lg">
+                {optIsRefreshing ? '刷新中…' : '↻ 刷新'}
               </button>
             </div>
           )}
@@ -2308,8 +2314,9 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
             <div className="flex items-center justify-between mb-3">
               <h3 className="font-semibold text-gray-900 dark:text-white">優化記錄</h3>
               <button onClick={loadOptRuns}
-                className="text-xs px-2 py-1 border border-gray-300 dark:border-gray-600 rounded hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-500">
-                ↻ 刷新
+                disabled={optIsRefreshing}
+                className="text-xs px-2 py-1 border border-gray-300 dark:border-gray-600 rounded hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-500 disabled:opacity-50">
+                {optIsRefreshing ? '刷新中…' : '↻ 刷新'}
               </button>
             </div>
           {optRuns.length === 0 ? (
