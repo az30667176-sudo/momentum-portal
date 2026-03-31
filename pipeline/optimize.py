@@ -203,6 +203,21 @@ def compute_score(result, objective: str) -> float:
     oos = result.oosPerf
     is_ = result.isPerf
 
+    # IS objectives: Optuna never touches OOS — purely maximise in-sample
+    if objective == 'is_sharpe':
+        if is_.annRet == 0 and is_.sharpe == 0:
+            return -999.0
+        return round(is_.sharpe, 4)
+    elif objective == 'is_calmar':
+        if is_.annRet == 0 and is_.calmar == 0:
+            return -999.0
+        return round(is_.calmar, 4)
+    elif objective == 'is_pf':
+        if is_.annRet == 0:
+            return -999.0
+        return round(is_.profitFactor, 4)
+
+    # OOS objectives: maximise OOS with overfitting penalty
     if oos.annRet == 0 and oos.sharpe == 0:
         return -999.0
 
