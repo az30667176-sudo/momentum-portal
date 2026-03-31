@@ -529,7 +529,7 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
   const [selectedRobustPoint, setSelectedRobustPoint] = useState<{ param: number; perf: PerfMetrics } | null>(null)
 
   // ── Optimization state ────────────────────────────────────────
-  const [optObjective, setOptObjective] = useState<'oos_sharpe' | 'oos_calmar' | 'oos_pf'>('oos_sharpe')
+  const [optObjective, setOptObjective] = useState<'oos_sharpe' | 'oos_calmar' | 'oos_pf' | 'is_sharpe' | 'is_calmar' | 'is_pf'>('oos_sharpe')
   const [optIsSplit, setOptIsSplit] = useState(70)
   const [optNTrials] = useState(100)
   const [optSearchFilters, setOptSearchFilters] = useState(false)
@@ -1965,9 +1965,16 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
                   onChange={e => setOptObjective(e.target.value as any)}
                   className="w-full text-sm border border-gray-300 dark:border-gray-600 rounded px-2 py-1.5 bg-white dark:bg-gray-700 dark:text-white"
                 >
-                  <option value="oos_sharpe">OOS Sharpe（含懲罰過擬合）</option>
-                  <option value="oos_calmar">OOS Calmar（含懲罰過擬合）</option>
-                  <option value="oos_pf">OOS Profit Factor（含懲罰過擬合）</option>
+                  <optgroup label="OOS 目標（含過擬合懲罰）">
+                    <option value="oos_sharpe">OOS Sharpe</option>
+                    <option value="oos_calmar">OOS Calmar</option>
+                    <option value="oos_pf">OOS Profit Factor</option>
+                  </optgroup>
+                  <optgroup label="IS 目標（Optuna 不碰 OOS，人工篩選）">
+                    <option value="is_sharpe">IS Sharpe</option>
+                    <option value="is_calmar">IS Calmar</option>
+                    <option value="is_pf">IS Profit Factor</option>
+                  </optgroup>
                 </select>
               </div>
               <div>
@@ -2390,7 +2397,7 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
                             <table className="w-full text-xs">
                               <thead className="bg-gray-50 dark:bg-gray-700 text-gray-500 dark:text-gray-400">
                                 <tr>
-                                  {['#','分數','OOS Sharpe','OOS Calmar','OOS PF','OOS年化','OOS MDD',
+                                  {['#','分數','IS Sharpe','OOS Sharpe','OOS Calmar','OOS PF','OOS年化','OOS MDD',
                                     'topN','stk/sub','rebal','maxStkW','maxSubW','buf','SL','TS','TP',
                                     ...(top10[0]?.filter_summary && Object.keys(top10[0].filter_summary).length > 0 ? ['篩選條件'] : []),
                                     '套用'].map(h => (
@@ -2405,6 +2412,7 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
                                     <tr key={i} className={`border-t border-gray-100 dark:border-gray-700 ${i === 0 ? 'bg-emerald-50 dark:bg-emerald-900/10' : ''}`}>
                                       <td className="px-2 py-1.5 font-medium">#{i+1}</td>
                                       <td className="px-2 py-1.5 text-right font-bold text-emerald-600">{t.score?.toFixed(3)}</td>
+                                      <td className="px-2 py-1.5 text-right text-blue-600 dark:text-blue-400">{t.is_sharpe?.toFixed(3) ?? '—'}</td>
                                       <td className="px-2 py-1.5 text-right">{t.oos_sharpe?.toFixed(3)}</td>
                                       <td className="px-2 py-1.5 text-right">{t.oos_calmar?.toFixed(2)}</td>
                                       <td className="px-2 py-1.5 text-right">{t.oos_pf?.toFixed(2)}</td>
