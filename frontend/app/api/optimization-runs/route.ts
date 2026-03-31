@@ -17,11 +17,14 @@ export async function GET() {
     const supabase = makeClient()
     const { data, error } = await supabase
       .from('optimization_runs')
-      .select('id,run_at,n_trials,objective,is_split_pct,status,best_score,best_params,all_trials,error_message,completed_at')
+      .select('*')
       .order('id', { ascending: false })
       .limit(10)
 
-    if (error) return NextResponse.json({ error: error.message }, { status: 500 })
+    if (error) {
+      console.error('[optimization-runs] Supabase error:', error)
+      return NextResponse.json({ error: error.message }, { status: 500 })
+    }
     return NextResponse.json(data ?? [])
   } catch (err) {
     return NextResponse.json({ error: String(err) }, { status: 500 })

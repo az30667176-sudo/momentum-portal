@@ -2318,7 +2318,7 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
                             Run #{run.id} — {run.objective} | IS {run.is_split_pct}% | {run.n_trials} trials
                           </span>
                           <p className="text-xs text-gray-400 mt-0.5">
-                            {new Date(run.run_at).toLocaleString('zh-TW')}
+                            {new Date(run.run_at ?? run.created_at ?? run.completed_at ?? Date.now()).toLocaleString('zh-TW')}
                           </p>
                         </div>
                         <span className={`text-sm font-medium ${statusColor}`}>
