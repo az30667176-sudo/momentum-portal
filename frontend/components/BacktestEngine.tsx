@@ -585,14 +585,16 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
     if (activeTab === 'optimize') loadOptRuns()
   }, [activeTab, loadOptRuns])
 
-  // Auto-poll when a run is in progress
+  // Auto-poll whenever any run is still in progress (survives page refresh)
   useEffect(() => {
-    if (!optRunId) return
-    const latestRun = optRuns.find(r => r.id === optRunId)
-    if (latestRun?.status === 'completed' || latestRun?.status === 'failed') return
+    if (activeTab !== 'optimize') return
+    const latestRun = optRuns[0]
+    const inProgress = latestRun?.status === 'running' || latestRun?.status === 'pending' ||
+      (optRunId != null && !optRuns.find(r => r.id === optRunId && (r.status === 'completed' || r.status === 'failed')))
+    if (!inProgress) return
     const timer = setInterval(loadOptRuns, 15000)
     return () => clearInterval(timer)
-  }, [optRunId, optRuns, loadOptRuns])
+  }, [activeTab, optRunId, optRuns, loadOptRuns])
 
   const startOptimization = useCallback(async () => {
     setOptIsRunning(true)
