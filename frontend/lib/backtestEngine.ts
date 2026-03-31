@@ -32,16 +32,16 @@ function makeClient() {
 async function _fetchSubHistoryRaw(): Promise<DailySubSnapshot[]> {
   const supabase = makeClient()
 
-  // Build 3-month date windows covering the last 3 years.
-  // Each window ≈ 65 trading days × 155 rows ≈ 10K rows.
-  // statement_timeout is now 30s (set via SQL ALTER ROLE), so each query is safe.
+  // Build 6-month date windows covering the last 3 years → 6 windows instead of 12.
+  // Each window ≈ 130 trading days × 155 rows ≈ 20K rows (range 0–21999).
+  // Halving window count halves total fetch time: ~3 rounds × 2s = ~6s vs ~24s before.
   const now = new Date()
   const cursor = new Date(now)
   cursor.setFullYear(cursor.getFullYear() - 3)
   const windows: { from: string; to: string }[] = []
   while (cursor < now) {
     const from = cursor.toISOString().split('T')[0]
-    cursor.setMonth(cursor.getMonth() + 3)
+    cursor.setMonth(cursor.getMonth() + 6)
     const to = cursor > now ? now.toISOString().split('T')[0] : cursor.toISOString().split('T')[0]
     windows.push({ from, to })
   }
@@ -70,23 +70,29 @@ async function _fetchSubHistoryRaw(): Promise<DailySubSnapshot[]> {
     ])
   )
 
-  // Sequential queries (PARALLEL=1): prevents thundering-herd on Supabase free tier.
-  // Multiple simultaneous cache-miss requests each only hold 1 DB connection at a time,
-  // instead of 3 each (which caused "terminated" errors under rapid repeated usage).
-  // Trade-off: first load ~15s instead of ~8s, but cache (15 min) makes this rare.
+  // PARALLEL=2: 6 windows → 3 rounds of 2 parallel queries.
+  // Safe for free tier (max 2 concurrent per request) and fast (~6-9s vs ~24s sequential).
+  const PARALLEL = 2
   const allSubRows: Record<string, unknown>[] = []
 
-  for (const w of windows) {
-    const chunk = await supabase
-      .from('daily_sub_returns')
-      .select(SELECT_SUB)
-      .gte('date', w.from)
-      .lt('date', w.to)
-      .order('date', { ascending: true })
-      .order('gics_code', { ascending: true })
-      .range(0, 11999)
-    if (chunk.error) throw new Error(`sub range query failed: ${chunk.error.message}`)
-    allSubRows.push(...(chunk.data as Record<string, unknown>[]))
+  for (let i = 0; i < windows.length; i += PARALLEL) {
+    const batch = windows.slice(i, i + PARALLEL)
+    const results = await Promise.all(
+      batch.map(w =>
+        supabase
+          .from('daily_sub_returns')
+          .select(SELECT_SUB)
+          .gte('date', w.from)
+          .lt('date', w.to)
+          .order('date', { ascending: true })
+          .order('gics_code', { ascending: true })
+          .range(0, 21999)
+      )
+    )
+    for (const chunk of results) {
+      if (chunk.error) throw new Error(`sub range query failed: ${chunk.error.message}`)
+      allSubRows.push(...(chunk.data as Record<string, unknown>[]))
+    }
   }
 
   const subByDate = new Map<string, SubReturn[]>()
