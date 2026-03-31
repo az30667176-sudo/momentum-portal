@@ -32,19 +32,19 @@ function makeClient() {
 async function _fetchSubHistoryRaw(): Promise<DailySubSnapshot[]> {
   const supabase = makeClient()
 
-  // 3 one-year windows fired in a single parallel round.
-  // Each ≈ 260 trading days × 155 rows ≈ 40K rows (range 0–41999).
-  // All 3 run simultaneously → ~5s total (1 round) instead of multiple sequential rounds.
+  // 3-month windows, all 12 fired in a single Promise.all (no batching).
+  // Each window ≈ 10K rows → completes in ~2-3s (safe within Supabase 8s statement timeout).
+  // All run simultaneously → total time = slowest window (~3s), not rounds × per-round time.
   const now = new Date()
-  const y0 = new Date(now); y0.setFullYear(y0.getFullYear() - 3)
-  const y1 = new Date(now); y1.setFullYear(y1.getFullYear() - 2)
-  const y2 = new Date(now); y2.setFullYear(y2.getFullYear() - 1)
-  const fmt = (d: Date) => d.toISOString().split('T')[0]
-  const windows = [
-    { from: fmt(y0), to: fmt(y1) },
-    { from: fmt(y1), to: fmt(y2) },
-    { from: fmt(y2), to: fmt(now) },
-  ]
+  const cursor = new Date(now)
+  cursor.setFullYear(cursor.getFullYear() - 3)
+  const windows: { from: string; to: string }[] = []
+  while (cursor < now) {
+    const from = cursor.toISOString().split('T')[0]
+    cursor.setMonth(cursor.getMonth() + 3)
+    const to = cursor > now ? now.toISOString().split('T')[0] : cursor.toISOString().split('T')[0]
+    windows.push({ from, to })
+  }
 
   // Explicit column list (avoids transferring unused columns like mom_6m, delta_rank etc.)
   const SELECT_SUB = [
@@ -123,7 +123,7 @@ async function _fetchSubHistoryRaw(): Promise<DailySubSnapshot[]> {
 // cold-start frequency and thundering-herd risk on Supabase free tier)
 export const fetchSubHistory = unstable_cache(
   _fetchSubHistoryRaw,
-  ['sub-history-v7'],
+  ['sub-history-v8'],
   { revalidate: 900 }
 )
 
