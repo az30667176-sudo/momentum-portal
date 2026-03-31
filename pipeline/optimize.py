@@ -16,7 +16,7 @@ import os
 import sys
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from datetime import date, timedelta
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
 import optuna
@@ -465,7 +465,7 @@ def main():
             'best_score': study.best_value,
             'best_params': best_params,
             'all_trials': all_trials,
-            'completed_at': 'now()',
+            'completed_at': datetime.now(timezone.utc).isoformat(),
         }).eq('id', args.run_id).execute()
 
         log.info(f'Optimization complete. Best score: {study.best_value:.4f}')
