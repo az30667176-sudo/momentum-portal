@@ -547,6 +547,9 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
     trailingStop_min: 0, trailingStop_max: 20,
     takeProfit_min: 0, takeProfit_max: 50,
   })
+  const [optSearchableParams, setOptSearchableParams] = useState({
+    rankBy: false, weightMode: false, tradingCost: false, spyMaFilter: false,
+  })
   const [optIsRunning, setOptIsRunning] = useState(false)
   const [optRunId, setOptRunId] = useState<number | null>(null)
   const [optError, setOptError] = useState<string | null>(null)
@@ -592,9 +595,14 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
       spyMaPeriod: config.spyMaPeriod,
       isSplitPct: optIsSplit,
     }
+    const RANK_BY_OPTIONS = ['mom_score', 'sharpe_8w', 'sortino_8w', 'calmar_ratio', 'information_ratio', 'ret_1m', 'ret_3m']
     try {
       const paramRanges = {
         ...optRanges,
+        ...(optSearchableParams.rankBy ? { rankBy_options: RANK_BY_OPTIONS } : {}),
+        ...(optSearchableParams.weightMode ? { weightMode_options: ['equal', 'momentum', 'volatility'] } : {}),
+        ...(optSearchableParams.tradingCost ? { tradingCost_min: 0, tradingCost_max: 0.5 } : {}),
+        ...(optSearchableParams.spyMaFilter ? { spyMaFilter_options: [true, false] } : {}),
         ...(optSearchFilters && optIndicatorCandidates.length > 0
           ? { indicator_candidates: optIndicatorCandidates.map(c => ({ indicator: c.indicator, op: c.op, min: c.min, max: c.max })) }
           : {}),
@@ -633,6 +641,11 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
       stopLoss: params.stopLoss ?? prev.stopLoss,
       trailingStop: params.trailingStop ?? prev.trailingStop,
       takeProfit: params.takeProfit ?? prev.takeProfit,
+      rankBy: params.rankBy ?? prev.rankBy,
+      rankDir: params.rankDir ?? prev.rankDir,
+      weightMode: params.weightMode ?? prev.weightMode,
+      tradingCost: params.tradingCost ?? prev.tradingCost,
+      spyMaFilter: params.spyMaFilter !== undefined ? params.spyMaFilter : prev.spyMaFilter,
     }))
     setActiveTab('config')
   }, [])
@@ -1939,15 +1952,54 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
               </div>
             </div>
 
-            {/* Fixed params summary */}
-            <div className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-3 mb-4 text-xs text-gray-500 dark:text-gray-400">
-              <p className="font-medium text-gray-700 dark:text-gray-300 mb-1">固定（不搜尋）</p>
-              <div className="flex flex-wrap gap-x-4 gap-y-1">
-                <span>排名：{config.rankBy} {config.rankDir}</span>
-                <span>加權：{config.weightMode}</span>
-                <span>成本：{config.tradingCost}%</span>
-                <span>SPY MA 過濾：{config.spyMaFilter ? '開' : '關'}</span>
-                {!optSearchFilters && <span>篩選條件：{config.subFilters.length} 個（使用目前設定）</span>}
+            {/* Strategy params – toggle to fix or search */}
+            <div className="border border-gray-200 dark:border-gray-600 rounded-lg p-3 mb-4">
+              <p className="text-xs font-medium text-gray-700 dark:text-gray-300 mb-2">策略設定（勾選 → Optuna 搜尋；不勾 → 沿用目前值）</p>
+              <div className="space-y-2">
+                {[
+                  {
+                    key: 'rankBy' as const,
+                    label: '排名指標',
+                    fixedVal: `${config.rankBy} ${config.rankDir}`,
+                    searchDesc: 'mom_score / sharpe / sortino / calmar / IR / 1M / 3M',
+                  },
+                  {
+                    key: 'weightMode' as const,
+                    label: '加權方式',
+                    fixedVal: config.weightMode,
+                    searchDesc: 'equal / momentum / volatility',
+                  },
+                  {
+                    key: 'tradingCost' as const,
+                    label: '交易成本',
+                    fixedVal: `${config.tradingCost}%`,
+                    searchDesc: '0% – 0.5%',
+                  },
+                  {
+                    key: 'spyMaFilter' as const,
+                    label: 'SPY MA 過濾',
+                    fixedVal: config.spyMaFilter ? '開' : '關',
+                    searchDesc: '開 / 關',
+                  },
+                ].map(({ key, label, fixedVal, searchDesc }) => (
+                  <div key={key} className="flex items-center gap-3 text-xs">
+                    <input
+                      type="checkbox"
+                      checked={optSearchableParams[key]}
+                      onChange={e => setOptSearchableParams(p => ({ ...p, [key]: e.target.checked }))}
+                      className="rounded"
+                    />
+                    <span className="w-20 text-gray-600 dark:text-gray-400">{label}</span>
+                    {optSearchableParams[key]
+                      ? <span className="text-blue-500">{searchDesc}</span>
+                      : <span className="text-gray-500 dark:text-gray-400">{fixedVal}</span>}
+                  </div>
+                ))}
+                {!optSearchFilters && (
+                  <div className="text-xs text-gray-500 dark:text-gray-400 pt-1">
+                    篩選條件：{config.subFilters.length} 個（使用目前設定）
+                  </div>
+                )}
               </div>
             </div>
 
@@ -1971,7 +2023,7 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
               {optSearchFilters && (
                 <div>
                   <p className="text-xs text-gray-500 dark:text-gray-400 mb-3">
-                    勾選想讓 Optuna 嘗試的指標，設定門檻搜尋範圍（min ~ max）及方向。Optuna 會決定要不要用每個指標、以及最佳門檻值。
+                    勾選想讓 Optuna 嘗試的指標，設定門檻搜尋範圍（min ~ max）。Optuna 會決定要不要用每個指標、以及最佳門檻值。比較方向由指標性質自動決定。
                   </p>
 
                   {/* Indicator list grouped by category */}
@@ -2027,16 +2079,9 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
                                 <span className="w-32 text-gray-600 dark:text-gray-400">{opt.label}</span>
                                 {isSelected && existing && (
                                   <>
-                                    <select
-                                      value={existing.op}
-                                      onChange={e => setOptIndicatorCandidates(prev =>
-                                        prev.map(c => c.indicator === opt.key ? { ...c, op: e.target.value as '>=' | '<=' } : c)
-                                      )}
-                                      className="border border-gray-300 dark:border-gray-600 rounded px-1 py-0.5 bg-white dark:bg-gray-700 dark:text-white text-xs"
-                                    >
-                                      <option value=">=">≥</option>
-                                      <option value="<=">≤</option>
-                                    </select>
+                                    <span className="px-1.5 py-0.5 bg-gray-100 dark:bg-gray-600 rounded text-gray-500 dark:text-gray-300 text-xs select-none">
+                                      {existing.op === '>=' ? '≥' : '≤'}
+                                    </span>
                                     <input
                                       type="number" step="any"
                                       value={existing.min}

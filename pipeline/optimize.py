@@ -268,6 +268,31 @@ def make_objective(
             'takeProfit', pr.get('takeProfit_min', 0), pr.get('takeProfit_max', 50)
         )
 
+        # ── Categorical strategy params (optional search) ────────
+        if 'rankBy_options' in pr:
+            rank_by = trial.suggest_categorical('rankBy', pr['rankBy_options'])
+            rank_dir = 'desc'  # all provided options are "higher = better"
+        else:
+            rank_by = fixed_config.get('rankBy', 'mom_score')
+            rank_dir = fixed_config.get('rankDir', 'desc')
+
+        if 'weightMode_options' in pr:
+            weight_mode = trial.suggest_categorical('weightMode', pr['weightMode_options'])
+        else:
+            weight_mode = fixed_config.get('weightMode', 'equal')
+
+        if 'tradingCost_min' in pr:
+            trading_cost = trial.suggest_float(
+                'tradingCost', float(pr['tradingCost_min']), float(pr['tradingCost_max'])
+            )
+        else:
+            trading_cost = fixed_config.get('tradingCost', 0.1)
+
+        if 'spyMaFilter_options' in pr:
+            spy_ma_filter = trial.suggest_categorical('spyMaFilter', [True, False])
+        else:
+            spy_ma_filter = fixed_config.get('spyMaFilter', False)
+
         # ── Indicator / filter search ─────────────────────────────
         # For each candidate indicator, Optuna decides:
         #   1. activate this filter? (yes/no)
@@ -316,6 +341,11 @@ def make_objective(
             'stopLoss': -stop_loss_pct if stop_loss_pct > 0 else 0,
             'trailingStop': trailing_stop,
             'takeProfit': take_profit,
+            'rankBy': rank_by,
+            'rankDir': rank_dir,
+            'weightMode': weight_mode,
+            'tradingCost': trading_cost,
+            'spyMaFilter': spy_ma_filter,
         })
 
         result = run_backtest(config, sub_history, stock_by_date, spy_returns)
