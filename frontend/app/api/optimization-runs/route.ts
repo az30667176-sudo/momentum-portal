@@ -7,7 +7,13 @@ function makeClient() {
   return createClient(
     process.env.SUPABASE_URL!,
     process.env.SUPABASE_SERVICE_KEY!,
-    { auth: { persistSession: false } }
+    {
+      auth: { persistSession: false },
+      global: {
+        fetch: (url: RequestInfo | URL, options?: RequestInit) =>
+          fetch(url, { ...options, cache: 'no-store' }),
+      },
+    }
   )
 }
 
