@@ -32,19 +32,19 @@ function makeClient() {
 async function _fetchSubHistoryRaw(): Promise<DailySubSnapshot[]> {
   const supabase = makeClient()
 
-  // Build 6-month date windows covering the last 3 years → 6 windows instead of 12.
-  // Each window ≈ 130 trading days × 155 rows ≈ 20K rows (range 0–21999).
-  // Halving window count halves total fetch time: ~3 rounds × 2s = ~6s vs ~24s before.
+  // 3 one-year windows fired in a single parallel round.
+  // Each ≈ 260 trading days × 155 rows ≈ 40K rows (range 0–41999).
+  // All 3 run simultaneously → ~5s total (1 round) instead of multiple sequential rounds.
   const now = new Date()
-  const cursor = new Date(now)
-  cursor.setFullYear(cursor.getFullYear() - 3)
-  const windows: { from: string; to: string }[] = []
-  while (cursor < now) {
-    const from = cursor.toISOString().split('T')[0]
-    cursor.setMonth(cursor.getMonth() + 6)
-    const to = cursor > now ? now.toISOString().split('T')[0] : cursor.toISOString().split('T')[0]
-    windows.push({ from, to })
-  }
+  const y0 = new Date(now); y0.setFullYear(y0.getFullYear() - 3)
+  const y1 = new Date(now); y1.setFullYear(y1.getFullYear() - 2)
+  const y2 = new Date(now); y2.setFullYear(y2.getFullYear() - 1)
+  const fmt = (d: Date) => d.toISOString().split('T')[0]
+  const windows = [
+    { from: fmt(y0), to: fmt(y1) },
+    { from: fmt(y1), to: fmt(y2) },
+    { from: fmt(y2), to: fmt(now) },
+  ]
 
   // Explicit column list (avoids transferring unused columns like mom_6m, delta_rank etc.)
   const SELECT_SUB = [
@@ -70,29 +70,23 @@ async function _fetchSubHistoryRaw(): Promise<DailySubSnapshot[]> {
     ])
   )
 
-  // PARALLEL=2: 6 windows → 3 rounds of 2 parallel queries.
-  // Safe for free tier (max 2 concurrent per request) and fast (~6-9s vs ~24s sequential).
-  const PARALLEL = 2
+  // Single parallel round: all 3 windows fired simultaneously.
   const allSubRows: Record<string, unknown>[] = []
-
-  for (let i = 0; i < windows.length; i += PARALLEL) {
-    const batch = windows.slice(i, i + PARALLEL)
-    const results = await Promise.all(
-      batch.map(w =>
-        supabase
-          .from('daily_sub_returns')
-          .select(SELECT_SUB)
-          .gte('date', w.from)
-          .lt('date', w.to)
-          .order('date', { ascending: true })
-          .order('gics_code', { ascending: true })
-          .range(0, 21999)
-      )
+  const results = await Promise.all(
+    windows.map(w =>
+      supabase
+        .from('daily_sub_returns')
+        .select(SELECT_SUB)
+        .gte('date', w.from)
+        .lt('date', w.to)
+        .order('date', { ascending: true })
+        .order('gics_code', { ascending: true })
+        .range(0, 41999)
     )
-    for (const chunk of results) {
-      if (chunk.error) throw new Error(`sub range query failed: ${chunk.error.message}`)
-      allSubRows.push(...(chunk.data as Record<string, unknown>[]))
-    }
+  )
+  for (const chunk of results) {
+    if (chunk.error) throw new Error(`sub range query failed: ${chunk.error.message}`)
+    allSubRows.push(...(chunk.data as Record<string, unknown>[]))
   }
 
   const subByDate = new Map<string, SubReturn[]>()
@@ -129,7 +123,7 @@ async function _fetchSubHistoryRaw(): Promise<DailySubSnapshot[]> {
 // cold-start frequency and thundering-herd risk on Supabase free tier)
 export const fetchSubHistory = unstable_cache(
   _fetchSubHistoryRaw,
-  ['sub-history-v6'],
+  ['sub-history-v7'],
   { revalidate: 900 }
 )
 
