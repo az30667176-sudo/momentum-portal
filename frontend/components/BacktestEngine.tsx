@@ -567,7 +567,7 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
   const loadOptRuns = useCallback(async () => {
     setOptIsRefreshing(true)
     try {
-      const res = await fetch('/api/optimization-runs')
+      const res = await fetch(`/api/optimization-runs?t=${Date.now()}`)
       const data = await res.json()
       if (res.ok) {
         setOptRuns(data)
