@@ -550,6 +550,12 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
   const [optSearchableParams, setOptSearchableParams] = useState({
     rankBy: false, weightMode: false, tradingCost: false, spyMaFilter: false,
   })
+  const [optParamSettings, setOptParamSettings] = useState({
+    rankBy_options: ['mom_score', 'sharpe_8w', 'sortino_8w', 'calmar_ratio', 'information_ratio', 'ret_1m', 'ret_3m'],
+    weightMode_options: ['equal', 'momentum', 'volatility'] as string[],
+    tradingCost_min: 0,
+    tradingCost_max: 0.5,
+  })
   const [optIsRunning, setOptIsRunning] = useState(false)
   const [optRunId, setOptRunId] = useState<number | null>(null)
   const [optError, setOptError] = useState<string | null>(null)
@@ -595,13 +601,15 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
       spyMaPeriod: config.spyMaPeriod,
       isSplitPct: optIsSplit,
     }
-    const RANK_BY_OPTIONS = ['mom_score', 'sharpe_8w', 'sortino_8w', 'calmar_ratio', 'information_ratio', 'ret_1m', 'ret_3m']
     try {
       const paramRanges = {
         ...optRanges,
-        ...(optSearchableParams.rankBy ? { rankBy_options: RANK_BY_OPTIONS } : {}),
-        ...(optSearchableParams.weightMode ? { weightMode_options: ['equal', 'momentum', 'volatility'] } : {}),
-        ...(optSearchableParams.tradingCost ? { tradingCost_min: 0, tradingCost_max: 0.5 } : {}),
+        ...(optSearchableParams.rankBy && optParamSettings.rankBy_options.length > 0
+          ? { rankBy_options: optParamSettings.rankBy_options } : {}),
+        ...(optSearchableParams.weightMode && optParamSettings.weightMode_options.length > 0
+          ? { weightMode_options: optParamSettings.weightMode_options } : {}),
+        ...(optSearchableParams.tradingCost
+          ? { tradingCost_min: optParamSettings.tradingCost_min, tradingCost_max: optParamSettings.tradingCost_max } : {}),
         ...(optSearchableParams.spyMaFilter ? { spyMaFilter_options: [true, false] } : {}),
         ...(optSearchFilters && optIndicatorCandidates.length > 0
           ? { indicator_candidates: optIndicatorCandidates.map(c => ({ indicator: c.indicator, op: c.op, min: c.min, max: c.max })) }
@@ -1956,45 +1964,89 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
             <div className="border border-gray-200 dark:border-gray-600 rounded-lg p-3 mb-4">
               <p className="text-xs font-medium text-gray-700 dark:text-gray-300 mb-2">策略設定（勾選 → Optuna 搜尋；不勾 → 沿用目前值）</p>
               <div className="space-y-2">
-                {[
-                  {
-                    key: 'rankBy' as const,
-                    label: '排名指標',
-                    fixedVal: `${config.rankBy} ${config.rankDir}`,
-                    searchDesc: 'mom_score / sharpe / sortino / calmar / IR / 1M / 3M',
-                  },
-                  {
-                    key: 'weightMode' as const,
-                    label: '加權方式',
-                    fixedVal: config.weightMode,
-                    searchDesc: 'equal / momentum / volatility',
-                  },
-                  {
-                    key: 'tradingCost' as const,
-                    label: '交易成本',
-                    fixedVal: `${config.tradingCost}%`,
-                    searchDesc: '0% – 0.5%',
-                  },
-                  {
-                    key: 'spyMaFilter' as const,
-                    label: 'SPY MA 過濾',
-                    fixedVal: config.spyMaFilter ? '開' : '關',
-                    searchDesc: '開 / 關',
-                  },
-                ].map(({ key, label, fixedVal, searchDesc }) => (
-                  <div key={key} className="flex items-center gap-3 text-xs">
-                    <input
-                      type="checkbox"
-                      checked={optSearchableParams[key]}
-                      onChange={e => setOptSearchableParams(p => ({ ...p, [key]: e.target.checked }))}
-                      className="rounded"
-                    />
-                    <span className="w-20 text-gray-600 dark:text-gray-400">{label}</span>
-                    {optSearchableParams[key]
-                      ? <span className="text-blue-500">{searchDesc}</span>
-                      : <span className="text-gray-500 dark:text-gray-400">{fixedVal}</span>}
+                {/* rankBy */}
+                <div className="space-y-1">
+                  <div className="flex items-center gap-3 text-xs">
+                    <input type="checkbox" checked={optSearchableParams.rankBy}
+                      onChange={e => setOptSearchableParams(p => ({ ...p, rankBy: e.target.checked }))} className="rounded" />
+                    <span className="w-20 text-gray-600 dark:text-gray-400">排名指標</span>
+                    {!optSearchableParams.rankBy && <span className="text-gray-500 dark:text-gray-400">{config.rankBy} {config.rankDir}</span>}
                   </div>
-                ))}
+                  {optSearchableParams.rankBy && (
+                    <div className="ml-6 flex flex-wrap gap-x-3 gap-y-1">
+                      {(['mom_score', 'sharpe_8w', 'sortino_8w', 'calmar_ratio', 'information_ratio', 'ret_1m', 'ret_3m'] as const).map(ind => (
+                        <label key={ind} className="flex items-center gap-1 text-xs cursor-pointer">
+                          <input type="checkbox"
+                            checked={optParamSettings.rankBy_options.includes(ind)}
+                            onChange={e => setOptParamSettings(p => ({
+                              ...p,
+                              rankBy_options: e.target.checked ? [...p.rankBy_options, ind] : p.rankBy_options.filter(x => x !== ind)
+                            }))} />
+                          {ind}
+                        </label>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                {/* weightMode */}
+                <div className="space-y-1">
+                  <div className="flex items-center gap-3 text-xs">
+                    <input type="checkbox" checked={optSearchableParams.weightMode}
+                      onChange={e => setOptSearchableParams(p => ({ ...p, weightMode: e.target.checked }))} className="rounded" />
+                    <span className="w-20 text-gray-600 dark:text-gray-400">加權方式</span>
+                    {!optSearchableParams.weightMode && <span className="text-gray-500 dark:text-gray-400">{config.weightMode}</span>}
+                  </div>
+                  {optSearchableParams.weightMode && (
+                    <div className="ml-6 flex gap-4">
+                      {(['equal', 'momentum', 'volatility'] as const).map(m => (
+                        <label key={m} className="flex items-center gap-1 text-xs cursor-pointer">
+                          <input type="checkbox"
+                            checked={optParamSettings.weightMode_options.includes(m)}
+                            onChange={e => setOptParamSettings(p => ({
+                              ...p,
+                              weightMode_options: e.target.checked ? [...p.weightMode_options, m] : p.weightMode_options.filter(x => x !== m)
+                            }))} />
+                          {m}
+                        </label>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                {/* tradingCost */}
+                <div className="space-y-1">
+                  <div className="flex items-center gap-3 text-xs">
+                    <input type="checkbox" checked={optSearchableParams.tradingCost}
+                      onChange={e => setOptSearchableParams(p => ({ ...p, tradingCost: e.target.checked }))} className="rounded" />
+                    <span className="w-20 text-gray-600 dark:text-gray-400">交易成本</span>
+                    {!optSearchableParams.tradingCost && <span className="text-gray-500 dark:text-gray-400">{config.tradingCost}%</span>}
+                  </div>
+                  {optSearchableParams.tradingCost && (
+                    <div className="ml-6 flex items-center gap-2 text-xs">
+                      <input type="number" step="0.05" min="0" max="1"
+                        value={optParamSettings.tradingCost_min}
+                        onChange={e => setOptParamSettings(p => ({ ...p, tradingCost_min: Number(e.target.value) }))}
+                        className="w-16 border border-gray-300 dark:border-gray-600 rounded px-1.5 py-1 bg-white dark:bg-gray-700 dark:text-white" />
+                      <span className="text-gray-400">–</span>
+                      <input type="number" step="0.05" min="0" max="1"
+                        value={optParamSettings.tradingCost_max}
+                        onChange={e => setOptParamSettings(p => ({ ...p, tradingCost_max: Number(e.target.value) }))}
+                        className="w-16 border border-gray-300 dark:border-gray-600 rounded px-1.5 py-1 bg-white dark:bg-gray-700 dark:text-white" />
+                      <span className="text-gray-400">%</span>
+                    </div>
+                  )}
+                </div>
+
+                {/* spyMaFilter */}
+                <div className="flex items-center gap-3 text-xs">
+                  <input type="checkbox" checked={optSearchableParams.spyMaFilter}
+                    onChange={e => setOptSearchableParams(p => ({ ...p, spyMaFilter: e.target.checked }))} className="rounded" />
+                  <span className="w-20 text-gray-600 dark:text-gray-400">SPY MA 過濾</span>
+                  {optSearchableParams.spyMaFilter
+                    ? <span className="text-blue-500">試開 + 關</span>
+                    : <span className="text-gray-500 dark:text-gray-400">{config.spyMaFilter ? '開' : '關'}</span>}
+                </div>
                 {!optSearchFilters && (
                   <div className="text-xs text-gray-500 dark:text-gray-400 pt-1">
                     篩選條件：{config.subFilters.length} 個（使用目前設定）
