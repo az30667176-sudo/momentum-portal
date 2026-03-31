@@ -2370,6 +2370,20 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
                           <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">
                             最佳分數：<span className="font-bold text-emerald-500">{run.best_score?.toFixed(4)}</span>
                           </p>
+                          {(() => {
+                            const fixedSubs: SubFilter[] = run.fixed_config?.subFilters ?? []
+                            if (fixedSubs.length === 0) return null
+                            return (
+                              <div className="mb-2 flex flex-wrap gap-1 items-center">
+                                <span className="text-xs text-gray-400">固定篩選：</span>
+                                {fixedSubs.map((f, i) => (
+                                  <span key={i} className="bg-indigo-100 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 px-1.5 py-0.5 rounded text-[10px] whitespace-nowrap">
+                                    {f.indicator.replace(/_/g,' ')} {f.op} {f.value}{f.value2 != null ? `–${f.value2}` : ''}
+                                  </span>
+                                ))}
+                              </div>
+                            )
+                          })()}
                           <div className="overflow-x-auto">
                             <table className="w-full text-xs">
                               <thead className="bg-gray-50 dark:bg-gray-700 text-gray-500 dark:text-gray-400">
