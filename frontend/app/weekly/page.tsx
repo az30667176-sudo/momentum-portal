@@ -8,7 +8,7 @@ const WEEK_DIR = '/weekly/2026-04-03'
 function Exhibit({ src, alt, caption }: { src: string; alt: string; caption: string }) {
   return (
     <figure className="my-8">
-      <div className="rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 overflow-hidden">
+      <div className="rounded-lg border border-gray-200 bg-white overflow-hidden">
         <Image
           src={`${WEEK_DIR}/${src}`}
           alt={alt}
@@ -18,7 +18,7 @@ function Exhibit({ src, alt, caption }: { src: string; alt: string; caption: str
           unoptimized
         />
       </div>
-      <figcaption className="mt-2 text-sm text-gray-500 dark:text-gray-400 italic">
+      <figcaption className="mt-2 text-sm text-gray-500 italic">
         {caption}
       </figcaption>
     </figure>
@@ -27,7 +27,7 @@ function Exhibit({ src, alt, caption }: { src: string; alt: string; caption: str
 
 function H2({ children }: { children: React.ReactNode }) {
   return (
-    <h2 className="mt-12 mb-3 text-xl font-bold text-black dark:text-white border-l-4 border-blue-600 pl-3">
+    <h2 className="mt-12 mb-3 text-xl font-bold text-black border-l-4 border-blue-600 pl-3">
       {children}
     </h2>
   )
@@ -35,28 +35,28 @@ function H2({ children }: { children: React.ReactNode }) {
 
 function P({ children }: { children: React.ReactNode }) {
   return (
-    <p className="my-4 leading-8 text-black dark:text-white text-[15px]">
+    <p className="my-4 leading-8 text-black text-[15px]">
       {children}
     </p>
   )
 }
 
 function B({ children }: { children: React.ReactNode }) {
-  return <strong className="font-semibold text-black dark:text-white">{children}</strong>
+  return <strong className="font-semibold text-black">{children}</strong>
 }
 
 export default function WeeklyPage() {
   return (
-    <main className="max-w-3xl mx-auto px-4 sm:px-6 py-10">
+    <main className="max-w-3xl mx-auto px-4 sm:px-6 py-10 bg-white text-black min-h-screen">
       {/* Header */}
-      <header className="mb-10 pb-6 border-b border-gray-200 dark:border-gray-700">
+      <header className="mb-10 pb-6 border-b border-gray-200">
         <div className="text-xs uppercase tracking-wider text-blue-600 font-semibold mb-2">
           Momentum Portal · Weekly Rotation
         </div>
-        <h1 className="text-3xl sm:text-4xl font-bold text-black dark:text-white leading-tight">
+        <h1 className="text-3xl sm:text-4xl font-bold text-black leading-tight">
           反彈裡的兩個錯位
         </h1>
-        <p className="mt-3 text-sm text-gray-500 dark:text-gray-400">
+        <p className="mt-3 text-sm text-gray-500">
           截至 2026-04-03 當週 · 快照日 2026-04-06
         </p>
       </header>
@@ -83,7 +83,7 @@ export default function WeeklyPage() {
         那為什麼能源還是被砍 5%、金融還是漲 4.9%？答案不是新聞，是<B>部位</B>。
         能源族群過去三個月漲了 34%，本週 OPEC+ 再次決議 5 月增產 20.6
         萬桶/日，加上接近月底的調倉壓力，整個族群同步進入獲利了結 —— portal 上能源的{' '}
-        <code className="text-xs bg-gray-100 dark:bg-gray-800 px-1 rounded">delta_rank</code>{' '}
+        <code className="text-xs bg-gray-100 px-1 rounded">delta_rank</code>{' '}
         全部介在 –3 到 +3 之間，<B>整群一起跌、沒有誰先破位</B>
         ，是經典的「動能解倉」而不是「趨勢翻轉」。金融則正好相反，過去兩個月一直是被砍的板塊（Nasdaq
         Bank Index 1Q 落後大盤），CNBC 在 4/1 出了一篇「重燃 2026
@@ -153,7 +153,7 @@ export default function WeeklyPage() {
       <P>
         橘色點是能源、藍色點是其他。所有橘色點都掉到 0 軸下方，但 mom_score 仍然站在 80–95
         這個區間 —— 也就是「動能還沒掉、但價格先跌」的型態。歷史上這種型態通常代表的是部位調整，不是趨勢翻轉。能源這群股票本週的{' '}
-        <code className="text-xs bg-gray-100 dark:bg-gray-800 px-1 rounded">delta_rank</code>{' '}
+        <code className="text-xs bg-gray-100 px-1 rounded">delta_rank</code>{' '}
         維持在 –3 到 +3 的小區間，沒有任何個股先破位，呼應「整群同步休息」的解讀。
         <B>操作建議是逢漲減一部分 size 控制風險，但不要翻空</B> —— 油價只要 Hormuz 或 OPEC+
         任一邊有變化，這個部位就會被馬上點燃。
@@ -189,7 +189,7 @@ export default function WeeklyPage() {
 
       {/* Action items */}
       <H2>下一次 rebal 的具體動作</H2>
-      <ol className="mt-4 space-y-3 text-[15px] leading-7 text-black dark:text-white list-decimal list-outside pl-6">
+      <ol className="mt-4 space-y-3 text-[15px] leading-7 text-black list-decimal list-outside pl-6">
         <li>
           <B>能源動能部位逢漲減 1/3，核心 2/3 留著</B>。廣度（89% 個股 &gt; 50DMA）和 mom_score
           （94）仍是指數第一，這是控制 size 的問題不是方向問題。Hormuz
@@ -221,7 +221,7 @@ export default function WeeklyPage() {
 
       {/* Sources */}
       <H2>新聞來源</H2>
-      <ul className="mt-4 space-y-2 text-sm text-gray-600 dark:text-gray-400 list-disc list-outside pl-6">
+      <ul className="mt-4 space-y-2 text-sm text-gray-600 list-disc list-outside pl-6">
         <li>
           <a
             className="text-blue-600 hover:underline"
@@ -314,7 +314,7 @@ export default function WeeklyPage() {
         </li>
       </ul>
 
-      <footer className="mt-16 pt-6 border-t border-gray-200 dark:border-gray-700 text-xs text-gray-400">
+      <footer className="mt-16 pt-6 border-t border-gray-200 text-xs text-gray-400">
         本文僅為基於 Momentum Portal 量化訊號 +
         公開新聞所做的研究紀錄，不構成任何投資建議。所有數據截至 2026-04-06。
       </footer>
