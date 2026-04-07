@@ -7,6 +7,7 @@ const TABS = [
   { label: '產業總覽', href: '/' },
   { label: '個股排名', href: '/stocks' },
   { label: '回測專區', href: '/backtest' },
+  { label: '輪動週報', href: '/weekly' },
 ]
 
 export function NavBar() {
