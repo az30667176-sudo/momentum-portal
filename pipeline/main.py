@@ -80,6 +80,17 @@ def run_pipeline_for_date(
 
     # 截取到 target_date 的價格
     close_to_date = close_all[date_mask]
+
+    # 確認 yfinance 已有 target_date 當天的收盤價。
+    # 若最新可用日期 < target_date，代表 yfinance 尚未更新今日數據（收盤後 30–60 分鐘內常發生）。
+    # 此時拒絕寫入，讓第二次排程（21:30 UTC）再試，屆時資料必已就緒。
+    latest_price_date = close_to_date.index.max().date()
+    if latest_price_date < target_date:
+        logger.warning(
+            f"  yfinance 尚未提供 {target_date} 的收盤價（最新：{latest_price_date}）。"
+            f" 跳過本次寫入，等待下一排程重試。"
+        )
+        return {"success": 0, "failed": 0, "date": str(target_date)}
     volume_to_date = volume_all[date_mask] if volume_all is not None else None
     high_to_date   = high_all[date_mask]   if high_all  is not None else None
     low_to_date    = low_all[date_mask]    if low_all   is not None else None
