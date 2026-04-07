@@ -80,6 +80,26 @@ const INDICATOR_GROUPS = [
 
 const ALL_INDICATORS = INDICATOR_GROUPS.flatMap(g => g.options)
 
+// Human-readable label for any SubFilter, used by the 即時訊號 tab summary.
+function formatSubFilter(f: SubFilter): string {
+  const label = ALL_INDICATORS.find(o => o.key === f.indicator)?.label ?? f.indicator
+  if (f.type === 'static') {
+    if (f.op === 'between') return `${label} ∈ [${f.value}, ${f.value2 ?? '∞'}]`
+    return `${label} ${f.op ?? ''} ${f.value}`
+  }
+  if (f.type === 'crossover') {
+    return `${label} ${f.direction === 'neg_to_pos' ? '由負轉正' : '由正轉負'}`
+  }
+  if (f.type === 'delta') {
+    return `${label} ${f.op === 'rise' ? '上升 ≥' : '下降 ≥'} ${f.value}`
+  }
+  if (f.type === 'rank_break') {
+    if (f.mode === 'top_pct') return `${label} 排名前 ${f.value}%`
+    return `${label} 排名進步 ≥ ${f.value} 名`
+  }
+  return label
+}
+
 // ── Indicator Hints (Task 3) ──────────────────────────────────
 
 const INDICATOR_HINTS: Record<string, { range: string; suggestion: string }> = {
@@ -2680,9 +2700,64 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
                 {signalRunning ? '掃描中…' : '🔎 掃描訊號'}
               </button>
             </div>
-            <p className="text-xs text-gray-500 dark:text-gray-400 mb-4">
+            <p className="text-xs text-gray-500 dark:text-gray-400 mb-3">
               用目前的策略設定，對「最近一個週五」（或之前最近的交易日）執行單次選股，並從 Yahoo Finance 拉最新收盤價算出停損 / 停利的絕對價格。
             </p>
+
+            {/* 目前載入的策略摘要（讓使用者一眼確認在掃什麼） */}
+            <div className="mb-4 p-3 bg-gray-50 dark:bg-gray-900/40 border border-gray-200 dark:border-gray-700 rounded space-y-2 text-xs">
+              <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
+                <span className="font-medium text-gray-700 dark:text-gray-200">目前策略摘要</span>
+                <span className="text-gray-500 dark:text-gray-400">
+                  排名：{ALL_INDICATORS.find(o => o.key === config.rankBy)?.label ?? config.rankBy} {config.rankDir === 'desc' ? '高→低' : '低→高'}
+                </span>
+                <span className="text-gray-500 dark:text-gray-400">選前 {config.topN} 個產業 · 每產業 {config.stocksPerSub} 檔</span>
+                <span className="text-gray-500 dark:text-gray-400">
+                  權重：{config.weightMode === 'equal' ? '等權' : config.weightMode === 'momentum' ? '動能加權' : '波動率反向'}
+                </span>
+                <span className="text-gray-500 dark:text-gray-400">
+                  rebal {config.rebalPeriod}d · 個股≤{config.maxStockWeight}% · sub≤{config.maxSubWeight}%
+                </span>
+                <span className="text-gray-500 dark:text-gray-400">
+                  SL {config.stopLoss !== 0 ? `${config.stopLoss}%` : '—'} · TP {config.takeProfit > 0 ? `${config.takeProfit}%` : '—'} · TS {config.trailingStop > 0 ? `${config.trailingStop}%` : '—'}
+                </span>
+                {config.spyMaFilter && (
+                  <span className="text-gray-500 dark:text-gray-400">SPY MA{config.spyMaPeriod} regime ON</span>
+                )}
+              </div>
+
+              <div>
+                <div className="text-gray-500 dark:text-gray-400 mb-1">
+                  進場篩選（{config.subFilters.length}）
+                </div>
+                {config.subFilters.length === 0 ? (
+                  <span className="text-gray-400 italic">（無，預設掃所有 sub-industry）</span>
+                ) : (
+                  <div className="flex flex-wrap gap-1">
+                    {config.subFilters.map((f, i) => (
+                      <span key={i} className="bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 px-2 py-0.5 rounded whitespace-nowrap">
+                        {formatSubFilter(f)}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {config.exitFilters.length > 0 && (
+                <div>
+                  <div className="text-gray-500 dark:text-gray-400 mb-1">
+                    出場訊號（{config.exitFilters.length}）
+                  </div>
+                  <div className="flex flex-wrap gap-1">
+                    {config.exitFilters.map((f, i) => (
+                      <span key={i} className="bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 px-2 py-0.5 rounded whitespace-nowrap">
+                        {formatSubFilter(f)}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
 
             {signalError && (
               <div className="mb-3 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-700 rounded text-xs text-red-700 dark:text-red-300">
