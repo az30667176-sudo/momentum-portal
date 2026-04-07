@@ -13,6 +13,7 @@ import {
   SubFilter, BacktestConfig, Holding, Trade, ExitReason,
   FilterDetail, FilterConditionDetail, RebalLog,
   PerfMetrics, BacktestResult,
+  ScanSignalResult, SignalHolding,
 } from './types'
 
 // ── Supabase helpers ──────────────────────────────────────────
@@ -906,4 +907,234 @@ export function dryRunScan(
   }
 
   return Array.from(selected)
+}
+
+// ── Signal Scan (single rebalance @ most-recent Friday) ───────
+//
+// Reuses the same filter / rank / stock-pick / weight logic as runBacktestSync,
+// but only for ONE date (the most recent Friday or nearest trading day ≤ it),
+// and fetches absolute close prices from Yahoo Finance to compute
+// stop-loss / take-profit price levels (not just %).
+
+// Returns YYYY-MM-DD of the most recent Friday relative to today (UTC).
+export function mostRecentFriday(today: Date = new Date()): string {
+  const d = new Date(today)
+  // getUTCDay: 0=Sun, 1=Mon, ..., 5=Fri, 6=Sat
+  const dow = d.getUTCDay()
+  // Days to subtract to land on Friday (if today IS Friday, returns today)
+  let delta: number
+  if (dow >= 5) delta = dow - 5         // Fri→0, Sat→1
+  else delta = dow + 2                   // Sun→2, Mon→3, Tue→4, Wed→5, Thu→6
+  d.setUTCDate(d.getUTCDate() - delta)
+  return d.toISOString().split('T')[0]
+}
+
+// Find the index in subHistory whose date ≤ targetDate (latest available trading day).
+// Returns -1 if no such snapshot exists.
+function findSnapshotIndexAtOrBefore(subHistory: DailySubSnapshot[], targetDate: string): number {
+  for (let i = subHistory.length - 1; i >= 0; i--) {
+    if (subHistory[i].date <= targetDate) return i
+  }
+  return -1
+}
+
+// Fetch most recent close prices for a list of tickers from Yahoo Finance.
+// Returns a Map<ticker, closePrice>. Tickers without data are simply absent.
+async function fetchClosesFromYahoo(tickers: string[]): Promise<Map<string, number>> {
+  const out = new Map<string, number>()
+  if (tickers.length === 0) return out
+
+  // Yahoo's chart endpoint accepts one symbol at a time. Fire all in parallel
+  // (small set: usually < 50 tickers).
+  await Promise.all(tickers.map(async (raw) => {
+    const ticker = raw.replace('.', '-')   // Yahoo uses BRK-B style
+    try {
+      const url = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(ticker)}?interval=1d&range=5d`
+      const res = await fetch(url, {
+        headers: { 'User-Agent': 'Mozilla/5.0 (compatible; momentum-portal/1.0)' },
+      })
+      if (!res.ok) return
+      const json = await res.json() as {
+        chart: { result: Array<{
+          indicators: {
+            adjclose?: Array<{ adjclose: (number | null)[] }>
+            quote?: Array<{ close: (number | null)[] }>
+          }
+        }> | null }
+      }
+      const result = json.chart.result?.[0]
+      if (!result) return
+      const closes: (number | null)[] =
+        result.indicators.adjclose?.[0]?.adjclose ??
+        result.indicators.quote?.[0]?.close ?? []
+      // Walk backward to find the most recent non-null close
+      for (let i = closes.length - 1; i >= 0; i--) {
+        if (closes[i] != null && closes[i]! > 0) {
+          out.set(raw, closes[i]!)
+          return
+        }
+      }
+    } catch {
+      /* swallow per-ticker errors */
+    }
+  }))
+
+  return out
+}
+
+// Single-rebalance scan: filter → rank → select subs → pick stocks → calc weights.
+// Pure function over already-fetched subHistory + stockHistory snapshots.
+function scanSingleDay(
+  config: BacktestConfig,
+  subHistory: DailySubSnapshot[],
+  stockHistory: DailyStockSnapshot[],
+  scanIdx: number,
+): {
+  passedSubCount: number
+  selectedSubCount: number
+  picks: { ticker: string; gics_code: string; subName: string; weight: number }[]
+} {
+  const snap = subHistory[scanIdx]
+  const prevSnap = scanIdx >= config.rebalPeriod ? subHistory[scanIdx - config.rebalPeriod] : null
+
+  // 1. Filter
+  const passedSubs: SubReturn[] = []
+  for (const sub of snap.subs) {
+    const prevSub = prevSnap?.subs.find(s => s.gics_code === sub.gics_code)
+    const passed = config.subFilters.length === 0 ||
+      config.subFilters.every(f => checkFilter(f, sub, prevSub))
+    if (passed) passedSubs.push(sub)
+  }
+
+  // 2. Rank
+  const ranked = [...passedSubs].sort((a, b) => {
+    const av = (a[config.rankBy as keyof SubReturn] as number | null) ?? 0
+    const bv = (b[config.rankBy as keyof SubReturn] as number | null) ?? 0
+    return config.rankDir === 'desc' ? bv - av : av - bv
+  })
+  const selectedSubs = ranked.slice(0, config.topN)
+
+  // 3. Build stock map for the scan date — fall back to most recent earlier date if needed
+  let stockMap = new Map<string, StockReturn>()
+  for (let i = stockHistory.length - 1; i >= 0; i--) {
+    if (stockHistory[i].date <= snap.date) {
+      for (const s of stockHistory[i].stocks) {
+        stockMap.set(s.ticker, s)
+        stockMap.set(s.gics_code, s)
+      }
+      break
+    }
+  }
+  const hasStockData = stockMap.size > 0
+
+  // 4. Pick stocks per selected sub
+  const newTickers: { ticker: string; gics_code: string; subName: string }[] = []
+  for (const sub of selectedSubs) {
+    const subName = sub.gics_universe?.sub_industry ?? sub.gics_code
+    if (hasStockData) {
+      const subStocks: StockReturn[] = []
+      for (const [k, st] of stockMap) {
+        if (k === st.gics_code) continue
+        if (st.gics_code === sub.gics_code) subStocks.push(st)
+      }
+      subStocks
+        .sort((a, b) => {
+          const av = (a[config.stockRankBy as keyof StockReturn] as number | null) ?? 0
+          const bv = (b[config.stockRankBy as keyof StockReturn] as number | null) ?? 0
+          return bv - av
+        })
+        .slice(0, config.stocksPerSub)
+        .forEach(st => newTickers.push({ ticker: st.ticker, gics_code: sub.gics_code, subName }))
+    } else {
+      newTickers.push({ ticker: sub.gics_code, gics_code: sub.gics_code, subName })
+    }
+  }
+
+  // 5. Calculate weights using the same caps logic as runBacktestSync
+  const tickerIds = newTickers.map(t => t.ticker)
+  const tickerGics = newTickers.map(t => t.gics_code)
+  const weights = calcWeights(
+    tickerIds, tickerGics, snap.subs, stockMap,
+    config.weightMode, config.maxStockWeight, config.maxSubWeight,
+  )
+
+  return {
+    passedSubCount: passedSubs.length,
+    selectedSubCount: selectedSubs.length,
+    picks: newTickers.map((t, i) => ({ ...t, weight: weights[i] ?? (1 / newTickers.length) })),
+  }
+}
+
+// Top-level scan: fetches data, finds scan date, runs single-day scan,
+// fetches close prices, computes absolute SL/TP prices.
+export async function runSignalScan(config: BacktestConfig): Promise<ScanSignalResult> {
+  const warnings: string[] = []
+
+  const subHistory = await fetchSubHistory()
+  if (subHistory.length === 0) {
+    return {
+      scanDate: '', requestedFriday: '', holdingCount: 0,
+      holdings: [], passedSubCount: 0, selectedSubCount: 0,
+      warnings: ['no sub history available'],
+    }
+  }
+
+  const requestedFriday = mostRecentFriday()
+  const idx = findSnapshotIndexAtOrBefore(subHistory, requestedFriday)
+  if (idx < 0) {
+    return {
+      scanDate: '', requestedFriday, holdingCount: 0,
+      holdings: [], passedSubCount: 0, selectedSubCount: 0,
+      warnings: [`no trading-day snapshot ≤ ${requestedFriday}`],
+    }
+  }
+  const scanDate = subHistory[idx].date
+  if (scanDate !== requestedFriday) {
+    warnings.push(`requested ${requestedFriday}, using nearest trading day ${scanDate}`)
+  }
+
+  const stockHistory = await fetchStockHistoryByRebalPeriod(config.rebalPeriod)
+
+  const { passedSubCount, selectedSubCount, picks } =
+    scanSingleDay(config, subHistory, stockHistory, idx)
+
+  // Fetch most recent close price per picked ticker (only ~10–50 tickers)
+  const closeMap = await fetchClosesFromYahoo(picks.map(p => p.ticker))
+  const missingPrices = picks.filter(p => !closeMap.has(p.ticker)).length
+  if (missingPrices > 0) {
+    warnings.push(`${missingPrices} ticker(s) missing close prices from Yahoo`)
+  }
+
+  // stopLoss is stored as a negative % (e.g. -8 means -8%); takeProfit positive
+  const slPct = config.stopLoss     // negative number, e.g. -8
+  const tpPct = config.takeProfit   // positive number, e.g. 15
+
+  const holdings: SignalHolding[] = picks.map(p => {
+    const entryPrice = closeMap.get(p.ticker) ?? null
+    const stopLossPrice = entryPrice != null && slPct < 0
+      ? +(entryPrice * (1 + slPct / 100)).toFixed(4)
+      : null
+    const takeProfitPrice = entryPrice != null && tpPct > 0
+      ? +(entryPrice * (1 + tpPct / 100)).toFixed(4)
+      : null
+    return {
+      subName: p.subName,
+      gics_code: p.gics_code,
+      ticker: p.ticker,
+      weight: +(p.weight ?? 0).toFixed(6),
+      entryPrice,
+      stopLossPrice,
+      takeProfitPrice,
+    }
+  })
+
+  return {
+    scanDate,
+    requestedFriday,
+    holdingCount: holdings.length,
+    holdings,
+    passedSubCount,
+    selectedSubCount,
+    warnings,
+  }
 }

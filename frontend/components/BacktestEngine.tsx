@@ -11,6 +11,7 @@ import {
   SubFilter, BacktestConfig,
   FilterDetail, FilterConditionDetail, RebalLog, PerfMetrics, BacktestResult,
   FilterType, WeightMode,
+  BacktestPreset, ScanSignalResult,
 } from '@/lib/types'
 
 // ── Indicator Groups ──────────────────────────────────────────
@@ -510,7 +511,7 @@ interface Props {
 // ── Main Component ────────────────────────────────────────────
 
 export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props) {
-  const [activeTab, setActiveTab] = useState<'config' | 'results' | 'robustness' | 'optimize'>('config')
+  const [activeTab, setActiveTab] = useState<'config' | 'results' | 'robustness' | 'optimize' | 'signal'>('config')
   const [config, setConfig] = useState<BacktestConfig>(DEFAULT_CONFIG)
   const [prevData, setPrevData] = useState<SubReturn[]>(prevDataInitial)
   const [isRunning, setIsRunning] = useState(false)
@@ -562,6 +563,98 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
   const [optRuns, setOptRuns] = useState<any[]>([])
   const [optShowRanges, setOptShowRanges] = useState(false)
   const [optIsRefreshing, setOptIsRefreshing] = useState(false)
+
+  // ── Signal scan tab state ─────────────────────────────────────
+  const [presets, setPresets] = useState<BacktestPreset[]>([])
+  const [presetName, setPresetName] = useState('')
+  const [presetLoading, setPresetLoading] = useState(false)
+  const [presetError, setPresetError] = useState<string | null>(null)
+  const [signalRunning, setSignalRunning] = useState(false)
+  const [signalResult, setSignalResult] = useState<ScanSignalResult | null>(null)
+  const [signalError, setSignalError] = useState<string | null>(null)
+
+  const loadPresets = useCallback(async () => {
+    setPresetLoading(true)
+    setPresetError(null)
+    try {
+      const res = await fetch('/api/presets', { cache: 'no-store' })
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error ?? `HTTP ${res.status}`)
+      setPresets(data.presets ?? [])
+    } catch (e: any) {
+      setPresetError(e.message ?? String(e))
+    } finally {
+      setPresetLoading(false)
+    }
+  }, [])
+
+  const savePreset = useCallback(async () => {
+    const name = presetName.trim()
+    if (!name) { setPresetError('請輸入 preset 名稱'); return }
+    setPresetLoading(true)
+    setPresetError(null)
+    try {
+      const res = await fetch('/api/presets', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, config }),
+      })
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error ?? `HTTP ${res.status}`)
+      setPresetName('')
+      await loadPresets()
+    } catch (e: any) {
+      setPresetError(e.message ?? String(e))
+    } finally {
+      setPresetLoading(false)
+    }
+  }, [presetName, config, loadPresets])
+
+  const deletePreset = useCallback(async (id: number) => {
+    if (!confirm('刪除這個 preset？')) return
+    setPresetLoading(true)
+    setPresetError(null)
+    try {
+      const res = await fetch(`/api/presets?id=${id}`, { method: 'DELETE' })
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error ?? `HTTP ${res.status}`)
+      await loadPresets()
+    } catch (e: any) {
+      setPresetError(e.message ?? String(e))
+    } finally {
+      setPresetLoading(false)
+    }
+  }, [loadPresets])
+
+  const loadPresetIntoConfig = useCallback((p: BacktestPreset) => {
+    setConfig(p.config)
+    setPresetName(p.name)
+  }, [])
+
+  const runSignalScanReq = useCallback(async () => {
+    setSignalRunning(true)
+    setSignalError(null)
+    setSignalResult(null)
+    try {
+      const res = await fetch('/api/scan-signal', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ config }),
+      })
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error ?? `HTTP ${res.status}`)
+      setSignalResult(data as ScanSignalResult)
+    } catch (e: any) {
+      setSignalError(e.message ?? String(e))
+    } finally {
+      setSignalRunning(false)
+    }
+  }, [config])
+
+  // Load presets when entering the signal tab
+  useEffect(() => {
+    if (activeTab === 'signal') loadPresets()
+  }, [activeTab, loadPresets])
 
   // Poll optimization runs from Supabase
   const loadOptRuns = useCallback(async () => {
@@ -961,7 +1054,7 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
 
       {/* Tab Bar */}
       <div className="flex border-b border-gray-200 dark:border-gray-700 mb-6">
-        {(['config', 'results', 'robustness', 'optimize'] as const).map(tab => (
+        {(['config', 'results', 'robustness', 'optimize', 'signal'] as const).map(tab => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
@@ -971,7 +1064,11 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
                 : 'border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400'
             }`}
           >
-            {tab === 'config' ? '策略設定' : tab === 'results' ? '回測結果' : tab === 'robustness' ? '參數穩健性' : '⚡ Optuna 優化'}
+            {tab === 'config' ? '策略設定'
+              : tab === 'results' ? '回測結果'
+              : tab === 'robustness' ? '參數穩健性'
+              : tab === 'optimize' ? '⚡ Optuna 優化'
+              : '📅 即時訊號'}
           </button>
         ))}
       </div>
@@ -2482,6 +2579,166 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
             <p className="font-medium mb-1">⚠️ 首次使用前需在 Vercel 設定環境變數</p>
             <p>GITHUB_TOKEN — Personal Access Token（需 workflow 權限）</p>
             <p>GITHUB_REPO — 你的 repo，例如 az30667176-sudo/momentum-portal</p>
+          </div>
+        </div>
+      )}
+
+      {/* ── Tab 5: Signal Scan ── */}
+      {activeTab === 'signal' && (
+        <div className="space-y-6">
+          {/* Section A: Preset Manager */}
+          <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-5">
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">策略 Preset</h2>
+            <p className="text-xs text-gray-500 dark:text-gray-400 mb-4">
+              將目前「策略設定」tab 的所有參數命名儲存到 Supabase，跨裝置同步。掃描時會用目前載入的設定。
+            </p>
+
+            <div className="flex gap-2 mb-3">
+              <input
+                type="text"
+                value={presetName}
+                onChange={e => setPresetName(e.target.value)}
+                placeholder="Preset 名稱（例：動能Top5週調）"
+                className="flex-1 px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
+              />
+              <button
+                onClick={savePreset}
+                disabled={presetLoading}
+                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white text-sm rounded"
+              >
+                {presetLoading ? '處理中…' : '儲存目前設定'}
+              </button>
+              <button
+                onClick={loadPresets}
+                disabled={presetLoading}
+                className="px-3 py-2 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 text-sm rounded"
+              >
+                ⟲ 刷新
+              </button>
+            </div>
+            {presetError && (
+              <p className="text-xs text-red-500 mb-2">{presetError}</p>
+            )}
+
+            <div className="overflow-x-auto">
+              <table className="w-full text-xs">
+                <thead className="bg-gray-50 dark:bg-gray-700/50 text-gray-500 dark:text-gray-400">
+                  <tr>
+                    <th className="px-3 py-2 text-left">名稱</th>
+                    <th className="px-3 py-2 text-right">topN</th>
+                    <th className="px-3 py-2 text-right">stk/sub</th>
+                    <th className="px-3 py-2 text-right">rebal</th>
+                    <th className="px-3 py-2 text-right">SL</th>
+                    <th className="px-3 py-2 text-right">TP</th>
+                    <th className="px-3 py-2 text-left">更新時間</th>
+                    <th className="px-3 py-2 text-center">操作</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {presets.length === 0 && (
+                    <tr><td colSpan={8} className="px-3 py-6 text-center text-gray-400">尚無 preset</td></tr>
+                  )}
+                  {presets.map(p => (
+                    <tr key={p.id} className="border-t border-gray-100 dark:border-gray-700">
+                      <td className="px-3 py-2 font-medium text-gray-900 dark:text-white">{p.name}</td>
+                      <td className="px-3 py-2 text-right">{p.config.topN}</td>
+                      <td className="px-3 py-2 text-right">{p.config.stocksPerSub}</td>
+                      <td className="px-3 py-2 text-right">{p.config.rebalPeriod}d</td>
+                      <td className="px-3 py-2 text-right">{p.config.stopLoss != 0 ? `${p.config.stopLoss}%` : '—'}</td>
+                      <td className="px-3 py-2 text-right">{(p.config.takeProfit ?? 0) > 0 ? `${p.config.takeProfit}%` : '—'}</td>
+                      <td className="px-3 py-2 text-gray-500 dark:text-gray-400 whitespace-nowrap">{new Date(p.updated_at).toLocaleString('zh-TW', { hour12: false })}</td>
+                      <td className="px-3 py-2 text-center whitespace-nowrap">
+                        <button
+                          onClick={() => loadPresetIntoConfig(p)}
+                          className="px-2 py-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded text-xs mr-1"
+                        >
+                          載入
+                        </button>
+                        <button
+                          onClick={() => deletePreset(p.id)}
+                          className="px-2 py-1 bg-red-500 hover:bg-red-600 text-white rounded text-xs"
+                        >
+                          刪除
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* Section B: Scan */}
+          <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-5">
+            <div className="flex items-center justify-between mb-2">
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-white">最近週五訊號掃描</h2>
+              <button
+                onClick={runSignalScanReq}
+                disabled={signalRunning}
+                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white text-sm rounded"
+              >
+                {signalRunning ? '掃描中…' : '🔎 掃描訊號'}
+              </button>
+            </div>
+            <p className="text-xs text-gray-500 dark:text-gray-400 mb-4">
+              用目前的策略設定，對「最近一個週五」（或之前最近的交易日）執行單次選股，並從 Yahoo Finance 拉最新收盤價算出停損 / 停利的絕對價格。
+            </p>
+
+            {signalError && (
+              <div className="mb-3 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-700 rounded text-xs text-red-700 dark:text-red-300">
+                {signalError}
+              </div>
+            )}
+
+            {signalResult && (
+              <>
+                <div className="mb-3 p-3 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded text-xs text-blue-700 dark:text-blue-300 space-y-1">
+                  <div>
+                    <span className="font-medium">訊號日：</span>
+                    <span className="font-mono">{signalResult.scanDate}</span>
+                    <span className="ml-2 text-gray-500 dark:text-gray-400">（目標：最近週五 {signalResult.requestedFriday}）</span>
+                  </div>
+                  <div>
+                    通過篩選：{signalResult.passedSubCount} 個 sub-industry · 排名後選入：{signalResult.selectedSubCount} 個 · 持股總數：{signalResult.holdingCount}
+                  </div>
+                  {signalResult.warnings.length > 0 && (
+                    <div className="text-amber-600 dark:text-amber-400">
+                      ⚠️ {signalResult.warnings.join('；')}
+                    </div>
+                  )}
+                </div>
+
+                <div className="overflow-x-auto">
+                  <table className="w-full text-xs">
+                    <thead className="bg-gray-50 dark:bg-gray-700/50 text-gray-500 dark:text-gray-400">
+                      <tr>
+                        <th className="px-3 py-2 text-left">Sub-industry</th>
+                        <th className="px-3 py-2 text-left">Ticker</th>
+                        <th className="px-3 py-2 text-right">入場價</th>
+                        <th className="px-3 py-2 text-right">停損價</th>
+                        <th className="px-3 py-2 text-right">停利價</th>
+                        <th className="px-3 py-2 text-right">權重</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {signalResult.holdings.length === 0 && (
+                        <tr><td colSpan={6} className="px-3 py-6 text-center text-gray-400">沒有任何 sub-industry 通過篩選</td></tr>
+                      )}
+                      {signalResult.holdings.map(h => (
+                        <tr key={`${h.gics_code}-${h.ticker}`} className="border-t border-gray-100 dark:border-gray-700">
+                          <td className="px-3 py-2">{h.subName}</td>
+                          <td className="px-3 py-2 font-mono font-medium text-gray-900 dark:text-white">{h.ticker}</td>
+                          <td className="px-3 py-2 text-right font-mono">{h.entryPrice != null ? h.entryPrice.toFixed(2) : '—'}</td>
+                          <td className="px-3 py-2 text-right font-mono text-red-500">{h.stopLossPrice != null ? h.stopLossPrice.toFixed(2) : '—'}</td>
+                          <td className="px-3 py-2 text-right font-mono text-emerald-600">{h.takeProfitPrice != null ? h.takeProfitPrice.toFixed(2) : '—'}</td>
+                          <td className="px-3 py-2 text-right">{(h.weight * 100).toFixed(2)}%</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </>
+            )}
           </div>
         </div>
       )}

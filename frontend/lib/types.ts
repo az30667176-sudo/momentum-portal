@@ -245,3 +245,33 @@ export interface BacktestResult {
   stockDataAvailable: boolean
   isSplitDay: number
 }
+
+// ── Preset & Signal Scan ──────────────────────────────────────
+
+export interface BacktestPreset {
+  id: number
+  name: string
+  config: BacktestConfig
+  created_at: string
+  updated_at: string
+}
+
+export interface SignalHolding {
+  subName: string
+  gics_code: string
+  ticker: string
+  weight: number              // 0–1
+  entryPrice: number | null   // last close on scanDate
+  stopLossPrice: number | null
+  takeProfitPrice: number | null
+}
+
+export interface ScanSignalResult {
+  scanDate: string            // YYYY-MM-DD (most recent Friday or trading day ≤ it)
+  requestedFriday: string     // The Friday we targeted
+  holdingCount: number
+  holdings: SignalHolding[]
+  passedSubCount: number      // how many subs passed filters
+  selectedSubCount: number    // how many subs selected after rank/topN
+  warnings: string[]          // e.g. "X tickers missing close prices"
+}
