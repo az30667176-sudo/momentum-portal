@@ -27,7 +27,7 @@ function Exhibit({ src, alt, caption }: { src: string; alt: string; caption: str
 
 function H2({ children }: { children: React.ReactNode }) {
   return (
-    <h2 className="mt-12 mb-3 text-xl font-bold text-gray-900 dark:text-gray-100 border-l-4 border-blue-600 pl-3">
+    <h2 className="mt-12 mb-3 text-xl font-bold text-black dark:text-white border-l-4 border-blue-600 pl-3">
       {children}
     </h2>
   )
@@ -35,14 +35,14 @@ function H2({ children }: { children: React.ReactNode }) {
 
 function P({ children }: { children: React.ReactNode }) {
   return (
-    <p className="my-4 leading-8 text-gray-700 dark:text-gray-300 text-[15px]">
+    <p className="my-4 leading-8 text-black dark:text-white text-[15px]">
       {children}
     </p>
   )
 }
 
 function B({ children }: { children: React.ReactNode }) {
-  return <strong className="font-semibold text-gray-900 dark:text-gray-100">{children}</strong>
+  return <strong className="font-semibold text-black dark:text-white">{children}</strong>
 }
 
 export default function WeeklyPage() {
@@ -53,7 +53,7 @@ export default function WeeklyPage() {
         <div className="text-xs uppercase tracking-wider text-blue-600 font-semibold mb-2">
           Momentum Portal · Weekly Rotation
         </div>
-        <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-gray-100 leading-tight">
+        <h1 className="text-3xl sm:text-4xl font-bold text-black dark:text-white leading-tight">
           反彈裡的兩個錯位
         </h1>
         <p className="mt-3 text-sm text-gray-500 dark:text-gray-400">
@@ -189,7 +189,7 @@ export default function WeeklyPage() {
 
       {/* Action items */}
       <H2>下一次 rebal 的具體動作</H2>
-      <ol className="mt-4 space-y-3 text-[15px] leading-7 text-gray-700 dark:text-gray-300 list-decimal list-outside pl-6">
+      <ol className="mt-4 space-y-3 text-[15px] leading-7 text-black dark:text-white list-decimal list-outside pl-6">
         <li>
           <B>能源動能部位逢漲減 1/3，核心 2/3 留著</B>。廣度（89% 個股 &gt; 50DMA）和 mom_score
           （94）仍是指數第一，這是控制 size 的問題不是方向問題。Hormuz
