@@ -7,7 +7,7 @@ const TABS = [
   { label: '產業總覽', href: '/' },
   { label: '個股排名', href: '/stocks' },
   { label: '回測專區', href: '/backtest' },
-  { label: '輪動週報', href: '/weekly' },
+  { label: '研究分享', href: '/research' },
 ]
 
 export function NavBar() {
@@ -17,7 +17,8 @@ export function NavBar() {
     <nav className="sticky top-0 z-50 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700">
       <div className="flex">
         {TABS.map(({ label, href }) => {
-          const isActive = pathname === href
+          const isActive =
+            href === '/' ? pathname === '/' : pathname === href || pathname.startsWith(href + '/')
           return (
             <Link
               key={href}

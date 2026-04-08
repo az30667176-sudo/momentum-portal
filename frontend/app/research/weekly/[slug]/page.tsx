@@ -1,18 +1,18 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { getAllSlugs, getIssue } from '@/lib/weekly'
+import { getAllSlugs, getIssue } from '@/lib/research'
 import { Inline } from '@/components/WeeklyMarkdown'
 
 export const dynamic = 'force-static'
 export const dynamicParams = false
 
 export function generateStaticParams() {
-  return getAllSlugs().map((slug) => ({ slug }))
+  return getAllSlugs('weekly').map((slug) => ({ slug }))
 }
 
 export function generateMetadata({ params }: { params: { slug: string } }) {
-  const issue = getIssue(params.slug)
+  const issue = getIssue('weekly', params.slug)
   if (!issue) return { title: '輪動週報 | Momentum Portal' }
   return {
     title: `第 ${issue.issue} 期 · ${issue.title} | 輪動週報`,
@@ -24,23 +24,21 @@ export default function WeeklyDetailPage({
 }: {
   params: { slug: string }
 }) {
-  const issue = getIssue(params.slug)
+  const issue = getIssue('weekly', params.slug)
   if (!issue) notFound()
 
   return (
-    <main className="max-w-3xl mx-auto px-4 sm:px-6 py-10 bg-white text-black min-h-screen">
-      {/* Back link */}
+    <article>
       <Link
-        href="/weekly"
+        href="/research/weekly"
         className="inline-flex items-center text-sm text-blue-600 hover:underline mb-4"
       >
-        ← 回到週報列表
+        ← 回到輪動週報列表
       </Link>
 
-      {/* Header */}
       <header className="mb-10 pb-6 border-b border-gray-200">
         <div className="text-xs uppercase tracking-wider text-blue-600 font-semibold mb-2">
-          Momentum Portal · Weekly Rotation · 第 {issue.issue} 期
+          輪動週報 · 第 {issue.issue} 期
         </div>
         <h1 className="text-3xl sm:text-4xl font-bold text-black leading-tight">
           {issue.title}
@@ -53,7 +51,6 @@ export default function WeeklyDetailPage({
         </p>
       </header>
 
-      {/* Intro */}
       <section>
         <H2>為什麼這週的反彈不能輕易相信</H2>
         {issue.intro.map((p, i) => (
@@ -63,7 +60,6 @@ export default function WeeklyDetailPage({
         ))}
       </section>
 
-      {/* Exhibits */}
       {issue.exhibits.map((ex) => (
         <section key={ex.number}>
           <H2>
@@ -90,7 +86,6 @@ export default function WeeklyDetailPage({
         </section>
       ))}
 
-      {/* Actions */}
       <H2>下一次 rebal 的具體動作</H2>
       <ol className="mt-4 space-y-3 text-[15px] leading-7 text-black list-decimal list-outside pl-6">
         {issue.actions.map((a, i) => (
@@ -100,7 +95,6 @@ export default function WeeklyDetailPage({
         ))}
       </ol>
 
-      {/* Sources */}
       <H2>新聞來源</H2>
       <ul className="mt-4 space-y-2 text-sm text-gray-600 list-disc list-outside pl-6">
         {issue.sources.map((s, i) => (
@@ -121,7 +115,7 @@ export default function WeeklyDetailPage({
         本文僅為基於 Momentum Portal 量化訊號 +
         公開新聞所做的研究紀錄，不構成任何投資建議。所有數據截至 {issue.snapshotDate}。
       </footer>
-    </main>
+    </article>
   )
 }
 
