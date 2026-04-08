@@ -66,3 +66,55 @@ export function getAllSlugs(category: ResearchCategory): string[] {
     .filter((f) => f.endsWith('.json'))
     .map((f) => f.replace('.json', ''))
 }
+
+// ---------------- Stock Memo (個股想法) ----------------
+
+export interface StockMemo {
+  slug: string
+  ticker: string
+  company: string
+  sector: string
+  subIndustry: string
+  date: string
+  title: string
+  subtitle: string
+  stance: 'Long' | 'Short' | 'Pair' | string
+  expectedReturn: string
+  conviction: 'High' | 'Medium' | 'Low' | string
+  // quant snapshot from portal
+  momScore: number
+  rankInSub: string
+  subRank: string
+  // markdown body
+  body: string
+}
+
+function stockDir() {
+  return path.join(process.cwd(), 'content', 'research', 'stock')
+}
+
+export function getAllStockMemos(): StockMemo[] {
+  const dir = stockDir()
+  if (!fs.existsSync(dir)) return []
+  const files = fs.readdirSync(dir).filter((f) => f.endsWith('.json'))
+  const memos = files.map((f) => {
+    const raw = fs.readFileSync(path.join(dir, f), 'utf-8')
+    return JSON.parse(raw) as StockMemo
+  })
+  return memos.sort((a, b) => b.date.localeCompare(a.date))
+}
+
+export function getStockMemo(slug: string): StockMemo | null {
+  const file = path.join(stockDir(), `${slug}.json`)
+  if (!fs.existsSync(file)) return null
+  return JSON.parse(fs.readFileSync(file, 'utf-8')) as StockMemo
+}
+
+export function getAllStockMemoSlugs(): string[] {
+  const dir = stockDir()
+  if (!fs.existsSync(dir)) return []
+  return fs
+    .readdirSync(dir)
+    .filter((f) => f.endsWith('.json'))
+    .map((f) => f.replace('.json', ''))
+}
