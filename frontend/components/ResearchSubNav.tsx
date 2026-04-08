@@ -2,7 +2,12 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { CATEGORIES } from '@/lib/research'
+
+const CATEGORIES = [
+  { key: 'weekly', label: '輪動週報', href: '/research/weekly' },
+  { key: 'stock', label: '個股想法', href: '/research/stock' },
+  { key: 'sector', label: '產業分享', href: '/research/sector' },
+] as const
 
 export function ResearchSubNav() {
   const pathname = usePathname()
