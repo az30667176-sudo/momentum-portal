@@ -50,6 +50,10 @@ export default async function LandingPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Left: text */}
             <div>
+              <div className="flex items-center gap-2.5 mb-5 lg:hidden">
+                <LogoIcon className="w-9 h-9" />
+                <span className="text-lg font-bold text-white tracking-tight">Sector Pulse</span>
+              </div>
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight">
                 S&P 1500 板塊輪動<br />量化研究平台
               </h1>
