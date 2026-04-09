@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { getLatestSubReturns, getLatestDate } from '@/lib/supabase'
 import { getAllIssues } from '@/lib/research'
+import { LogoIcon } from '@/components/Logo'
 
 export const revalidate = 0
 
@@ -45,11 +46,7 @@ export default async function LandingPage() {
         </div>
         <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
           <div className="flex items-center gap-3 mb-6">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center">
-              <svg viewBox="0 0 24 24" className="w-6 h-6 text-white" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
-              </svg>
-            </div>
+            <LogoIcon className="w-10 h-10" />
             <span className="text-xl font-bold text-white tracking-tight">Sector Pulse</span>
           </div>
           <h1 className="text-3xl sm:text-5xl font-bold text-white leading-tight max-w-3xl">
@@ -203,11 +200,7 @@ export default async function LandingPage() {
       <footer className="border-t border-gray-200 bg-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded-md bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center">
-              <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
-              </svg>
-            </div>
+            <LogoIcon className="w-6 h-6" />
             <span className="text-sm font-semibold text-gray-700">Sector Pulse</span>
           </div>
           <p className="text-xs text-gray-400 text-center">

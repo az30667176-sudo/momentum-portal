@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
+import { LogoIcon } from '@/components/Logo'
 
 const TABS = [
   { label: '產業總覽', href: '/sectors' },
@@ -26,11 +27,7 @@ export function NavBar() {
         <div className="flex items-center justify-between h-14">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5 shrink-0">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center">
-              <svg viewBox="0 0 24 24" className="w-5 h-5 text-white" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
-              </svg>
-            </div>
+            <LogoIcon className="w-8 h-8" />
             <span className="text-lg font-bold text-gray-900 tracking-tight hidden sm:block">
               Sector Pulse
             </span>

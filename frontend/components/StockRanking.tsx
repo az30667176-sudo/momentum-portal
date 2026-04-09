@@ -87,7 +87,7 @@ export function StockRanking({ subData, stockData, heatmapEntries = [], heatmapD
 
   const modeBtnCls = (m: Mode) =>
     `px-4 py-2 text-sm font-medium rounded-lg transition-colors ${
-      mode === m ? 'bg-blue-600 text-white' : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+      mode === m ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
     }`
 
   const ColHeader = ({ col, label }: { col: SortCol; label: string }) => (
@@ -130,7 +130,7 @@ export function StockRanking({ subData, stockData, heatmapEntries = [], heatmapD
                   className={`px-3 py-1.5 text-xs rounded font-medium transition-colors ${
                     indexFilter === f
                       ? 'bg-gray-700 dark:bg-gray-300 text-white dark:text-gray-900'
-                      : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-600'
+                      : 'bg-gray-100 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-600'
                   }`}>
                   {f === 'all' ? '全部' : f}
                 </button>
@@ -139,7 +139,7 @@ export function StockRanking({ subData, stockData, heatmapEntries = [], heatmapD
             <input
               type="text" placeholder="搜尋 Ticker / 公司名..."
               value={search} onChange={e => { setSearch(e.target.value); setPage(0) }}
-              className="px-3 py-1.5 text-sm border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 dark:text-white w-52"
+              className="px-3 py-1.5 text-sm border border-gray-300 dark:border-gray-600 rounded bg-white dark:text-white w-52"
             />
             <span className="text-sm text-gray-500">{sorted.length} 檔</span>
           </div>
@@ -147,7 +147,7 @@ export function StockRanking({ subData, stockData, heatmapEntries = [], heatmapD
           {/* Table */}
           <div className="overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-700">
             <table className="w-full text-sm">
-              <thead className="bg-gray-50 dark:bg-gray-700 sticky top-0">
+              <thead className="bg-gray-50 sticky top-0">
                 <tr>
                   <th className="px-3 py-2 text-left text-xs font-medium text-gray-600 dark:text-gray-300 w-8">#</th>
                   <th className="px-3 py-2 text-left text-xs font-medium text-gray-600 dark:text-gray-300">Ticker</th>
@@ -197,10 +197,10 @@ export function StockRanking({ subData, stockData, heatmapEntries = [], heatmapD
           {/* Pagination */}
           <div className="flex items-center justify-between mt-3">
             <button onClick={() => setPage(p => Math.max(0, p - 1))} disabled={page === 0}
-              className="px-3 py-1.5 text-sm bg-gray-100 dark:bg-gray-700 rounded disabled:opacity-40 hover:bg-gray-200 dark:hover:bg-gray-600">← 上一頁</button>
+              className="px-3 py-1.5 text-sm bg-gray-100 rounded disabled:opacity-40 hover:bg-gray-200 dark:hover:bg-gray-600">← 上一頁</button>
             <span className="text-sm text-gray-600 dark:text-gray-400">第 {page + 1} / {totalPages} 頁</span>
             <button onClick={() => setPage(p => Math.min(totalPages - 1, p + 1))} disabled={page >= totalPages - 1}
-              className="px-3 py-1.5 text-sm bg-gray-100 dark:bg-gray-700 rounded disabled:opacity-40 hover:bg-gray-200 dark:hover:bg-gray-600">下一頁 →</button>
+              className="px-3 py-1.5 text-sm bg-gray-100 rounded disabled:opacity-40 hover:bg-gray-200 dark:hover:bg-gray-600">下一頁 →</button>
           </div>
         </>
       )}
