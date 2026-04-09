@@ -172,7 +172,7 @@ export function InteractiveChart({ history }: { history: SubReturn[] }) {
         grid:   { vertLines: { color: '#f3f4f6' }, horzLines: { color: '#f3f4f6' } },
         crosshair: { mode: 1 },          // Normal
         rightPriceScale: { borderColor: '#e5e7eb' },
-        timeScale: { borderColor: '#e5e7eb', timeVisible: false },
+        timeScale: { borderColor: '#e5e7eb', timeVisible: false, minBarSpacing: 1 },
         handleScroll: { mouseWheel: true, pressedMouseMove: true },
         handleScale:  { mouseWheel: true },
       }
@@ -188,6 +188,21 @@ export function InteractiveChart({ history }: { history: SubReturn[] }) {
 
       const all = [mainChart, volChart, s1Chart, s2Chart, s3Chart]
       chartsRef.current = all
+
+      // ── Clamp zoom-out: don't allow scrolling beyond data range ──
+      const totalBars = ohlcData.current.length
+      all.forEach(chart => {
+        chart.timeScale().subscribeVisibleLogicalRangeChange((range: any) => {
+          if (!range || !totalBars) return
+          if (range.from < -10 || range.to > totalBars + 10) {
+            const cf = Math.max(-10, range.from)
+            const ct = Math.min(totalBars + 10, range.to)
+            if (cf !== range.from || ct !== range.to) {
+              try { chart.timeScale().setVisibleLogicalRange({ from: cf, to: ct }) } catch {}
+            }
+          }
+        })
+      })
 
       // Candlestick
       const candle = mainChart.addCandlestickSeries({

@@ -118,21 +118,28 @@ function stockSubLineColor(key: SubKey) {
 
 // ─── StockChart ───────────────────────────────────────────────
 
+interface OHLCBar { time: string; open: number; high: number; low: number; close: number }
+interface VolBar  { time: string; value: number; color: string }
+
 function StockChart({ ticker, history }: { ticker: string; history: StockReturn[] }) {
   const containerRef = useRef<HTMLDivElement>(null)
   const mainRef      = useRef<HTMLDivElement>(null)
+  const volRef       = useRef<HTMLDivElement>(null)
   const sub1Ref      = useRef<HTMLDivElement>(null)
   const sub2Ref      = useRef<HTMLDivElement>(null)
   const sub3Ref      = useRef<HTMLDivElement>(null)
 
   const chartsRef    = useRef<any[]>([])
-  const primaryRef   = useRef<(any | null)[]>([null, null, null, null])
+  const primaryRef   = useRef<(any | null)[]>([null, null, null, null, null])
   const maSeriesRef  = useRef<Map<number, any>>(new Map())
   const subSeriesRef = useRef<(any | null)[]>([null, null, null])
   const candleRef    = useRef<any>(null)
+  const volSeriesRef = useRef<any>(null)
+  const dataCountRef = useRef(0)
 
   const [chartsReady, setChartsReady] = useState(false)
-  const [priceData, setPriceData] = useState<{ time: string; value: number }[] | null>(null)
+  const [ohlcData, setOhlcData] = useState<OHLCBar[] | null>(null)
+  const [volData, setVolData]   = useState<VolBar[] | null>(null)
   const [maConfigs, setMaConfigs] = useState<MAConfig[]>([
     { period: 5,  color: MA_PALETTE[0], id: 0 },
     { period: 10, color: MA_PALETTE[1], id: 1 },
@@ -147,20 +154,24 @@ function StockChart({ ticker, history }: { ticker: string; history: StockReturn[
   const maxRank    = useRef(Math.max(...history.map(r => r.rank_in_sub ?? 0), 10))
   const latestDate = history[history.length - 1]?.date ?? ''
 
-  // ── Fetch actual stock prices from Yahoo ─────────────────
+  // ── Fetch OHLC + volume from Yahoo ─────────────────
   useEffect(() => {
     fetch(`/api/stock-prices?ticker=${encodeURIComponent(ticker)}&range=3y`)
       .then(r => r.json())
       .then(d => {
-        if (d.prices?.length) setPriceData(d.prices)
+        if (d.ohlc?.length) {
+          setOhlcData(d.ohlc)
+          dataCountRef.current = d.ohlc.length
+        }
+        if (d.vol?.length) setVolData(d.vol)
       })
       .catch(() => {})
   }, [ticker])
 
   // ── Mount: create chart instances ──────────────────────────
   useEffect(() => {
-    if (!mainRef.current || !sub1Ref.current || !sub2Ref.current
-      || !sub3Ref.current || !history.length) return
+    if (!mainRef.current || !volRef.current || !sub1Ref.current
+      || !sub2Ref.current || !sub3Ref.current || !history.length) return
 
     let alive = true
 
@@ -172,27 +183,56 @@ function StockChart({ ticker, history }: { ticker: string; history: StockReturn[
         grid:      { vertLines: { color: '#f3f4f6' }, horzLines: { color: '#f3f4f6' } },
         crosshair: { mode: 1 },
         rightPriceScale: { borderColor: '#e5e7eb' },
-        timeScale:       { borderColor: '#e5e7eb', timeVisible: false },
+        timeScale:       { borderColor: '#e5e7eb', timeVisible: false, minBarSpacing: 1 },
         handleScroll: { mouseWheel: true, pressedMouseMove: true },
         handleScale:  { mouseWheel: true },
       }
 
-      const mainChart = createChart(mainRef.current!, { ...base, height: 300 })
+      const mainChart = createChart(mainRef.current!, { ...base, height: 320 })
+      const volChart  = createChart(volRef.current!,  {
+        ...base, height: 80,
+        timeScale: { ...base.timeScale, visible: false },
+      })
       const s1Chart   = createChart(sub1Ref.current!, { ...base, height: 120 })
       const s2Chart   = createChart(sub2Ref.current!, { ...base, height: 120 })
       const s3Chart   = createChart(sub3Ref.current!, { ...base, height: 120 })
-      const all = [mainChart, s1Chart, s2Chart, s3Chart]
+      const all = [mainChart, volChart, s1Chart, s2Chart, s3Chart]
       chartsRef.current = all
 
-      // Add line series for price (will be filled when priceData arrives)
-      const priceLine = mainChart.addLineSeries({
-        color: '#10b981',
-        lineWidth: 2,
-        priceLineVisible: true,
-        lastValueVisible: true,
+      // Candlestick series
+      const candle = mainChart.addCandlestickSeries({
+        upColor:       '#22c55e', downColor:       '#ef4444',
+        borderUpColor: '#16a34a', borderDownColor: '#dc2626',
+        wickUpColor:   '#16a34a', wickDownColor:   '#dc2626',
       })
-      candleRef.current = priceLine
-      primaryRef.current[0] = priceLine
+      candleRef.current = candle
+      primaryRef.current[0] = candle
+
+      // Volume histogram
+      const volSeries = volChart.addHistogramSeries({
+        color: '#22c55e',
+        priceFormat: { type: 'volume' },
+        priceScaleId: '',
+        scaleMargins: { top: 0.1, bottom: 0 },
+      })
+      volSeriesRef.current = volSeries
+      primaryRef.current[1] = volSeries
+
+      // ── Clamp zoom-out: don't allow scrolling beyond data range ──
+      all.forEach(chart => {
+        chart.timeScale().subscribeVisibleLogicalRangeChange((range: any) => {
+          if (!range || !dataCountRef.current) return
+          const total = dataCountRef.current
+          // Clamp: don't let the visible range exceed total bar count + small margin
+          if (range.from < -10 || range.to > total + 10) {
+            const clampedFrom = Math.max(-10, range.from)
+            const clampedTo   = Math.min(total + 10, range.to)
+            if (clampedFrom !== range.from || clampedTo !== range.to) {
+              try { chart.timeScale().setVisibleLogicalRange({ from: clampedFrom, to: clampedTo }) } catch {}
+            }
+          }
+        })
+      })
 
       // Sync time scale
       let syncing = false
@@ -238,32 +278,39 @@ function StockChart({ ticker, history }: { ticker: string; history: StockReturn[
       chartsRef.current    = []
       maSeriesRef.current.clear()
       subSeriesRef.current = [null, null, null]
-      primaryRef.current   = [null, null, null, null]
+      primaryRef.current   = [null, null, null, null, null]
       candleRef.current    = null
+      volSeriesRef.current = null
     }
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
-  // ── Update price data when it arrives ─────────────────────
+  // ── Update OHLC + vol data when it arrives ─────────────────
   useEffect(() => {
-    if (!chartsReady || !priceData?.length || !candleRef.current) return
-    try {
-      candleRef.current.setData(priceData as any)
-    } catch {}
-    // Apply initial range after price data is set
-    setTimeout(() => {
-      if (!chartsRef.current.length) return
-      const last = priceData[priceData.length - 1].time
-      const from = rangeFrom('1Y', last)
-      chartsRef.current.forEach(c => {
-        try { c.timeScale().setVisibleRange({ from, to: last } as any) } catch {}
-      })
-    }, 50)
-  }, [chartsReady, priceData])
+    if (!chartsReady) return
+    if (ohlcData?.length && candleRef.current) {
+      try { candleRef.current.setData(ohlcData as any) } catch {}
+    }
+    if (volData?.length && volSeriesRef.current) {
+      try { volSeriesRef.current.setData(volData as any) } catch {}
+    }
+    // Apply initial range
+    if (ohlcData?.length) {
+      setTimeout(() => {
+        if (!chartsRef.current.length) return
+        const last = ohlcData[ohlcData.length - 1].time
+        const from = rangeFrom('1Y', last)
+        chartsRef.current.forEach(c => {
+          try { c.timeScale().setVisibleRange({ from, to: last } as any) } catch {}
+        })
+      }, 50)
+    }
+  }, [chartsReady, ohlcData, volData])
 
   // ── Rebuild MA series ────────────────────────────────────
   useEffect(() => {
     const mainChart = chartsRef.current[0]
-    if (!chartsReady || !mainChart || !priceData?.length) return
+    if (!chartsReady || !mainChart || !ohlcData?.length) return
+    const closeData = ohlcData.map(d => ({ time: d.time, value: d.close }))
     maSeriesRef.current.forEach(s => { try { mainChart.removeSeries(s) } catch {} })
     maSeriesRef.current.clear()
     maConfigs.forEach(({ period, color, id }) => {
@@ -272,15 +319,15 @@ function StockChart({ ticker, history }: { ticker: string; history: StockReturn[
           color, lineWidth: 1,
           priceLineVisible: false, lastValueVisible: false, crossHairMarkerVisible: false,
         })
-        s.setData(calcMA(priceData, period) as any)
+        s.setData(calcMA(closeData, period) as any)
         maSeriesRef.current.set(id, s)
       } catch {}
     })
-  }, [chartsReady, maConfigs, priceData])
+  }, [chartsReady, maConfigs, ohlcData])
 
   // ── Rebuild sub-indicator series ────────────────────────
   useEffect(() => {
-    const subCharts = chartsRef.current.slice(1)
+    const subCharts = chartsRef.current.slice(2) // skip main + vol
     if (!chartsReady || subCharts.length < 3) return
 
     subKeys.forEach((key, i) => {
@@ -302,7 +349,7 @@ function StockChart({ ticker, history }: { ticker: string; history: StockReturn[
         }
         series.setData(data as any)
         subSeriesRef.current[i]  = series
-        primaryRef.current[i + 1] = series
+        primaryRef.current[i + 2] = series // +2 because [0]=candle, [1]=vol
 
         if (key === 'rvol') {
           series.createPriceLine({ price: 1.0, color: '#9ca3af', lineWidth: 1, lineStyle: 2, axisLabelVisible: true, title: '1.0x' })
@@ -320,7 +367,7 @@ function StockChart({ ticker, history }: { ticker: string; history: StockReturn[
 
   const applyRange = (range: TimeRange) => {
     setActive(range)
-    const ref = priceData?.length ? priceData[priceData.length - 1].time : latestDate
+    const ref = ohlcData?.length ? ohlcData[ohlcData.length - 1].time : latestDate
     if (!ref || !chartsRef.current.length) return
     if (range === 'ALL') {
       chartsRef.current.forEach(c => { try { c.timeScale().fitContent() } catch {} })
@@ -404,12 +451,20 @@ function StockChart({ ticker, history }: { ticker: string; history: StockReturn[
         </div>
       )}
 
-      {/* Main chart */}
+      {/* Main chart (candlestick) */}
       <div className="relative">
         <span className="absolute top-2 left-2 z-10 text-[10px] text-gray-400 uppercase tracking-wide pointer-events-none">
-          {ticker} · {priceData ? 'USD' : '載入中...'}
+          {ticker} · {ohlcData ? 'USD' : '載入中...'}
         </span>
         <div ref={mainRef} />
+      </div>
+
+      {/* Volume */}
+      <div className="relative border-t border-gray-100">
+        <span className="absolute top-1 left-2 z-10 text-[10px] text-gray-400 uppercase tracking-wide pointer-events-none">
+          Vol
+        </span>
+        <div ref={volRef} />
       </div>
 
       {/* Sub-indicator panels */}
