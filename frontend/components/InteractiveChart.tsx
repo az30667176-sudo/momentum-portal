@@ -5,7 +5,7 @@ import { SubReturn } from '@/lib/types'
 
 // ─── Types ───────────────────────────────────────────────────
 
-type TimeRange = '1M' | '3M' | '6M' | 'YTD' | '1Y' | 'ALL'
+type TimeRange = '1M' | '3M' | '6M' | 'YTD' | '1Y' | '2Y' | '3Y' | 'ALL'
 type SubKey = 'rank' | 'obv_trend' | 'rvol' | 'mom_score' | 'cmf' | 'mfi'
 
 interface MAConfig { period: number; color: string; id: number }
@@ -29,7 +29,7 @@ const SUB_OPTIONS: { key: SubKey; label: string }[] = [
   { key: 'mfi',       label: 'MFI' },
 ]
 
-const RANGES: TimeRange[] = ['1M', '3M', '6M', 'YTD', '1Y', 'ALL']
+const RANGES: TimeRange[] = ['1M', '3M', '6M', 'YTD', '1Y', '2Y', '3Y', 'ALL']
 
 // ─── Data helpers ────────────────────────────────────────────
 
@@ -65,6 +65,8 @@ function rangeFrom(range: TimeRange, latest: string): string {
   else if (range === '6M')  d.setMonth(d.getMonth() - 6)
   else if (range === 'YTD') { d.setMonth(0); d.setDate(1) }
   else if (range === '1Y')  d.setFullYear(d.getFullYear() - 1)
+  else if (range === '2Y')  d.setFullYear(d.getFullYear() - 2)
+  else if (range === '3Y')  d.setFullYear(d.getFullYear() - 3)
   else return '2000-01-01'
   return d.toISOString().slice(0, 10)
 }
@@ -244,14 +246,6 @@ export function InteractiveChart({ history }: { history: SubReturn[] }) {
       if (containerRef.current) ro.observe(containerRef.current)
       ;(chartsRef as any)._ro = ro
 
-      // ── Initial visible range ──
-      if (latestDate) {
-        const from = rangeFrom('1Y', latestDate)
-        all.forEach(c => {
-          try { c.timeScale().setVisibleRange({ from, to: latestDate } as any) } catch {}
-        })
-      }
-
       setChartsReady(true)
     })
 
@@ -337,6 +331,21 @@ export function InteractiveChart({ history }: { history: SubReturn[] }) {
       } catch {}
     })
   }, [chartsReady, subKeys]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  // ── 4. Apply initial visible range after all series are ready ──
+  const initialApplied = useRef(false)
+  useEffect(() => {
+    if (!chartsReady || initialApplied.current) return
+    initialApplied.current = true
+    // Delay so sub-indicator effects also fire first
+    setTimeout(() => {
+      if (!latestDate || !chartsRef.current.length) return
+      const from = rangeFrom('1Y', latestDate)
+      chartsRef.current.forEach(c => {
+        try { c.timeScale().setVisibleRange({ from, to: latestDate } as any) } catch {}
+      })
+    }, 50)
+  }, [chartsReady]) // eslint-disable-line react-hooks/exhaustive-deps
 
   // ── Time range ────────────────────────────────────────────
   const applyRange = (range: TimeRange) => {

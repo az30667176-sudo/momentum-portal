@@ -6,7 +6,7 @@ import { StockReturn, StockInfo, SubReturn } from '@/lib/types'
 
 // ─── Types ───────────────────────────────────────────────────
 
-type TimeRange = '1M' | '3M' | '6M' | 'YTD' | '1Y' | 'ALL'
+type TimeRange = '1M' | '3M' | '6M' | 'YTD' | '1Y' | '2Y' | '3Y' | 'ALL'
 type SubKey = 'rank_in_sub' | 'mom_score' | 'rvol' | 'obv_trend' | 'ret_1d'
 interface MAConfig { period: number; color: string; id: number }
 
@@ -23,7 +23,7 @@ const MA_PALETTE = [
   '#ec4899', '#14b8a6', '#f59e0b', '#ef4444',
 ]
 
-const RANGES: TimeRange[] = ['1M', '3M', '6M', 'YTD', '1Y', 'ALL']
+const RANGES: TimeRange[] = ['1M', '3M', '6M', 'YTD', '1Y', '2Y', '3Y', 'ALL']
 
 const STOCK_SUB_OPTIONS: { key: SubKey; label: string }[] = [
   { key: 'rank_in_sub', label: 'Sub Rank' },
@@ -42,23 +42,7 @@ function fmt(v: number | null, decimals = 1, suffix = '%'): string {
 
 function retColor(v: number | null) {
   if (v == null) return 'text-gray-500'
-  return v >= 0 ? 'text-green-600 dark:text-green-400' : 'text-red-500 dark:text-red-400'
-}
-
-function buildOHLC(history: StockReturn[]) {
-  let idx = 100
-  return history.map(r => {
-    const prev = idx
-    idx = prev * (1 + (r.ret_1d || 0) / 100)
-    const noise = Math.abs(r.ret_1d || 0) * 0.15
-    return {
-      time:  r.date,
-      open:  prev,
-      close: idx,
-      high:  Math.max(prev, idx) * (1 + noise / 100),
-      low:   Math.min(prev, idx) * (1 - noise / 100),
-    }
-  })
+  return v >= 0 ? 'text-green-600' : 'text-red-500'
 }
 
 function calcMA(closes: { time: string; value: number }[], period: number) {
@@ -77,6 +61,8 @@ function rangeFrom(range: TimeRange, latest: string): string {
   else if (range === '6M')  d.setMonth(d.getMonth() - 6)
   else if (range === 'YTD') { d.setMonth(0); d.setDate(1) }
   else if (range === '1Y')  d.setFullYear(d.getFullYear() - 1)
+  else if (range === '2Y')  d.setFullYear(d.getFullYear() - 2)
+  else if (range === '3Y')  d.setFullYear(d.getFullYear() - 3)
   else return '2000-01-01'
   return d.toISOString().slice(0, 10)
 }
@@ -132,7 +118,7 @@ function stockSubLineColor(key: SubKey) {
 
 // ─── StockChart ───────────────────────────────────────────────
 
-function StockChart({ history }: { history: StockReturn[] }) {
+function StockChart({ ticker, history }: { ticker: string; history: StockReturn[] }) {
   const containerRef = useRef<HTMLDivElement>(null)
   const mainRef      = useRef<HTMLDivElement>(null)
   const sub1Ref      = useRef<HTMLDivElement>(null)
@@ -143,8 +129,10 @@ function StockChart({ history }: { history: StockReturn[] }) {
   const primaryRef   = useRef<(any | null)[]>([null, null, null, null])
   const maSeriesRef  = useRef<Map<number, any>>(new Map())
   const subSeriesRef = useRef<(any | null)[]>([null, null, null])
+  const candleRef    = useRef<any>(null)
 
   const [chartsReady, setChartsReady] = useState(false)
+  const [priceData, setPriceData] = useState<{ time: string; value: number }[] | null>(null)
   const [maConfigs, setMaConfigs] = useState<MAConfig[]>([
     { period: 5,  color: MA_PALETTE[0], id: 0 },
     { period: 10, color: MA_PALETTE[1], id: 1 },
@@ -157,9 +145,17 @@ function StockChart({ history }: { history: StockReturn[] }) {
   const [nextId, setNextId]       = useState(3)
 
   const maxRank    = useRef(Math.max(...history.map(r => r.rank_in_sub ?? 0), 10))
-  const ohlcData   = useRef(buildOHLC(history))
-  const closeData  = useRef(ohlcData.current.map(d => ({ time: d.time, value: d.close })))
   const latestDate = history[history.length - 1]?.date ?? ''
+
+  // ── Fetch actual stock prices from Yahoo ─────────────────
+  useEffect(() => {
+    fetch(`/api/stock-prices?ticker=${encodeURIComponent(ticker)}&range=3y`)
+      .then(r => r.json())
+      .then(d => {
+        if (d.prices?.length) setPriceData(d.prices)
+      })
+      .catch(() => {})
+  }, [ticker])
 
   // ── Mount: create chart instances ──────────────────────────
   useEffect(() => {
@@ -188,13 +184,15 @@ function StockChart({ history }: { history: StockReturn[] }) {
       const all = [mainChart, s1Chart, s2Chart, s3Chart]
       chartsRef.current = all
 
-      const candle = mainChart.addCandlestickSeries({
-        upColor:       '#22c55e', downColor:       '#ef4444',
-        borderUpColor: '#16a34a', borderDownColor: '#dc2626',
-        wickUpColor:   '#16a34a', wickDownColor:   '#dc2626',
+      // Add line series for price (will be filled when priceData arrives)
+      const priceLine = mainChart.addLineSeries({
+        color: '#10b981',
+        lineWidth: 2,
+        priceLineVisible: true,
+        lastValueVisible: true,
       })
-      candle.setData(ohlcData.current as any)
-      primaryRef.current[0] = candle
+      candleRef.current = priceLine
+      primaryRef.current[0] = priceLine
 
       // Sync time scale
       let syncing = false
@@ -230,14 +228,6 @@ function StockChart({ history }: { history: StockReturn[] }) {
       if (containerRef.current) ro.observe(containerRef.current)
       ;(chartsRef as any)._ro = ro
 
-      // Initial range
-      if (latestDate) {
-        const from = rangeFrom('1Y', latestDate)
-        all.forEach(c => {
-          try { c.timeScale().setVisibleRange({ from, to: latestDate } as any) } catch {}
-        })
-      }
-
       setChartsReady(true)
     })
 
@@ -249,13 +239,31 @@ function StockChart({ history }: { history: StockReturn[] }) {
       maSeriesRef.current.clear()
       subSeriesRef.current = [null, null, null]
       primaryRef.current   = [null, null, null, null]
+      candleRef.current    = null
     }
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
+  // ── Update price data when it arrives ─────────────────────
+  useEffect(() => {
+    if (!chartsReady || !priceData?.length || !candleRef.current) return
+    try {
+      candleRef.current.setData(priceData as any)
+    } catch {}
+    // Apply initial range after price data is set
+    setTimeout(() => {
+      if (!chartsRef.current.length) return
+      const last = priceData[priceData.length - 1].time
+      const from = rangeFrom('1Y', last)
+      chartsRef.current.forEach(c => {
+        try { c.timeScale().setVisibleRange({ from, to: last } as any) } catch {}
+      })
+    }, 50)
+  }, [chartsReady, priceData])
 
   // ── Rebuild MA series ────────────────────────────────────
   useEffect(() => {
     const mainChart = chartsRef.current[0]
-    if (!chartsReady || !mainChart) return
+    if (!chartsReady || !mainChart || !priceData?.length) return
     maSeriesRef.current.forEach(s => { try { mainChart.removeSeries(s) } catch {} })
     maSeriesRef.current.clear()
     maConfigs.forEach(({ period, color, id }) => {
@@ -264,11 +272,11 @@ function StockChart({ history }: { history: StockReturn[] }) {
           color, lineWidth: 1,
           priceLineVisible: false, lastValueVisible: false, crossHairMarkerVisible: false,
         })
-        s.setData(calcMA(closeData.current, period) as any)
+        s.setData(calcMA(priceData, period) as any)
         maSeriesRef.current.set(id, s)
       } catch {}
     })
-  }, [chartsReady, maConfigs])
+  }, [chartsReady, maConfigs, priceData])
 
   // ── Rebuild sub-indicator series ────────────────────────
   useEffect(() => {
@@ -312,13 +320,14 @@ function StockChart({ history }: { history: StockReturn[] }) {
 
   const applyRange = (range: TimeRange) => {
     setActive(range)
-    if (!latestDate || !chartsRef.current.length) return
+    const ref = priceData?.length ? priceData[priceData.length - 1].time : latestDate
+    if (!ref || !chartsRef.current.length) return
     if (range === 'ALL') {
       chartsRef.current.forEach(c => { try { c.timeScale().fitContent() } catch {} })
     } else {
-      const from = rangeFrom(range, latestDate)
+      const from = rangeFrom(range, ref)
       chartsRef.current.forEach(c => {
-        try { c.timeScale().setVisibleRange({ from, to: latestDate } as any) } catch {}
+        try { c.timeScale().setVisibleRange({ from, to: ref } as any) } catch {}
       })
     }
   }
@@ -335,10 +344,10 @@ function StockChart({ history }: { history: StockReturn[] }) {
   const subRefs = [sub1Ref, sub2Ref, sub3Ref]
 
   return (
-    <div ref={containerRef} className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
+    <div ref={containerRef} className="bg-white rounded-lg border border-gray-200 overflow-hidden">
 
       {/* Controls: time range + MA settings */}
-      <div className="flex items-center justify-between px-4 py-2 border-b border-gray-100 dark:border-gray-700 flex-wrap gap-2">
+      <div className="flex items-center justify-between px-4 py-2 border-b border-gray-100 flex-wrap gap-2">
         <div className="flex gap-1">
           {RANGES.map(r => (
             <button
@@ -347,7 +356,7 @@ function StockChart({ history }: { history: StockReturn[] }) {
               className={`px-2.5 py-1 text-xs rounded font-medium transition-colors ${
                 activeRange === r
                   ? 'bg-emerald-500 text-white'
-                  : 'text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700'
+                  : 'text-gray-500 hover:bg-gray-100'
               }`}
             >
               {r}
@@ -356,7 +365,7 @@ function StockChart({ history }: { history: StockReturn[] }) {
         </div>
         <button
           onClick={() => setMaPanel(p => !p)}
-          className="text-xs text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 px-2 py-1 rounded border border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700"
+          className="text-xs text-gray-500 hover:text-gray-700 px-2 py-1 rounded border border-gray-200 hover:bg-gray-50"
         >
           均線設定 ⚙
         </button>
@@ -364,7 +373,7 @@ function StockChart({ history }: { history: StockReturn[] }) {
 
       {/* MA panel */}
       {showMaPanel && (
-        <div className="px-4 py-2 border-b border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 flex flex-wrap items-center gap-2">
+        <div className="px-4 py-2 border-b border-gray-100 bg-gray-50 flex flex-wrap items-center gap-2">
           {maConfigs.map(ma => (
             <span
               key={ma.id}
@@ -383,11 +392,11 @@ function StockChart({ history }: { history: StockReturn[] }) {
               onKeyDown={e => e.key === 'Enter' && addMA()}
               placeholder="天數"
               min={1} max={500}
-              className="w-16 text-xs border border-gray-300 dark:border-gray-600 rounded px-2 py-0.5 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 focus:outline-none focus:border-emerald-400"
+              className="w-16 text-xs border border-gray-300 rounded px-2 py-0.5 bg-white text-gray-700 focus:outline-none focus:border-emerald-400"
             />
             <button
               onClick={addMA}
-              className="text-xs text-emerald-500 hover:text-emerald-600 font-medium px-2 py-0.5 rounded hover:bg-emerald-50 dark:hover:bg-emerald-950"
+              className="text-xs text-emerald-500 hover:text-emerald-600 font-medium px-2 py-0.5 rounded hover:bg-emerald-50"
             >
               + 新增
             </button>
@@ -398,15 +407,15 @@ function StockChart({ history }: { history: StockReturn[] }) {
       {/* Main chart */}
       <div className="relative">
         <span className="absolute top-2 left-2 z-10 text-[10px] text-gray-400 uppercase tracking-wide pointer-events-none">
-          Price Index · base=100
+          {ticker} · {priceData ? 'USD' : '載入中...'}
         </span>
         <div ref={mainRef} />
       </div>
 
       {/* Sub-indicator panels */}
       {subRefs.map((ref, i) => (
-        <div key={i} className="border-t border-gray-100 dark:border-gray-700">
-          <div className="flex items-center gap-2 px-3 py-1 bg-gray-50 dark:bg-gray-900">
+        <div key={i} className="border-t border-gray-100">
+          <div className="flex items-center gap-2 px-3 py-1 bg-gray-50">
             <select
               value={subKeys[i]}
               onChange={e => {
@@ -414,7 +423,7 @@ function StockChart({ history }: { history: StockReturn[] }) {
                 next[i] = e.target.value as SubKey
                 setSubKeys(next)
               }}
-              className="text-xs bg-transparent border-none text-gray-600 dark:text-gray-300 cursor-pointer focus:outline-none font-medium"
+              className="text-xs bg-transparent border-none text-gray-600 cursor-pointer focus:outline-none font-medium"
             >
               {STOCK_SUB_OPTIONS.map(o => (
                 <option key={o.key} value={o.key}>{o.label}</option>
@@ -460,18 +469,18 @@ export function StockDetail({ info, history, subReturn }: Props) {
       {/* Title row */}
       <div className="flex flex-wrap items-start justify-between gap-4 mb-6">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white tracking-tight">
+          <h1 className="text-3xl font-bold text-gray-900 tracking-tight">
             {info.ticker}
           </h1>
           <p className="text-sm text-gray-500 mt-1">{info.company}</p>
           <div className="flex flex-wrap gap-2 mt-2">
             {info.index_member && (
-              <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-900 dark:text-emerald-300">
+              <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700">
                 {info.index_member}
               </span>
             )}
             {info.sector && (
-              <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300">
+              <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-gray-100 text-gray-700">
                 {info.sector}
               </span>
             )}
@@ -486,9 +495,9 @@ export function StockDetail({ info, history, subReturn }: Props) {
             { label: '3M',        value: fmt(latest.ret_3m),  colorVal: latest.ret_3m },
             { label: 'Mom Score', value: latest.mom_score != null ? latest.mom_score.toFixed(1) : '—', colorVal: null },
           ].map(({ label, value, colorVal }) => (
-            <div key={label} className="rounded-lg p-3 text-center bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 min-w-[72px]">
+            <div key={label} className="rounded-lg p-3 text-center bg-white border border-gray-200 min-w-[72px]">
               <div className="text-[10px] text-gray-500 uppercase tracking-wide">{label}</div>
-              <div className={`text-base font-bold mt-0.5 ${colorVal != null ? retColor(colorVal) : 'text-gray-800 dark:text-gray-200'}`}>
+              <div className={`text-base font-bold mt-0.5 ${colorVal != null ? retColor(colorVal) : 'text-gray-800'}`}>
                 {value}
               </div>
             </div>
@@ -500,9 +509,9 @@ export function StockDetail({ info, history, subReturn }: Props) {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
 
         {/* Sub-industry internal rank */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4">
+        <div className="bg-white rounded-lg border border-gray-200 p-4">
           <div className="text-[10px] text-gray-500 uppercase tracking-wide mb-2">Sub-industry 內排名</div>
-          <div className="text-2xl font-bold text-gray-900 dark:text-white">
+          <div className="text-2xl font-bold text-gray-900">
             #{latest.rank_in_sub ?? '—'}
             {stockCount != null && (
               <span className="text-sm font-normal text-gray-400 ml-1">/ {stockCount} 股</span>
@@ -515,7 +524,7 @@ export function StockDetail({ info, history, subReturn }: Props) {
           )}
           {latest.rank_in_sub != null && stockCount != null && (
             <div className="mt-3">
-              <div className="h-1.5 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
+              <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
                 <div
                   className="h-full bg-emerald-500 rounded-full transition-all"
                   style={{ width: `${Math.max(4, stockTopPct ?? 0)}%` }}
@@ -527,16 +536,16 @@ export function StockDetail({ info, history, subReturn }: Props) {
         </div>
 
         {/* Sub-industry market rank */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4">
+        <div className="bg-white rounded-lg border border-gray-200 p-4">
           <div className="text-[10px] text-gray-500 uppercase tracking-wide mb-2">板塊在全市場排名</div>
-          <div className="text-2xl font-bold text-gray-900 dark:text-white">
+          <div className="text-2xl font-bold text-gray-900">
             #{subRank ?? '—'}
             <span className="text-sm font-normal text-gray-400 ml-1">/ 155</span>
           </div>
           <div className="text-xs text-gray-500 mt-1">{info.sub_industry ?? '—'}</div>
           {subRank != null && (
             <div className="mt-3">
-              <div className="h-1.5 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
+              <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
                 <div
                   className="h-full bg-purple-500 rounded-full transition-all"
                   style={{ width: `${Math.max(4, subRankTopPct ?? 0)}%` }}
@@ -550,10 +559,10 @@ export function StockDetail({ info, history, subReturn }: Props) {
 
       {/* Chart */}
       <div className="mb-6">
-        <h2 className="text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wide mb-2">
-          Price Index · {info.ticker}
+        <h2 className="text-xs font-semibold text-gray-600 uppercase tracking-wide mb-2">
+          {info.ticker} · 股價走勢
         </h2>
-        <StockChart history={history} />
+        <StockChart ticker={info.ticker} history={history} />
       </div>
 
     </div>

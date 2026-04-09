@@ -60,7 +60,7 @@ export async function getSubHistory(gicsCode: string): Promise<SubReturn[]> {
     `)
     .eq('gics_code', gicsCode)
     .order('date', { ascending: false })
-    .limit(260)
+    .limit(780)
 
   if (error) {
     console.error('getSubHistory error:', error)
@@ -215,10 +215,10 @@ export async function getStockHistory(ticker: string): Promise<StockReturn[]> {
 
   const { data, error } = await supabase
     .from('daily_stock_returns')
-    .select('date, ticker, gics_code, ret_1d, ret_1w, ret_1m, ret_3m, mom_score, rank_in_sub, rvol, obv_trend')
+    .select('date, ticker, gics_code, ret_1d, ret_1w, ret_1m, ret_3m, ret_6m, ret_12m, mom_score, rank_in_sub, rvol, obv_trend')
     .eq('ticker', ticker)
     .order('date', { ascending: false })
-    .limit(260)
+    .limit(780)
 
   if (error) {
     console.error('getStockHistory error:', error)
