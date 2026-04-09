@@ -28,7 +28,7 @@ export function NavBar() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5 shrink-0">
             <LogoIcon className="w-8 h-8" />
-            <span className="text-lg font-bold text-gray-900 tracking-tight hidden sm:block">
+            <span className="text-lg font-bold text-gray-900 tracking-tight">
               Sector Pulse
             </span>
           </Link>

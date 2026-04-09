@@ -87,12 +87,12 @@ export function StockRanking({ subData, stockData, heatmapEntries = [], heatmapD
 
   const modeBtnCls = (m: Mode) =>
     `px-4 py-2 text-sm font-medium rounded-lg transition-colors ${
-      mode === m ? 'bg-emerald-600 text-white' : 'bg-gray-100 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+      mode === m ? 'bg-emerald-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
     }`
 
   const ColHeader = ({ col, label }: { col: SortCol; label: string }) => (
     <th
-      className="px-3 py-2 text-left text-xs font-medium text-gray-600 dark:text-gray-300 cursor-pointer select-none hover:text-emerald-600 whitespace-nowrap"
+      className="px-3 py-2 text-left text-xs font-medium text-gray-600 cursor-pointer select-none hover:text-emerald-600 whitespace-nowrap"
       onClick={() => handleSort(col)}
     >
       {label}{' '}
@@ -104,7 +104,7 @@ export function StockRanking({ subData, stockData, heatmapEntries = [], heatmapD
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">個股排名</h1>
+      <h1 className="text-2xl font-bold text-gray-900 mb-4">個股排名</h1>
 
       {/* Mode tabs */}
       <div className="flex gap-2 mb-4 flex-wrap">
@@ -129,8 +129,8 @@ export function StockRanking({ subData, stockData, heatmapEntries = [], heatmapD
                 <button key={f} onClick={() => { setIndexFilter(f); setPage(0) }}
                   className={`px-3 py-1.5 text-xs rounded font-medium transition-colors ${
                     indexFilter === f
-                      ? 'bg-gray-700 dark:bg-gray-300 text-white dark:text-gray-900'
-                      : 'bg-gray-100 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-600'
+                      ? 'bg-gray-700 text-white'
+                      : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                   }`}>
                   {f === 'all' ? '全部' : f}
                 </button>
@@ -139,21 +139,21 @@ export function StockRanking({ subData, stockData, heatmapEntries = [], heatmapD
             <input
               type="text" placeholder="搜尋 Ticker / 公司名..."
               value={search} onChange={e => { setSearch(e.target.value); setPage(0) }}
-              className="px-3 py-1.5 text-sm border border-gray-300 dark:border-gray-600 rounded bg-white dark:text-white w-52"
+              className="px-3 py-1.5 text-sm border border-gray-300 rounded bg-white text-gray-900 w-52"
             />
             <span className="text-sm text-gray-500">{sorted.length} 檔</span>
           </div>
 
           {/* Table */}
-          <div className="overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-700">
+          <div className="overflow-x-auto rounded-lg border border-gray-200">
             <table className="w-full text-sm">
               <thead className="bg-gray-50 sticky top-0">
                 <tr>
-                  <th className="px-3 py-2 text-left text-xs font-medium text-gray-600 dark:text-gray-300 w-8">#</th>
-                  <th className="px-3 py-2 text-left text-xs font-medium text-gray-600 dark:text-gray-300">Ticker</th>
-                  <th className="px-3 py-2 text-left text-xs font-medium text-gray-600 dark:text-gray-300">公司名</th>
-                  <th className="px-3 py-2 text-left text-xs font-medium text-gray-600 dark:text-gray-300">Sector</th>
-                  <th className="px-3 py-2 text-left text-xs font-medium text-gray-600 dark:text-gray-300">Sub-industry</th>
+                  <th className="px-3 py-2 text-left text-xs font-medium text-gray-600 w-8">#</th>
+                  <th className="px-3 py-2 text-left text-xs font-medium text-gray-600">Ticker</th>
+                  <th className="px-3 py-2 text-left text-xs font-medium text-gray-600">公司名</th>
+                  <th className="px-3 py-2 text-left text-xs font-medium text-gray-600">Sector</th>
+                  <th className="px-3 py-2 text-left text-xs font-medium text-gray-600">Sub-industry</th>
                   <ColHeader col="1w"  label="1W" />
                   <ColHeader col="1m"  label="1M" />
                   <ColHeader col="3m"  label="3M" />
@@ -167,15 +167,15 @@ export function StockRanking({ subData, stockData, heatmapEntries = [], heatmapD
                   const rank = page * PAGE_SIZE + i
                   const momVal = getMom(s)
                   return (
-                    <tr key={s.ticker} className="border-t border-gray-100 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800">
+                    <tr key={s.ticker} className="border-t border-gray-100 hover:bg-gray-50">
                       <td className="px-3 py-2 text-gray-400 text-xs">{rank + 1}</td>
                       <td className="px-3 py-2">
                         <Link href={`/stock/${s.ticker}`} className="text-emerald-600 hover:underline font-medium">{s.ticker}</Link>
                       </td>
-                      <td className="px-3 py-2 text-gray-700 dark:text-gray-300 max-w-[140px] truncate text-xs">{getCompany(s)}</td>
+                      <td className="px-3 py-2 text-gray-700 max-w-[140px] truncate text-xs">{getCompany(s)}</td>
                       <td className="px-3 py-2 text-gray-500 text-xs max-w-[100px] truncate">{getSector(s)}</td>
                       <td className="px-3 py-2 text-xs">
-                        <Link href={`/sub/${s.gics_code}`} className="text-gray-600 dark:text-gray-400 hover:text-emerald-600 hover:underline">
+                        <Link href={`/sub/${s.gics_code}`} className="text-gray-600 hover:text-emerald-600 hover:underline">
                           {getSubIndustry(s)}
                         </Link>
                       </td>
@@ -197,10 +197,10 @@ export function StockRanking({ subData, stockData, heatmapEntries = [], heatmapD
           {/* Pagination */}
           <div className="flex items-center justify-between mt-3">
             <button onClick={() => setPage(p => Math.max(0, p - 1))} disabled={page === 0}
-              className="px-3 py-1.5 text-sm bg-gray-100 rounded disabled:opacity-40 hover:bg-gray-200 dark:hover:bg-gray-600">← 上一頁</button>
-            <span className="text-sm text-gray-600 dark:text-gray-400">第 {page + 1} / {totalPages} 頁</span>
+              className="px-3 py-1.5 text-sm bg-gray-100 rounded disabled:opacity-40 hover:bg-gray-200">← 上一頁</button>
+            <span className="text-sm text-gray-600">第 {page + 1} / {totalPages} 頁</span>
             <button onClick={() => setPage(p => Math.min(totalPages - 1, p + 1))} disabled={page >= totalPages - 1}
-              className="px-3 py-1.5 text-sm bg-gray-100 rounded disabled:opacity-40 hover:bg-gray-200 dark:hover:bg-gray-600">下一頁 →</button>
+              className="px-3 py-1.5 text-sm bg-gray-100 rounded disabled:opacity-40 hover:bg-gray-200">下一頁 →</button>
           </div>
         </>
       )}
