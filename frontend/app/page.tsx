@@ -34,57 +34,90 @@ export default async function LandingPage() {
     .map(([sector, { sum, n }]) => ({ sector, ret: sum / n }))
     .sort((a, b) => b.ret - a.ret)
 
+  const maxAbsRet = Math.max(...sectorPerf.map(s => Math.abs(s.ret)), 1)
+
   return (
     <main className="min-h-screen bg-white">
-      {/* Hero */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-slate-900 to-slate-800">
+      {/* Hero — 2-column on desktop */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-900">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute inset-0" style={{
             backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.15) 1px, transparent 0)',
             backgroundSize: '40px 40px'
           }} />
         </div>
-        <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
-          <div className="flex items-center gap-3 mb-6">
-            <LogoIcon className="w-10 h-10" />
-            <span className="text-xl font-bold text-white tracking-tight">Sector Pulse</span>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            {/* Left: text */}
+            <div>
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight">
+                S&P 1500 板塊輪動<br />量化研究平台
+              </h1>
+              <p className="mt-5 text-base sm:text-lg text-slate-300 leading-relaxed max-w-xl">
+                每日追蹤 155 個 GICS Sub-Industry 的動能排名、成交量訊號與風險指標，
+                結合 Sector Rotation 策略回測引擎，從板塊定位到個股篩選一站完成。
+              </p>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <Link
+                  href="/sectors"
+                  className="inline-flex items-center px-6 py-3 rounded-lg bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition-colors"
+                >
+                  開始探索產業
+                  <svg className="ml-2 w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+                </Link>
+                <Link
+                  href="/backtest"
+                  className="inline-flex items-center px-6 py-3 rounded-lg bg-white/10 text-white text-sm font-semibold hover:bg-white/20 transition-colors border border-white/20"
+                >
+                  策略回測
+                </Link>
+              </div>
+              {latestDate && (
+                <p className="mt-6 text-xs text-slate-500">
+                  資料截至 {latestDate} · 每日美東收盤後自動更新
+                </p>
+              )}
+            </div>
+
+            {/* Right: live stats panel */}
+            <div className="hidden lg:block">
+              <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6">
+                <div className="text-xs font-semibold text-blue-400 uppercase tracking-wider mb-4">
+                  即時板塊概覽
+                </div>
+                <div className="grid grid-cols-3 gap-4 mb-6">
+                  <StatTile label="追蹤產業" value="155" />
+                  <StatTile label="追蹤個股" value="1,500+" />
+                  <StatTile label="回測歷史" value="3 年" />
+                </div>
+                <div className="space-y-2">
+                  {sectorPerf.slice(0, 5).map(({ sector, ret }) => (
+                    <div key={sector} className="flex items-center gap-3">
+                      <span className="w-28 text-xs text-slate-300 truncate shrink-0">{sector}</span>
+                      <div className="flex-1 h-4 bg-white/5 rounded-full relative overflow-hidden">
+                        <div
+                          className={`absolute top-0 h-full rounded-full ${ret >= 0 ? 'bg-emerald-500/70 left-1/2' : 'bg-red-400/70 right-1/2'}`}
+                          style={{ width: `${Math.min((Math.abs(ret) / maxAbsRet) * 50, 50)}%` }}
+                        />
+                      </div>
+                      <span className={`text-xs font-mono w-14 text-right ${ret >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
+                        {ret >= 0 ? '+' : ''}{ret.toFixed(2)}%
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
-          <h1 className="text-3xl sm:text-5xl font-bold text-white leading-tight max-w-3xl">
-            S&P 1500 板塊輪動<br className="hidden sm:block" />量化研究平台
-          </h1>
-          <p className="mt-5 text-lg sm:text-xl text-slate-300 leading-relaxed max-w-2xl">
-            每日追蹤 155 個 GICS Sub-Industry 的動能排名、成交量訊號與風險指標,
-            結合 Sector Rotation 策略回測引擎,從板塊定位到個股篩選一站完成。
-          </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Link
-              href="/sectors"
-              className="inline-flex items-center px-5 py-2.5 rounded-lg bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition-colors"
-            >
-              開始探索產業
-              <svg className="ml-2 w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
-            </Link>
-            <Link
-              href="/backtest"
-              className="inline-flex items-center px-5 py-2.5 rounded-lg bg-white/10 text-white text-sm font-semibold hover:bg-white/20 transition-colors border border-white/20"
-            >
-              策略回測
-            </Link>
-          </div>
-          {latestDate && (
-            <p className="mt-6 text-xs text-slate-500">
-              資料截至 {latestDate} · 每日美東收盤後自動更新
-            </p>
-          )}
         </div>
       </section>
 
-      {/* Spotlight */}
-      <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+      {/* Spotlight — 3-column on desktop */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
         <h2 className="text-xs font-semibold text-blue-600 uppercase tracking-wider mb-1">Spotlight</h2>
         <p className="text-2xl sm:text-3xl font-bold text-gray-900 mb-8">本週焦點</p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Weekly report card */}
           {latestWeekly && (
             <Link
@@ -97,7 +130,7 @@ export default async function LandingPage() {
               <h3 className="text-lg font-bold text-gray-900 group-hover:text-blue-700 transition-colors">
                 {latestWeekly.title}
               </h3>
-              <p className="mt-2 text-sm text-gray-600 leading-relaxed line-clamp-2">
+              <p className="mt-2 text-sm text-gray-600 leading-relaxed line-clamp-3">
                 {latestWeekly.subtitle}
               </p>
               <div className="mt-4 text-xs text-gray-400">{latestWeekly.date}</div>
@@ -135,23 +168,53 @@ export default async function LandingPage() {
               查看完整 155 產業 →
             </Link>
           </div>
-        </div>
 
-        {/* Sector heatbar */}
-        <div className="mt-8 rounded-xl border border-gray-200 bg-white p-6">
-          <div className="text-xs font-semibold text-blue-600 uppercase tracking-wider mb-4">
-            11 大板塊本週表現
+          {/* Quick stats / data highlights */}
+          <div className="rounded-xl border border-gray-200 bg-white p-6">
+            <div className="text-xs font-semibold text-blue-600 uppercase tracking-wider mb-4">
+              平台數據
+            </div>
+            <div className="space-y-4">
+              <div className="flex items-center justify-between border-b border-gray-100 pb-3">
+                <span className="text-sm text-gray-500">覆蓋指數</span>
+                <span className="text-sm font-semibold text-gray-900">S&P 500 / 400 / 600</span>
+              </div>
+              <div className="flex items-center justify-between border-b border-gray-100 pb-3">
+                <span className="text-sm text-gray-500">GICS 次產業</span>
+                <span className="text-sm font-semibold text-gray-900">155 個</span>
+              </div>
+              <div className="flex items-center justify-between border-b border-gray-100 pb-3">
+                <span className="text-sm text-gray-500">追蹤個股</span>
+                <span className="text-sm font-semibold text-gray-900">~1,500 檔</span>
+              </div>
+              <div className="flex items-center justify-between border-b border-gray-100 pb-3">
+                <span className="text-sm text-gray-500">資料頻率</span>
+                <span className="text-sm font-semibold text-gray-900">每日盤後更新</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-gray-500">回測深度</span>
+                <span className="text-sm font-semibold text-gray-900">3 年歷史</span>
+              </div>
+            </div>
           </div>
-          <div className="space-y-2">
+        </div>
+      </section>
+
+      {/* 11 Sector performance — 2-column bar layout on desktop */}
+      <section className="bg-gray-50 border-t border-gray-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
+          <h2 className="text-xs font-semibold text-blue-600 uppercase tracking-wider mb-1">Sector Performance</h2>
+          <p className="text-2xl sm:text-3xl font-bold text-gray-900 mb-8">11 大板塊本週表現</p>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-3">
             {sectorPerf.map(({ sector, ret }) => (
               <div key={sector} className="flex items-center gap-3">
-                <span className="w-32 sm:w-40 text-xs font-medium text-gray-700 truncate shrink-0">{sector}</span>
-                <div className="flex-1 h-5 bg-gray-100 rounded-full relative overflow-hidden">
+                <span className="w-36 xl:w-44 text-sm font-medium text-gray-700 truncate shrink-0">{sector}</span>
+                <div className="flex-1 h-6 bg-gray-200 rounded-full relative overflow-hidden">
                   <div
-                    className={`absolute top-0 h-full rounded-full ${ret >= 0 ? 'bg-emerald-500 left-1/2' : 'bg-red-400 right-1/2'}`}
-                    style={{ width: `${Math.min(Math.abs(ret) * 5, 50)}%` }}
+                    className={`absolute top-0 h-full rounded-full transition-all ${ret >= 0 ? 'bg-emerald-500 left-1/2' : 'bg-red-400 right-1/2'}`}
+                    style={{ width: `${Math.min((Math.abs(ret) / maxAbsRet) * 50, 50)}%` }}
                   />
-                  <div className="absolute inset-0 flex items-center justify-center text-[10px] font-semibold text-gray-700">
+                  <div className="absolute inset-0 flex items-center justify-center text-xs font-semibold text-gray-700">
                     {ret >= 0 ? '+' : ''}{ret.toFixed(2)}%
                   </div>
                 </div>
@@ -161,36 +224,36 @@ export default async function LandingPage() {
         </div>
       </section>
 
-      {/* Section links */}
-      <section className="bg-slate-50 border-t border-gray-200">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+      {/* Section links — 4-column on desktop */}
+      <section className="border-t border-gray-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
           <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">平台功能</h2>
           <p className="text-sm text-gray-500 mb-8">點擊任一張卡片直接前往</p>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5">
             <SectionCard
               href="/sectors"
               icon={<GridIcon />}
               title="產業總覽"
-              desc="155 格 Sub-Industry Heatmap,一眼掃完哪些板塊在領漲、哪些在掉隊。依 Sector 分群顯示,支援 1D / 1W / 1M / 3M 多時間窗口切換。"
+              desc="155 格 Sub-Industry Heatmap，一眼掃完哪些板塊在領漲、哪些在掉隊。"
             />
             <SectionCard
               href="/stocks"
               icon={<RankIcon />}
               title="個股排名"
-              desc="S&P 1500 全部個股的動能排名、報酬率、成交量強度。依 Sub-Industry 分類檢視或直接排序,找到板塊裡最強的那幾檔。"
+              desc="S&P 1500 全部個股的動能排名、報酬率、成交量強度，找到板塊裡最強的股票。"
             />
             <SectionCard
               href="/backtest"
               icon={<BacktestIcon />}
               title="回測專區"
-              desc="自訂 Sector Rotation 策略:篩選條件、再平衡頻率、權重方式、停損停利。一鍵回測 3 年歷史,還有即時訊號掃描跟 Preset 管理。"
+              desc="自訂 Sector Rotation 策略，一鍵回測 3 年歷史，即時訊號掃描跟 Preset 管理。"
             />
             <SectionCard
               href="/research"
               icon={<ResearchIcon />}
               title="研究分享"
-              desc="每週輪動觀察報告 + 個股深度 Memo。結合 Portal 的量化訊號與公開新聞,提供可追蹤的 thesis 和 catalyst calendar。"
+              desc="每週輪動觀察報告 + 個股深度 Memo，結合量化訊號與公開新聞的可追蹤研究。"
             />
           </div>
         </div>
@@ -198,13 +261,13 @@ export default async function LandingPage() {
 
       {/* Footer */}
       <footer className="border-t border-gray-200 bg-white">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
             <LogoIcon className="w-6 h-6" />
             <span className="text-sm font-semibold text-gray-700">Sector Pulse</span>
           </div>
           <p className="text-xs text-gray-400 text-center">
-            本站所有資料僅供研究參考,不構成投資建議。資料來源:S&P 1500 公開市場數據。
+            本站所有資料僅供研究參考，不構成投資建議。資料來源：S&P 1500 公開市場數據。
           </p>
         </div>
       </footer>
@@ -212,19 +275,26 @@ export default async function LandingPage() {
   )
 }
 
+function StatTile({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="text-center">
+      <div className="text-2xl font-bold text-white">{value}</div>
+      <div className="text-[11px] text-slate-400 mt-1">{label}</div>
+    </div>
+  )
+}
+
 function SectionCard({ href, icon, title, desc }: { href: string; icon: React.ReactNode; title: string; desc: string }) {
   return (
     <Link
       href={href}
-      className="group flex gap-4 rounded-xl border border-gray-200 bg-white p-5 hover:shadow-lg hover:border-blue-200 transition-all"
+      className="group flex flex-col rounded-xl border border-gray-200 bg-white p-5 hover:shadow-lg hover:border-blue-200 transition-all"
     >
-      <div className="w-10 h-10 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 group-hover:bg-blue-100 transition-colors">
+      <div className="w-10 h-10 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 group-hover:bg-blue-100 transition-colors mb-3">
         {icon}
       </div>
-      <div>
-        <h3 className="text-base font-bold text-gray-900 group-hover:text-blue-700 transition-colors">{title}</h3>
-        <p className="mt-1 text-sm text-gray-500 leading-relaxed">{desc}</p>
-      </div>
+      <h3 className="text-base font-bold text-gray-900 group-hover:text-blue-700 transition-colors">{title}</h3>
+      <p className="mt-1 text-sm text-gray-500 leading-relaxed">{desc}</p>
     </Link>
   )
 }

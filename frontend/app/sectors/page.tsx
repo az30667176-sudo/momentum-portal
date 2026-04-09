@@ -12,7 +12,7 @@ export default async function SectorsPage() {
   ])
 
   return (
-    <main className="min-h-screen bg-gray-50">
+    <main className="min-h-screen bg-gray-50 max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
       <Heatmap data={data} latestDate={latestDate} />
     </main>
   )
