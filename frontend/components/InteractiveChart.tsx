@@ -224,13 +224,22 @@ export function InteractiveChart({ history }: { history: SubReturn[] }) {
       primaryRef.current[0] = candle
       primaryRef.current[1] = volSeries
 
-      // ── Sync time scale across all panels ──
+      // ── Sync time scale using time-based range ──
       let syncing = false
       all.forEach((chart, i) => {
-        chart.timeScale().subscribeVisibleLogicalRangeChange((range: any) => {
-          if (syncing || !range) return
+        chart.timeScale().subscribeVisibleLogicalRangeChange(() => {
+          if (syncing) return
           syncing = true
-          all.forEach((c, j) => { if (j !== i) c.timeScale().setVisibleLogicalRange(range) })
+          try {
+            const visRange = chart.timeScale().getVisibleRange()
+            if (visRange) {
+              all.forEach((c, j) => {
+                if (j !== i) {
+                  try { c.timeScale().setVisibleRange(visRange) } catch {}
+                }
+              })
+            }
+          } catch {}
           syncing = false
         })
       })

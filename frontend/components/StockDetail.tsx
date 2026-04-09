@@ -223,24 +223,33 @@ function StockChart({ ticker, history }: { ticker: string; history: StockReturn[
         chart.timeScale().subscribeVisibleLogicalRangeChange((range: any) => {
           if (!range || !dataCountRef.current) return
           const total = dataCountRef.current
-          // Clamp: don't let the visible range exceed total bar count + small margin
           if (range.from < -10 || range.to > total + 10) {
-            const clampedFrom = Math.max(-10, range.from)
-            const clampedTo   = Math.min(total + 10, range.to)
-            if (clampedFrom !== range.from || clampedTo !== range.to) {
-              try { chart.timeScale().setVisibleLogicalRange({ from: clampedFrom, to: clampedTo }) } catch {}
+            const cf = Math.max(-10, range.from)
+            const ct = Math.min(total + 10, range.to)
+            if (cf !== range.from || ct !== range.to) {
+              try { chart.timeScale().setVisibleLogicalRange({ from: cf, to: ct }) } catch {}
             }
           }
         })
       })
 
-      // Sync time scale
+      // Sync time scale using TIME-based range (not logical index)
+      // so charts with different bar counts stay aligned by date
       let syncing = false
       all.forEach((chart, i) => {
-        chart.timeScale().subscribeVisibleLogicalRangeChange((range: any) => {
-          if (syncing || !range) return
+        chart.timeScale().subscribeVisibleLogicalRangeChange(() => {
+          if (syncing) return
           syncing = true
-          all.forEach((c, j) => { if (j !== i) c.timeScale().setVisibleLogicalRange(range) })
+          try {
+            const visRange = chart.timeScale().getVisibleRange()
+            if (visRange) {
+              all.forEach((c, j) => {
+                if (j !== i) {
+                  try { c.timeScale().setVisibleRange(visRange) } catch {}
+                }
+              })
+            }
+          } catch {}
           syncing = false
         })
       })
