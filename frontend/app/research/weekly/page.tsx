@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { getAllIssues } from '@/lib/research'
 
 export const dynamic = 'force-static'
-export const metadata = { title: '輪動週報 | 研究分享 | Momentum Portal' }
+export const metadata = { title: '輪動週報 | 研究分享 | Sector Pulse' }
 
 export default function WeeklyListPage() {
   const issues = getAllIssues('weekly')

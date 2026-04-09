@@ -13,7 +13,7 @@ export function generateStaticParams() {
 
 export function generateMetadata({ params }: { params: { slug: string } }) {
   const issue = getIssue('weekly', params.slug)
-  if (!issue) return { title: '輪動週報 | Momentum Portal' }
+  if (!issue) return { title: '輪動週報 | Sector Pulse' }
   return {
     title: `第 ${issue.issue} 期 · ${issue.title} | 輪動週報`,
   }
@@ -112,7 +112,7 @@ export default function WeeklyDetailPage({
       </ul>
 
       <footer className="mt-16 pt-6 border-t border-gray-200 text-xs text-gray-400">
-        本文僅為基於 Momentum Portal 量化訊號 +
+        本文僅為基於 Sector Pulse 量化訊號 +
         公開新聞所做的研究紀錄，不構成任何投資建議。所有數據截至 {issue.snapshotDate}。
       </footer>
     </article>

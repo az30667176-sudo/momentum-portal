@@ -335,8 +335,8 @@ export function SubDetail({ gicsCode, history, stocks }: Props) {
 
       {/* Breadcrumb */}
       <div className="mb-4">
-        <Link href="/" className="text-blue-500 hover:underline text-sm">
-          ← Back to Heatmap
+        <Link href="/sectors" className="text-blue-500 hover:underline text-sm">
+          ← 返回產業總覽
         </Link>
       </div>
 

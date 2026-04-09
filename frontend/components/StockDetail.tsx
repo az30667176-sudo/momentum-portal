@@ -446,7 +446,7 @@ export function StockDetail({ info, history, subReturn }: Props) {
 
       {/* Breadcrumb */}
       <div className="mb-4 flex items-center gap-2 text-sm">
-        <Link href="/" className="text-blue-500 hover:underline">← 返回</Link>
+        <Link href="/sectors" className="text-blue-500 hover:underline">← 返回產業總覽</Link>
         {info.sub_industry && (
           <>
             <span className="text-gray-400">/</span>

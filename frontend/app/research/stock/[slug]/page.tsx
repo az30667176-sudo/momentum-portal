@@ -12,7 +12,7 @@ export function generateStaticParams() {
 
 export function generateMetadata({ params }: { params: { slug: string } }) {
   const memo = getStockMemo(params.slug)
-  if (!memo) return { title: '個股想法 | Momentum Portal' }
+  if (!memo) return { title: '個股想法 | Sector Pulse' }
   return { title: `${memo.ticker} · ${memo.title} | 個股想法` }
 }
 
@@ -63,7 +63,7 @@ export default function StockMemoDetailPage({
       <StockMemoBody markdown={memo.body} />
 
       <footer className="mt-16 pt-6 border-t border-gray-200 text-xs text-gray-400">
-        本文為基於 Momentum Portal 量化訊號 + 公開資料的研究紀錄,不構成任何投資建議。所有量化數據截至 {memo.date}。
+        本文為基於 Sector Pulse 量化訊號 + 公開資料的研究紀錄,不構成任何投資建議。所有量化數據截至 {memo.date}。
       </footer>
     </article>
   )

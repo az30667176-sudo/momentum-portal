@@ -156,7 +156,7 @@ export function Heatmap({ data, latestDate }: Props) {
       <div className="flex flex-col sm:flex-row sm:items-start justify-between mb-4 gap-3">
         <div>
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
-            Momentum Portal
+            產業總覽
           </h1>
           <div className="flex gap-4 mt-1 text-sm text-gray-500">
             {latestDate && <span>Data as of <strong className="text-gray-700 dark:text-gray-300">{latestDate}</strong></span>}

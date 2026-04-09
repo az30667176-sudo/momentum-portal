@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { getAllStockMemos } from '@/lib/research'
 
 export const dynamic = 'force-static'
-export const metadata = { title: '個股想法 | 研究分享 | Momentum Portal' }
+export const metadata = { title: '個股想法 | 研究分享 | Sector Pulse' }
 
 export default function StockMemoListPage() {
   const memos = getAllStockMemos()

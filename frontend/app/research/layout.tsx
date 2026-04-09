@@ -9,7 +9,7 @@ export default function ResearchLayout({
     <main className="max-w-3xl mx-auto px-4 sm:px-6 py-10 bg-white text-black min-h-screen">
       <header className="mb-6 pb-4 border-b border-gray-200">
         <div className="text-xs uppercase tracking-wider text-blue-600 font-semibold mb-2">
-          Momentum Portal · Research
+          Sector Pulse · Research
         </div>
         <h1 className="text-3xl sm:text-4xl font-bold text-black leading-tight">
           研究分享

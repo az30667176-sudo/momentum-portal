@@ -3,6 +3,8 @@ import { Heatmap } from '@/components/Heatmap'
 
 export const revalidate = 0
 
+export const metadata = { title: '產業總覽 | Sector Pulse' }
+
 export default async function SectorsPage() {
   const [data, latestDate] = await Promise.all([
     getLatestSubReturns(),

@@ -1067,8 +1067,8 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
             Sub-industry 動能策略回測引擎
           </p>
         </div>
-        <Link href="/" className="text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
-          ← 返回 Heatmap
+        <Link href="/sectors" className="text-sm text-gray-500 hover:text-gray-700">
+          ← 返回產業總覽
         </Link>
       </div>
 

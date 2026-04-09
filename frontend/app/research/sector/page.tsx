@@ -1,4 +1,4 @@
-export const metadata = { title: '產業分享 | 研究分享 | Momentum Portal' }
+export const metadata = { title: '產業分享 | 研究分享 | Sector Pulse' }
 
 export default function SectorResearchPage() {
   return (
