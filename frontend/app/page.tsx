@@ -39,7 +39,7 @@ export default async function LandingPage() {
   return (
     <main className="min-h-screen bg-white">
       {/* Hero — 2-column on desktop */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-900">
+      <section className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-emerald-950">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute inset-0" style={{
             backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.15) 1px, transparent 0)',
@@ -64,7 +64,7 @@ export default async function LandingPage() {
               <div className="mt-8 flex flex-wrap gap-3">
                 <Link
                   href="/sectors"
-                  className="inline-flex items-center px-6 py-3 rounded-lg bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition-colors"
+                  className="inline-flex items-center px-6 py-3 rounded-lg bg-emerald-600 text-white text-sm font-semibold hover:bg-emerald-700 transition-colors"
                 >
                   開始探索產業
                   <svg className="ml-2 w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
@@ -86,7 +86,7 @@ export default async function LandingPage() {
             {/* Right: live stats panel */}
             <div className="hidden lg:block">
               <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6">
-                <div className="text-xs font-semibold text-blue-400 uppercase tracking-wider mb-4">
+                <div className="text-xs font-semibold text-emerald-400 uppercase tracking-wider mb-4">
                   即時板塊概覽
                 </div>
                 <div className="grid grid-cols-3 gap-4 mb-6">
@@ -118,7 +118,7 @@ export default async function LandingPage() {
 
       {/* Spotlight — 3-column on desktop */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
-        <h2 className="text-xs font-semibold text-blue-600 uppercase tracking-wider mb-1">Spotlight</h2>
+        <h2 className="text-xs font-semibold text-emerald-600 uppercase tracking-wider mb-1">Spotlight</h2>
         <p className="text-2xl sm:text-3xl font-bold text-gray-900 mb-8">本週焦點</p>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -126,12 +126,12 @@ export default async function LandingPage() {
           {latestWeekly && (
             <Link
               href={`/research/weekly/${latestWeekly.slug}`}
-              className="group block rounded-xl border border-gray-200 bg-white p-6 hover:shadow-lg hover:border-blue-200 transition-all"
+              className="group block rounded-xl border border-gray-200 bg-white p-6 hover:shadow-lg hover:border-emerald-200 transition-all"
             >
-              <div className="text-xs font-semibold text-blue-600 uppercase tracking-wider mb-2">
+              <div className="text-xs font-semibold text-emerald-600 uppercase tracking-wider mb-2">
                 輪動週報 · 第 {latestWeekly.issue} 期
               </div>
-              <h3 className="text-lg font-bold text-gray-900 group-hover:text-blue-700 transition-colors">
+              <h3 className="text-lg font-bold text-gray-900 group-hover:text-emerald-700 transition-colors">
                 {latestWeekly.title}
               </h3>
               <p className="mt-2 text-sm text-gray-600 leading-relaxed line-clamp-3">
@@ -143,7 +143,7 @@ export default async function LandingPage() {
 
           {/* Top 5 subs */}
           <div className="rounded-xl border border-gray-200 bg-white p-6">
-            <div className="text-xs font-semibold text-blue-600 uppercase tracking-wider mb-2">
+            <div className="text-xs font-semibold text-emerald-600 uppercase tracking-wider mb-2">
               動能排名 Top 5 Sub-Industry
             </div>
             <div className="space-y-3 mt-3">
@@ -156,7 +156,7 @@ export default async function LandingPage() {
                   <span className="w-6 h-6 rounded-full bg-slate-100 text-xs font-bold text-slate-600 flex items-center justify-center shrink-0">
                     {i + 1}
                   </span>
-                  <span className="flex-1 text-sm font-medium text-gray-900 group-hover:text-blue-600 transition-colors truncate">
+                  <span className="flex-1 text-sm font-medium text-gray-900 group-hover:text-emerald-600 transition-colors truncate">
                     {s.gics_universe?.sub_industry ?? s.gics_code}
                   </span>
                   <span className="text-xs font-semibold text-gray-500">
@@ -168,14 +168,14 @@ export default async function LandingPage() {
                 </Link>
               ))}
             </div>
-            <Link href="/sectors" className="inline-block mt-4 text-xs text-blue-600 hover:underline font-medium">
+            <Link href="/sectors" className="inline-block mt-4 text-xs text-emerald-600 hover:underline font-medium">
               查看完整 155 產業 →
             </Link>
           </div>
 
           {/* Quick stats / data highlights */}
           <div className="rounded-xl border border-gray-200 bg-white p-6">
-            <div className="text-xs font-semibold text-blue-600 uppercase tracking-wider mb-4">
+            <div className="text-xs font-semibold text-emerald-600 uppercase tracking-wider mb-4">
               平台數據
             </div>
             <div className="space-y-4">
@@ -207,7 +207,7 @@ export default async function LandingPage() {
       {/* 11 Sector performance — 2-column bar layout on desktop */}
       <section className="bg-gray-50 border-t border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
-          <h2 className="text-xs font-semibold text-blue-600 uppercase tracking-wider mb-1">Sector Performance</h2>
+          <h2 className="text-xs font-semibold text-emerald-600 uppercase tracking-wider mb-1">Sector Performance</h2>
           <p className="text-2xl sm:text-3xl font-bold text-gray-900 mb-8">11 大板塊本週表現</p>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-3">
             {sectorPerf.map(({ sector, ret }) => (
@@ -292,12 +292,12 @@ function SectionCard({ href, icon, title, desc }: { href: string; icon: React.Re
   return (
     <Link
       href={href}
-      className="group flex flex-col rounded-xl border border-gray-200 bg-white p-5 hover:shadow-lg hover:border-blue-200 transition-all"
+      className="group flex flex-col rounded-xl border border-gray-200 bg-white p-5 hover:shadow-lg hover:border-emerald-200 transition-all"
     >
-      <div className="w-10 h-10 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 group-hover:bg-blue-100 transition-colors mb-3">
+      <div className="w-10 h-10 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 group-hover:bg-emerald-100 transition-colors mb-3">
         {icon}
       </div>
-      <h3 className="text-base font-bold text-gray-900 group-hover:text-blue-700 transition-colors">{title}</h3>
+      <h3 className="text-base font-bold text-gray-900 group-hover:text-emerald-700 transition-colors">{title}</h3>
       <p className="mt-1 text-sm text-gray-500 leading-relaxed">{desc}</p>
     </Link>
   )

@@ -41,7 +41,7 @@ export function NavBar() {
                 href={href}
                 className={`px-4 py-2 text-sm font-medium rounded-md transition-colors ${
                   isActive(href)
-                    ? 'bg-blue-50 text-blue-700'
+                    ? 'bg-emerald-50 text-emerald-700'
                     : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
                 }`}
               >
@@ -80,7 +80,7 @@ export function NavBar() {
                 onClick={() => setMenuOpen(false)}
                 className={`block px-3 py-2.5 rounded-md text-sm font-medium transition-colors ${
                   isActive(href)
-                    ? 'bg-blue-50 text-blue-700'
+                    ? 'bg-emerald-50 text-emerald-700'
                     : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
                 }`}
               >

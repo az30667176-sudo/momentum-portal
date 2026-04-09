@@ -28,14 +28,14 @@ export default function StockMemoDetailPage({
     <article>
       <Link
         href="/research/stock"
-        className="inline-flex items-center text-sm text-blue-600 hover:underline mb-4"
+        className="inline-flex items-center text-sm text-emerald-600 hover:underline mb-4"
       >
         ← 回到個股想法列表
       </Link>
 
       <header className="mb-8 pb-6 border-b border-gray-200">
         <div className="flex items-center gap-3 mb-3">
-          <div className="rounded bg-blue-50 border border-blue-200 px-3 py-1.5 text-sm font-bold text-blue-700">
+          <div className="rounded bg-emerald-50 border border-emerald-200 px-3 py-1.5 text-sm font-bold text-emerald-700">
             {memo.ticker}
           </div>
           <div className="text-xs uppercase tracking-wider text-gray-500">

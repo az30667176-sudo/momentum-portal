@@ -102,7 +102,7 @@ function thresholdColor(
 const GREEN = 'text-green-600 dark:text-green-400'
 const YELLOW = 'text-yellow-600 dark:text-yellow-400'
 const RED = 'text-red-500 dark:text-red-400'
-const BLUE = 'text-blue-500 dark:text-blue-400'
+const BLUE = 'text-emerald-500 dark:text-emerald-400'
 const GRAY = 'text-gray-500 dark:text-gray-400'
 
 const BAR_GREEN = 'bg-green-500'
@@ -114,7 +114,7 @@ function barColorFor(colorClass: string): string {
   if (colorClass.includes('green')) return BAR_GREEN
   if (colorClass.includes('yellow')) return BAR_YELLOW
   if (colorClass.includes('red')) return BAR_RED
-  if (colorClass.includes('blue')) return 'bg-blue-400'
+  if (colorClass.includes('emerald')) return 'bg-emerald-400'
   return BAR_GRAY
 }
 
@@ -217,7 +217,7 @@ export function QuantPanel({ data: d }: Props) {
   const autocorrLabel = (() => {
     if (d.momentum_autocorr == null) return null
     if (d.momentum_autocorr > 0.2)  return <span className="mt-1 block text-[10px] text-green-600 dark:text-green-400">適合趨勢策略</span>
-    if (d.momentum_autocorr < -0.2) return <span className="mt-1 block text-[10px] text-blue-500 dark:text-blue-400">適合均值回歸</span>
+    if (d.momentum_autocorr < -0.2) return <span className="mt-1 block text-[10px] text-emerald-500 dark:text-emerald-400">適合均值回歸</span>
     return <span className="mt-1 block text-[10px] text-gray-400">動能不穩定</span>
   })()
 
@@ -230,37 +230,37 @@ export function QuantPanel({ data: d }: Props) {
     <div className="space-y-6">
 
       {/* ── Mom Score Formula Card ── */}
-      <div className="rounded-lg p-4 bg-blue-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-800">
-        <div className="text-sm font-semibold text-blue-700 dark:text-blue-300 mb-3">
+      <div className="rounded-lg p-4 bg-emerald-50 dark:bg-emerald-950 border border-emerald-200 dark:border-emerald-800">
+        <div className="text-sm font-semibold text-emerald-700 dark:text-emerald-300 mb-3">
           Mom Score 計算公式
         </div>
         <div className="space-y-2">
           <div className="flex items-start gap-2">
-            <span className="shrink-0 text-xs font-bold text-blue-700 dark:text-blue-300 w-8">50%</span>
+            <span className="shrink-0 text-xs font-bold text-emerald-700 dark:text-emerald-300 w-8">50%</span>
             <div>
-              <div className="text-xs font-medium text-blue-700 dark:text-blue-300">報酬動能</div>
-              <div className="text-[11px] text-blue-500 dark:text-blue-400 font-mono">0.25×Z(1M) + 0.40×Z(3M) + 0.35×Z(6M skip-month)</div>
-              <div className="text-[10px] text-blue-400 dark:text-blue-500 mt-0.5">短中長期三個時間窗口，6M 採 skip-month 設計避免短期反轉干擾</div>
+              <div className="text-xs font-medium text-emerald-700 dark:text-emerald-300">報酬動能</div>
+              <div className="text-[11px] text-emerald-500 dark:text-emerald-400 font-mono">0.25×Z(1M) + 0.40×Z(3M) + 0.35×Z(6M skip-month)</div>
+              <div className="text-[10px] text-emerald-400 dark:text-emerald-500 mt-0.5">短中長期三個時間窗口，6M 採 skip-month 設計避免短期反轉干擾</div>
             </div>
           </div>
           <div className="flex items-start gap-2">
-            <span className="shrink-0 text-xs font-bold text-blue-700 dark:text-blue-300 w-8">25%</span>
+            <span className="shrink-0 text-xs font-bold text-emerald-700 dark:text-emerald-300 w-8">25%</span>
             <div>
-              <div className="text-xs font-medium text-blue-700 dark:text-blue-300">動能品質</div>
-              <div className="text-[11px] text-blue-500 dark:text-blue-400 font-mono">0.50×Z(Price R²) + 0.50×Z(Autocorr 26W)</div>
-              <div className="text-[10px] text-blue-400 dark:text-blue-500 mt-0.5">趨勢是否乾淨、動能是否持續 — 獎勵直線上漲，懲罰震盪後拉回</div>
+              <div className="text-xs font-medium text-emerald-700 dark:text-emerald-300">動能品質</div>
+              <div className="text-[11px] text-emerald-500 dark:text-emerald-400 font-mono">0.50×Z(Price R²) + 0.50×Z(Autocorr 26W)</div>
+              <div className="text-[10px] text-emerald-400 dark:text-emerald-500 mt-0.5">趨勢是否乾淨、動能是否持續 — 獎勵直線上漲，懲罰震盪後拉回</div>
             </div>
           </div>
           <div className="flex items-start gap-2">
-            <span className="shrink-0 text-xs font-bold text-blue-700 dark:text-blue-300 w-8">25%</span>
+            <span className="shrink-0 text-xs font-bold text-emerald-700 dark:text-emerald-300 w-8">25%</span>
             <div>
-              <div className="text-xs font-medium text-blue-700 dark:text-blue-300">相對強度</div>
-              <div className="text-[11px] text-blue-500 dark:text-blue-400 font-mono">Z(Information Ratio 26W)</div>
-              <div className="text-[10px] text-blue-400 dark:text-blue-500 mt-0.5">過去 26 週超額報酬穩定性 — 跑贏大盤且一致的板塊得到加分</div>
+              <div className="text-xs font-medium text-emerald-700 dark:text-emerald-300">相對強度</div>
+              <div className="text-[11px] text-emerald-500 dark:text-emerald-400 font-mono">Z(Information Ratio 26W)</div>
+              <div className="text-[10px] text-emerald-400 dark:text-emerald-500 mt-0.5">過去 26 週超額報酬穩定性 — 跑贏大盤且一致的板塊得到加分</div>
             </div>
           </div>
         </div>
-        <div className="mt-3 pt-2.5 border-t border-blue-200 dark:border-blue-800 text-[10px] text-blue-400 dark:text-blue-500">
+        <div className="mt-3 pt-2.5 border-t border-emerald-200 dark:border-emerald-800 text-[10px] text-emerald-400 dark:text-emerald-500">
           Z = 當日截面百分位（0–100），每日重新對所有板塊計算。分數越高代表同期動能最強、趨勢最乾淨、最跑贏大盤。
         </div>
       </div>

@@ -376,7 +376,7 @@ function FilterBlock({ filter, onChange, onDelete, onSelectIndicator }: FilterBl
               }}
               className={`px-2 py-0.5 text-xs rounded ${
                 filter.type === t
-                  ? 'bg-blue-600 text-white'
+                  ? 'bg-emerald-600 text-white'
                   : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
               }`}
             >
@@ -1080,7 +1080,7 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
             onClick={() => setActiveTab(tab)}
             className={`px-6 py-3 text-sm font-medium border-b-2 transition-colors ${
               activeTab === tab
-                ? 'border-blue-500 text-blue-600 dark:text-blue-400'
+                ? 'border-emerald-500 text-emerald-600 dark:text-emerald-400'
                 : 'border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400'
             }`}
           >
@@ -1111,7 +1111,7 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
                     onClick={() => { setConfig(c => ({ ...c, rebalPeriod: p })); setRebalCustom(false) }}
                     className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                       !rebalCustom && config.rebalPeriod === p
-                        ? 'bg-blue-600 text-white'
+                        ? 'bg-emerald-600 text-white'
                         : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
                     }`}
                   >
@@ -1122,7 +1122,7 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
                   onClick={() => setRebalCustom(true)}
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                     rebalCustom
-                      ? 'bg-blue-600 text-white'
+                      ? 'bg-emerald-600 text-white'
                       : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
                   }`}
                 >
@@ -1155,7 +1155,7 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
                       type="radio"
                       checked={config.weightMode === mode}
                       onChange={() => setConfig(c => ({ ...c, weightMode: mode }))}
-                      className="accent-blue-600"
+                      className="accent-emerald-600"
                     />
                     <span className="text-gray-700 dark:text-gray-300">
                       {mode === 'equal' ? '等權重' : mode === 'momentum' ? '動能分數加權' : '波動率反向加權'}
@@ -1175,7 +1175,7 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
                   step={5}
                   value={config.maxStockWeight}
                   onChange={e => setConfig(c => ({ ...c, maxStockWeight: parseInt(e.target.value) }))}
-                  className="w-full accent-blue-600"
+                  className="w-full accent-emerald-600"
                 />
                 <p className="text-xs text-gray-400 mt-1">每檔個股的最大持倉比例</p>
               </div>
@@ -1202,7 +1202,7 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
                 max={25}
                 value={config.bufferRule}
                 onChange={e => setConfig(c => ({ ...c, bufferRule: parseInt(e.target.value) }))}
-                className="w-full accent-blue-600"
+                className="w-full accent-emerald-600"
               />
               <p className="text-xs text-gray-400 mt-1">新候選排名需領先現持倉 {config.bufferRule} 位才換入</p>
             </div>
@@ -1242,7 +1242,7 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
                     const d = INDICATOR_DETAILS[selectedIndicatorKey]
                     return (
                       <>
-                        <p className="text-xs font-medium text-blue-500 dark:text-blue-400 mb-0.5">{d.group}</p>
+                        <p className="text-xs font-medium text-emerald-500 dark:text-emerald-400 mb-0.5">{d.group}</p>
                         <p className="text-sm font-semibold text-gray-900 dark:text-white mb-2">
                           {ALL_INDICATORS.find(i => i.key === selectedIndicatorKey)?.label ?? selectedIndicatorKey}
                         </p>
@@ -1259,7 +1259,7 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
                         <p className="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">建議篩選類型</p>
                         <div className="flex flex-wrap gap-1">
                           {d.bestFilterTypes.map((t, i) => (
-                            <span key={i} className="px-1.5 py-0.5 text-xs bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded">
+                            <span key={i} className="px-1.5 py-0.5 text-xs bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 rounded">
                               {t}
                             </span>
                           ))}
@@ -1488,7 +1488,7 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
                 max={100}
                 value={config.isSplitPct}
                 onChange={e => setConfig(c => ({ ...c, isSplitPct: parseInt(e.target.value) }))}
-                className="w-full accent-blue-600"
+                className="w-full accent-emerald-600"
               />
               <p className="text-xs text-gray-400 mt-1">建議：2 年 IS + 1 年 OOS，至少需要 1 年 OOS 才有統計意義</p>
             </div>
@@ -1502,7 +1502,7 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
                 step={1}
                 value={Math.round(config.tradingCost * 100)}
                 onChange={e => setConfig(c => ({ ...c, tradingCost: parseInt(e.target.value) / 100 }))}
-                className="w-full accent-blue-600"
+                className="w-full accent-emerald-600"
               />
             </div>
 
@@ -1516,7 +1516,7 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
                 <button
                   onClick={() => setConfig(c => ({ ...c, spyMaFilter: !c.spyMaFilter }))}
                   className={`relative w-11 h-6 rounded-full transition-colors ${
-                    config.spyMaFilter ? 'bg-blue-600' : 'bg-gray-300 dark:bg-gray-600'
+                    config.spyMaFilter ? 'bg-emerald-600' : 'bg-gray-300 dark:bg-gray-600'
                   }`}
                 >
                   <span className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow transition-transform ${
@@ -1534,7 +1534,7 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
                     step={5}
                     value={config.spyMaPeriod}
                     onChange={e => setConfig(c => ({ ...c, spyMaPeriod: parseInt(e.target.value) }))}
-                    className="w-full accent-blue-600"
+                    className="w-full accent-emerald-600"
                   />
                   <div className="flex justify-between text-[10px] text-gray-400 mt-0.5">
                     <span>20日</span><span>100日</span><span>200日</span><span>250日</span>
@@ -1549,7 +1549,7 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
               className={`w-full py-3 rounded-xl text-white font-semibold text-base transition-colors ${
                 isRunning
                   ? 'bg-gray-400 cursor-not-allowed'
-                  : 'bg-blue-600 hover:bg-blue-700'
+                  : 'bg-emerald-600 hover:bg-emerald-700'
               }`}
             >
               {isRunning
@@ -1566,7 +1566,7 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
           {isRunning && (
             <div className="flex items-center justify-center py-20">
               <div className="text-center">
-                <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+                <div className="w-12 h-12 border-4 border-emerald-600 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
                 {runPhase === 'scanning' && (
                   <p className="text-gray-600 dark:text-gray-400">掃描產業選取範圍...</p>
                 )}
@@ -1657,7 +1657,7 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
                       <button
                         key={r}
                         onClick={() => setChartRange(r)}
-                        className={`px-3 py-1 text-xs rounded ${chartRange === r ? 'bg-blue-600 text-white' : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300'}`}
+                        className={`px-3 py-1 text-xs rounded ${chartRange === r ? 'bg-emerald-600 text-white' : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300'}`}
                       >
                         {r.toUpperCase()}
                       </button>
@@ -1795,7 +1795,7 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
                         <tr key={i} className={`border-t border-gray-100 dark:border-gray-700 ${log.isOOS ? 'bg-orange-50 dark:bg-orange-900/10' : ''}`}>
                           <td className="px-2 py-1">{log.date}</td>
                           <td className="px-2 py-1">
-                            <span className={`px-1.5 py-0.5 rounded text-xs ${log.isOOS ? 'bg-orange-200 text-orange-800' : 'bg-blue-100 text-blue-800'}`}>
+                            <span className={`px-1.5 py-0.5 rounded text-xs ${log.isOOS ? 'bg-orange-200 text-orange-800' : 'bg-emerald-100 text-emerald-800'}`}>
                               {log.isOOS ? 'OOS' : 'IS'}
                             </span>
                           </td>
@@ -1856,7 +1856,7 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
                                     href={`https://finance.yahoo.com/quote/${t.ticker}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="text-blue-600 hover:underline dark:text-blue-400"
+                                    className="text-emerald-600 hover:underline dark:text-emerald-400"
                                   >
                                     {t.ticker}
                                   </a>
@@ -1892,7 +1892,7 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
                     {result.rebalLogs[result.rebalLogs.length - 1].selectedSubs.map((s, i) => (
                       <span
                         key={i}
-                        className="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 rounded-full text-xs font-medium"
+                        className="px-3 py-1 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-800 dark:text-emerald-300 rounded-full text-xs font-medium"
                       >
                         {s}
                       </span>
@@ -2071,7 +2071,7 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
           <div className={sectionCls}>
             <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Optuna 自動優化</h2>
             <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
-              固定目前策略設定（篩選條件、排名方式、成本），透過 GitHub Actions 在雲端跑 {optNTrials} 次 Bayesian 搜尋，找出最佳參數組合。約需 <span className="font-medium text-blue-500">8–12 分鐘</span>。
+              固定目前策略設定（篩選條件、排名方式、成本），透過 GitHub Actions 在雲端跑 {optNTrials} 次 Bayesian 搜尋，找出最佳參數組合。約需 <span className="font-medium text-emerald-500">8–12 分鐘</span>。
             </p>
 
             <div className="grid grid-cols-2 gap-4 mb-4">
@@ -2190,7 +2190,7 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
                     onChange={e => setOptSearchableParams(p => ({ ...p, spyMaFilter: e.target.checked }))} className="rounded" />
                   <span className="w-20 text-gray-600 dark:text-gray-400">SPY MA 過濾</span>
                   {optSearchableParams.spyMaFilter
-                    ? <span className="text-blue-500">試開 + 關</span>
+                    ? <span className="text-emerald-500">試開 + 關</span>
                     : <span className="text-gray-500 dark:text-gray-400">{config.spyMaFilter ? '開' : '關'}</span>}
                 </div>
                 {!optSearchFilters && (
@@ -2308,7 +2308,7 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
                   </div>
 
                   {optIndicatorCandidates.length > 0 && (
-                    <p className="text-xs text-blue-500 mt-2">
+                    <p className="text-xs text-emerald-500 mt-2">
                       已選 {optIndicatorCandidates.length} 個候選指標 → Optuna 將從中挑選最佳組合
                     </p>
                   )}
@@ -2361,7 +2361,7 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
             {/* Parameter ranges toggle – advanced */}
             <button
               onClick={() => setOptShowRanges(v => !v)}
-              className="text-sm text-blue-500 hover:text-blue-700 mb-3 flex items-center gap-1"
+              className="text-sm text-emerald-500 hover:text-emerald-700 mb-3 flex items-center gap-1"
             >
               {optShowRanges ? '▾' : '▸'} 進階參數範圍（Weight Cap / Stop Loss）
             </button>
@@ -2433,14 +2433,14 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
 
           {/* Running banner */}
           {optRunId && !optRuns.find(r => r.id === optRunId && (r.status === 'completed' || r.status === 'failed')) && (
-            <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded-lg p-4 flex items-center justify-between">
+            <div className="bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-700 rounded-lg p-4 flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-blue-700 dark:text-blue-300 animate-pulse">⚙️ GitHub Actions 優化執行中…</p>
-                <p className="text-xs text-blue-500 dark:text-blue-400 mt-0.5">預計 8–12 分鐘後完成，每 15 秒自動刷新。可手動點「刷新結果」查看最新狀態。</p>
+                <p className="text-sm font-medium text-emerald-700 dark:text-emerald-300 animate-pulse">⚙️ GitHub Actions 優化執行中…</p>
+                <p className="text-xs text-emerald-500 dark:text-emerald-400 mt-0.5">預計 8–12 分鐘後完成，每 15 秒自動刷新。可手動點「刷新結果」查看最新狀態。</p>
               </div>
               <button onClick={loadOptRuns}
                 disabled={optIsRefreshing}
-                className="text-xs px-3 py-1.5 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white rounded-lg">
+                className="text-xs px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white rounded-lg">
                 {optIsRefreshing ? '刷新中…' : '↻ 刷新'}
               </button>
             </div>
@@ -2463,7 +2463,7 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
                 {optRuns.map(run => {
                   const statusColor =
                     run.status === 'completed' ? 'text-emerald-500' :
-                    run.status === 'running'   ? 'text-blue-500' :
+                    run.status === 'running'   ? 'text-emerald-500' :
                     run.status === 'failed'    ? 'text-red-500' : 'text-gray-400'
                   const top10: any[] = (run.all_trials ?? []).slice(0, 10)
                   return (
@@ -2484,7 +2484,7 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
                         </span>
                       </div>
                       {run.status === 'running' && (
-                        <p className="text-xs text-blue-500 mb-3 animate-pulse">
+                        <p className="text-xs text-emerald-500 mb-3 animate-pulse">
                           GitHub Actions 執行中，約 8–12 分鐘後完成。請點「刷新結果」查看進度。
                         </p>
                       )}
@@ -2529,7 +2529,7 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
                                     <tr key={i} className={`border-t border-gray-100 dark:border-gray-700 ${i === 0 ? 'bg-emerald-50 dark:bg-emerald-900/10' : ''}`}>
                                       <td className="px-2 py-1.5 font-medium">#{i+1}</td>
                                       <td className="px-2 py-1.5 text-right font-bold text-emerald-600">{t.score?.toFixed(3)}</td>
-                                      <td className="px-2 py-1.5 text-right text-blue-600 dark:text-blue-400">{t.is_sharpe?.toFixed(3) ?? '—'}</td>
+                                      <td className="px-2 py-1.5 text-right text-emerald-600 dark:text-emerald-400">{t.is_sharpe?.toFixed(3) ?? '—'}</td>
                                       <td className="px-2 py-1.5 text-right">{t.oos_sharpe?.toFixed(3)}</td>
                                       <td className="px-2 py-1.5 text-right">{t.oos_calmar?.toFixed(2)}</td>
                                       <td className="px-2 py-1.5 text-right">{t.oos_pf?.toFixed(2)}</td>
@@ -2548,7 +2548,7 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
                                         <td className="px-2 py-1.5 max-w-[180px]">
                                           <div className="flex flex-wrap gap-0.5">
                                             {Object.entries(t.filter_summary).map(([ind, info]: any) => (
-                                              <span key={ind} className="bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 px-1 py-0.5 rounded text-[10px] whitespace-nowrap">
+                                              <span key={ind} className="bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 px-1 py-0.5 rounded text-[10px] whitespace-nowrap">
                                                 {ind.replace(/_/g,' ')} {info.op} {typeof info.threshold === 'number' ? info.threshold.toFixed(2) : info.threshold}
                                               </span>
                                             ))}
@@ -2575,7 +2575,7 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
                                             subFilters: run.fixed_config?.subFilters ?? [],
                                             filterSummary: t.filter_summary ?? {},
                                           })}
-                                          className="px-2 py-0.5 bg-blue-600 hover:bg-blue-700 text-white rounded text-xs"
+                                          className="px-2 py-0.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded text-xs"
                                         >
                                           套用
                                         </button>
@@ -2624,7 +2624,7 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
               <button
                 onClick={savePreset}
                 disabled={presetLoading}
-                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white text-sm rounded"
+                className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 disabled:bg-gray-400 text-white text-sm rounded"
               >
                 {presetLoading ? '處理中…' : '儲存目前設定'}
               </button>
@@ -2695,7 +2695,7 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
               <button
                 onClick={runSignalScanReq}
                 disabled={signalRunning}
-                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white text-sm rounded"
+                className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 disabled:bg-gray-400 text-white text-sm rounded"
               >
                 {signalRunning ? '掃描中…' : '🔎 掃描訊號'}
               </button>
@@ -2735,7 +2735,7 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
                 ) : (
                   <div className="flex flex-wrap gap-1">
                     {config.subFilters.map((f, i) => (
-                      <span key={i} className="bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 px-2 py-0.5 rounded whitespace-nowrap">
+                      <span key={i} className="bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 px-2 py-0.5 rounded whitespace-nowrap">
                         {formatSubFilter(f)}
                       </span>
                     ))}
@@ -2767,7 +2767,7 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
 
             {signalResult && (
               <>
-                <div className="mb-3 p-3 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded text-xs text-blue-700 dark:text-blue-300 space-y-1">
+                <div className="mb-3 p-3 bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-700 rounded text-xs text-emerald-700 dark:text-emerald-300 space-y-1">
                   <div>
                     <span className="font-medium">訊號日：</span>
                     <span className="font-mono">{signalResult.scanDate}</span>

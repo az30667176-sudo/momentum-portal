@@ -346,7 +346,7 @@ function StockChart({ history }: { history: StockReturn[] }) {
               onClick={() => applyRange(r)}
               className={`px-2.5 py-1 text-xs rounded font-medium transition-colors ${
                 activeRange === r
-                  ? 'bg-blue-500 text-white'
+                  ? 'bg-emerald-500 text-white'
                   : 'text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700'
               }`}
             >
@@ -383,11 +383,11 @@ function StockChart({ history }: { history: StockReturn[] }) {
               onKeyDown={e => e.key === 'Enter' && addMA()}
               placeholder="天數"
               min={1} max={500}
-              className="w-16 text-xs border border-gray-300 dark:border-gray-600 rounded px-2 py-0.5 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 focus:outline-none focus:border-blue-400"
+              className="w-16 text-xs border border-gray-300 dark:border-gray-600 rounded px-2 py-0.5 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 focus:outline-none focus:border-emerald-400"
             />
             <button
               onClick={addMA}
-              className="text-xs text-blue-500 hover:text-blue-600 font-medium px-2 py-0.5 rounded hover:bg-blue-50 dark:hover:bg-blue-950"
+              className="text-xs text-emerald-500 hover:text-emerald-600 font-medium px-2 py-0.5 rounded hover:bg-emerald-50 dark:hover:bg-emerald-950"
             >
               + 新增
             </button>
@@ -446,11 +446,11 @@ export function StockDetail({ info, history, subReturn }: Props) {
 
       {/* Breadcrumb */}
       <div className="mb-4 flex items-center gap-2 text-sm">
-        <Link href="/sectors" className="text-blue-500 hover:underline">← 返回產業總覽</Link>
+        <Link href="/sectors" className="text-emerald-500 hover:underline">← 返回產業總覽</Link>
         {info.sub_industry && (
           <>
             <span className="text-gray-400">/</span>
-            <Link href={`/sub/${info.gics_code}`} className="text-blue-500 hover:underline">
+            <Link href={`/sub/${info.gics_code}`} className="text-emerald-500 hover:underline">
               {info.sub_industry}
             </Link>
           </>
@@ -466,7 +466,7 @@ export function StockDetail({ info, history, subReturn }: Props) {
           <p className="text-sm text-gray-500 mt-1">{info.company}</p>
           <div className="flex flex-wrap gap-2 mt-2">
             {info.index_member && (
-              <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300">
+              <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-900 dark:text-emerald-300">
                 {info.index_member}
               </span>
             )}
@@ -509,7 +509,7 @@ export function StockDetail({ info, history, subReturn }: Props) {
             )}
           </div>
           {info.sub_industry && (
-            <Link href={`/sub/${info.gics_code}`} className="text-xs text-blue-500 hover:underline mt-1 block">
+            <Link href={`/sub/${info.gics_code}`} className="text-xs text-emerald-500 hover:underline mt-1 block">
               {info.sub_industry}
             </Link>
           )}
@@ -517,7 +517,7 @@ export function StockDetail({ info, history, subReturn }: Props) {
             <div className="mt-3">
               <div className="h-1.5 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
                 <div
-                  className="h-full bg-blue-500 rounded-full transition-all"
+                  className="h-full bg-emerald-500 rounded-full transition-all"
                   style={{ width: `${Math.max(4, stockTopPct ?? 0)}%` }}
                 />
               </div>

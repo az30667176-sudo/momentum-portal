@@ -22,11 +22,11 @@ export default function StockMemoListPage() {
         <li key={m.slug} className="py-6">
           <Link href={`/research/stock/${m.slug}`} className="block group">
             <div className="flex items-start gap-3">
-              <div className="flex-shrink-0 rounded bg-blue-50 border border-blue-200 px-3 py-1.5 text-sm font-bold text-blue-700">
+              <div className="flex-shrink-0 rounded bg-emerald-50 border border-emerald-200 px-3 py-1.5 text-sm font-bold text-emerald-700">
                 {m.ticker}
               </div>
               <div className="flex-1 min-w-0">
-                <h2 className="text-lg sm:text-xl font-bold text-black leading-snug group-hover:text-blue-600 transition-colors">
+                <h2 className="text-lg sm:text-xl font-bold text-black leading-snug group-hover:text-emerald-600 transition-colors">
                   {m.title}
                 </h2>
                 <p className="mt-1 text-sm text-gray-700 leading-6">

@@ -147,7 +147,7 @@ export function Heatmap({ data, latestDate }: Props) {
   const advancing = sorted.filter(r => (r.ret_1d ?? 0) > 0).length
 
   const btnBase = 'px-3 py-1.5 text-xs rounded font-medium transition-colors'
-  const btnActive = 'bg-blue-600 text-white'
+  const btnActive = 'bg-emerald-600 text-white'
   const btnInactive = 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
 
   return (

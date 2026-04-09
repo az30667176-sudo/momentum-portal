@@ -87,12 +87,12 @@ export function StockRanking({ subData, stockData, heatmapEntries = [], heatmapD
 
   const modeBtnCls = (m: Mode) =>
     `px-4 py-2 text-sm font-medium rounded-lg transition-colors ${
-      mode === m ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+      mode === m ? 'bg-emerald-600 text-white' : 'bg-gray-100 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
     }`
 
   const ColHeader = ({ col, label }: { col: SortCol; label: string }) => (
     <th
-      className="px-3 py-2 text-left text-xs font-medium text-gray-600 dark:text-gray-300 cursor-pointer select-none hover:text-blue-600 whitespace-nowrap"
+      className="px-3 py-2 text-left text-xs font-medium text-gray-600 dark:text-gray-300 cursor-pointer select-none hover:text-emerald-600 whitespace-nowrap"
       onClick={() => handleSort(col)}
     >
       {label}{' '}
@@ -170,12 +170,12 @@ export function StockRanking({ subData, stockData, heatmapEntries = [], heatmapD
                     <tr key={s.ticker} className="border-t border-gray-100 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800">
                       <td className="px-3 py-2 text-gray-400 text-xs">{rank + 1}</td>
                       <td className="px-3 py-2">
-                        <Link href={`/stock/${s.ticker}`} className="text-blue-600 hover:underline font-medium">{s.ticker}</Link>
+                        <Link href={`/stock/${s.ticker}`} className="text-emerald-600 hover:underline font-medium">{s.ticker}</Link>
                       </td>
                       <td className="px-3 py-2 text-gray-700 dark:text-gray-300 max-w-[140px] truncate text-xs">{getCompany(s)}</td>
                       <td className="px-3 py-2 text-gray-500 text-xs max-w-[100px] truncate">{getSector(s)}</td>
                       <td className="px-3 py-2 text-xs">
-                        <Link href={`/sub/${s.gics_code}`} className="text-gray-600 dark:text-gray-400 hover:text-blue-600 hover:underline">
+                        <Link href={`/sub/${s.gics_code}`} className="text-gray-600 dark:text-gray-400 hover:text-emerald-600 hover:underline">
                           {getSubIndustry(s)}
                         </Link>
                       </td>
@@ -184,7 +184,7 @@ export function StockRanking({ subData, stockData, heatmapEntries = [], heatmapD
                       <td className="px-3 py-2 font-mono text-xs">{fmtPct(s.ret_3m)}</td>
                       <td className="px-3 py-2 font-mono text-xs">{fmtPct(s.ret_6m)}</td>
                       <td className="px-3 py-2 font-mono text-xs">{fmtPct(s.ret_12m)}</td>
-                      <td className="px-3 py-2 font-mono text-xs text-blue-600">
+                      <td className="px-3 py-2 font-mono text-xs text-emerald-600">
                         {momVal != null ? momVal.toFixed(1) : <span className="text-gray-300">—</span>}
                       </td>
                     </tr>

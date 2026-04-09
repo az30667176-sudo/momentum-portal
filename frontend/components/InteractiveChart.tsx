@@ -376,7 +376,7 @@ export function InteractiveChart({ history }: { history: SubReturn[] }) {
               onClick={() => applyRange(r)}
               className={`px-2.5 py-1 text-xs rounded font-medium transition-colors ${
                 activeRange === r
-                  ? 'bg-blue-500 text-white'
+                  ? 'bg-emerald-500 text-white'
                   : 'text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700'
               }`}
             >
@@ -413,11 +413,11 @@ export function InteractiveChart({ history }: { history: SubReturn[] }) {
               onKeyDown={e => e.key === 'Enter' && addMA()}
               placeholder="天數"
               min={1} max={500}
-              className="w-16 text-xs border border-gray-300 dark:border-gray-600 rounded px-2 py-0.5 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 focus:outline-none focus:border-blue-400"
+              className="w-16 text-xs border border-gray-300 dark:border-gray-600 rounded px-2 py-0.5 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 focus:outline-none focus:border-emerald-400"
             />
             <button
               onClick={addMA}
-              className="text-xs text-blue-500 hover:text-blue-600 font-medium px-2 py-0.5 rounded hover:bg-blue-50 dark:hover:bg-blue-950"
+              className="text-xs text-emerald-500 hover:text-emerald-600 font-medium px-2 py-0.5 rounded hover:bg-emerald-50 dark:hover:bg-emerald-950"
             >
               + 新增
             </button>

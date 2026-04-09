@@ -259,14 +259,14 @@ function CustomizeModal({
                       onClick={() => onToggle(key)}
                       className={`text-left text-xs rounded-lg px-3 py-2 border transition-colors ${
                         isOn
-                          ? 'bg-blue-50 dark:bg-blue-950 border-blue-300 dark:border-blue-700 text-blue-700 dark:text-blue-300'
+                          ? 'bg-emerald-50 dark:bg-emerald-950 border-emerald-300 dark:border-emerald-700 text-emerald-700 dark:text-emerald-300'
                           : isOff
                           ? 'border-gray-200 dark:border-gray-700 text-gray-300 dark:text-gray-600 cursor-not-allowed'
                           : 'border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
                       }`}
                     >
                       <div className="font-medium flex items-center gap-1">
-                        {isOn && <span className="text-blue-500 text-[10px]">✓</span>}
+                        {isOn && <span className="text-emerald-500 text-[10px]">✓</span>}
                         {cfg.label}
                       </div>
                       <div className="text-[10px] text-gray-400 dark:text-gray-500 mt-0.5 truncate">
@@ -335,7 +335,7 @@ export function SubDetail({ gicsCode, history, stocks }: Props) {
 
       {/* Breadcrumb */}
       <div className="mb-4">
-        <Link href="/sectors" className="text-blue-500 hover:underline text-sm">
+        <Link href="/sectors" className="text-emerald-500 hover:underline text-sm">
           ← 返回產業總覽
         </Link>
       </div>
@@ -382,7 +382,7 @@ export function SubDetail({ gicsCode, history, stocks }: Props) {
             key={label}
             className={`rounded-lg p-3 text-center ${
               highlight
-                ? 'bg-blue-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-800'
+                ? 'bg-emerald-50 dark:bg-emerald-950 border border-emerald-200 dark:border-emerald-800'
                 : 'bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700'
             }`}
           >
@@ -488,7 +488,7 @@ export function SubDetail({ gicsCode, history, stocks }: Props) {
                     <tr key={s.ticker} className="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
                       <td className="px-4 py-2 text-gray-400">{s.rank_in_sub ?? '—'}</td>
                       <td className="px-4 py-2 font-bold">
-                        <Link href={`/stock/${s.ticker}`} className="text-blue-600 dark:text-blue-400 hover:underline">
+                        <Link href={`/stock/${s.ticker}`} className="text-emerald-600 dark:text-emerald-400 hover:underline">
                           {s.ticker}
                         </Link>
                       </td>

@@ -21,7 +21,7 @@ export default function WeeklyListPage() {
             className="flex gap-4 sm:gap-6 group"
           >
             <div className="flex-1 min-w-0">
-              <h2 className="text-lg sm:text-xl font-bold text-black leading-snug group-hover:text-blue-600 transition-colors">
+              <h2 className="text-lg sm:text-xl font-bold text-black leading-snug group-hover:text-emerald-600 transition-colors">
                 第 {issue.issue} 期 · {issue.title}
               </h2>
               <p className="mt-2 text-sm text-gray-700 leading-6 line-clamp-2">

@@ -15,7 +15,7 @@ export function StockMemoBody({ markdown }: { markdown: string }) {
             </h1>
           ),
           h2: ({ children }) => (
-            <h2 className="mt-10 mb-3 text-xl font-bold text-black border-l-4 border-blue-600 pl-3">
+            <h2 className="mt-10 mb-3 text-xl font-bold text-black border-l-4 border-emerald-600 pl-3">
               {children}
             </h2>
           ),
@@ -80,7 +80,7 @@ export function StockMemoBody({ markdown }: { markdown: string }) {
               href={href}
               target="_blank"
               rel="noreferrer"
-              className="text-blue-600 hover:underline"
+              className="text-emerald-600 hover:underline"
             >
               {children}
             </a>

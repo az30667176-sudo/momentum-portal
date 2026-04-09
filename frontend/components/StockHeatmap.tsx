@@ -123,7 +123,7 @@ function Tooltip({ entry, visible }: { entry: StockHeatmapEntry; visible: boolea
           {entry.mom_score != null && (
             <>
               <span className="text-gray-500">Mom</span>
-              <span className="text-blue-400 font-semibold">{entry.mom_score.toFixed(0)}</span>
+              <span className="text-emerald-400 font-semibold">{entry.mom_score.toFixed(0)}</span>
             </>
           )}
           {entry.rvol != null && (
@@ -467,7 +467,7 @@ export function StockHeatmap({ entries, date }: Props) {
                 placeholder="搜尋 ticker…"
                 value={search}
                 onChange={e => setSearch(e.target.value)}
-                className="w-full text-xs border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-1.5 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full text-xs border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-1.5 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500"
               />
               {search && (
                 <button

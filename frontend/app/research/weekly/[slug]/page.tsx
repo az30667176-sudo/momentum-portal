@@ -31,13 +31,13 @@ export default function WeeklyDetailPage({
     <article>
       <Link
         href="/research/weekly"
-        className="inline-flex items-center text-sm text-blue-600 hover:underline mb-4"
+        className="inline-flex items-center text-sm text-emerald-600 hover:underline mb-4"
       >
         ← 回到輪動週報列表
       </Link>
 
       <header className="mb-10 pb-6 border-b border-gray-200">
-        <div className="text-xs uppercase tracking-wider text-blue-600 font-semibold mb-2">
+        <div className="text-xs uppercase tracking-wider text-emerald-600 font-semibold mb-2">
           輪動週報 · 第 {issue.issue} 期
         </div>
         <h1 className="text-3xl sm:text-4xl font-bold text-black leading-tight">
@@ -100,7 +100,7 @@ export default function WeeklyDetailPage({
         {issue.sources.map((s, i) => (
           <li key={i}>
             <a
-              className="text-blue-600 hover:underline"
+              className="text-emerald-600 hover:underline"
               href={s.url}
               target="_blank"
               rel="noreferrer"
@@ -121,7 +121,7 @@ export default function WeeklyDetailPage({
 
 function H2({ children }: { children: React.ReactNode }) {
   return (
-    <h2 className="mt-12 mb-3 text-xl font-bold text-black border-l-4 border-blue-600 pl-3">
+    <h2 className="mt-12 mb-3 text-xl font-bold text-black border-l-4 border-emerald-600 pl-3">
       {children}
     </h2>
   )
