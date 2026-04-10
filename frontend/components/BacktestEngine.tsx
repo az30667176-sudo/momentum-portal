@@ -762,16 +762,27 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
 
   const applyOptParams = useCallback((params: Record<string, any>) => {
     const ri = (v: any, fallback: any) => v != null ? Math.round(Number(v)) : fallback
-    // Build subFilters: fixed filters from run + any trial-specific indicator filters
-    const fixedSubs: SubFilter[] = Array.isArray(params.subFilters) ? params.subFilters : []
-    const trialSubs: SubFilter[] = Object.entries(params.filterSummary ?? {}).map(([indicator, info]: any) => ({
+
+    // Build subFilters from trial-specific indicator filters (filter_summary)
+    const filterSummary = params.filterSummary ?? params.filter_summary ?? {}
+    const trialSubs: SubFilter[] = Object.entries(filterSummary).map(([indicator, info]: any) => ({
       id: `opt_${indicator}_${Date.now()}`,
       type: 'static' as FilterType,
       indicator,
-      op: info.op as any,
+      op: (info.op ?? '>=') as any,
       value: typeof info.threshold === 'number' ? info.threshold : Number(info.threshold),
     }))
-    const mergedSubs = [...fixedSubs, ...trialSubs]
+
+    // Fixed filters from the run — deduplicate against trial filters
+    // (trial filters override the same indicator's fixed filter)
+    const trialIndicators = new Set(trialSubs.map(s => s.indicator))
+    const rawFixed = params.subFilters ?? params.sub_filters ?? []
+    const fixedSubs: SubFilter[] = (Array.isArray(rawFixed) ? rawFixed : [])
+      .filter((f: SubFilter) => !trialIndicators.has(f.indicator))
+
+    const newSubFilters = [...fixedSubs, ...trialSubs]
+    console.log('[applyOptParams]', { fixedSubs: fixedSubs.length, trialSubs: trialSubs.length, total: newSubFilters.length, filterSummary, rawFixed })
+
     setConfig(prev => ({
       ...prev,
       topN: ri(params.topN, prev.topN),
@@ -788,7 +799,7 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
       weightMode: params.weightMode ?? prev.weightMode,
       tradingCost: params.tradingCost != null ? Math.round(Number(params.tradingCost) * 100) / 100 : prev.tradingCost,
       spyMaFilter: params.spyMaFilter !== undefined ? params.spyMaFilter : prev.spyMaFilter,
-      subFilters: mergedSubs,
+      subFilters: newSubFilters,
     }))
     setActiveTab('config')
   }, [])
