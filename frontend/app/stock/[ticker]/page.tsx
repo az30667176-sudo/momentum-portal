@@ -20,5 +20,9 @@ export default async function StockPage({ params }: Props) {
 
   const subReturn = await getLatestSubReturn(info.gics_code)
 
-  return <StockDetail info={info} history={history} subReturn={subReturn} />
+  return (
+    <main className="min-h-screen bg-white text-gray-900">
+      <StockDetail info={info} history={history} subReturn={subReturn} />
+    </main>
+  )
 }

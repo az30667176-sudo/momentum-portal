@@ -7,7 +7,7 @@ import { StockReturn, StockInfo, SubReturn } from '@/lib/types'
 // ─── Types ───────────────────────────────────────────────────
 
 type TimeRange = '1M' | '3M' | '6M' | 'YTD' | '1Y' | '2Y' | '3Y' | 'ALL'
-type SubKey = 'rank_in_sub' | 'mom_score' | 'rvol' | 'obv_trend' | 'ret_1d'
+type SubKey = 'rank_in_sub' | 'mom_score' | 'rvol' | 'ret_1d'
 interface MAConfig { period: number; color: string; id: number }
 
 interface Props {
@@ -29,7 +29,6 @@ const STOCK_SUB_OPTIONS: { key: SubKey; label: string }[] = [
   { key: 'rank_in_sub', label: 'Sub Rank' },
   { key: 'mom_score',   label: 'Mom Score' },
   { key: 'rvol',        label: 'RVol' },
-  { key: 'obv_trend',   label: 'OBV Trend' },
   { key: 'ret_1d',      label: '1D Return' },
 ]
 
@@ -85,14 +84,6 @@ function getStockSubData(history: StockReturn[], key: SubKey, maxRank: number) {
           value: r.rvol as number,
           color: (r.rvol as number) >= 1.5 ? '#f97316' : '#60a5fa',
         }))
-    case 'obv_trend':
-      return history
-        .filter(r => r.obv_trend != null)
-        .map(r => ({
-          time:  r.date,
-          value: r.obv_trend as number,
-          color: (r.obv_trend as number) >= 0 ? '#22c55e' : '#ef4444',
-        }))
     case 'ret_1d':
       return history
         .filter(r => r.ret_1d != null)
@@ -145,7 +136,7 @@ function StockChart({ ticker, history }: { ticker: string; history: StockReturn[
     { period: 10, color: MA_PALETTE[1], id: 1 },
     { period: 20, color: MA_PALETTE[2], id: 2 },
   ])
-  const [subKeys, setSubKeys]     = useState<SubKey[]>(['rank_in_sub', 'mom_score', 'rvol'])
+  const [subKeys, setSubKeys]     = useState<SubKey[]>(['rank_in_sub', 'mom_score', 'ret_1d'])
   const [activeRange, setActive]  = useState<TimeRange>('1Y')
   const [showMaPanel, setMaPanel] = useState(false)
   const [newPeriod, setNewPeriod] = useState('')
@@ -367,7 +358,7 @@ function StockChart({ ticker, history }: { ticker: string; history: StockReturn[
         if (key === 'mom_score') {
           series.createPriceLine({ price: 50, color: '#9ca3af', lineWidth: 1, lineStyle: 2, axisLabelVisible: false })
         }
-        if (key === 'obv_trend' || key === 'ret_1d') {
+        if (key === 'ret_1d') {
           series.createPriceLine({ price: 0, color: '#9ca3af', lineWidth: 1, lineStyle: 0, axisLabelVisible: false })
         }
       } catch {}
@@ -515,11 +506,11 @@ export function StockDetail({ info, history, subReturn }: Props) {
     : null
 
   return (
-    <div className="p-4 md:p-6 max-w-5xl mx-auto">
+    <div className="p-4 md:p-6 lg:p-8 max-w-screen-2xl mx-auto">
 
       {/* Breadcrumb */}
       <div className="mb-4 flex items-center gap-2 text-sm">
-        <Link href="/sectors" className="text-emerald-500 hover:underline">← 返回產業總覽</Link>
+        <Link href="/stocks" className="text-emerald-500 hover:underline">← 返回個股排名</Link>
         {info.sub_industry && (
           <>
             <span className="text-gray-400">/</span>
@@ -530,10 +521,11 @@ export function StockDetail({ info, history, subReturn }: Props) {
         )}
       </div>
 
-      {/* Title row */}
-      <div className="flex flex-wrap items-start justify-between gap-4 mb-6">
-        <div>
-          <h1 className="text-3xl font-bold text-gray-900 tracking-tight">
+      {/* Desktop: title + stats side by side */}
+      <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 mb-6">
+        {/* Left: title + badges */}
+        <div className="flex-shrink-0">
+          <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 tracking-tight">
             {info.ticker}
           </h1>
           <p className="text-sm text-gray-500 mt-1">{info.company}</p>
@@ -551,17 +543,19 @@ export function StockDetail({ info, history, subReturn }: Props) {
           </div>
         </div>
 
-        {/* Stat cards */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+        {/* Right: stat cards — 6 cards on desktop, 3 cols on sm */}
+        <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
           {[
-            { label: '1D',        value: fmt(latest.ret_1d),  colorVal: latest.ret_1d },
-            { label: '1M',        value: fmt(latest.ret_1m),  colorVal: latest.ret_1m },
-            { label: '3M',        value: fmt(latest.ret_3m),  colorVal: latest.ret_3m },
-            { label: 'Mom Score', value: latest.mom_score != null ? latest.mom_score.toFixed(1) : '—', colorVal: null },
+            { label: '1D',   value: fmt(latest.ret_1d),   colorVal: latest.ret_1d },
+            { label: '1W',   value: fmt(latest.ret_1w),   colorVal: latest.ret_1w },
+            { label: '1M',   value: fmt(latest.ret_1m),   colorVal: latest.ret_1m },
+            { label: '3M',   value: fmt(latest.ret_3m),   colorVal: latest.ret_3m },
+            { label: '6M',   value: fmt(latest.ret_6m),   colorVal: latest.ret_6m },
+            { label: 'Mom',  value: latest.mom_score != null ? latest.mom_score.toFixed(1) : '—', colorVal: null },
           ].map(({ label, value, colorVal }) => (
-            <div key={label} className="rounded-lg p-3 text-center bg-white border border-gray-200 min-w-[72px]">
+            <div key={label} className="rounded-lg p-2.5 text-center bg-white border border-gray-200 min-w-[64px]">
               <div className="text-[10px] text-gray-500 uppercase tracking-wide">{label}</div>
-              <div className={`text-base font-bold mt-0.5 ${colorVal != null ? retColor(colorVal) : 'text-gray-800'}`}>
+              <div className={`text-sm font-bold mt-0.5 ${colorVal != null ? retColor(colorVal) : 'text-gray-800'}`}>
                 {value}
               </div>
             </div>
@@ -569,64 +563,99 @@ export function StockDetail({ info, history, subReturn }: Props) {
         </div>
       </div>
 
-      {/* Rank cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+      {/* Desktop: rank cards + chart in 2 columns */}
+      <div className="flex flex-col lg:flex-row gap-6 mb-6">
 
-        {/* Sub-industry internal rank */}
-        <div className="bg-white rounded-lg border border-gray-200 p-4">
-          <div className="text-[10px] text-gray-500 uppercase tracking-wide mb-2">Sub-industry 內排名</div>
-          <div className="text-2xl font-bold text-gray-900">
-            #{latest.rank_in_sub ?? '—'}
-            {stockCount != null && (
-              <span className="text-sm font-normal text-gray-400 ml-1">/ {stockCount} 股</span>
+        {/* Left sidebar: rank cards (stacked vertically on desktop) */}
+        <div className="flex flex-col gap-4 lg:w-[280px] lg:flex-shrink-0">
+
+          {/* Sub-industry internal rank */}
+          <div className="bg-white rounded-lg border border-gray-200 p-4">
+            <div className="text-[10px] text-gray-500 uppercase tracking-wide mb-2">Sub-industry 內排名</div>
+            <div className="text-2xl font-bold text-gray-900">
+              #{latest.rank_in_sub ?? '—'}
+              {stockCount != null && (
+                <span className="text-sm font-normal text-gray-400 ml-1">/ {stockCount} 股</span>
+              )}
+            </div>
+            {info.sub_industry && (
+              <Link href={`/sub/${info.gics_code}`} className="text-xs text-emerald-500 hover:underline mt-1 block">
+                {info.sub_industry}
+              </Link>
+            )}
+            {latest.rank_in_sub != null && stockCount != null && (
+              <div className="mt-3">
+                <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-emerald-500 rounded-full transition-all"
+                    style={{ width: `${Math.max(4, stockTopPct ?? 0)}%` }}
+                  />
+                </div>
+                <div className="text-[10px] text-gray-400 mt-1">Top {stockTopPct ?? '—'}%</div>
+              </div>
             )}
           </div>
-          {info.sub_industry && (
-            <Link href={`/sub/${info.gics_code}`} className="text-xs text-emerald-500 hover:underline mt-1 block">
-              {info.sub_industry}
-            </Link>
-          )}
-          {latest.rank_in_sub != null && stockCount != null && (
-            <div className="mt-3">
-              <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
-                <div
-                  className="h-full bg-emerald-500 rounded-full transition-all"
-                  style={{ width: `${Math.max(4, stockTopPct ?? 0)}%` }}
-                />
-              </div>
-              <div className="text-[10px] text-gray-400 mt-1">Top {stockTopPct ?? '—'}%</div>
-            </div>
-          )}
-        </div>
 
-        {/* Sub-industry market rank */}
-        <div className="bg-white rounded-lg border border-gray-200 p-4">
-          <div className="text-[10px] text-gray-500 uppercase tracking-wide mb-2">板塊在全市場排名</div>
-          <div className="text-2xl font-bold text-gray-900">
-            #{subRank ?? '—'}
-            <span className="text-sm font-normal text-gray-400 ml-1">/ 155</span>
+          {/* Sub-industry market rank */}
+          <div className="bg-white rounded-lg border border-gray-200 p-4">
+            <div className="text-[10px] text-gray-500 uppercase tracking-wide mb-2">板塊在全市場排名</div>
+            <div className="text-2xl font-bold text-gray-900">
+              #{subRank ?? '—'}
+              <span className="text-sm font-normal text-gray-400 ml-1">/ 155</span>
+            </div>
+            <div className="text-xs text-gray-500 mt-1">{info.sub_industry ?? '—'}</div>
+            {subRank != null && (
+              <div className="mt-3">
+                <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-purple-500 rounded-full transition-all"
+                    style={{ width: `${Math.max(4, subRankTopPct ?? 0)}%` }}
+                  />
+                </div>
+                <div className="text-[10px] text-gray-400 mt-1">Top {subRankTopPct ?? '—'}%</div>
+              </div>
+            )}
           </div>
-          <div className="text-xs text-gray-500 mt-1">{info.sub_industry ?? '—'}</div>
-          {subRank != null && (
-            <div className="mt-3">
-              <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
-                <div
-                  className="h-full bg-purple-500 rounded-full transition-all"
-                  style={{ width: `${Math.max(4, subRankTopPct ?? 0)}%` }}
-                />
-              </div>
-              <div className="text-[10px] text-gray-400 mt-1">Top {subRankTopPct ?? '—'}%</div>
-            </div>
-          )}
-        </div>
-      </div>
 
-      {/* Chart */}
-      <div className="mb-6">
-        <h2 className="text-xs font-semibold text-gray-600 uppercase tracking-wide mb-2">
-          {info.ticker} · 股價走勢
-        </h2>
-        <StockChart ticker={info.ticker} history={history} />
+          {/* Return summary card */}
+          <div className="bg-white rounded-lg border border-gray-200 p-4">
+            <div className="text-[10px] text-gray-500 uppercase tracking-wide mb-3">報酬總覽</div>
+            <div className="space-y-2">
+              {[
+                { label: '1 Day',   val: latest.ret_1d },
+                { label: '1 Week',  val: latest.ret_1w },
+                { label: '1 Month', val: latest.ret_1m },
+                { label: '3 Month', val: latest.ret_3m },
+                { label: '6 Month', val: latest.ret_6m },
+                { label: '1 Year',  val: latest.ret_12m },
+              ].map(({ label, val }) => (
+                <div key={label} className="flex items-center justify-between">
+                  <span className="text-xs text-gray-500">{label}</span>
+                  <span className={`text-xs font-semibold ${retColor(val ?? null)}`}>{fmt(val ?? null)}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* RVol card */}
+          <div className="bg-white rounded-lg border border-gray-200 p-4">
+            <div className="text-[10px] text-gray-500 uppercase tracking-wide mb-2">相對成交量 (RVol)</div>
+            <div className={`text-2xl font-bold ${(latest.rvol ?? 0) >= 1.5 ? 'text-orange-500' : 'text-gray-900'}`}>
+              {latest.rvol != null ? `${latest.rvol.toFixed(2)}x` : '—'}
+            </div>
+            <div className="text-[10px] text-gray-400 mt-1">
+              {(latest.rvol ?? 0) >= 2.0 ? '成交量異常放大' : (latest.rvol ?? 0) >= 1.5 ? '成交量偏高' : '正常範圍'}
+            </div>
+          </div>
+        </div>
+
+        {/* Right: chart area (takes remaining width) */}
+        <div className="flex-1 min-w-0">
+          <h2 className="text-xs font-semibold text-gray-600 uppercase tracking-wide mb-2">
+            {info.ticker} · 股價走勢
+          </h2>
+          <StockChart ticker={info.ticker} history={history} />
+        </div>
       </div>
 
     </div>
