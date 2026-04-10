@@ -572,8 +572,8 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
     rankBy: false, weightMode: false, tradingCost: false, spyMaFilter: false,
   })
   const [optParamSettings, setOptParamSettings] = useState({
-    rankBy_options: ['mom_score', 'sharpe_8w', 'sortino_8w', 'calmar_ratio', 'information_ratio', 'ret_1m', 'ret_3m'],
-    weightMode_options: ['equal', 'momentum', 'volatility'] as string[],
+    rankBy_options: [] as string[],
+    weightMode_options: [] as string[],
     tradingCost_min: 0,
     tradingCost_max: 0.5,
   })
@@ -788,7 +788,7 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
       weightMode: params.weightMode ?? prev.weightMode,
       tradingCost: params.tradingCost != null ? Math.round(Number(params.tradingCost) * 100) / 100 : prev.tradingCost,
       spyMaFilter: params.spyMaFilter !== undefined ? params.spyMaFilter : prev.spyMaFilter,
-      subFilters: mergedSubs.length > 0 ? mergedSubs : prev.subFilters,
+      subFilters: mergedSubs,
     }))
     setActiveTab('config')
   }, [])
@@ -1543,19 +1543,47 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
               )}
             </div>
 
-            <button
-              onClick={runBacktest}
-              disabled={isRunning}
-              className={`w-full py-3 rounded-xl text-white font-semibold text-base transition-colors ${
-                isRunning
-                  ? 'bg-gray-400 cursor-not-allowed'
-                  : 'bg-emerald-600 hover:bg-emerald-700'
-              }`}
-            >
-              {isRunning
-                ? (runPhase === 'scanning' ? '掃描中...' : runPhase === 'loading' ? '載入資料...' : '計算中...')
-                : '▶ 執行回測'}
-            </button>
+            <div className="flex gap-3">
+              <button
+                onClick={runBacktest}
+                disabled={isRunning}
+                className={`flex-1 py-3 rounded-xl text-white font-semibold text-base transition-colors ${
+                  isRunning
+                    ? 'bg-gray-400 cursor-not-allowed'
+                    : 'bg-emerald-600 hover:bg-emerald-700'
+                }`}
+              >
+                {isRunning
+                  ? (runPhase === 'scanning' ? '掃描中...' : runPhase === 'loading' ? '載入資料...' : '計算中...')
+                  : '▶ 執行回測'}
+              </button>
+              <button
+                onClick={() => {
+                  const name = prompt('Preset 名稱：')
+                  if (!name?.trim()) return
+                  setPresetName(name.trim())
+                  // Trigger save after state update
+                  setTimeout(async () => {
+                    try {
+                      const res = await fetch('/api/presets', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ name: name.trim(), config }),
+                      })
+                      const data = await res.json()
+                      if (!res.ok) throw new Error(data.error ?? `HTTP ${res.status}`)
+                      alert('已儲存 Preset：' + name.trim())
+                      setPresetName('')
+                    } catch (e: any) {
+                      alert('儲存失敗：' + (e.message ?? String(e)))
+                    }
+                  }, 0)
+                }}
+                className="px-5 py-3 rounded-xl border-2 border-emerald-600 text-emerald-600 hover:bg-emerald-50 font-semibold text-sm transition-colors whitespace-nowrap"
+              >
+                💾 儲存 Preset
+              </button>
+            </div>
           </div>
         </div>
       )}
@@ -2274,12 +2302,17 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
                                     }
                                   }}
                                 />
-                                <span className="w-32 text-gray-600 dark:text-gray-400">{opt.label}</span>
+                                <span className="w-32 text-gray-600 dark:text-gray-400">
+                                  {opt.label}
+                                  {isSelected && existing && (
+                                    <span className="ml-1 text-[10px] text-gray-400">
+                                      ({existing.op === '>=' ? '越高越好' : '越低越好'})
+                                    </span>
+                                  )}
+                                </span>
                                 {isSelected && existing && (
                                   <>
-                                    <span className="px-1.5 py-0.5 bg-gray-100 dark:bg-gray-600 rounded text-gray-500 dark:text-gray-300 text-xs select-none">
-                                      {existing.op === '>=' ? '≥' : '≤'}
-                                    </span>
+                                    <span className="text-gray-400 text-[10px]">搜尋範圍</span>
                                     <input
                                       type="number" step="any"
                                       value={existing.min}
@@ -2288,7 +2321,7 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
                                       )}
                                       className="w-16 border border-gray-300 dark:border-gray-600 rounded px-1 py-0.5 bg-white dark:bg-gray-700 dark:text-white text-xs"
                                     />
-                                    <span className="text-gray-400">–</span>
+                                    <span className="text-gray-400">~</span>
                                     <input
                                       type="number" step="any"
                                       value={existing.max}
@@ -2645,31 +2678,37 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
                 <thead className="bg-gray-50 dark:bg-gray-700/50 text-gray-500 dark:text-gray-400">
                   <tr>
                     <th className="px-3 py-2 text-left">名稱</th>
+                    <th className="px-3 py-2 text-right">排名</th>
                     <th className="px-3 py-2 text-right">topN</th>
                     <th className="px-3 py-2 text-right">stk/sub</th>
                     <th className="px-3 py-2 text-right">rebal</th>
+                    <th className="px-3 py-2 text-right">權重</th>
                     <th className="px-3 py-2 text-right">SL</th>
                     <th className="px-3 py-2 text-right">TP</th>
+                    <th className="px-3 py-2 text-right">篩選</th>
                     <th className="px-3 py-2 text-left">更新時間</th>
                     <th className="px-3 py-2 text-center">操作</th>
                   </tr>
                 </thead>
                 <tbody>
                   {presets.length === 0 && (
-                    <tr><td colSpan={8} className="px-3 py-6 text-center text-gray-400">尚無 preset</td></tr>
+                    <tr><td colSpan={11} className="px-3 py-6 text-center text-gray-400">尚無 preset</td></tr>
                   )}
                   {presets.map(p => (
                     <tr key={p.id} className="border-t border-gray-100 dark:border-gray-700">
                       <td className="px-3 py-2 font-medium text-gray-900 dark:text-white">{p.name}</td>
+                      <td className="px-3 py-2 text-right text-gray-600 dark:text-gray-400">{p.config.rankBy}</td>
                       <td className="px-3 py-2 text-right">{p.config.topN}</td>
                       <td className="px-3 py-2 text-right">{p.config.stocksPerSub}</td>
                       <td className="px-3 py-2 text-right">{p.config.rebalPeriod}d</td>
+                      <td className="px-3 py-2 text-right text-gray-600 dark:text-gray-400">{p.config.weightMode === 'equal' ? '等權' : p.config.weightMode === 'momentum' ? '動能' : '波動率'}</td>
                       <td className="px-3 py-2 text-right">{p.config.stopLoss != 0 ? `${p.config.stopLoss}%` : '—'}</td>
                       <td className="px-3 py-2 text-right">{(p.config.takeProfit ?? 0) > 0 ? `${p.config.takeProfit}%` : '—'}</td>
+                      <td className="px-3 py-2 text-right">{p.config.subFilters?.length ?? 0}個</td>
                       <td className="px-3 py-2 text-gray-500 dark:text-gray-400 whitespace-nowrap">{new Date(p.updated_at).toLocaleString('zh-TW', { hour12: false })}</td>
                       <td className="px-3 py-2 text-center whitespace-nowrap">
                         <button
-                          onClick={() => loadPresetIntoConfig(p)}
+                          onClick={() => { loadPresetIntoConfig(p); setActiveTab('config') }}
                           className="px-2 py-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded text-xs mr-1"
                         >
                           載入
