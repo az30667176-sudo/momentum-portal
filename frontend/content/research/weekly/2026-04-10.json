@@ -4,64 +4,65 @@
   "date": "2026-04-10",
   "snapshotDate": "2026-04-10",
   "title": "停火行情的贏家與輸家",
-  "subtitle": "Hormuz 重開觸發 regime switch，半導體硬體與工業金屬接棒領跑",
+  "subtitle": "一場停火照出市場真正的信仰：實體基建，不是軟體",
   "imageDir": "/research/weekly/2026-04-10",
   "coverImage": "01_sector_1w.png",
   "intro": [
-    "4 月 7 日巴基斯坦斡旋下美伊達成兩週停火，Hormuz 海峽承諾暫時重開。Brent 單日暴跌 13% 至 94 美元，Dow 跳漲 1,300 點創去年 4 月以來最大單日漲幅。週四 3 月 CPI 出爐：月增 0.9%、年增 3.3%，汽油 +21.2% 貢獻四分之三漲幅，但核心 CPI 僅 +0.2%，低於預期 0.3%，確認通膨壓力仍集中在能源端而非廣泛擴散。S&P 500 全週 +3.6%。",
-    "本期先就上週六項操作建議進行績效回顧，再依本週 portal 訊號與總經事件重新部署。上週的配置邏輯建立在「Hormuz 未解、油價維持高位」的情境假設上，停火公告實質上改變了市場的 risk regime —— 資金從防禦板塊流出、轉向循環與成長。以下逐項檢視哪些判斷在 regime 切換後仍然成立、哪些需要調整。"
+    "上週報告的核心判斷是：「這不是 risk-on 啟動，是位置互換 —— 買盤心裡並沒有股價表面那麼有信心」。依據是三條線索：能源整群同步解倉但動能未崩、循環股的反彈集中在落後者而非領袖、以及必需消費的排名在暗中快速累積。結論是市場在等一個東西，但還沒決定要往哪裡去。",
+    "這週那個「東西」來了 —— 4 月 7 日巴基斯坦斡旋下美伊達成兩週停火，Hormuz 海峽承諾暫時重開，Brent 單日暴跌 13% 至 94 美元，Dow 跳漲 1,300 點。週四 3 月 CPI 出爐，月增 0.9%、年增 3.3%，但核心 CPI 僅 +0.2%（低於預期），確認通膨壓力集中在能源而非廣泛擴散。S&P 500 全週 +3.6%。",
+    "停火給了市場一個明確的方向選擇，而**資金在 48 小時內完成的輪動路徑，恰好回答了上週留下的問題**：市場等的不是降息、不是油價繼續漲，而是一個「可以安心配置實體基建」的時機。半導體硬體四子同時衝進 portal Top 10（近三個月首見）、銅連續第二週留在強勢榜、軟體卻跌到全市場倒數兩名、上週累積排名的必需消費一週內全數逆轉。所有訊號指向同一件事：**這輪 risk-on 的主線是「蓋出來的東西」—— 晶片、銅線、電力設備、資料中心 —— 而不是軟體或防禦**。以下六張圖依序展開。"
   ],
   "exhibits": [
     {
       "number": 1,
-      "title": "板塊一週報酬：全面收紅，科技與非必需消費領跑",
+      "title": "板塊一週報酬：表面全紅，底層是定向輪動",
       "image": "01_sector_1w.png",
-      "caption": "11 板塊全數收紅。非必需消費 +4.6%、科技 +4.3% 領先，能源 –4.2% 唯一負報酬。",
-      "body": "上週的格局是「金融帶頭、能源獨黑」，本週換成「科技帶頭、能源繼續黑」—— 但驅動力完全不同。上週能源下跌是部位解倉（`delta_rank` 維持 ±3），本週是停火直接抽掉戰爭溢價（E&P Δ–9、Integrated Δ–12、Coal Δ–13，排名系統性下滑）。科技的上位則由半導體硬體帶動：4/9 Broadcom +5%（Q1 AI 營收 84 億美元 YoY +106%）、ON +11.2%、ARM +10.5%、MRVL +12.8%。**Portal 數據顯示 SME rank 5、Electronic Components rank 6、EMS rank 9、Heavy Electrical rank 3 —— 四個次產業同時站上 Top 10，形成了近三個月最集中的科技硬體動能群聚。**"
+      "caption": "11 板塊全數收紅，非必需消費 +4.6%、科技 +4.3% 領先，能源 –4.2% 唯一負報酬。",
+      "body": "上週的格局是「金融帶頭、能源獨黑」，解讀為落後者補漲主導的位置互換。本週換成「科技帶頭、能源繼續黑」，但驅動力完全不同。上週能源下跌是部位解倉（`delta_rank` 維持 ±3，整群同步休息），本週是停火直接抽掉戰爭溢價（E&P Δ–9、Integrated Δ–12、Coal Δ–13，排名系統性下滑）。更關鍵的是科技板塊 +4.3% 的內部結構：半導體硬體四子（SME +13.8%、Electronic Components +13.9%、EMS +13.7%、Semiconductors +10.8%）與軟體（Application Software –9.1%、Systems Software –6.9%）同在一個板塊裡走出 23 個百分點的頭尾差距。**上週的「位置互換」是被動的，本週的輪動是主動的 —— 資金知道它要去哪裡了。** 4/9 Broadcom 單日 +5%、Q1 AI 營收 84 億美元 YoY +106%，是這條方向的定價錨點。"
     },
     {
       "number": 2,
-      "title": "輪動地圖：科技硬體進入右上象限",
+      "title": "輪動地圖：右上象限只剩硬體和金屬",
       "image": "02_rotation_map.png",
-      "caption": "X 軸 3M 報酬、Y 軸 1W 報酬。科技硬體族群明確落在右上（3M 強 + 1W 強），能源仍在右側但持續下墜。",
-      "body": "上週報告指出「右下→左上的圖形有兩種解：趨勢翻轉或短線反彈」。本週的數據指向**局部趨勢調整**：能源 3M +24.7% 仍為全市場最高，短線因停火重挫但中線動能尚未瓦解；科技硬體則正式從左上移入右上 —— 這是動能策略的最佳象限，代表短線與中線共振。值得關注的分裂出現在科技板塊內部：硬體四子（SME / Electronic Components / EMS / Tech Hardware）3M 均 > +30%、1W 均 > +10%；但 Application Software 1W –9.1%（rank 154）、Systems Software –6.9%（rank 155），**同一個板塊的硬體與軟體走出完全相反的方向**。單用 XLK 做科技配置會嚴重失真。"
+      "caption": "X 軸 3M 報酬、Y 軸 1W 報酬。半導體硬體和工業金屬佔據右上象限（中線強 + 短線強），軟體與防禦落在左下。",
+      "body": "上週報告說「這種左上擠滿落後者、右下只剩能源的圖形有兩種解：趨勢翻轉或短線反彈掩護換股」，傾向第二種。本週的圖形驗證了這個判斷 —— 上週左上的循環股大多沒有繼續往右上推進（金融 +2.4% 遠弱於上週 +4.9%），真正移入右上象限的是半導體硬體（3M > +30%、1W > +10%）和工業金屬。這代表**上週的反彈確實只是位置互換，但停火給了真正的催化劑讓市場展現結構性偏好 —— 而這個偏好指向硬體基建**。右下角能源 3M +24.7% 仍全市場最高但 1W 轉負，是典型的「長線動能在、短線被事件打」的型態，跟軟體族群（3M 弱 + 1W 弱）的結構性弱勢完全不同。"
     },
     {
       "number": 3,
-      "title": "最強 / 最弱次產業：半導體橫掃強勢榜",
+      "title": "最強 / 最弱次產業：硬體接棒金屬，軟體加入弱勢榜",
       "image": "03_top_bottom_subs.png",
-      "caption": "Top 6 有四個半導體相關次產業。銅 +10.5% 延續上週強勢。最弱榜新增軟體 –9.1% 與人力資源 –7.7%。",
-      "body": "上週最強榜由工業金屬包辦，本週被半導體接棒 —— 但關鍵是**銅仍留在 Top 10（+10.5%、mom 77.8、rank 15）**。這意味著「AI 硬體 + 工業金屬」正在形成一條跨板塊的共同主線：半導體設備需要銅佈線、資料中心需要銅配電，兩者的需求端高度重疊。上週報告建議新增銅部位，本週 +10.5% 驗證了這條邏輯。最弱榜的結構也有意義：**能源之外，排名最低的全是輕資產軟體與服務業**（App Software rank 154、Systems Software 155、HR Services 152、Data Processing 145），市場資金正在系統性地從軟體轉向硬體。"
+      "caption": "Top 6 有四個半導體相關。銅 +10.5% 連續第二週留在 Top 10。最弱榜新增 App Software –9.1%、HR Services –7.7%。",
+      "body": "上週最強榜由工業金屬包辦（鋁 +21.8%、銅 +8.6%、黃金 +10.2%），本週被半導體接棒 —— 但銅 +10.5%（mom 77.8、rank 15）連續第二週留在 Top 10。上週報告建議新增銅部位時給了三個理由：Grasberg 減產（供給斷層）、AI 銅需求預估跳升（Goldman 從 11 萬噸上調到 47.5 萬噸）、以及 portal Δ+18 的突破訊號。本週 Δ+1 代表銅已經從「突破加速」進入「穩態趨勢」—— 連續兩週進 Top 10 且 Δrank 收斂到接近零，這在 portal 的語言裡是中線持有的理想型態。最弱榜的結構同樣在推進主線：**能源之外，排名最低的全是輕資產服務業** —— App Software rank 154、Systems Software 155、HR Services 152、Data Processing 145。市場在用 portal 的排名體系告訴我們：實體 > 數位。"
     },
     {
       "number": 4,
-      "title": "能源動能結構：戰爭溢價蒸發，但 mom_score 未崩",
+      "title": "能源動能結構：戰爭溢價蒸發，中線骨架仍在",
       "image": "04_energy_unwind.png",
-      "caption": "能源全數落入 1W 負值區，但 mom_score 仍維持 76–90。結構性動能與短線事件衝擊並存。",
-      "body": "與上週「整群同步休息、delta_rank ±3」的解倉型態不同，本週能源的排名出現系統性下滑（E&P Δ–9、Integrated Δ–12、Coal Δ–13），反映的是停火公告直接抽掉了 Brent 的 30 美元戰爭溢價。但 mom_score 仍穩守 76–90 區間 —— 三個月 +24.7% 的累積報酬不是一週跌幅能抹去的。**這形成了一個明確的二元情境**：若 4/21 停火到期後未能延續（NPR 報導以色列已在黎巴嫩繼續空襲、伊朗 10 點方案要求全面解除制裁，雙方差距極大），能源將是反彈最快的族群；若停火演變為長期協議，mom_score 將在未來 2–4 週逐步回落。**當前建議維持小部位觀望，不加碼也不清倉，以 4/21 為決策節點。**"
+      "caption": "能源全數落入 1W 負值區，但 mom_score 維持 76–90。排名出現系統性下滑，與上週的「整群解倉」型態不同。",
+      "body": "上週我描述能源是「動能解倉而不是趨勢翻轉」—— `delta_rank` 全部在 ±3，整群一起跌、沒有誰先破位。本週型態明確轉變：E&P Δ–9、Integrated Δ–12、Coal Δ–13，排名在系統性下滑而非同步休息。但 mom_score 76–90 的區間仍未瓦解，三個月 +24.7% 的累積報酬不是一週跌幅能抹去的。上週建議「逢漲減 1/3、核心 2/3 留著」，這個配置在本週 –4.2% 的下跌中控制了損失。**下一步取決於 4/21 停火到期的結果**：NPR 報導停火宣布當天以色列就在黎巴嫩繼續空襲，伊朗的 10 點方案要求解除所有制裁和核濃縮權，雙方差距極大。停火若不續，Brent 回到 120+ 的速度會比跌下來更快；若延續走向長期協議，mom_score 在 2–4 週內將逐步回落。這是一個等事件的問題，不是看法的問題。"
     },
     {
       "number": 5,
-      "title": "排名變動：上週的防禦累積在 risk-on 中被逆轉",
+      "title": "排名變動：上週的防禦暗線為何被逆轉",
       "image": "05_rank_delta.png",
-      "caption": "上週爬升最快的必需消費（菸草 Δ+20、食品零售 Δ+17）本週全數出現在下滑榜（菸草 Δ–40、食品零售 Δ–32）。Movies & Entertainment Δ+34 為本週最大爬升者。",
-      "body": "上週報告觀察到必需消費族群排名快速累積，建議建立防禦部位。本週停火觸發 risk-on regime，資金從防禦板塊流出追逐循環股，導致菸草 Δ–40、食品零售 Δ–32、農產品 Δ–29 —— 幾乎是上週爬升幅度的鏡像翻轉。**回顧來看，上週觀察到的「防禦暗線」訊號本身是正確的（確實有資金在佈局），但這類部位的有效性高度依賴 regime 的延續**。當總經事件（停火）改變了 regime 前提，防禦部位會被優先減持。操作上的修正：未來在高不確定性環境下建立防禦配置時，應使用更窄的 size 或搭配對沖，而非全倉裸露。本週爬升最快的 Movies & Entertainment（Δ+34 → rank 58）值得追蹤，可能反映停火帶來的消費信心回升。"
+      "caption": "上週爬升最快的必需消費本週全數出現在下滑榜：菸草 Δ–40、食品零售 Δ–32、農產品 Δ–29。Movies & Entertainment Δ+34 為本週最大爬升者。",
+      "body": "上週報告的第四條建議是「建一個必需消費的相對防禦部位」，依據是六個次產業的 Δrank 同時大幅爬升。本週這些部位全數逆轉 —— 菸草 Δ–40、食品零售 Δ–32、農產品 Δ–29，幅度幾乎是上週爬升的鏡像。**但這個逆轉本身恰好驗證了上週的判斷框架**：上週說「市場在循環股上做反彈、同時在防禦股上加碼，代表買盤心裡沒有表面那麼有信心」—— 而本週停火一來，那些防禦部位立刻被拋售去追成長，證明它們確實只是「因為不確定而暫停」的資金，不是結構性配置。分析本身沒有錯，但配置需要修正 —— **在 regime 可能隨事件快速切換的環境裡，防禦部位需要用更窄的 size 或搭配對沖來建**。本週的新爬升者 Movies & Entertainment（Δ+34 → rank 58）是 risk-on 的產物，mom_score 尚處中段，需再觀察一週。"
     },
     {
       "number": 6,
-      "title": "原物料分裂延續：金屬強、化學弱的格局固化",
+      "title": "原物料分裂：金屬走基建、化學走消費，兩條線加速脫鉤",
       "image": "06_materials_split.png",
-      "caption": "工業金屬持續領漲（銅 +10.5%、鋁 mom 82.5、鋼鐵 Δ+20），化學品弱勢不改（Commodity Chemicals –2.5%、Fertilizers –4.1%）。",
-      "body": "續上週判斷。原物料板塊整體 +3.6%，但金屬與化學的分裂不僅延續、而且加劇。值得深究的是：Brent 從 128 跌到 94 美元理論上應降低化學品原料成本，但 Commodity Chemicals 仍收 –2.5%、Fertilizers –4.1% —— **代表化學品的弱勢不只是成本端的問題，更反映了終端需求（營建、包裝、農業）的疲軟**。反觀金屬族群，銅 +10.5% 延續 Grasberg 減產 + AI 銅需求題材，鋼鐵 Δ+20 可能受惠於基礎建設預期。Portal 上銅從上週的 Δ+18（突破訊號）回到本週 Δ+1，代表從「加速突破」進入「穩態持有」階段，適合中線配置而非短線追高。"
+      "caption": "金屬持續領漲（銅 +10.5%、鋁 mom 82.5、鋼鐵 Δ+20），化學品弱勢不改（Commodity Chemicals –2.5%、Fertilizers –4.1%）。",
+      "body": "續上週判斷。上週報告說「原物料必須拆成金屬與化學兩條線分別追」，本週的數據進一步揭示了分裂背後的原因。Brent 從 128 暴跌到 94 美元，理論上應降低化學品原料成本 —— 但 Commodity Chemicals 仍收 –2.5%、Fertilizers –4.1%。**油價下跌卻未帶動化學品反彈，代表壓制它的不是成本端，是終端需求（營建、包裝、農業）的疲軟。** 反觀金屬族群，銅 +10.5% 續走 Grasberg 減產 + AI 銅需求題材，鋼鐵 Δ+20 反映基建預期。把這條線接回本期主線：金屬的需求端是資料中心、電氣化、基建 —— 全是「建設型需求」；化學品的需求端是消費品、住宅、農業 —— 全是「消費型需求」。**同一個原物料板塊裡，「建設」和「消費」走出截然不同的方向 —— 而這正好跟科技板塊裡硬體 vs 軟體的分裂互相映證，構成本期主線的最後一塊拼圖。**"
     }
   ],
   "actions": [
-    "**上週建議績效回顧** | (1) 能源逢漲減 1/3 → 能源 –4.2%，減碼迴避了跌幅 ✓ | (2) 新增銅部位 → 銅 +10.5%，延續結構性上行 ✓ | (3) 工業配對多重電運輸 → 重電 +9.4% rank 3、客運 +19.6% ✓ | (4) 必需消費防禦 → regime 切換後被反向減持 ✗ | (5) 避開排名重挫名單 → Hotels Δ+19 反彈，漏掉機會，中性 | (6) Pharma 不追 → 醫療 +1.29% 全場倒數，正確 ✓",
-    "**能源：維持小部位觀望，以 4/21 停火到期為決策節點**。Mom_score 76–90 代表中線動能未崩，但排名系統性下滑（Integrated Δ–12）顯示短線壓力真實。停火若破裂將是年內最大的做多催化劑；若延續則逐步退出。",
-    "**加碼半導體硬體線**（SME rank 5 / Electronic Components rank 6 / EMS rank 9 / Heavy Electrical rank 3）。四子同時進入 Top 10 是近三個月首見的群聚訊號，驅動力為停火降低供應鏈風險 + Broadcom Q1 AI 營收確認 capex 循環延續。**明確迴避軟體**（App Software rank 154、Systems Software rank 155），資金流向已發出清晰的硬體 > 軟體訊號。",
-    "**續抱工業金屬**。銅 rank 15 mom 77.8 從「突破」進入「穩態」，適合中線持有。鋁 mom 82.5 rank 10 維持強勢。鋼鐵 Δ+20 為新進觀察名單。化學品與肥料持續迴避 —— 油價下跌並未帶來預期中的成本受益反彈，終端需求才是瓶頸。",
-    "**暫撤必需消費防禦配置**。停火期間 risk-on 環境下防禦股將持續被當作資金來源。待停火破裂或通膨數據再度惡化時再重建，屆時以窄 size + 對沖方式配置。",
-    "**新增觀察：Movies & Entertainment（Δ+34 → rank 58）**。本週排名爬升最快的次產業，可能反映停火帶來的消費信心與串流訂閱數據改善。Mom_score 尚處中段，若下週持續爬升再考慮小部位介入。"
+    "**上週建議績效回顧** | (1) 能源逢漲減 1/3 → 能源 –4.2%，減碼迴避了跌幅 ✓ | (2) 新增銅部位 → 銅 +10.5%，連續第二週驗證 ✓ | (3) 工業配對多重電運輸 → 重電 +9.4% rank 3、客運 +19.6% ✓ | (4) 必需消費防禦 → 停火觸發 regime 切換，防禦資金被拋售追成長 ✗ | (5) 避開排名重挫名單 → Hotels Δ+19 risk-on 反彈，中性 | (6) Pharma 不追 → 醫療 +1.29% 倒數板塊 ✓",
+    "**加碼半導體硬體線**（SME rank 5、Electronic Components rank 6、EMS rank 9、Heavy Electrical rank 3）。四子同時進入 Top 10 是近三個月首見的群聚訊號，驅動力為供應鏈風險下降 + AI capex 確認（Broadcom Q1 AI 營收 +106% YoY）。**明確迴避軟體**（App Software rank 154、Systems Software 155） —— 資金從軟體流向硬體不是一週的波動，是市場在重新定價 AI 受益鏈的位置。",
+    "**續抱工業金屬，與半導體硬體視為同一主線**。銅 rank 15 mom 77.8，從「突破」進入「穩態」，適合中線持有。鋁 mom 82.5 rank 10 維持強勢。鋼鐵 Δ+20 加入觀察名單。化學品與肥料持續迴避 —— 油價暴跌卻未帶動反彈，終端需求疲軟是結構性問題。",
+    "**能源維持小部位觀望，4/21 停火到期為決策節點**。Mom_score 76–90 代表中線骨架仍在，但排名系統性下滑顯示短線壓力真實。停火破裂 → 重新加碼；停火延續 → 逐步退出。在事件前不需要有觀點，保留選擇權即可。",
+    "**暫撤必需消費防禦配置**。本週的 Δrank 逆轉確認上週觀察到的防禦資金只是「暫停」而非「轉向」。在 risk-on 環境持續期間，防禦股會被當作資金來源持續減持。待 regime 再次切換時以窄 size + 對沖方式重建。",
+    "**觀察 Movies & Entertainment（Δ+34 → rank 58）**。本週排名爬升最快的次產業，可能反映停火帶來的消費信心改善。Mom_score 尚處中段，若下週持續爬升再考慮介入。"
   ],
   "sources": [
     { "title": "CNBC — Dow jumps 1,300 points as U.S.-Iran ceasefire pushes oil lower (2026-04-07)", "url": "https://www.cnbc.com/2026/04/07/stock-market-today-live-updates.html" },
@@ -69,9 +70,9 @@
     { "title": "Al Jazeera — US-Iran ceasefire deal: What are the terms, and what's next? (2026-04-08)", "url": "https://www.aljazeera.com/news/2026/4/8/us-iran-ceasefire-deal-what-are-the-terms-and-whats-next" },
     { "title": "CNBC — CPI inflation report March 2026: Consumer prices rose 3.3% (2026-04-10)", "url": "https://www.cnbc.com/2026/04/10/cpi-inflation-report-march-2026.html" },
     { "title": "CNN — Iran war oil shock pushes US inflation to 3.3% (2026-04-10)", "url": "https://www.cnn.com/2026/04/10/economy/us-cpi-inflation-march" },
-    { "title": "FinancialContent — Broadcom Leads Semiconductor Surge as Geopolitical Relief Ignites Global Markets (2026-04-09)", "url": "https://markets.financialcontent.com/stocks/article/marketminute-2026-4-9-broadcom-leads-semiconductor-surge-as-geopolitical-relief-ignites-global-markets" },
+    { "title": "FinancialContent — Broadcom Leads Semiconductor Surge as Geopolitical Relief Ignites (2026-04-09)", "url": "https://markets.financialcontent.com/stocks/article/marketminute-2026-4-9-broadcom-leads-semiconductor-surge-as-geopolitical-relief-ignites-global-markets" },
     { "title": "GoInvest — Energy Stocks Slide as Ceasefire Cuts Oil's War Premium (2026-04-08)", "url": "https://goinvest.com/2026/04/08/energy-stocks-slide-as-ceasefire-cuts-oils-war-premium/" },
-    { "title": "CNBC — Brent oil spot price above $120 as ceasefire can't solve deep disruption (2026-04-08)", "url": "https://www.cnbc.com/2026/04/08/dated-brent-oil-price-iran-war-ceasefire-strait-hormuz.html" },
+    { "title": "CNBC — Brent oil above $120 as ceasefire can't solve deep disruption (2026-04-08)", "url": "https://www.cnbc.com/2026/04/08/dated-brent-oil-price-iran-war-ceasefire-strait-hormuz.html" },
     { "title": "MINING.COM — Aluminum and copper prices take breather after explosive start to 2026", "url": "https://www.mining.com/web/aluminum-and-copper-prices-take-breather-after-explosive-start-to-2026" }
   ]
 }
