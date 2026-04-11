@@ -1,0 +1,79 @@
+{
+  "slug": "2026-04-10",
+  "issue": 2,
+  "date": "2026-04-10",
+  "snapshotDate": "2026-04-10",
+  "title": "停火行情的贏家與輸家",
+  "subtitle": "上週六條建議回頭打分數：銅和半導體大贏，防禦部位被反噬",
+  "imageDir": "/research/weekly/2026-04-10",
+  "coverImage": "01_sector_1w.png",
+  "intro": [
+    "4 月 7 日，巴基斯坦斡旋下美國與伊朗達成兩週停火協議，Hormuz 海峽承諾暫時重新開放。Brent 當天暴跌 13% 到 94 美元，能源股整群跟著摔 —— APA –9%、OXY/FANG –7%、XOM –5.5%。同一天，Dow 跳漲 1,300 點，創下去年 4 月以來最大單日漲幅。接著週四 CPI 出爐：3 月月增 0.9%、年增 3.3%，汽油飆漲 21.2% 貢獻了四分之三的漲幅。好消息是核心 CPI 只漲 0.2%，低於預期的 0.3%，暗示通膨的來源仍然集中在油價而非廣泛擴散。",
+    "但這份週報要做的第一件事不是講本週的新聞 —— 是回頭看上週給的六條操作建議到底準不準。**一份週報如果只會事後解釋、不敢回頭打分數，那跟晚報沒有兩樣**。所以我先把上週的每一條建議攤開來，對照本週的實際走勢，標出哪些打對、哪些打歪、為什麼。然後再用本週的新數據重新部署。",
+    "先講結論：六條裡面三條半是對的。能源減碼、加碼工業金屬、不追 Pharma 都打中了；工業配對方向正確但幅度遠超預期；唯一明確打歪的是**必需消費防禦部位** —— 停火行情觸發了全面 risk-on，防禦股被資金抽走去追循環。這不是分析框架錯了，是**市場突然切換了 regime**，而上週的部署是為另一個 regime 準備的。"
+  ],
+  "exhibits": [
+    {
+      "number": 1,
+      "title": "板塊一週報酬：科技與非必需消費搶回領先",
+      "image": "01_sector_1w.png",
+      "caption": "11 板塊全部收紅，非必需消費 +4.6%、科技 +4.3% 領跑。能源再次墊底 –4.2%，但這次原因不同：不是解倉，是停火。",
+      "body": "跟上週相比，最大的變化是**科技從中段跳到前段**。上週科技 +3.9% 排第四，這週 +4.3% 排第二，而且是半導體族群帶的 —— 4/9 Broadcom 單日 +5%、ON +11.2%、ARM +10.5%、MRVL +12.8%。背後有兩條線：一條是停火降低了原物料供應鏈中斷風險（半導體設備材料高度依賴國際航運），另一條是 Broadcom Q1 AI 營收 84 億美元 YoY +106%，市場重新確認 AI capex 循環沒有因為地緣風險而暫停。能源 –4.2% 是本週唯一負報酬板塊，但注意 **mom_score 仍在 76–90** —— 這次下跌是因為戰爭溢價被抽掉，不是動能結構崩壞。"
+    },
+    {
+      "number": 2,
+      "title": "輪動地圖：能源從右下滑到右中，科技從左上彈到右上",
+      "image": "02_rotation_map.png",
+      "caption": "X 軸 3M 報酬、Y 軸 1W 報酬。上週孤伶伶卡在右下的能源依然在右側但繼續下墜；科技族群明確移到右上（3M 強 + 1W 強）。",
+      "body": "上週我說「這種右下→左上的圖形有兩種解：趨勢翻轉或短線反彈」。本週的答案偏向**趨勢正在調整但未翻轉**。能源 3M 仍然 +24.7% 遙遙領先，只是 1W 因為停火而大跌；科技族群 3M +11.1% 搭配 1W +4.3% 正式進入右上象限，這是動能策略最喜歡的位置。真正的警訊在通訊服務 —— 3M +2.3% 搭配 1W 只有 +0.8%，Systems Software 1W –6.9% 排名 155（全市場最後一名），Application Software –9.1%。**「科技」板塊裡的硬體和軟體正在分裂**，用 XLK 一個 ETF 做科技部位會失真。"
+    },
+    {
+      "number": 3,
+      "title": "單週最強最弱：半導體橫掃最強榜，煤炭 –14% 最弱",
+      "image": "03_top_bottom_subs.png",
+      "caption": "Top 6 裡四個是半導體相關（SME +13.8%、Electronic Components +13.9%、EMS +13.7%、Semi +10.8%）。最弱榜能源仍在，但新面孔是軟體 –9.1% 和人力資源 –7.7%。",
+      "body": "上週最強榜被工業金屬包辦，這週換成半導體一族。值得注意的是**銅仍然在 Top 10（+10.5%、mom 77.8、rank 15）**，延續上週的結構性題材。這代表「AI 硬體 + 工業金屬」正在形成一條跨板塊的共同主線 —— 都是算力基礎建設的受益者。最弱榜除了能源，最值得關注的是 **Application Software –9.1%（rank 154）** 和 **Systems Software –6.9%（rank 155）**。軟體族群在 AI 主題上被硬體完全壓過，資金流向的訊號非常明確。"
+    },
+    {
+      "number": 4,
+      "title": "動能榜：能源 mom_score 仍高但 1W 全負",
+      "image": "04_energy_unwind.png",
+      "caption": "橘色能源點全部壓在 0 軸下，但 mom_score 仍在 76–90。跟上週相比，這次不是「解倉」是「事件衝擊」。",
+      "body": "上週我寫「能源 delta_rank 維持 –3 到 +3，是整群同步休息的解倉」。這週完全不同 —— E&P 的 Δrank 是 –9、Integrated –12、Coal –13，**整個能源群的排名正在系統性下滑**。但 mom_score 仍然站穩 76–90，因為三個月的累積報酬（+24.7%）還沒被一週的跌幅吃掉。這是「停火 → 戰爭溢價蒸發 → 短線被打」和「供給結構沒變 → 中線動能還在」的共存狀態。操作意涵：**停火如果破裂，能源會是彈最快的族群；如果停火演變成長期和平，mom_score 在未來 2–4 週會開始崩**。要選邊站。"
+    },
+    {
+      "number": 5,
+      "title": "排名變動：上週的防禦暗線本週被反噬",
+      "image": "05_rank_delta.png",
+      "caption": "上週爬升榜的必需消費（菸草、食品零售、農產品）本週全部出現在下滑榜。Movies & Entertainment Δ+34 是最大爬升者。",
+      "body": "這張圖是本期最重要的一張。上週我特別標出「必需消費的暗線 —— 家用品 Δ+26、菸草 Δ+20、軟性飲料 Δ+20、農產品 Δ+20、食品零售 Δ+17」，建議建防禦部位。結果本週**菸草 Δ–40、食品零售 Δ–32、農產品 Δ–29、軟性飲料 Δ–23**，幾乎是上週爬升幅度的鏡像。**這不是分析錯了 —— 防禦部位在 risk-off 環境裡確實會被買，但 4/7 停火一宣布，regime 從 risk-off 切到 risk-on，防禦部位就變成資金來源被抽走**。這是動態配置最難的地方：你可以看對方向，但如果 regime 在你部署完之後馬上切換，部位會先虧再對。以後的做法：防禦部位要用 option collar 或窄 size 建，不能全倉裸做。"
+    },
+    {
+      "number": 6,
+      "title": "原物料的金屬 vs 化學：上週的分裂延續",
+      "image": "06_materials_split.png",
+      "caption": "金屬繼續領漲（銅 +10.5%、鋁 mom 82.5、鋼鐵 Δ+20），化學品則弱勢（Commodity Chemicals –2.5%）。",
+      "body": "續上週。原物料板塊整體 +3.6%，但內部分裂加劇：工業金屬（銅 +10.5%、Diversified Mining +10.3%、鋼鐵 +4.9% Δ+20）全面走強，化學品則被拖累（Commodity Chemicals –2.5%、Fertilizers –4.1% Δ–19）。上週我的判斷是「金屬走 AI 算力 + 礦山供給斷層的獨立題材，化學品被油價壓」。這週 Brent 從 128 暴跌到 94，化學品理論上應該受益（原料成本降），但實際上卻繼續跌 —— 代表化學品的問題不只是油價，還有終端需求疲弱（營建、包裝）。**金屬和化學的分裂可能會持續到下半年**。"
+    }
+  ],
+  "actions": [
+    "**上週建議回顧打分**：(1) 能源逢漲減 1/3 → 本週 –4.2%，減碼正確，**打中** ✓ (2) 新增工業金屬（銅）→ 銅 +10.5%、鋁 mom 82.5，**大贏** ✓ (3) 工業配對多運輸重電 → 重電 +9.4% rank 3、客運 +19.6%，**打中** ✓ (4) 建必需消費防禦 → 菸草 Δ–40、食品零售 Δ–32，停火翻 regime 被反噬，**打歪** ✗ (5) 避開排名重挫名單 → Hotels Δ+19 反彈，錯過漲幅，**中性** (6) Pharma 不追 → 醫療 +1.29% 最弱板塊之一，**打中** ✓",
+    "**能源部位：從「減碼」升級到「觀望」**。停火是否能撐過兩週是核心變數 —— NPR 報導停火當天以色列就在黎巴嫩繼續空襲，伊朗提出的 10 點方案包括解除所有制裁和核濃縮權，雙方差距極大。如果 4/21 停火到期無法延續，能源會瞬間彈回。**建議保留一個小部位（原本的 1/3），但不加碼，等 4/21 前後再決定**。",
+    "**加碼半導體硬體線**（SME、Electronic Components、EMS、Heavy Electrical Equipment）。這是本週最乾淨的動能訊號 —— 四個次產業全部 mom_score > 82、rank < 10、1W > +10%。驅動力是停火降低供應鏈風險 + AI capex 確認（Broadcom Q1 AI 營收 +106% YoY）。但注意只做硬體，**避開軟體**（Application Software rank 154、Systems Software rank 155）。",
+    "**續抱工業金屬**（銅 rank 15 mom 77.8、鋁 rank 10 mom 82.5、鋼鐵 Δ+20）。上週的結構性題材（Grasberg 減產、AI 銅需求、鋁三年高點）本週繼續被驗證。銅從上週的 Δ+18 小幅回到 Δ+1，代表它已經從「突破」進入「穩態」，是中線持有的好位置。",
+    "**必需消費防禦部位暫時撤出**。上週建議被 regime switch 打臉。在停火行情持續期間，防禦股會持續被當成資金來源。等停火破裂或 CPI 數據再度惡化時再重建，下次用更窄的 size。",
+    "**關注 Movies & Entertainment（Δ+34 → rank 58）**。本週排名爬升最快的次產業。背後可能是停火帶來的消費信心回升 + 串流訂閱數據。目前 mom_score 還不算高（可能在 50–60 區間），但如果下週繼續爬，值得建小部位試水溫。"
+  ],
+  "sources": [
+    { "title": "CNBC — Brent oil spot price above $120 in sign that Iran ceasefire can't solve deep disruption (2026-04-08)", "url": "https://www.cnbc.com/2026/04/08/dated-brent-oil-price-iran-war-ceasefire-strait-hormuz.html" },
+    { "title": "CNBC — Dow jumps 1,300 points as U.S.-Iran ceasefire pushes oil lower (2026-04-07)", "url": "https://www.cnbc.com/2026/04/07/stock-market-today-live-updates.html" },
+    { "title": "NPR — A fragile U.S.-Iran ceasefire shows cracks as attacks continue (2026-04-08)", "url": "https://www.npr.org/2026/04/08/nx-s1-5777291/iran-war-updates" },
+    { "title": "Al Jazeera — US-Iran ceasefire deal: What are the terms, and what's next? (2026-04-08)", "url": "https://www.aljazeera.com/news/2026/4/8/us-iran-ceasefire-deal-what-are-the-terms-and-whats-next" },
+    { "title": "CNBC — CPI inflation report March 2026: Consumer prices rose 3.3% (2026-04-10)", "url": "https://www.cnbc.com/2026/04/10/cpi-inflation-report-march-2026.html" },
+    { "title": "CNN — Iran war oil shock pushes US inflation to 3.3% (2026-04-10)", "url": "https://www.cnn.com/2026/04/10/economy/us-cpi-inflation-march" },
+    { "title": "FinancialContent — Broadcom Leads Semiconductor Surge as Geopolitical Relief Ignites Global Markets (2026-04-09)", "url": "https://markets.financialcontent.com/stocks/article/marketminute-2026-4-9-broadcom-leads-semiconductor-surge-as-geopolitical-relief-ignites-global-markets" },
+    { "title": "GoInvest — Energy Stocks Slide as Ceasefire Cuts Oil's War Premium (2026-04-08)", "url": "https://goinvest.com/2026/04/08/energy-stocks-slide-as-ceasefire-cuts-oils-war-premium/" },
+    { "title": "Nasdaq — The Rotation into Consumer Staples: Defensive Strength in an Uncertain 2026", "url": "https://www.nasdaq.com/articles/rotation-consumer-staples-defensive-strength-uncertain-2026" },
+    { "title": "MINING.COM — Aluminum and copper prices take breather after explosive start to 2026", "url": "https://www.mining.com/web/aluminum-and-copper-prices-take-breather-after-explosive-start-to-2026" }
+  ]
+}
