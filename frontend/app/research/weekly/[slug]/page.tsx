@@ -52,7 +52,7 @@ export default function WeeklyDetailPage({
       </header>
 
       <section>
-        <H2>為什麼這週的反彈不能輕易相信</H2>
+        <H2>本期觀點</H2>
         {issue.intro.map((p, i) => (
           <P key={i}>
             <Inline text={p} />
@@ -79,6 +79,20 @@ export default function WeeklyDetailPage({
             <figcaption className="mt-2 text-sm text-gray-500 italic">
               {ex.caption}
             </figcaption>
+            {ex.links && ex.links.length > 0 && (
+              <div className="mt-3 flex flex-wrap gap-2">
+                <span className="text-xs text-gray-400 self-center mr-1">查看數據 →</span>
+                {ex.links.map((link, li) => (
+                  <Link
+                    key={li}
+                    href={link.href}
+                    className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-50 text-emerald-700 hover:bg-emerald-100 transition-colors border border-emerald-200"
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+              </div>
+            )}
           </figure>
           <P>
             <Inline text={ex.body} />

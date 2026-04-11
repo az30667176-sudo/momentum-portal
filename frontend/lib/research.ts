@@ -9,12 +9,18 @@ export const CATEGORIES: { key: ResearchCategory; label: string; href: string }[
   { key: 'sector', label: '產業分享', href: '/research/sector' },
 ]
 
+export interface ExhibitLink {
+  label: string
+  href: string
+}
+
 export interface ResearchExhibit {
   number: number
   title: string
   image: string
   caption: string
   body: string
+  links?: ExhibitLink[]
 }
 
 export interface ResearchSource {
