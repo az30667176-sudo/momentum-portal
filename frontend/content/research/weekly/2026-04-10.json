@@ -58,7 +58,36 @@
         { "label": "SME", "href": "/sub/7F8BA218" },
         { "label": "App Software", "href": "/sub/05F28EE1" },
         { "label": "Systems Software", "href": "/sub/4D1787C4" }
-      ]
+      ],
+      "chartData": {
+        "type": "hbar",
+        "items": [
+          { "label": "Passenger Ground Transp.", "value": 19.6, "href": "/sub/99726A83" },
+          { "label": "Housewares & Specialties", "value": 14.4, "href": "/sub/7123167E" },
+          { "label": "Electronic Components", "value": 13.9, "href": "/sub/3A71D4E6" },
+          { "label": "Semiconductor Mat. & Equip.", "value": 13.8, "href": "/sub/7F8BA218" },
+          { "label": "Electronic Mfg. Services", "value": 13.7, "href": "/sub/95B13044" },
+          { "label": "Footwear", "value": 12.1, "href": "/sub/ABFF7D9B" },
+          { "label": "Semiconductors", "value": 10.8, "href": "/sub/3DFD4B15" },
+          { "label": "Copper", "value": 10.5, "href": "/sub/9D3B3E86" },
+          { "label": "Diversified Metals & Mining", "value": 10.2, "href": "/sub/650D58F5" },
+          { "label": "Electrical Components", "value": 9.8, "href": "/sub/EC96173F" },
+          { "label": "Specialty Chemicals", "value": 9.5, "href": "/sub/33054D65" },
+          { "label": "Heavy Electrical Equip.", "value": 9.4, "href": "/sub/8D0D1D2F" },
+          { "label": "Advertising", "value": -2.3, "href": "/sub/F60915FE" },
+          { "label": "Integrated Telecom", "value": -2.5, "href": "/sub/F20499EA" },
+          { "label": "Fertilizers & Agri. Chem.", "value": -4.1, "href": "/sub/6A22E83B" },
+          { "label": "Research & Consulting", "value": -4.2, "href": "/sub/387D84BB" },
+          { "label": "Oil & Gas Exploration & Prod.", "value": -4.5, "href": "/sub/8D203C2D" },
+          { "label": "Oil & Gas Refining & Mktg.", "value": -4.8, "href": "/sub/DB62D66B" },
+          { "label": "IT Consulting", "value": -5.1, "href": "/sub/364050B7" },
+          { "label": "Oil & Gas Storage & Transp.", "value": -5.3, "href": "/sub/0439508E" },
+          { "label": "Systems Software", "value": -6.9, "href": "/sub/4D1787C4" },
+          { "label": "HR & Employment Services", "value": -7.7, "href": "/sub/D4E92F32" },
+          { "label": "Application Software", "value": -9.1, "href": "/sub/05F28EE1" },
+          { "label": "Coal & Consumable Fuels", "value": -12.5, "href": "/sub/7B1B1651" }
+        ]
+      }
     },
     {
       "number": 4,
@@ -83,7 +112,32 @@
         { "label": "Food Retail", "href": "/sub/E9C739A4" },
         { "label": "Agricultural Products", "href": "/sub/52404E82" },
         { "label": "Movies & Entertainment", "href": "/sub/6D67D3FA" }
-      ]
+      ],
+      "chartData": {
+        "type": "hbar",
+        "items": [
+          { "label": "Real Estate Development", "value": 40, "href": "/sub/8622E012" },
+          { "label": "Publishing", "value": 36, "href": "/sub/63934848" },
+          { "label": "Hotels, Resorts & Cruise", "value": 34, "href": "/sub/7BC83F5D" },
+          { "label": "Steel", "value": 20, "href": "/sub/113B2BC3" },
+          { "label": "Multi-Family Residential REITs", "value": 19, "href": "/sub/521CB7FE" },
+          { "label": "Wireless Telecom", "value": 18, "href": "/sub/8EDDEA9F" },
+          { "label": "Industrial Conglomerates", "value": 17, "href": "/sub/1BE528D2" },
+          { "label": "Environmental & Facilities", "value": 16, "href": "/sub/5A3615BB" },
+          { "label": "Telecom Tower REITs", "value": 15, "href": "/sub/249286FE" },
+          { "label": "Movies & Entertainment", "value": 34, "href": "/sub/6D67D3FA" },
+          { "label": "Internet Services & Infra.", "value": -20, "href": "/sub/0FA374B8" },
+          { "label": "Tobacco", "value": -40, "href": "/sub/6912B116" },
+          { "label": "Food Retail", "value": -32, "href": "/sub/E9C739A4" },
+          { "label": "Agricultural Products", "value": -29, "href": "/sub/52404E82" },
+          { "label": "Interactive Home Ent.", "value": -25, "href": "/sub/951C6D9C" },
+          { "label": "Soft Drinks & Non-alc. Bev.", "value": -22, "href": "/sub/DD15FBF8" },
+          { "label": "Specialized Consumer Services", "value": -20, "href": "/sub/B89D3302" },
+          { "label": "Industrial REITs", "value": -18, "href": "/sub/E7585E26" },
+          { "label": "Fertilizers & Agri. Chem.", "value": -17, "href": "/sub/6A22E83B" },
+          { "label": "Consumer Electronics", "value": -16, "href": "/sub/A3C1F86E" }
+        ]
+      }
     },
     {
       "number": 6,

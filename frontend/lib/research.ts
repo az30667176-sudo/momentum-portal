@@ -14,6 +14,12 @@ export interface ExhibitLink {
   href: string
 }
 
+export interface ChartBarItem {
+  label: string
+  value: number
+  href: string
+}
+
 export interface ResearchExhibit {
   number: number
   title: string
@@ -21,6 +27,10 @@ export interface ResearchExhibit {
   caption: string
   body: string
   links?: ExhibitLink[]
+  chartData?: {
+    type: 'hbar'
+    items: ChartBarItem[]
+  }
 }
 
 export interface ResearchSource {

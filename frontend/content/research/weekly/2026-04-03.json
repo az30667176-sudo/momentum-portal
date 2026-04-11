@@ -50,7 +50,36 @@
         { "label": "Coal", "href": "/sub/7B1B1651" },
         { "label": "E&P", "href": "/sub/8D203C2D" },
         { "label": "Refining", "href": "/sub/DB62D66B" }
-      ]
+      ],
+      "chartData": {
+        "type": "hbar",
+        "items": [
+          { "label": "Aluminum", "value": 21.8, "href": "/sub/1D0B4025" },
+          { "label": "Passenger Ground Transportation", "value": 17.4, "href": "/sub/99726A83" },
+          { "label": "Alternative Carriers", "value": 14.1, "href": "/sub/E1C7925A" },
+          { "label": "Telecom Tower REITs", "value": 13.7, "href": "/sub/249286FE" },
+          { "label": "Gold", "value": 10.2, "href": "/sub/33E5E2A6" },
+          { "label": "Pharmaceuticals", "value": 8.9, "href": "/sub/7BF824C1" },
+          { "label": "Diversified Financial Services", "value": 8.8, "href": "/sub/A4F55D43" },
+          { "label": "Copper", "value": 8.6, "href": "/sub/9D3B3E86" },
+          { "label": "Household Appliances", "value": 8.4, "href": "/sub/5C1D8B69" },
+          { "label": "Movies & Entertainment", "value": 8.4, "href": "/sub/6D67D3FA" },
+          { "label": "Financial Exchanges & Data", "value": 8.4, "href": "/sub/F5FCC1AA" },
+          { "label": "Broadline Retail", "value": 8.3, "href": "/sub/BA58F32D" },
+          { "label": "Health Care Technology", "value": -1.0, "href": "/sub/A8DBD49D" },
+          { "label": "Oil & Gas Storage & Transp.", "value": -1.3, "href": "/sub/0439508E" },
+          { "label": "Agricultural & Farm Machinery", "value": -1.6, "href": "/sub/D8F634B1" },
+          { "label": "Homefurnishing Retail", "value": -2.6, "href": "/sub/BAE71B92" },
+          { "label": "Commodity Chemicals", "value": -2.7, "href": "/sub/7BF90D4B" },
+          { "label": "Broadcasting", "value": -2.7, "href": "/sub/B2F8F5B4" },
+          { "label": "Oil & Gas Equip. & Services", "value": -3.0, "href": "/sub/8B53278B" },
+          { "label": "Oil & Gas Drilling", "value": -3.9, "href": "/sub/738405E7" },
+          { "label": "Oil & Gas Refining & Marketing", "value": -4.5, "href": "/sub/DB62D66B" },
+          { "label": "Integrated Oil & Gas", "value": -5.1, "href": "/sub/630FFAD7" },
+          { "label": "Oil & Gas Exploration & Prod.", "value": -5.3, "href": "/sub/8D203C2D" },
+          { "label": "Coal & Consumable Fuels", "value": -12.2, "href": "/sub/7B1B1651" }
+        ]
+      }
     },
     {
       "number": 4,
@@ -77,7 +106,32 @@
         { "label": "Soft Drinks", "href": "/sub/DD15FBF8" },
         { "label": "Food Retail", "href": "/sub/E9C739A4" },
         { "label": "Asset Management", "href": "/sub/7A22752C" }
-      ]
+      ],
+      "chartData": {
+        "type": "hbar",
+        "items": [
+          { "label": "Apparel Retail", "value": 28, "href": "/sub/BA58F32D" },
+          { "label": "Food Retail", "value": 26, "href": "/sub/E9C739A4" },
+          { "label": "Specialty Retail", "value": 23, "href": "/sub/BA58F32D" },
+          { "label": "Copper", "value": 22, "href": "/sub/9D3B3E86" },
+          { "label": "Tobacco", "value": 20, "href": "/sub/6912B116" },
+          { "label": "Soft Drinks & Non-alc. Bev.", "value": 20, "href": "/sub/DD15FBF8" },
+          { "label": "Agricultural Products", "value": 20, "href": "/sub/52404E82" },
+          { "label": "Advertising", "value": 18, "href": "/sub/B2F8F5B4" },
+          { "label": "Retail REITs", "value": 17, "href": "/sub/249286FE" },
+          { "label": "Household Products", "value": 14, "href": "/sub/12D686D0" },
+          { "label": "Asset Management", "value": -34, "href": "/sub/7A22752C" },
+          { "label": "Construction Materials", "value": -27, "href": "/sub/4E53B0B8" },
+          { "label": "Diversified Metals & Mining", "value": -24, "href": "/sub/1D0B4025" },
+          { "label": "Independent Power Producers", "value": -22, "href": "/sub/7BA77648" },
+          { "label": "Hotels, Resorts & Cruise Lines", "value": -20, "href": "/sub/7BC83F5D" },
+          { "label": "Construction Machinery", "value": -19, "href": "/sub/8D96C21A" },
+          { "label": "Research & Consulting", "value": -18, "href": "/sub/8D96C21A" },
+          { "label": "Industrial Machinery", "value": -17, "href": "/sub/8D96C21A" },
+          { "label": "Automotive Parts", "value": -16, "href": "/sub/8D96C21A" },
+          { "label": "Specialized Finance", "value": -14, "href": "/sub/A4F55D43" }
+        ]
+      }
     },
     {
       "number": 6,

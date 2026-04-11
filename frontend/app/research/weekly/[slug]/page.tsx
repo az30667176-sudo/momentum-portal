@@ -1,8 +1,14 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import dynamicImport from 'next/dynamic'
 import { notFound } from 'next/navigation'
 import { getAllSlugs, getIssue } from '@/lib/research'
 import { Inline } from '@/components/WeeklyMarkdown'
+
+const ExhibitChart = dynamicImport(() => import('@/components/ExhibitChart'), {
+  ssr: false,
+  loading: () => <div className="h-[500px] bg-gray-50 rounded-lg animate-pulse" />,
+})
 
 export const dynamic = 'force-static'
 export const dynamicParams = false
@@ -66,16 +72,26 @@ export default function WeeklyDetailPage({
             圖{toCJKNumber(ex.number)}　{ex.title}
           </H2>
           <figure className="my-8">
-            <div className="rounded-lg border border-gray-200 bg-white overflow-hidden">
-              <Image
-                src={`${issue.imageDir}/${ex.image}`}
-                alt={ex.title}
-                width={1400}
-                height={900}
-                className="w-full h-auto"
-                unoptimized
-              />
-            </div>
+            {ex.chartData ? (
+              <div className="rounded-lg border border-gray-200 bg-white overflow-hidden p-4">
+                <ExhibitChart
+                  type={ex.chartData.type}
+                  items={ex.chartData.items}
+                  title={`Exhibit ${ex.number} — ${ex.title}`}
+                />
+              </div>
+            ) : (
+              <div className="rounded-lg border border-gray-200 bg-white overflow-hidden">
+                <Image
+                  src={`${issue.imageDir}/${ex.image}`}
+                  alt={ex.title}
+                  width={1400}
+                  height={900}
+                  className="w-full h-auto"
+                  unoptimized
+                />
+              </div>
+            )}
             <figcaption className="mt-2 text-sm text-gray-500 italic">
               {ex.caption}
             </figcaption>
