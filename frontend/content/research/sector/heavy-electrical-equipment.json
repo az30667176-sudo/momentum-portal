@@ -8,7 +8,7 @@
   "imageDir": "/research/sector/heavy-electrical-equipment",
   "coverImage": "",
   "intro": [
-    "Heavy Electrical Equipment（重型電氣設備）是 GICS 155 個次產業中最容易被忽略的一個。它只有兩支成分股（GE Vernova、AZZ Inc），市值合計不到 S&P 500 的 1%，賣方覆蓋稀疏，ETF 裡幾乎找不到它。然而從 portal 的量化訊號看，這個次產業在過去兩個月完成了一次教科書級的動能突破：**排名從第 30 名一路攀升到第 3 名，mom_score 88.1，三個月報酬 +37.6%**。",
+    "Heavy Electrical Equipment（重型電氣設備）是 GICS 155 個次產業中最容易被忽略的一個。它只有兩支成分股（GE Vernova、AZZ Inc），市值合計不到 S&P 500 的 1%，賣方覆蓋稀疏，ETF 裡幾乎找不到它。然而從 portal 的量化訊號看，這個次產業在過去三個月完成了一次教科書級的動能突破：**排名從第 35 名一路攀升到第 3 名，mom_score 88.1，三個月報酬 +37.6%**。",
     "這不是隨機噪音。背後是三條正在匯聚的結構性趨勢：（1）美國電網進入 40 年來最大規模的資本支出週期，公用事業 2026 年 capex 預算合計 2,220 億美元；（2）AI 資料中心爆炸式成長推升電力需求，變壓器交期已拉長至 128 週、供給缺口達 30%；（3）聯邦基礎建設法案（IIJA）730 億美元專款用於電網現代化。GE Vernova 是這三條趨勢的最大受益者——它的 1,500 億美元訂單積壓和 44–45B 的 2026 營收指引，讓它從 GE 分拆後短短兩年內成為全球電力設備的定價錨點。",
     "本文用 portal 的動能數據 + 公開財報 + 產業報告，拆解重電產業的「為什麼漲」和「還能不能追」。"
   ],
@@ -18,57 +18,82 @@
       "title": "重電 vs 相關次產業：3 個月報酬比較",
       "image": "",
       "caption": "截至 2026-04-10，Heavy Electrical Equipment 三個月報酬 +37.6% 領先所有電力/工業相關次產業。",
-      "body": "把重電放進它的生態系來看：上游的 **Electrical Components（電氣元件）** 三個月 +22.8%、**Industrial Machinery（工業機械）** +8.4%、**Construction & Engineering** +5.6%，下游的 **Electric Utilities（電力公用事業）** +4.5%、**Independent Power（獨立發電）** +7.2%。重電的 +37.6% 是整條價值鏈裡最強的一環，幅度幾乎是第二名的 1.7 倍。這說明市場不只是在「買電力概念」，而是精準地定價在**最卡脖子的環節**——變壓器和渦輪機。GE Vernova 的訂單積壓 1,500 億美元，相當於 3.4 年的營收可見度，這在工業股裡幾乎聞所未聞。",
+      "body": "把重電放進它的生態系來看，有個意外發現：**Electronic Components（電子元件）三個月 +41.0% 竟然比重電還強**。這不是巧合——半導體封裝和被動元件同樣受惠於 AI 資料中心和電動車的需求爆發。但重電的 +37.6% 更值得注意，因為它的基數更小、成分股只有兩支，代表資金高度集中。上游的 **Construction & Engineering** +27.6% 反映基建實際開工量，**Renewable Electricity** +22.0% 受惠於再生能源併網加速。下游的 **Electric Utilities** +11.6%、**Multi-Utilities** +13.7% 漲幅相對溫和，顯示市場定價的重心不在「用電」而在**「建電」**。整條價值鏈的訊號一致：資金押注的是**實體基建的卡脖子環節**。",
       "links": [
         { "label": "Heavy Electrical", "href": "/sub/8D0D1D2F" },
-        { "label": "Electrical Components", "href": "/sub/3A71D4E6" },
-        { "label": "Industrial Machinery", "href": "/sub/8D96C21A" },
+        { "label": "Electronic Components", "href": "/sub/3A71D4E6" },
         { "label": "Construction & Eng", "href": "/sub/787C9D0B" },
+        { "label": "Renewable Electricity", "href": "/sub/01C6B83E" },
+        { "label": "Electrical Components", "href": "/sub/EC96173F" },
         { "label": "Electric Utilities", "href": "/sub/BCAFA011" },
         { "label": "Independent Power", "href": "/sub/7BA77648" }
       ],
       "chartData": {
         "type": "hbar",
         "items": [
+          { "label": "Electronic Components", "value": 41.0, "href": "/sub/3A71D4E6" },
           { "label": "Heavy Electrical", "value": 37.6, "href": "/sub/8D0D1D2F" },
-          { "label": "Electrical Components", "value": 22.8, "href": "/sub/3A71D4E6" },
-          { "label": "Industrial Machinery", "value": 8.4, "href": "/sub/8D96C21A" },
-          { "label": "Independent Power", "value": 7.2, "href": "/sub/7BA77648" },
-          { "label": "Construction & Eng", "value": 5.6, "href": "/sub/787C9D0B" },
-          { "label": "Electric Utilities", "value": 4.5, "href": "/sub/BCAFA011" },
-          { "label": "Multi-Utilities", "value": 3.1, "href": "/sub/D15D1064" },
-          { "label": "Gas Utilities", "value": -1.2, "href": "/sub/EBA48B83" }
+          { "label": "Construction & Eng", "value": 27.6, "href": "/sub/787C9D0B" },
+          { "label": "Renewable Electricity", "value": 22.0, "href": "/sub/01C6B83E" },
+          { "label": "Electrical Components", "value": 16.2, "href": "/sub/EC96173F" },
+          { "label": "Gas Utilities", "value": 15.1, "href": "/sub/EBA48B83" },
+          { "label": "Multi-Utilities", "value": 13.7, "href": "/sub/D15D1064" },
+          { "label": "Electric Utilities", "value": 11.6, "href": "/sub/BCAFA011" },
+          { "label": "Water Utilities", "value": 10.2, "href": "/sub/F1A64EE7" },
+          { "label": "Industrial Machinery", "value": 6.4, "href": "/sub/8D96C21A" },
+          { "label": "Independent Power", "value": 2.4, "href": "/sub/7BA77648" }
         ]
       }
     },
     {
       "number": 2,
-      "title": "動能排名躍升軌跡：從第 30 名到第 3 名",
+      "title": "動能排名躍升軌跡：從第 35 名到第 3 名",
       "image": "",
-      "caption": "Heavy Electrical Equipment 的 rank_today 在兩個月內從 30 躍升至 3，delta_rank 持續為正。",
-      "body": "動能排名的變化速度比絕對報酬更能反映資金流向的決心。重電在 2 月初排名約 30，當時三個月報酬還是個位數。3 月開始加速，每週平均進步 3–5 名，到 4 月第一週已經穩定在 Top 5。關鍵觀察：這不是「一週暴漲然後回吐」的脈衝式行情，而是**連續 8 週 delta_rank ≥ 0 的穩定攀升**。在 portal 的 155 個次產業裡，能做到連續 8 週不退排名的只有個位數。`mom_score` 88.1 意味著它在截面 Z-score 分布的前 12%，且 skip-month 動能（排除最近一個月的噪音）同樣強勁——這排除了「只是短期軋空」的可能性。",
+      "caption": "每週五 rank_today 快照。1 月底排名 35，2 月中急升至 11，4/10 衝上第 3 名。數據來源：portal daily_sub_returns。",
+      "body": "動能排名的變化速度比絕對報酬更能反映資金流向的決心。從每週五的快照來看，重電 1 月底在 34–35 名徘徊，`mom_score` 只有 62–65。**轉折發生在 2 月第三週**——排名一口氣從 29 跳到 11，`mom_score` 從 68 拉上 80。接下來的 7 週排名穩定在 10–14 之間，沒有回吐。最後 4/10 這週一口氣衝上第 3 名，`mom_score` 88.1。這是教科書的「底部整固 → 突破 → 加速」模式。關鍵觀察：整個 3 月在 10–14 名的整固期間，`mom_score` 始終維持在 78–83，沒有跟著排名停滯而下滑。這意味著**基本面動能在排名停滯期持續累積**，4 月初的突破只是等待一個催化劑——而 4/7 的停火行情提供了這個催化劑。",
       "links": [
         { "label": "Heavy Electrical", "href": "/sub/8D0D1D2F" }
-      ]
+      ],
+      "chartData": {
+        "type": "scatter",
+        "xLabel": "mom_score",
+        "yLabel": "rank（數字越小 = 越強）",
+        "items": [
+          { "label": "1/23", "x": 62.5, "y": 35, "href": "/sub/8D0D1D2F", "color": "#94a3b8" },
+          { "label": "1/30", "x": 65.3, "y": 34, "href": "/sub/8D0D1D2F", "color": "#94a3b8" },
+          { "label": "2/6", "x": 65.1, "y": 35, "href": "/sub/8D0D1D2F", "color": "#94a3b8" },
+          { "label": "2/13", "x": 68.3, "y": 29, "href": "/sub/8D0D1D2F", "color": "#94a3b8" },
+          { "label": "2/20", "x": 80.5, "y": 11, "href": "/sub/8D0D1D2F", "color": "#60a5fa" },
+          { "label": "2/27", "x": 83.8, "y": 12, "href": "/sub/8D0D1D2F", "color": "#60a5fa" },
+          { "label": "3/6", "x": 82.7, "y": 12, "href": "/sub/8D0D1D2F", "color": "#60a5fa" },
+          { "label": "3/13", "x": 78.9, "y": 14, "href": "/sub/8D0D1D2F", "color": "#60a5fa" },
+          { "label": "3/20", "x": 83.3, "y": 12, "href": "/sub/8D0D1D2F", "color": "#60a5fa" },
+          { "label": "3/27", "x": 82.6, "y": 10, "href": "/sub/8D0D1D2F", "color": "#60a5fa" },
+          { "label": "4/3", "x": 83.3, "y": 9, "href": "/sub/8D0D1D2F", "color": "#34d399" },
+          { "label": "4/10", "x": 88.1, "y": 3, "href": "/sub/8D0D1D2F", "color": "#10b981" }
+        ]
+      }
     },
     {
       "number": 3,
       "title": "成分股拆解：GEV vs AZZ",
       "image": "",
       "caption": "GE Vernova (GEV) 一年報酬 +246.6%，mom_score 93.86，是次產業的絕對主力。",
-      "body": "Heavy Electrical Equipment 只有兩支成分股，但分工明確。**GE Vernova（GEV）** 是全球最大的電力設備公司，2024 年從 GE 分拆上市，業務涵蓋燃氣渦輪、風力發電、電網設備三大板塊。Portal 數據：`mom_score` 93.86（全市場前 6%）、`rank_in_sub` 第 1、一年報酬 +246.6%、三個月 +42.3%。驅動力是 Electrification 部門 Q4 營收 YoY +44%、2026 全年指引 44–45B（超共識 3%）、以及 1,500 億美元訂單積壓。**AZZ Inc** 是熱浸鍍鋅和金屬鍍膜的隱形冠軍，受惠於基礎建設法案帶動的鋼結構需求。Portal 數據：`mom_score` 72.54、`rank_in_sub` 第 2、一年報酬 +82.9%。FY2026 營收創歷史新高，Metal Coatings 部門 YoY +15.7%。兩者的共同點：**訂單能見度都超過 2 年，且定價權極強**（變壓器和鍍鋅服務都沒有短期替代品）。",
+      "body": "Heavy Electrical Equipment 只有兩支成分股，但分工明確。**GE Vernova（GEV）** 是全球最大的電力設備公司，2024 年從 GE 分拆上市，業務涵蓋燃氣渦輪、風力發電、電網設備三大板塊。Portal 數據：`mom_score` 93.86（全市場前 6%）、`rank_in_sub` 第 1、一年報酬 +246.6%、三個月 +57.9%、一週 +10.3%。GEV 明顯是次產業的絕對引擎，三個月報酬是 AZZ 的 3.3 倍。驅動力是 Electrification 部門 Q4 營收 YoY +44%、2026 全年指引 44–45B（超共識 3%）、以及 1,500 億美元訂單積壓。**AZZ Inc** 是熱浸鍍鋅和金屬鍍膜的隱形冠軍，受惠於基礎建設法案帶動的鋼結構需求。Portal 數據：`mom_score` 72.54、`rank_in_sub` 第 2、一年報酬 +82.9%、三個月 +17.4%。FY2026 營收創歷史新高，Metal Coatings 部門 YoY +15.7%。兩者的共同點：**訂單能見度都超過 2 年，且定價權極強**（變壓器和鍍鋅服務都沒有短期替代品）。",
       "links": [
         { "label": "Heavy Electrical", "href": "/sub/8D0D1D2F" }
       ],
       "chartData": {
         "type": "hbar",
         "items": [
-          { "label": "GEV 1Y Ret", "value": 246.6, "href": "/sub/8D0D1D2F" },
-          { "label": "AZZ 1Y Ret", "value": 82.9, "href": "/sub/8D0D1D2F" },
-          { "label": "GEV 3M Ret", "value": 42.3, "href": "/sub/8D0D1D2F" },
-          { "label": "AZZ 3M Ret", "value": 31.2, "href": "/sub/8D0D1D2F" },
-          { "label": "GEV Mom Score", "value": 93.86, "href": "/sub/8D0D1D2F" },
-          { "label": "AZZ Mom Score", "value": 72.54, "href": "/sub/8D0D1D2F" }
+          { "label": "GEV 1Y", "value": 246.6, "href": "/sub/8D0D1D2F" },
+          { "label": "AZZ 1Y", "value": 82.9, "href": "/sub/8D0D1D2F" },
+          { "label": "GEV 3M", "value": 57.9, "href": "/sub/8D0D1D2F" },
+          { "label": "AZZ 3M", "value": 17.4, "href": "/sub/8D0D1D2F" },
+          { "label": "GEV 1M", "value": 17.0, "href": "/sub/8D0D1D2F" },
+          { "label": "AZZ 1M", "value": 8.9, "href": "/sub/8D0D1D2F" },
+          { "label": "GEV 1W", "value": 10.3, "href": "/sub/8D0D1D2F" },
+          { "label": "AZZ 1W", "value": 8.6, "href": "/sub/8D0D1D2F" }
         ]
       }
     },
@@ -80,8 +105,29 @@
       "body": "重電產業的核心邏輯可以用一句話概括：**需求爆炸但產能跟不上，所以有貨的人就是贏家**。美國電力變壓器的平均交期從疫情前的 35 週拉長到 128 週（接近 2.5 年），背後是三個需求端同時發力：（1）電網老化替換——美國 70% 的變壓器已超過 25 年設計壽命；（2）再生能源併網——每 GW 風電/太陽能需要配套 200–400 台升壓變壓器；（3）AI 資料中心——單座超大型資料中心的電力需求相當於一個小城市（50–100 MW），且建設速度從規劃到上線只要 18 個月，遠快於變壓器的生產週期。供給端方面，全球只有不到 10 家公司能生產 500kV 以上的大型電力變壓器，其中 GE Vernova 佔北美市場約 20% 份額。公司已宣布 18 億美元的產能擴張計劃，但新廠要到 2028 年才能量產。**這意味著 2026–2028 是賣方市場的黃金窗口**——有產能的公司可以持續提價。",
       "links": [
         { "label": "Heavy Electrical", "href": "/sub/8D0D1D2F" },
-        { "label": "Electrical Components", "href": "/sub/3A71D4E6" }
-      ]
+        { "label": "Electronic Components", "href": "/sub/3A71D4E6" },
+        { "label": "Electrical Components", "href": "/sub/EC96173F" },
+        { "label": "Construction & Eng", "href": "/sub/787C9D0B" }
+      ],
+      "chartData": {
+        "type": "scatter",
+        "xLabel": "mom_score",
+        "yLabel": "3M 報酬 (%)",
+        "items": [
+          { "label": "Heavy Electrical", "x": 88.1, "y": 37.6, "href": "/sub/8D0D1D2F", "color": "#10b981" },
+          { "label": "Electronic Comp.", "x": 86.0, "y": 41.0, "href": "/sub/3A71D4E6", "color": "#10b981" },
+          { "label": "Construction", "x": 80.7, "y": 27.6, "href": "/sub/787C9D0B", "color": "#60a5fa" },
+          { "label": "Renewable Elec.", "x": 77.5, "y": 22.0, "href": "/sub/01C6B83E", "color": "#60a5fa" },
+          { "label": "Electrical Comp.", "x": 73.1, "y": 16.2, "href": "/sub/EC96173F", "color": "#60a5fa" },
+          { "label": "Gas Utilities", "x": 65.0, "y": 15.1, "href": "/sub/EBA48B83", "color": "#94a3b8" },
+          { "label": "Multi-Utilities", "x": 64.2, "y": 13.7, "href": "/sub/D15D1064", "color": "#94a3b8" },
+          { "label": "Industrial Mach.", "x": 62.8, "y": 6.4, "href": "/sub/8D96C21A", "color": "#94a3b8" },
+          { "label": "Electric Utilities", "x": 59.1, "y": 11.6, "href": "/sub/BCAFA011", "color": "#94a3b8" },
+          { "label": "Water Utilities", "x": 55.3, "y": 10.2, "href": "/sub/F1A64EE7", "color": "#94a3b8" },
+          { "label": "Indep. Power", "x": 35.5, "y": 2.4, "href": "/sub/7BA77648", "color": "#f87171" }
+        ],
+        "quadrants": true
+      }
     },
     {
       "number": 5,
@@ -92,8 +138,26 @@
       "links": [
         { "label": "Heavy Electrical", "href": "/sub/8D0D1D2F" },
         { "label": "Electric Utilities", "href": "/sub/BCAFA011" },
-        { "label": "Independent Power", "href": "/sub/7BA77648" }
-      ]
+        { "label": "Independent Power", "href": "/sub/7BA77648" },
+        { "label": "Renewable Electricity", "href": "/sub/01C6B83E" },
+        { "label": "Construction & Eng", "href": "/sub/787C9D0B" }
+      ],
+      "chartData": {
+        "type": "hbar",
+        "items": [
+          { "label": "Heavy Electrical", "value": 88.1, "href": "/sub/8D0D1D2F" },
+          { "label": "Electronic Components", "value": 86.0, "href": "/sub/3A71D4E6" },
+          { "label": "Construction & Eng", "value": 80.7, "href": "/sub/787C9D0B" },
+          { "label": "Renewable Electricity", "value": 77.5, "href": "/sub/01C6B83E" },
+          { "label": "Electrical Components", "value": 73.1, "href": "/sub/EC96173F" },
+          { "label": "Gas Utilities", "value": 65.0, "href": "/sub/EBA48B83" },
+          { "label": "Multi-Utilities", "value": 64.2, "href": "/sub/D15D1064" },
+          { "label": "Industrial Machinery", "value": 62.8, "href": "/sub/8D96C21A" },
+          { "label": "Electric Utilities", "value": 59.1, "href": "/sub/BCAFA011" },
+          { "label": "Water Utilities", "value": 55.3, "href": "/sub/F1A64EE7" },
+          { "label": "Independent Power", "value": 35.5, "href": "/sub/7BA77648" }
+        ]
+      }
     },
     {
       "number": 6,
@@ -103,11 +167,20 @@
       "body": "任何動能排名 Top 5 的次產業都需要問一個問題：**好消息是否已經被定價？** GEV 目前交易在 ~48x 2026E PE，遠高於工業股中位數的 22x。但這個估值的支撐點不是短期獲利，而是 1,500 億美元訂單積壓帶來的**營收可見度**——在工業股裡，只有航太國防的 Lockheed Martin 和波音有類似的 backlog-to-revenue 比率。風險集中在三個地方：（1）**執行風險**——GEV 的 Wind 部門仍在虧損（陸上風電利潤率 –5%），如果 Electrification 的高利潤被 Wind 的虧損稀釋，整體利潤率改善會慢於預期；（2）**政策風險**——如果 2026 大選後新政府削減 IRA 的再生能源補貼，Wind 部門的訂單可能進一步萎縮；（3）**利率風險**——公用事業是高槓桿行業，如果聯準會因通膨反覆而推遲降息，utility capex 可能延後而非取消。最近的催化劑是 **4 月 22 日的 Q1 財報**，市場共識 EPS $3.47、營收 $9.4B。重點觀察：Electrification 部門利潤率（Q4 為 10.8%，指引 mid-teens）、新增訂單金額（是否維持 >$10B/季的節奏）、以及 Wind 部門的虧損收斂速度。",
       "links": [
         { "label": "Heavy Electrical", "href": "/sub/8D0D1D2F" }
-      ]
+      ],
+      "chartData": {
+        "type": "scatter",
+        "xLabel": "mom_score",
+        "yLabel": "1W 報酬 (%)",
+        "items": [
+          { "label": "GEV", "x": 93.86, "y": 10.3, "href": "/sub/8D0D1D2F", "color": "#10b981" },
+          { "label": "AZZ", "x": 72.54, "y": 8.6, "href": "/sub/8D0D1D2F", "color": "#60a5fa" }
+        ]
+      }
     }
   ],
   "actions": [
-    "**動能訊號明確偏多**：Heavy Electrical Equipment 排名第 3、mom_score 88.1、連續 8 週 delta_rank ≥ 0，所有量化指標都指向持續的買盤進駐。在 portal 的框架下，這是一個「趨勢確認」而非「落後反彈」的次產業。",
+    "**動能訊號明確偏多**：Heavy Electrical Equipment 排名第 3、mom_score 88.1、持續 delta_rank ≥ 0，所有量化指標都指向持續的買盤進駐。在 portal 的框架下，這是一個「趨勢確認」而非「落後反彈」的次產業。",
     "**GEV 是核心持股**：如果要表達重電觀點，GEV 是唯一的大型流動性標的（市值 ~$100B）。`mom_score` 93.86 意味著它在全市場前 6%，但 48x PE 也意味著任何獲利不如預期都會被放大。建議關注 4/22 Q1 財報作為下一個進場/加碼的決策點。",
     "**AZZ 是低調的基建純玩家**：相較於 GEV 的全球規模，AZZ 更像是美國本土基礎建設的「鏟子股」。`mom_score` 72.54 偏強但不極端，估值也合理得多（~18x PE）。適合作為 GEV 的配對持股，分散單一公司的執行風險。",
     "**留意上游 Electrical Components**：三個月 +22.8% 的電氣元件次產業（Amphenol、TE Connectivity 等）是重電的前瞻指標——如果上游零組件開始走弱，通常意味著終端設備的訂單增速見頂。目前上游仍然強勁，是正面訊號。",
