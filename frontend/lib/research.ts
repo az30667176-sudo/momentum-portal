@@ -20,6 +20,18 @@ export interface ChartBarItem {
   href: string
 }
 
+export interface ChartScatterItem {
+  label: string
+  x: number
+  y: number
+  href: string
+  color?: string
+}
+
+export type ChartData =
+  | { type: 'hbar'; items: ChartBarItem[] }
+  | { type: 'scatter'; xLabel: string; yLabel: string; items: ChartScatterItem[]; quadrants?: boolean }
+
 export interface ResearchExhibit {
   number: number
   title: string
@@ -27,10 +39,7 @@ export interface ResearchExhibit {
   caption: string
   body: string
   links?: ExhibitLink[]
-  chartData?: {
-    type: 'hbar'
-    items: ChartBarItem[]
-  }
+  chartData?: ChartData
 }
 
 export interface ResearchSource {

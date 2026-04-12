@@ -29,7 +29,23 @@
         { "label": "E&P", "href": "/sub/8D203C2D" },
         { "label": "Integrated Oil", "href": "/sub/630FFAD7" },
         { "label": "AVGO", "href": "/stock/AVGO" }
-      ]
+      ],
+      "chartData": {
+        "type": "hbar",
+        "items": [
+          { "label": "Consumer Discretionary", "value": 4.6, "href": "/" },
+          { "label": "Information Technology", "value": 4.3, "href": "/" },
+          { "label": "Industrials", "value": 4.2, "href": "/" },
+          { "label": "Real Estate", "value": 3.7, "href": "/" },
+          { "label": "Materials", "value": 3.6, "href": "/" },
+          { "label": "Financials", "value": 2.4, "href": "/" },
+          { "label": "Consumer Staples", "value": 2.4, "href": "/" },
+          { "label": "Utilities", "value": 1.7, "href": "/" },
+          { "label": "Health Care", "value": 1.3, "href": "/" },
+          { "label": "Communication Services", "value": 0.8, "href": "/" },
+          { "label": "Energy", "value": -4.1, "href": "/" }
+        ]
+      }
     },
     {
       "number": 2,
@@ -43,7 +59,26 @@
         { "label": "Copper", "href": "/sub/9D3B3E86" },
         { "label": "App Software", "href": "/sub/05F28EE1" },
         { "label": "E&P", "href": "/sub/8D203C2D" }
-      ]
+      ],
+      "chartData": {
+        "type": "scatter",
+        "xLabel": "3M return",
+        "yLabel": "1W return",
+        "quadrants": true,
+        "items": [
+          { "label": "Consumer Discretionary", "x": -9.0, "y": 4.6, "href": "/", "color": "#22c55e" },
+          { "label": "Information Technology", "x": 12.0, "y": 4.3, "href": "/", "color": "#22c55e" },
+          { "label": "Industrials", "x": 4.0, "y": 4.2, "href": "/", "color": "#22c55e" },
+          { "label": "Real Estate", "x": 6.0, "y": 3.7, "href": "/", "color": "#22c55e" },
+          { "label": "Materials", "x": 8.0, "y": 3.6, "href": "/", "color": "#22c55e" },
+          { "label": "Financials", "x": -6.0, "y": 2.4, "href": "/", "color": "#22c55e" },
+          { "label": "Consumer Staples", "x": 5.0, "y": 2.3, "href": "/", "color": "#22c55e" },
+          { "label": "Utilities", "x": 14.0, "y": 1.7, "href": "/", "color": "#22c55e" },
+          { "label": "Health Care", "x": -9.0, "y": 1.3, "href": "/", "color": "#22c55e" },
+          { "label": "Communication Services", "x": 2.0, "y": 0.8, "href": "/", "color": "#22c55e" },
+          { "label": "Energy", "x": 24.7, "y": -4.1, "href": "/", "color": "#ef4444" }
+        ]
+      }
     },
     {
       "number": 3,
@@ -99,7 +134,34 @@
         { "label": "E&P", "href": "/sub/8D203C2D" },
         { "label": "Integrated Oil", "href": "/sub/630FFAD7" },
         { "label": "Coal", "href": "/sub/7B1B1651" }
-      ]
+      ],
+      "chartData": {
+        "type": "scatter",
+        "xLabel": "Mom Score",
+        "yLabel": "1W return",
+        "quadrants": false,
+        "items": [
+          { "label": "Elect. Components", "x": 80, "y": 13.9, "href": "/sub/3A71D4E6", "color": "#3b82f6" },
+          { "label": "SME", "x": 82, "y": 13.8, "href": "/sub/7F8BA218", "color": "#3b82f6" },
+          { "label": "EMS", "x": 81, "y": 13.7, "href": "/sub/95B13044", "color": "#3b82f6" },
+          { "label": "Semiconductors", "x": 79, "y": 10.8, "href": "/sub/3DFD4B15", "color": "#3b82f6" },
+          { "label": "Copper", "x": 78, "y": 10.5, "href": "/sub/9D3B3E86", "color": "#3b82f6" },
+          { "label": "Elect. Equip.", "x": 77, "y": 9.8, "href": "/sub/EC96173F", "color": "#3b82f6" },
+          { "label": "Heavy Electrical", "x": 83, "y": 9.4, "href": "/sub/8D0D1D2F", "color": "#3b82f6" },
+          { "label": "Data Center REITs", "x": 88, "y": 7.0, "href": "/sub/5E2B6876", "color": "#3b82f6" },
+          { "label": "Marine Transp.", "x": 86, "y": 5.0, "href": "/sub/8EEB09C8", "color": "#3b82f6" },
+          { "label": "Aerospace & Def.", "x": 79, "y": 4.5, "href": "/sub/F58F17A8", "color": "#3b82f6" },
+          { "label": "Passenger Ground", "x": 77, "y": 19.6, "href": "/sub/99726A83", "color": "#3b82f6" },
+          { "label": "Commodity Chem.", "x": 76, "y": -2.5, "href": "/sub/7BF90D4B", "color": "#3b82f6" },
+          { "label": "Coal", "x": 90, "y": -12.5, "href": "/sub/7B1B1651", "color": "#f97316" },
+          { "label": "E&P", "x": 88, "y": -4.5, "href": "/sub/8D203C2D", "color": "#f97316" },
+          { "label": "Integrated Oil", "x": 86, "y": -5.1, "href": "/sub/630FFAD7", "color": "#f97316" },
+          { "label": "Refining", "x": 84, "y": -4.8, "href": "/sub/DB62D66B", "color": "#f97316" },
+          { "label": "Oil & Gas Storage", "x": 82, "y": -5.3, "href": "/sub/0439508E", "color": "#f97316" },
+          { "label": "Oil & Gas Drilling", "x": 83, "y": -3.9, "href": "/sub/738405E7", "color": "#f97316" },
+          { "label": "Oil & Gas Equip.", "x": 81, "y": -3.0, "href": "/sub/8B53278B", "color": "#f97316" }
+        ]
+      }
     },
     {
       "number": 5,
@@ -151,7 +213,28 @@
         { "label": "Steel", "href": "/sub/113B2BC3" },
         { "label": "Commodity Chemicals", "href": "/sub/7BF90D4B" },
         { "label": "Fertilizers", "href": "/sub/6A22E83B" }
-      ]
+      ],
+      "chartData": {
+        "type": "hbar",
+        "items": [
+          { "label": "Copper", "value": 10.5, "href": "/sub/9D3B3E86" },
+          { "label": "Diversified Metals & Mining", "value": 10.3, "href": "/sub/650D58F5" },
+          { "label": "Construction Materials", "value": 8.8, "href": "/sub/4E53B0B8" },
+          { "label": "Aluminum", "value": 5.8, "href": "/sub/1D0B4025" },
+          { "label": "Forest Products", "value": 5.6, "href": "/sub/AD968F37" },
+          { "label": "Steel", "value": 4.9, "href": "/sub/113B2BC3" },
+          { "label": "Metal, Glass & Plastic Cont.", "value": 4.4, "href": "/sub/AE23CF9D" },
+          { "label": "Gold", "value": 3.8, "href": "/sub/33E5E2A6" },
+          { "label": "Specialty Chemicals", "value": 3.5, "href": "/sub/33054D65" },
+          { "label": "Paper & Plastic Packaging", "value": 2.5, "href": "/sub/D485FE8C" },
+          { "label": "Diversified Chemicals", "value": 2.2, "href": "/sub/4B59004E" },
+          { "label": "Silver", "value": 1.5, "href": "/sub/FDF8E7AE" },
+          { "label": "Industrial Gases", "value": 0.9, "href": "/sub/7D825052" },
+          { "label": "Paper Products", "value": 0.1, "href": "/sub/7BD0E9D6" },
+          { "label": "Commodity Chemicals", "value": -2.5, "href": "/sub/7BF90D4B" },
+          { "label": "Fertilizers & Agri. Chem.", "value": -4.1, "href": "/sub/6A22E83B" }
+        ]
+      }
     }
   ],
   "actions": [

@@ -75,8 +75,7 @@ export default function WeeklyDetailPage({
             {ex.chartData ? (
               <div className="rounded-lg border border-gray-200 bg-white overflow-hidden p-4">
                 <ExhibitChart
-                  type={ex.chartData.type}
-                  items={ex.chartData.items}
+                  chartData={ex.chartData}
                   title={`Exhibit ${ex.number} — ${ex.title}`}
                 />
               </div>
