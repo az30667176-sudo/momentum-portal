@@ -79,7 +79,7 @@ export default function SectorDetailPage({
                   title={ex.title}
                 />
               </div>
-            ) : (
+            ) : ex.image ? (
               <div className="rounded-lg border border-gray-200 bg-white overflow-hidden">
                 <Image
                   src={`${issue.imageDir}/${ex.image}`}
@@ -90,7 +90,7 @@ export default function SectorDetailPage({
                   unoptimized
                 />
               </div>
-            )}
+            ) : null}
             <figcaption className="mt-2 text-sm text-gray-500 italic">
               {ex.caption}
             </figcaption>
