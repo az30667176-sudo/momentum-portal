@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { BacktestConfig } from '@/lib/types'
 import {
   fetchSubHistory,
-  fetchStockHistoryByRebalPeriod,
+  fetchFullStockHistory,
   fetchSpyHistory,
   runBacktestSync,
 } from '@/lib/backtestEngine'
@@ -19,10 +19,11 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: '歷史資料不足 20 天' }, { status: 400 })
     }
 
-    // Stock data is cached by rebalPeriod for 5 min — same rebalPeriod reuses cached data,
-    // so rapid repeated runs with the same rebalPeriod hit zero DB queries for stock data.
+    // Fetch full stock history (ALL trading dates) so per-stock daily returns are used
+    // instead of falling back to sub-industry returns on non-rebal days.
+    // Cached in-process for 5 min via unstable_cache.
     const [stockHistory, spyReturns] = await Promise.all([
-      fetchStockHistoryByRebalPeriod(config.rebalPeriod),
+      fetchFullStockHistory(),
       fetchSpyHistory(),
     ])
 

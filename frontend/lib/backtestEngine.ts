@@ -257,17 +257,21 @@ export function collectRebalDates(config: BacktestConfig, subHistory: DailySubSn
   return dates
 }
 
-// Fetch stock data for rebalancing dates using date-batch queries (no OFFSET).
-// Splitting dates into batches of 10 keeps each query to ~15K rows with OFFSET=0,
-// eliminating the statement timeout caused by high-OFFSET scans.
+// Fetch stock data for specific dates using date-batch queries (no OFFSET).
+// Auto-adjusts batch size: small batches for rebal-only dates, larger for full history.
 export async function fetchStockHistoryForDates(dates: string[]): Promise<DailyStockSnapshot[]> {
   if (dates.length === 0) return []
   const supabase = makeClient()
 
-  // Split rebal dates into batches of 10 (10 dates × ~1500 stocks ≈ 15K rows each),
-  // 3 batches in parallel. statement_timeout=30s keeps each query safe.
-  const DATE_BATCH = 10
+  // For full history (~750 dates): larger batches to finish within Vercel 60s.
+  // 20 dates × ~1500 stocks ≈ 30K rows per query.
+  // For rebal-only (~150 dates): smaller batches, same as before.
+  const isFullHistory = dates.length > 200
+  const DATE_BATCH = isFullHistory ? 20 : 10
   const PARALLEL = 3
+  const RANGE_LIMIT = isFullHistory ? 39999 : 15999
+  const selectCols = 'date,ticker,gics_code,ret_1d,ret_1w,ret_1m,ret_3m,ret_6m,ret_12m,mom_score,rank_in_sub,rvol,obv_trend'
+
   const dateBatches: string[][] = []
   for (let i = 0; i < dates.length; i += DATE_BATCH) {
     dateBatches.push(dates.slice(i, i + DATE_BATCH))
@@ -281,11 +285,11 @@ export async function fetchStockHistoryForDates(dates: string[]): Promise<DailyS
       round.map(batchDates =>
         supabase
           .from('daily_stock_returns')
-          .select('date,ticker,gics_code,ret_1d,ret_1w,ret_1m,ret_3m,mom_score,rank_in_sub,rvol,obv_trend')
+          .select(selectCols)
           .in('date', batchDates)
           .order('date', { ascending: true })
           .order('ticker', { ascending: true })
-          .range(0, 15999)
+          .range(0, RANGE_LIMIT)
       )
     )
     for (const chunk of results) {
@@ -306,6 +310,8 @@ export async function fetchStockHistoryForDates(dates: string[]): Promise<DailyS
       ret_1w: row.ret_1w != null ? Number(row.ret_1w) : null,
       ret_1m: row.ret_1m != null ? Number(row.ret_1m) : null,
       ret_3m: row.ret_3m != null ? Number(row.ret_3m) : null,
+      ret_6m: row.ret_6m != null ? Number(row.ret_6m) : null,
+      ret_12m: row.ret_12m != null ? Number(row.ret_12m) : null,
       mom_score: row.mom_score != null ? Number(row.mom_score) : null,
       rank_in_sub: row.rank_in_sub != null ? Number(row.rank_in_sub) : null,
       rvol: row.rvol != null ? Number(row.rvol) : null,
@@ -347,8 +353,8 @@ async function _fetchStockHistoryFromStorage(rebalPeriod: number): Promise<Daily
         ret_1w:      row.ret_1w != null ? Number(row.ret_1w) : null,
         ret_1m:      row.ret_1m != null ? Number(row.ret_1m) : null,
         ret_3m:      row.ret_3m != null ? Number(row.ret_3m) : null,
-        ret_6m:      null,
-        ret_12m:     null,
+        ret_6m:      row.ret_6m != null ? Number(row.ret_6m) : null,
+        ret_12m:     row.ret_12m != null ? Number(row.ret_12m) : null,
         mom_score:   row.mom_score != null ? Number(row.mom_score) : null,
         rank_in_sub: row.rank_in_sub != null ? Number(row.rank_in_sub) : null,
         rvol:        row.rvol != null ? Number(row.rvol) : null,
@@ -379,6 +385,63 @@ async function _fetchStockHistoryByRebalPeriodRaw(rebalPeriod: number): Promise<
 export const fetchStockHistoryByRebalPeriod = unstable_cache(
   _fetchStockHistoryByRebalPeriodRaw,
   ['stock-history-rp-v2'],
+  { revalidate: 300 }
+)
+
+// Full stock history: fetch ALL trading dates so daily P&L uses actual per-stock ret_1d
+// instead of falling back to sub-industry returns on non-rebal days.
+// L1: unstable_cache (5 min) → L2: Storage snapshot → L3: live DB fetch (~30-40s)
+async function _fetchFullStockHistoryRaw(): Promise<DailyStockSnapshot[]> {
+  // Try storage cache first (full history)
+  try {
+    const supabase = makeClient()
+    const { data: blob, error } = await supabase.storage
+      .from('backtest-cache')
+      .download('stock-history-full.json.gz')
+    if (!error && blob) {
+      const buffer = Buffer.from(await blob.arrayBuffer())
+      const text = gunzipSync(buffer).toString('utf-8')
+      const snapshot = JSON.parse(text) as { rows: Record<string, unknown>[] }
+      const stockByDate = new Map<string, StockReturn[]>()
+      for (const row of snapshot.rows) {
+        const date = String(row.date).slice(0, 10)
+        if (!stockByDate.has(date)) stockByDate.set(date, [])
+        stockByDate.get(date)!.push({
+          date,
+          ticker:      row.ticker as string,
+          gics_code:   row.gics_code as string,
+          ret_1d:      row.ret_1d != null ? Number(row.ret_1d) : null,
+          ret_1w:      row.ret_1w != null ? Number(row.ret_1w) : null,
+          ret_1m:      row.ret_1m != null ? Number(row.ret_1m) : null,
+          ret_3m:      row.ret_3m != null ? Number(row.ret_3m) : null,
+          ret_6m:      row.ret_6m != null ? Number(row.ret_6m) : null,
+          ret_12m:     row.ret_12m != null ? Number(row.ret_12m) : null,
+          mom_score:   row.mom_score != null ? Number(row.mom_score) : null,
+          rank_in_sub: row.rank_in_sub != null ? Number(row.rank_in_sub) : null,
+          rvol:        row.rvol != null ? Number(row.rvol) : null,
+          obv_trend:   row.obv_trend != null ? Number(row.obv_trend) : null,
+        })
+      }
+      const result = Array.from(stockByDate.entries())
+        .sort(([a], [b]) => a.localeCompare(b))
+        .map(([date, stocks]) => ({ date, stocks }))
+      console.log(`[fetchFullStockHistory] Storage: ${result.length} dates`)
+      return result
+    }
+  } catch (e) {
+    console.warn('[fetchFullStockHistory] Storage failed, falling back to DB:', e)
+  }
+
+  // Fallback: fetch ALL dates from DB
+  const subHistory = await fetchSubHistory()
+  const allDates = subHistory.map(s => s.date)
+  console.log(`[fetchFullStockHistory] DB fallback: fetching ${allDates.length} dates`)
+  return fetchStockHistoryForDates(allDates)
+}
+
+export const fetchFullStockHistory = unstable_cache(
+  _fetchFullStockHistoryRaw,
+  ['stock-history-full-v1'],
   { revalidate: 300 }
 )
 
@@ -1093,7 +1156,7 @@ export async function runSignalScan(config: BacktestConfig): Promise<ScanSignalR
     warnings.push(`requested ${requestedFriday}, using nearest trading day ${scanDate}`)
   }
 
-  const stockHistory = await fetchStockHistoryByRebalPeriod(config.rebalPeriod)
+  const stockHistory = await fetchFullStockHistory()
 
   const { passedSubCount, selectedSubCount, picks } =
     scanSingleDay(config, subHistory, stockHistory, idx)
