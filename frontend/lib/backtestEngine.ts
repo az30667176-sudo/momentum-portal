@@ -587,7 +587,10 @@ function calcPerf(
     if (d > mdd) mdd = d
   })
 
-  const wr = Math.round(r.filter(x => x > 0).length / n * 100)
+  const activeDays = r.filter(x => x !== 0)
+  const wr = activeDays.length > 0
+    ? Math.round(activeDays.filter(x => x > 0).length / activeDays.length * 100)
+    : 0
 
   const calmar = mdd > 0 ? parseFloat((annRet / mdd).toFixed(2)) : 0
 
