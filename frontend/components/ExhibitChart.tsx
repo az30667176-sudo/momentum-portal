@@ -28,7 +28,7 @@ export default function ExhibitChart({ chartData, title }: Props) {
   const router = useRouter()
 
   if (chartData.type === 'hbar') {
-    return <HBarChart items={chartData.items} title={title} router={router} />
+    return <HBarChart items={chartData.items} title={title} router={router} xLabel={chartData.xLabel} xUnit={chartData.xUnit} />
   }
   if (chartData.type === 'scatter') {
     return (
@@ -52,11 +52,17 @@ function HBarChart({
   items,
   title,
   router,
+  xLabel,
+  xUnit,
 }: {
   items: ChartBarItem[]
   title: string
   router: ReturnType<typeof useRouter>
+  xLabel?: string
+  xUnit?: string
 }) {
+  const unit = xUnit ?? '%'
+  const axisLabel = xLabel ?? '1W return (%)'
   const height = Math.max(400, items.length * 32 + 60)
 
   return (
@@ -74,9 +80,9 @@ function HBarChart({
           <XAxis
             type="number"
             tick={{ fontSize: 12, fill: '#6b7280' }}
-            tickFormatter={(v: number) => `${v}%`}
+            tickFormatter={(v: number) => `${v}${unit}`}
             label={{
-              value: '1W return (%)',
+              value: axisLabel,
               position: 'insideBottom',
               offset: -2,
               fontSize: 12,
@@ -107,8 +113,8 @@ function HBarChart({
           />
           <Tooltip
             formatter={(value: number) => [
-              `${value > 0 ? '+' : ''}${value.toFixed(1)}%`,
-              '1W',
+              `${value > 0 ? '+' : ''}${value.toFixed(1)}${unit}`,
+              axisLabel,
             ]}
             labelStyle={{ fontWeight: 600 }}
             contentStyle={{ fontSize: 13 }}
@@ -131,7 +137,7 @@ function HBarChart({
               dataKey="value"
               position="right"
               formatter={(v: number) =>
-                `${v > 0 ? '+' : ''}${v.toFixed(1)}%`
+                `${v > 0 ? '+' : ''}${v.toFixed(1)}${unit}`
               }
               style={{ fontSize: 11, fill: '#6b7280' }}
             />

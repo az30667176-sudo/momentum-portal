@@ -105,93 +105,75 @@
     },
     {
       "number": 4,
-      "title": "供需失衡：變壓器 128 週交期與 30% 供給缺口",
+      "title": "供需失衡：大型電力變壓器交期 5 年翻 2.5 倍",
       "image": "",
-      "caption": "美國電力變壓器平均交期從 2020 年的 35 週拉長至 2026 年的 128 週，供給缺口約 30%。",
-      "body": "重電產業的核心邏輯可以用一句話概括：**需求爆炸但產能跟不上，所以有貨的人就是贏家**。美國電力變壓器的平均交期從疫情前的 35 週拉長到 128 週（接近 2.5 年），背後是三個需求端同時發力：（1）電網老化替換——美國 70% 的變壓器已超過 25 年設計壽命；（2）再生能源併網——每 GW 風電/太陽能需要配套 200–400 台升壓變壓器；（3）AI 資料中心——單座超大型資料中心的電力需求相當於一個小城市（50–100 MW），且建設速度從規劃到上線只要 18 個月，遠快於變壓器的生產週期。供給端方面，全球只有不到 10 家公司能生產 500kV 以上的大型電力變壓器，其中 GE Vernova 佔北美市場約 20% 份額。公司已宣布 18 億美元的產能擴張計劃，但新廠要到 2028 年才能量產。**這意味著 2026–2028 是賣方市場的黃金窗口**——有產能的公司可以持續提價。",
+      "caption": "大型電力變壓器（Power Transformer）平均交期，單位：週。資料來源：ELSCO Transformers、Wood Mackenzie、CISA/NIAC 2024 報告。",
+      "body": "重電產業的核心邏輯可以用一句話概括：**需求爆炸但產能跟不上，所以有貨的人就是贏家**。從圖表可以清楚看到交期的惡化軌跡：2020 年疫情前大型電力變壓器（Power Transformer）交期約 50 週，2022 年飆升到 80 週，2024 年再拉到 120 週，2025–2026 年穩定在 128 週（GSU 變壓器更長達 144 週）。配電變壓器（Distribution Transformer）在 2023 年一度惡化到 100 週以上，但已改善回 30 週左右——這反映小型配電設備的產能較容易擴張，但大型電力變壓器因為需要特殊材料（矽鋼片、礦物油）和 2–3 年的製造週期，**產能擴張速度遠追不上需求增速**。背後是三個需求端同時發力：（1）電網老化替換——美國 70% 的變壓器已超過 25 年設計壽命；（2）再生能源併網——每 GW 風電/太陽能需要配套 200–400 台升壓變壓器；（3）AI 資料中心——單座超大型資料中心的電力需求 50–100 MW，建設速度 18 個月，遠快於變壓器的交付週期。GE Vernova 已宣布 18 億美元產能擴張計劃，但新廠要到 2028 年才能量產。**2026–2028 是賣方市場的黃金窗口**。",
       "links": [
-        { "label": "Heavy Electrical", "href": "/sub/8D0D1D2F" },
-        { "label": "Electronic Components", "href": "/sub/3A71D4E6" },
-        { "label": "Electrical Components", "href": "/sub/EC96173F" },
-        { "label": "Construction & Eng", "href": "/sub/787C9D0B" }
+        { "label": "Heavy Electrical", "href": "/sub/8D0D1D2F" }
       ],
       "chartData": {
-        "type": "scatter",
-        "xLabel": "mom_score",
-        "yLabel": "3M 報酬 (%)",
+        "type": "hbar",
+        "xLabel": "交期（週）",
+        "xUnit": " 週",
         "items": [
-          { "label": "Heavy Electrical", "x": 88.1, "y": 37.6, "href": "/sub/8D0D1D2F", "color": "#10b981" },
-          { "label": "Electronic Comp.", "x": 86.0, "y": 41.0, "href": "/sub/3A71D4E6", "color": "#10b981" },
-          { "label": "Construction", "x": 80.7, "y": 27.6, "href": "/sub/787C9D0B", "color": "#60a5fa" },
-          { "label": "Renewable Elec.", "x": 77.5, "y": 22.0, "href": "/sub/01C6B83E", "color": "#60a5fa" },
-          { "label": "Electrical Comp.", "x": 73.1, "y": 16.2, "href": "/sub/EC96173F", "color": "#60a5fa" },
-          { "label": "Gas Utilities", "x": 65.0, "y": 15.1, "href": "/sub/EBA48B83", "color": "#94a3b8" },
-          { "label": "Multi-Utilities", "x": 64.2, "y": 13.7, "href": "/sub/D15D1064", "color": "#94a3b8" },
-          { "label": "Industrial Mach.", "x": 62.8, "y": 6.4, "href": "/sub/8D96C21A", "color": "#94a3b8" },
-          { "label": "Electric Utilities", "x": 59.1, "y": 11.6, "href": "/sub/BCAFA011", "color": "#94a3b8" },
-          { "label": "Water Utilities", "x": 55.3, "y": 10.2, "href": "/sub/F1A64EE7", "color": "#94a3b8" },
-          { "label": "Indep. Power", "x": 35.5, "y": 2.4, "href": "/sub/7BA77648", "color": "#f87171" }
-        ],
-        "quadrants": true,
-        "colorLabels": {
-          "#10b981": "卡脖子（強動能+強報酬）",
-          "#60a5fa": "中游受惠",
-          "#94a3b8": "下游公用事業",
-          "#f87171": "落後"
-        }
+          { "label": "2026 Power Transformer", "value": 128, "href": "/sub/8D0D1D2F" },
+          { "label": "2025 GSU Transformer", "value": 144, "href": "/sub/8D0D1D2F" },
+          { "label": "2024 Power Transformer", "value": 120, "href": "/sub/8D0D1D2F" },
+          { "label": "2023 Distribution（峰值）", "value": 100, "href": "/sub/8D0D1D2F" },
+          { "label": "2022 Power Transformer", "value": 80, "href": "/sub/8D0D1D2F" },
+          { "label": "2021 Power Transformer", "value": 50, "href": "/sub/8D0D1D2F" },
+          { "label": "2026 Distribution（改善）", "value": 30, "href": "/sub/8D0D1D2F" }
+        ]
       }
     },
     {
       "number": 5,
-      "title": "資本支出超級週期：2,220 億美元 Utility Capex",
+      "title": "GEV 三大部門：2025 實績 vs 2026 指引",
       "image": "",
-      "caption": "2026 年美國公用事業資本支出預算合計約 2,220 億美元，為歷史最高水準。",
-      "body": "驅動重電需求的不只是某個單一事件，而是一個**多條政策線匯聚的超級週期**。聯邦層面：IIJA（基礎建設法案）撥款 730 億美元專門用於電網現代化，包括輸電線路升級、智慧電網部署、和變壓器戰略儲備；IRA（降低通膨法案）透過稅收抵免推動再生能源裝機，間接拉動電網配套需求。州政府層面：加州、德州、紐約等大州各自有數十億美元的電網韌性計劃（wildfire hardening、extreme weather resilience）。企業層面：Microsoft、Google、Amazon 的資料中心 capex 合計超過 1,500 億美元，每一座都需要專用的高壓變電站。這些投資的共同特點是**週期長、不可逆、且互相強化**——電網升級了才能接再生能源，接了再生能源才能供資料中心，資料中心多了又需要更多電網容量。GE Vernova 在這個生態系裡的位置最有利，因為它同時賣渦輪機（發電端）、賣變壓器（輸電端）、賣電網軟體（管理端），是少數能「全鏈通吃」的玩家。",
+      "caption": "GE Vernova 2025 全年營收 $38.1B，2026 指引 $44–45B（+16%）。數據來源：GEV Q4 2025 財報、2025 年度投資人日。",
+      "body": "GEV 的投資邏輯不能只看總營收，必須拆到三個部門看結構。**Power（燃氣渦輪 + 核電服務）** 是現金牛，2025 營收約 $20B，2026 指引有機成長 16–18%，EBITDA 利潤率 16–18%，80 GW 的燃氣渦輪訂單積壓延伸到 2029 年。**Electrification（電網設備 + Grid Solutions）** 是成長引擎，2025 年隨著 Prolec GE 收購完成，2026 營收指引 $13.5–14.0B（含 Prolec ~$3B），EBITDA 利潤率 17–19%，這個部門直接受惠於變壓器缺貨和電網升級。**Wind（陸上 + 離岸風電）** 是拖油瓶，2026 營收預計「low-double-digit 有機衰退」，EBITDA 仍虧損約 $4 億。關鍵問題：Wind 的虧損能否收斂？公司的 2028 指引給出了答案——整體 EBITDA 利潤率目標 20%、營收 $56B、累計自由現金流 ≥$24B。如果 Wind 在 2027 開始轉正，那 Power + Electrification 的高利潤率將釋放巨大的 margin expansion。**市場在定價的不是今天的 48x PE，而是 2028 年 20% 利潤率的 GEV。**",
       "links": [
-        { "label": "Heavy Electrical", "href": "/sub/8D0D1D2F" },
-        { "label": "Electric Utilities", "href": "/sub/BCAFA011" },
-        { "label": "Independent Power", "href": "/sub/7BA77648" },
-        { "label": "Renewable Electricity", "href": "/sub/01C6B83E" },
-        { "label": "Construction & Eng", "href": "/sub/787C9D0B" }
+        { "label": "Heavy Electrical", "href": "/sub/8D0D1D2F" }
       ],
       "chartData": {
         "type": "hbar",
+        "xLabel": "營收（$B）",
+        "xUnit": "B",
         "items": [
-          { "label": "Heavy Electrical", "value": 88.1, "href": "/sub/8D0D1D2F" },
-          { "label": "Electronic Components", "value": 86.0, "href": "/sub/3A71D4E6" },
-          { "label": "Construction & Eng", "value": 80.7, "href": "/sub/787C9D0B" },
-          { "label": "Renewable Electricity", "value": 77.5, "href": "/sub/01C6B83E" },
-          { "label": "Electrical Components", "value": 73.1, "href": "/sub/EC96173F" },
-          { "label": "Gas Utilities", "value": 65.0, "href": "/sub/EBA48B83" },
-          { "label": "Multi-Utilities", "value": 64.2, "href": "/sub/D15D1064" },
-          { "label": "Industrial Machinery", "value": 62.8, "href": "/sub/8D96C21A" },
-          { "label": "Electric Utilities", "value": 59.1, "href": "/sub/BCAFA011" },
-          { "label": "Water Utilities", "value": 55.3, "href": "/sub/F1A64EE7" },
-          { "label": "Independent Power", "value": 35.5, "href": "/sub/7BA77648" }
+          { "label": "Power 2025 營收", "value": 20.0, "href": "/sub/8D0D1D2F" },
+          { "label": "Power 2026E 營收", "value": 23.5, "href": "/sub/8D0D1D2F" },
+          { "label": "Electrification 2025 營收", "value": 10.5, "href": "/sub/8D0D1D2F" },
+          { "label": "Electrification 2026E 營收", "value": 13.8, "href": "/sub/8D0D1D2F" },
+          { "label": "Wind 2025 營收", "value": 7.6, "href": "/sub/8D0D1D2F" },
+          { "label": "Wind 2026E 營收", "value": 6.7, "href": "/sub/8D0D1D2F" }
         ]
       }
     },
     {
       "number": 6,
-      "title": "風險與估值：GEV 的 Q1 財報是下一個催化劑",
+      "title": "電網投資超級週期：錢從哪裡來、花到哪裡去",
       "image": "",
-      "caption": "GE Vernova 將於 4/22 公佈 Q1 財報，市場共識 EPS $3.47，營收 $9.4B。",
-      "body": "任何動能排名 Top 5 的次產業都需要問一個問題：**好消息是否已經被定價？** GEV 目前交易在 ~48x 2026E PE，遠高於工業股中位數的 22x。但這個估值的支撐點不是短期獲利，而是 1,500 億美元訂單積壓帶來的**營收可見度**——在工業股裡，只有航太國防的 Lockheed Martin 和波音有類似的 backlog-to-revenue 比率。風險集中在三個地方：（1）**執行風險**——GEV 的 Wind 部門仍在虧損（陸上風電利潤率 –5%），如果 Electrification 的高利潤被 Wind 的虧損稀釋，整體利潤率改善會慢於預期；（2）**政策風險**——如果 2026 大選後新政府削減 IRA 的再生能源補貼，Wind 部門的訂單可能進一步萎縮；（3）**利率風險**——公用事業是高槓桿行業，如果聯準會因通膨反覆而推遲降息，utility capex 可能延後而非取消。最近的催化劑是 **4 月 22 日的 Q1 財報**，市場共識 EPS $3.47、營收 $9.4B。重點觀察：Electrification 部門利潤率（Q4 為 10.8%，指引 mid-teens）、新增訂單金額（是否維持 >$10B/季的節奏）、以及 Wind 部門的虧損收斂速度。",
+      "caption": "美國電力基礎設施年度投資額（$B），2025–2030 累計預計達 $1.4 兆。資料來源：EEI、Morningstar DBRS、BloombergNEF、DOE。",
+      "body": "驅動重電需求的不只是某個單一事件，而是一個**多條政策線匯聚的超級週期**。從圖表可以看到資金的來源和去向：**聯邦政策**層面，IIJA 撥款 $730 億用於電網現代化（輸電線路升級、智慧電網部署、變壓器戰略儲備），IRA 透過稅收抵免推動 2025 年新增 64 GW 再生能源裝機（太陽能 33 GW + 儲能 18 GW + 風電 8 GW），間接拉動電網配套需求。**公用事業 capex** 2025 年達 $2,150 億（YoY +24%），其中**輸電投資 CAGR 16%** 是配電的近兩倍，反映瓶頸在高壓端而非終端配電。**資料中心用電**從 2023 年 176 TWh（全美 4.4%）預計到 2028 年飆升至 325–580 TWh（6.7–12%），每一座超大型資料中心都需要專用的高壓變電站。這些投資**週期長、不可逆、且互相強化**——電網升級了才能接再生能源，接了再生能源才能供資料中心，資料中心多了又需要更多電網容量。GEV 同時賣渦輪機（發電端）、賣變壓器（輸電端）、賣電網軟體（管理端），是少數能「全鏈通吃」的玩家。",
       "links": [
-        { "label": "Heavy Electrical", "href": "/sub/8D0D1D2F" }
+        { "label": "Heavy Electrical", "href": "/sub/8D0D1D2F" },
+        { "label": "Electric Utilities", "href": "/sub/BCAFA011" },
+        { "label": "Renewable Electricity", "href": "/sub/01C6B83E" },
+        { "label": "Construction & Eng", "href": "/sub/787C9D0B" }
       ],
       "chartData": {
-        "type": "scatter",
-        "xLabel": "mom_score",
-        "yLabel": "1W 報酬 (%)",
+        "type": "hbar",
+        "xLabel": "金額（$B）/ 裝機量（GW）",
+        "xUnit": "",
         "items": [
-          { "label": "GEV", "x": 93.86, "y": 10.3, "href": "/sub/8D0D1D2F", "color": "#10b981" },
-          { "label": "AZZ", "x": 72.54, "y": 8.6, "href": "/sub/8D0D1D2F", "color": "#60a5fa" }
-        ],
-        "colorLabels": {
-          "#10b981": "GE Vernova（主力）",
-          "#60a5fa": "AZZ Inc（配角）"
-        }
+          { "label": "2026E Utility Capex 總額", "value": 222, "href": "/sub/BCAFA011" },
+          { "label": "2025 Utility Capex 總額", "value": 215, "href": "/sub/BCAFA011" },
+          { "label": "IIJA 電網現代化撥款", "value": 73, "href": "/sub/787C9D0B" },
+          { "label": "2025 新增太陽能 (GW)", "value": 33, "href": "/sub/01C6B83E" },
+          { "label": "2025 新增儲能 (GW)", "value": 18, "href": "/sub/01C6B83E" },
+          { "label": "2025 新增風電 (GW)", "value": 8, "href": "/sub/01C6B83E" }
+        ]
       }
     }
   ],
