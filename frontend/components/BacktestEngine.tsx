@@ -773,15 +773,14 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
       value: typeof info.threshold === 'number' ? info.threshold : Number(info.threshold),
     }))
 
-    // Fixed filters from the run — deduplicate against trial filters
-    // (trial filters override the same indicator's fixed filter)
+    // Use CURRENT config filters as base — deduplicate against trial filters
+    // (trial filters override the same indicator's current filter)
     const trialIndicators = new Set(trialSubs.map(s => s.indicator))
-    const rawFixed = params.subFilters ?? params.sub_filters ?? []
-    const fixedSubs: SubFilter[] = (Array.isArray(rawFixed) ? rawFixed : [])
+    const fixedSubs: SubFilter[] = config.subFilters
       .filter((f: SubFilter) => !trialIndicators.has(f.indicator))
 
     const newSubFilters = [...fixedSubs, ...trialSubs]
-    console.log('[applyOptParams]', { fixedSubs: fixedSubs.length, trialSubs: trialSubs.length, total: newSubFilters.length, filterSummary, rawFixed })
+    console.log('[applyOptParams]', { fixedSubs: fixedSubs.length, trialSubs: trialSubs.length, total: newSubFilters.length, filterSummary })
 
     setConfig(prev => ({
       ...prev,
@@ -802,7 +801,7 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
       subFilters: newSubFilters,
     }))
     setActiveTab('config')
-  }, [])
+  }, [config.subFilters])
 
 
   // Live preview
@@ -2616,7 +2615,6 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
                                             weightMode: run.fixed_config?.weightMode,
                                             tradingCost: run.fixed_config?.tradingCost,
                                             spyMaFilter: run.fixed_config?.spyMaFilter,
-                                            subFilters: run.fixed_config?.subFilters ?? [],
                                             filterSummary: t.filter_summary ?? {},
                                           })}
                                           className="px-2 py-0.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded text-xs"
