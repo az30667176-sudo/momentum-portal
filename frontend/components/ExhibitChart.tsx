@@ -63,6 +63,7 @@ function HBarChart({
 }) {
   const unit = xUnit ?? '%'
   const axisLabel = xLabel ?? '1W return (%)'
+  const hasLinks = items.some((i) => i.href)
   const height = Math.max(400, items.length * 32 + 60)
 
   return (
@@ -103,7 +104,7 @@ function HBarChart({
                   textAnchor="end"
                   fontSize={12}
                   fill="#374151"
-                  className="cursor-pointer hover:fill-emerald-600"
+                  className={item?.href ? 'cursor-pointer hover:fill-emerald-600' : ''}
                   onClick={() => item?.href && router.push(item.href)}
                 >
                   {payload.value}
@@ -122,7 +123,7 @@ function HBarChart({
           <Bar
             dataKey="value"
             radius={[0, 4, 4, 0]}
-            cursor="pointer"
+            cursor={hasLinks ? 'pointer' : 'default'}
             onClick={(data: any) => {
               if (data?.href) router.push(data.href)
             }}
@@ -144,9 +145,11 @@ function HBarChart({
           </Bar>
         </BarChart>
       </ResponsiveContainer>
-      <p className="text-center text-xs text-gray-400 mt-1">
-        點擊任一列可查看詳情
-      </p>
+      {hasLinks && (
+        <p className="text-center text-xs text-gray-400 mt-1">
+          點擊任一列可查看詳情
+        </p>
+      )}
     </div>
   )
 }
