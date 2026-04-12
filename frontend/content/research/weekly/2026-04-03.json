@@ -24,23 +24,7 @@
         { "label": "E&P", "href": "/sub/8D203C2D" },
         { "label": "Integrated Oil", "href": "/sub/630FFAD7" },
         { "label": "Coal", "href": "/sub/7B1B1651" }
-      ],
-      "chartData": {
-        "type": "hbar",
-        "items": [
-          { "label": "Financials", "value": 4.9, "href": "/" },
-          { "label": "Information Technology", "value": 4.6, "href": "/" },
-          { "label": "Materials", "value": 4.2, "href": "/" },
-          { "label": "Health Care", "value": 3.9, "href": "/" },
-          { "label": "Real Estate", "value": 3.9, "href": "/" },
-          { "label": "Consumer Discretionary", "value": 3.9, "href": "/" },
-          { "label": "Communication Services", "value": 3.8, "href": "/" },
-          { "label": "Industrials", "value": 3.6, "href": "/" },
-          { "label": "Consumer Staples", "value": 1.9, "href": "/" },
-          { "label": "Utilities", "value": 1.6, "href": "/" },
-          { "label": "Energy", "value": -5.0, "href": "/" }
-        ]
-      }
+      ]
     },
     {
       "number": 2,
@@ -51,26 +35,7 @@
       "links": [
         { "label": "E&P", "href": "/sub/8D203C2D" },
         { "label": "Integrated Oil", "href": "/sub/630FFAD7" }
-      ],
-      "chartData": {
-        "type": "scatter",
-        "xLabel": "3M return",
-        "yLabel": "1W return",
-        "quadrants": true,
-        "items": [
-          { "label": "Financials", "x": -6.0, "y": 4.9, "href": "/", "color": "#22c55e" },
-          { "label": "Health Care", "x": -4.5, "y": 3.9, "href": "/", "color": "#22c55e" },
-          { "label": "Consumer Discretionary", "x": -3.0, "y": 3.9, "href": "/", "color": "#22c55e" },
-          { "label": "Real Estate", "x": 2.0, "y": 3.9, "href": "/", "color": "#22c55e" },
-          { "label": "Industrials", "x": 3.0, "y": 3.8, "href": "/", "color": "#22c55e" },
-          { "label": "Communication Services", "x": 5.0, "y": 3.8, "href": "/", "color": "#22c55e" },
-          { "label": "Information Technology", "x": 8.0, "y": 4.5, "href": "/", "color": "#22c55e" },
-          { "label": "Materials", "x": 10.0, "y": 4.0, "href": "/", "color": "#22c55e" },
-          { "label": "Consumer Staples", "x": 6.0, "y": 1.9, "href": "/", "color": "#22c55e" },
-          { "label": "Utilities", "x": 8.0, "y": 1.6, "href": "/", "color": "#22c55e" },
-          { "label": "Energy", "x": 34.0, "y": -5.0, "href": "/", "color": "#ef4444" }
-        ]
-      }
+      ]
     },
     {
       "number": 3,

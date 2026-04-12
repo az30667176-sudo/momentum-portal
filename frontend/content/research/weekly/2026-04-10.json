@@ -29,23 +29,7 @@
         { "label": "E&P", "href": "/sub/8D203C2D" },
         { "label": "Integrated Oil", "href": "/sub/630FFAD7" },
         { "label": "AVGO", "href": "/stock/AVGO" }
-      ],
-      "chartData": {
-        "type": "hbar",
-        "items": [
-          { "label": "Consumer Discretionary", "value": 4.6, "href": "/" },
-          { "label": "Information Technology", "value": 4.3, "href": "/" },
-          { "label": "Industrials", "value": 4.2, "href": "/" },
-          { "label": "Real Estate", "value": 3.7, "href": "/" },
-          { "label": "Materials", "value": 3.6, "href": "/" },
-          { "label": "Financials", "value": 2.4, "href": "/" },
-          { "label": "Consumer Staples", "value": 2.4, "href": "/" },
-          { "label": "Utilities", "value": 1.7, "href": "/" },
-          { "label": "Health Care", "value": 1.3, "href": "/" },
-          { "label": "Communication Services", "value": 0.8, "href": "/" },
-          { "label": "Energy", "value": -4.1, "href": "/" }
-        ]
-      }
+      ]
     },
     {
       "number": 2,
@@ -59,26 +43,7 @@
         { "label": "Copper", "href": "/sub/9D3B3E86" },
         { "label": "App Software", "href": "/sub/05F28EE1" },
         { "label": "E&P", "href": "/sub/8D203C2D" }
-      ],
-      "chartData": {
-        "type": "scatter",
-        "xLabel": "3M return",
-        "yLabel": "1W return",
-        "quadrants": true,
-        "items": [
-          { "label": "Consumer Discretionary", "x": -9.0, "y": 4.6, "href": "/", "color": "#22c55e" },
-          { "label": "Information Technology", "x": 12.0, "y": 4.3, "href": "/", "color": "#22c55e" },
-          { "label": "Industrials", "x": 4.0, "y": 4.2, "href": "/", "color": "#22c55e" },
-          { "label": "Real Estate", "x": 6.0, "y": 3.7, "href": "/", "color": "#22c55e" },
-          { "label": "Materials", "x": 8.0, "y": 3.6, "href": "/", "color": "#22c55e" },
-          { "label": "Financials", "x": -6.0, "y": 2.4, "href": "/", "color": "#22c55e" },
-          { "label": "Consumer Staples", "x": 5.0, "y": 2.3, "href": "/", "color": "#22c55e" },
-          { "label": "Utilities", "x": 14.0, "y": 1.7, "href": "/", "color": "#22c55e" },
-          { "label": "Health Care", "x": -9.0, "y": 1.3, "href": "/", "color": "#22c55e" },
-          { "label": "Communication Services", "x": 2.0, "y": 0.8, "href": "/", "color": "#22c55e" },
-          { "label": "Energy", "x": 24.7, "y": -4.1, "href": "/", "color": "#ef4444" }
-        ]
-      }
+      ]
     },
     {
       "number": 3,
