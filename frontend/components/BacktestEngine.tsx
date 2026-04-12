@@ -763,25 +763,23 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
   const applyOptParams = useCallback((params: Record<string, any>) => {
     const ri = (v: any, fallback: any) => v != null ? Math.round(Number(v)) : fallback
 
-    // Build subFilters from trial-specific indicator filters (filter_summary)
+    // Only update thresholds for indicators the user CURRENTLY has configured.
+    // Never add new indicator filters from old Optuna runs.
     const filterSummary = params.filterSummary ?? params.filter_summary ?? {}
-    const trialSubs: SubFilter[] = Object.entries(filterSummary).map(([indicator, info]: any) => ({
-      id: `opt_${indicator}_${Date.now()}`,
-      type: 'static' as FilterType,
-      indicator,
-      op: (info.op ?? '>=') as any,
-      value: typeof info.threshold === 'number' ? info.threshold : Number(info.threshold),
-    }))
+    const currentIndicators = new Set(config.subFilters.map(f => f.indicator))
 
-    // Use CURRENT config filters as base — deduplicate against trial filters
-    // (trial filters override the same indicator's current filter)
-    const trialIndicators = new Set(trialSubs.map(s => s.indicator))
-    const fixedSubs: SubFilter[] = config.subFilters
-      .filter((f: SubFilter) => !trialIndicators.has(f.indicator))
+    const newSubFilters = config.subFilters.map(f => {
+      const trial = filterSummary[f.indicator]
+      if (!trial) return f  // not optimized by this trial, keep as-is
+      return {
+        ...f,
+        op: (trial.op ?? f.op) as any,
+        value: typeof trial.threshold === 'number' ? trial.threshold : Number(trial.threshold),
+      }
+    })
 
-    const newSubFilters = [...fixedSubs, ...trialSubs]
-    console.log('[applyOptParams]', { fixedSubs: fixedSubs.length, trialSubs: trialSubs.length, total: newSubFilters.length, filterSummary })
-
+    // Only apply Optuna's numeric params (topN, rebal, stops etc.)
+    // Do NOT override rankBy/rankDir/weightMode/tradingCost/spyMaFilter from old runs
     setConfig(prev => ({
       ...prev,
       topN: ri(params.topN, prev.topN),
@@ -793,11 +791,6 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
       stopLoss: params.stopLoss != null ? Math.round(Number(params.stopLoss)) : prev.stopLoss,
       trailingStop: params.trailingStop != null ? Math.round(Number(params.trailingStop)) : prev.trailingStop,
       takeProfit: params.takeProfit != null ? Math.round(Number(params.takeProfit)) : prev.takeProfit,
-      rankBy: params.rankBy ?? prev.rankBy,
-      rankDir: params.rankDir ?? prev.rankDir,
-      weightMode: params.weightMode ?? prev.weightMode,
-      tradingCost: params.tradingCost != null ? Math.round(Number(params.tradingCost) * 100) / 100 : prev.tradingCost,
-      spyMaFilter: params.spyMaFilter !== undefined ? params.spyMaFilter : prev.spyMaFilter,
       subFilters: newSubFilters,
     }))
     setActiveTab('config')
@@ -2610,11 +2603,6 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
                                             stopLoss: (p.stop_loss_pct ?? 0) > 0 ? -p.stop_loss_pct : 0,
                                             trailingStop: p.trailingStop ?? 0,
                                             takeProfit: p.takeProfit ?? 0,
-                                            rankBy: run.fixed_config?.rankBy,
-                                            rankDir: run.fixed_config?.rankDir,
-                                            weightMode: run.fixed_config?.weightMode,
-                                            tradingCost: run.fixed_config?.tradingCost,
-                                            spyMaFilter: run.fixed_config?.spyMaFilter,
                                             filterSummary: t.filter_summary ?? {},
                                           })}
                                           className="px-2 py-0.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded text-xs"
