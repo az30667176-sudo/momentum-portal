@@ -71,7 +71,13 @@
           { "label": "3/27", "x": 82.6, "y": 10, "href": "/sub/8D0D1D2F", "color": "#60a5fa" },
           { "label": "4/3", "x": 83.3, "y": 9, "href": "/sub/8D0D1D2F", "color": "#34d399" },
           { "label": "4/10", "x": 88.1, "y": 3, "href": "/sub/8D0D1D2F", "color": "#10b981" }
-        ]
+        ],
+        "colorLabels": {
+          "#94a3b8": "1月（底部）",
+          "#60a5fa": "2–3月（整固）",
+          "#34d399": "4月初（加速）",
+          "#10b981": "4/10（突破）"
+        }
       }
     },
     {
@@ -126,7 +132,13 @@
           { "label": "Water Utilities", "x": 55.3, "y": 10.2, "href": "/sub/F1A64EE7", "color": "#94a3b8" },
           { "label": "Indep. Power", "x": 35.5, "y": 2.4, "href": "/sub/7BA77648", "color": "#f87171" }
         ],
-        "quadrants": true
+        "quadrants": true,
+        "colorLabels": {
+          "#10b981": "卡脖子（強動能+強報酬）",
+          "#60a5fa": "中游受惠",
+          "#94a3b8": "下游公用事業",
+          "#f87171": "落後"
+        }
       }
     },
     {
@@ -175,7 +187,11 @@
         "items": [
           { "label": "GEV", "x": 93.86, "y": 10.3, "href": "/sub/8D0D1D2F", "color": "#10b981" },
           { "label": "AZZ", "x": 72.54, "y": 8.6, "href": "/sub/8D0D1D2F", "color": "#60a5fa" }
-        ]
+        ],
+        "colorLabels": {
+          "#10b981": "GE Vernova（主力）",
+          "#60a5fa": "AZZ Inc（配角）"
+        }
       }
     }
   ],

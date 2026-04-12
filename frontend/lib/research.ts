@@ -30,7 +30,7 @@ export interface ChartScatterItem {
 
 export type ChartData =
   | { type: 'hbar'; items: ChartBarItem[] }
-  | { type: 'scatter'; xLabel: string; yLabel: string; items: ChartScatterItem[]; quadrants?: boolean }
+  | { type: 'scatter'; xLabel: string; yLabel: string; items: ChartScatterItem[]; quadrants?: boolean; colorLabels?: Record<string, string> }
 
 export interface ResearchExhibit {
   number: number

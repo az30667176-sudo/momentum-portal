@@ -37,6 +37,7 @@ export default function ExhibitChart({ chartData, title }: Props) {
         xLabel={chartData.xLabel}
         yLabel={chartData.yLabel}
         quadrants={chartData.quadrants}
+        colorLabels={chartData.colorLabels}
         title={title}
         router={router}
       />
@@ -180,6 +181,7 @@ function ScatterPlot({
   xLabel,
   yLabel,
   quadrants,
+  colorLabels,
   title,
   router,
 }: {
@@ -187,6 +189,7 @@ function ScatterPlot({
   xLabel: string
   yLabel: string
   quadrants?: boolean
+  colorLabels?: Record<string, string>
   title: string
   router: ReturnType<typeof useRouter>
 }) {
@@ -266,19 +269,33 @@ function ScatterPlot({
       {items.some((i) => i.color) && (
         <div className="flex justify-center gap-4 mt-2 text-xs text-gray-500">
           {Array.from(new Set(items.map((i) => i.color).filter(Boolean))).map(
-            (c) => (
-              <span key={c} className="flex items-center gap-1">
-                <span
-                  className="inline-block w-3 h-3 rounded-full"
-                  style={{ backgroundColor: c }}
-                />
-                {c === '#ef4444' || c === '#f97316'
+            (c) => {
+              const label = colorLabels?.[c!]
+                ?? (c === '#ef4444' || c === '#f97316'
                   ? 'Energy'
                   : c === '#3b82f6'
                     ? 'Tech / Industrials'
-                    : 'Other'}
-              </span>
-            ),
+                    : c === '#10b981'
+                      ? 'Strong'
+                      : c === '#60a5fa'
+                        ? 'Moderate'
+                        : c === '#94a3b8'
+                          ? 'Weak'
+                          : c === '#f87171'
+                            ? 'Lagging'
+                            : c === '#34d399'
+                              ? 'Accelerating'
+                              : 'Other')
+              return (
+                <span key={c} className="flex items-center gap-1">
+                  <span
+                    className="inline-block w-3 h-3 rounded-full"
+                    style={{ backgroundColor: c }}
+                  />
+                  {label}
+                </span>
+              )
+            },
           )}
         </div>
       )}
