@@ -1,5 +1,9 @@
 # Momentum Portal
 
+[![Daily Pipeline](https://github.com/az30667176-sudo/momentum-portal/actions/workflows/pipeline.yml/badge.svg)](https://github.com/az30667176-sudo/momentum-portal/actions/workflows/pipeline.yml)
+[![Deploy](https://img.shields.io/badge/deploy-Vercel-black?logo=vercel)](https://momentum-portal-qae8t48yr-az30667176-sudos-projects.vercel.app/)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
 > S&P 1500 × GICS Sub-industry 動能研究平台
 
 自動化追蹤 155 個 GICS 次產業的動能訊號，結合量化排名與基本面研究，產出可操作的板塊輪動策略。
@@ -54,42 +58,51 @@
 | Frontend | Next.js 14 · React 18 · TypeScript · Tailwind CSS · Recharts |
 | Deployment | Vercel (auto-deploy on push) |
 
+## Getting Started
+
+### Prerequisites
+
+- Python 3.10+
+- Node.js 18+
+- Supabase project (free tier works)
+
+### Pipeline Setup
+
+```bash
+cd momentum-portal
+cp .env.example .env          # fill in Supabase credentials
+python -m venv venv
+source venv/bin/activate      # Windows: venv\Scripts\activate
+pip install -r requirements.txt
+python pipeline/main.py
+```
+
+### Frontend Setup
+
+```bash
+cd momentum-portal/frontend
+cp .env.example .env.local    # fill in Supabase credentials
+npm install
+npm run dev                   # http://localhost:3000
+```
+
+### Environment Variables
+
+| Variable | Where | Description |
+|----------|-------|-------------|
+| `SUPABASE_URL` | `.env` + `.env.local` | Supabase project URL |
+| `SUPABASE_SERVICE_KEY` | `.env` + `.env.local` | Supabase service role key |
+| `FORCE_RERUN` | `.env` (optional) | Skip trade-day & duplicate checks |
+
 ## Data Pipeline
 
-每日美東收盤後自動執行：
+每日美東收盤後由 GitHub Actions 自動執行：
 
 1. **Universe** — 從 Wikipedia 抓取 S&P 500/400/600 成分股，合併去重
 2. **Fetcher** — yfinance 批次下載 420 天收盤價與成交量
 3. **Calculator** — 計算 1D~12M 報酬率、skip-month 動能、截面 Z-score、排名
 4. **Volume** — OBV Trend、RVol、Vol Momentum、PV Divergence
 5. **Writer** — Upsert 到 Supabase（分批 100 筆，含 retry）
-
-```bash
-# 手動執行
-cd momentum-portal
-python -m venv venv && venv\Scripts\activate
-pip install -r requirements.txt
-python pipeline/main.py
-
-# 強制重跑（略過交易日 + 資料存在檢查）
-FORCE_RERUN=true python pipeline/main.py
-```
-
-## Frontend
-
-```bash
-cd momentum-portal/frontend
-npm install
-npm run dev     # http://localhost:3000
-npm run build   # production build
-```
-
-### 環境變數
-
-```env
-SUPABASE_URL=https://xxx.supabase.co
-SUPABASE_SERVICE_KEY=your_service_role_key
-```
 
 ## Research Content
 
@@ -98,17 +111,32 @@ SUPABASE_SERVICE_KEY=your_service_role_key
 ```
 frontend/content/research/
 ├── weekly/          # 輪動週報 — 每週一期
-│   ├── 2026-04-03.json
-│   └── 2026-04-10.json
 ├── sector/          # 產業分析
-│   └── heavy-electrical-equipment.json
 └── stock/           # 個股 memo
-    ├── cvx-2026-04-07.json
-    └── fti-2026-04-12.json
 ```
 
 新增文章只需放 JSON + 圖檔，`generateStaticParams` 自動渲染。
 
+## Project Structure
+
+```
+momentum-portal/
+├── pipeline/            # Python data pipeline
+│   ├── universe.py      # S&P 1500 constituent scraper
+│   ├── fetcher.py       # yfinance price downloader
+│   ├── calculator.py    # return & momentum calculator
+│   ├── volume.py        # volume indicators
+│   ├── writer.py        # Supabase upsert
+│   └── main.py          # orchestrator
+├── frontend/            # Next.js 14 app
+│   ├── app/             # App Router pages
+│   ├── components/      # React components
+│   ├── lib/             # shared utilities
+│   └── content/         # research JSON articles
+├── scripts/             # chart generation scripts
+└── .github/workflows/   # CI/CD
+```
+
 ## License
 
-Private repository. All rights reserved.
+[MIT](LICENSE)
