@@ -333,14 +333,21 @@ def make_objective(
                 if min_val >= max_val:
                     continue
 
-                # Step size: finer for ratios/scores, coarser for percentages
+                # Let Optuna decide whether to activate this indicator at all
+                use_indicator = trial.suggest_categorical(f'use_{ind}', [True, False])
+                if not use_indicator:
+                    continue
+
+                # Step size: aim for ~50 distinct values (finer search)
                 span = max_val - min_val
-                if span <= 2:
-                    step = round(span / 20, 4)   # e.g. 0–1 range → step 0.05
-                elif span <= 10:
-                    step = round(span / 20, 3)   # e.g. 0–5 → step 0.25
+                if span <= 1:
+                    step = round(span / 50, 4)   # e.g. 0–1 → step 0.02
+                elif span <= 5:
+                    step = round(span / 50, 3)    # e.g. 0–5 → step 0.10
+                elif span <= 20:
+                    step = round(span / 50, 2)    # e.g. 0–17 → step 0.34
                 else:
-                    step = round(span / 20, 2)   # e.g. 0–100 → step 5
+                    step = round(span / 50, 2)    # e.g. 0–100 → step 2.0
 
                 threshold = trial.suggest_float(f'threshold_{ind}', min_val, max_val, step=step)
                 active_filters.append({
