@@ -764,7 +764,13 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
     const ri = (v: any, fallback: any) => v != null ? Math.round(Number(v)) : fallback
 
     // Build subFilters from trial-specific indicator filters (filter_summary)
-    const filterSummary = params.filterSummary ?? params.filter_summary ?? {}
+    let filterSummaryRaw = params.filterSummary ?? params.filter_summary ?? {}
+    // Supabase JSONB sometimes returns nested objects as JSON strings
+    if (typeof filterSummaryRaw === 'string') {
+      try { filterSummaryRaw = JSON.parse(filterSummaryRaw) } catch { filterSummaryRaw = {} }
+    }
+    const filterSummary = filterSummaryRaw
+    console.log('[applyOptParams] filterSummary:', filterSummary, 'subFilters:', params.subFilters)
     const trialSubs: SubFilter[] = Object.entries(filterSummary).map(([indicator, info]: any) => ({
       id: `opt_${indicator}_${Date.now()}`,
       type: 'static' as FilterType,
