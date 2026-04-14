@@ -262,31 +262,31 @@ def make_objective(
 
         # ── Numeric params (each with a meaningful step size) ────
         topN = trial.suggest_int(
-            'topN', pr.get('topN_min', 2), pr.get('topN_max', 8), step=1
+            'topN', pr.get('topN_min', 1), pr.get('topN_max', 15), step=1
         )
         stocksPerSub = trial.suggest_int(
-            'stocksPerSub', pr.get('stocksPerSub_min', 1), pr.get('stocksPerSub_max', 5), step=1
+            'stocksPerSub', pr.get('stocksPerSub_min', 1), pr.get('stocksPerSub_max', 10), step=1
         )
         rebalPeriod = trial.suggest_categorical(
-            'rebalPeriod', pr.get('rebalPeriod_options', [5, 10, 20, 40])
+            'rebalPeriod', pr.get('rebalPeriod_options', [5, 10, 20, 40, 60])
         )
         maxStockWeight = trial.suggest_float(
-            'maxStockWeight', pr.get('maxStockWeight_min', 5), pr.get('maxStockWeight_max', 30), step=2.5
+            'maxStockWeight', pr.get('maxStockWeight_min', 3), pr.get('maxStockWeight_max', 100), step=1.0
         )
         maxSubWeight = trial.suggest_float(
-            'maxSubWeight', pr.get('maxSubWeight_min', 10), pr.get('maxSubWeight_max', 60), step=5.0
+            'maxSubWeight', pr.get('maxSubWeight_min', 5), pr.get('maxSubWeight_max', 100), step=5.0
         )
         bufferRule = trial.suggest_int(
-            'bufferRule', pr.get('bufferRule_min', 0), pr.get('bufferRule_max', 3), step=1
+            'bufferRule', pr.get('bufferRule_min', 0), pr.get('bufferRule_max', 5), step=1
         )
         stop_loss_pct = trial.suggest_float(
-            'stop_loss_pct', pr.get('stopLoss_min', 0), pr.get('stopLoss_max', 20), step=1.0
+            'stop_loss_pct', pr.get('stopLoss_min', 0), pr.get('stopLoss_max', 30), step=0.5
         )
         trailing_stop = trial.suggest_float(
-            'trailingStop', pr.get('trailingStop_min', 0), pr.get('trailingStop_max', 20), step=1.0
+            'trailingStop', pr.get('trailingStop_min', 0), pr.get('trailingStop_max', 30), step=0.5
         )
         take_profit = trial.suggest_float(
-            'takeProfit', pr.get('takeProfit_min', 0), pr.get('takeProfit_max', 50), step=2.5
+            'takeProfit', pr.get('takeProfit_min', 0), pr.get('takeProfit_max', 80), step=1.0
         )
 
         # ── Categorical strategy params (optional search) ────────

@@ -552,21 +552,21 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
   // ── Optimization state ────────────────────────────────────────
   const [optObjective, setOptObjective] = useState<'oos_sharpe' | 'oos_calmar' | 'oos_pf' | 'is_sharpe' | 'is_calmar' | 'is_pf'>('oos_sharpe')
   const [optIsSplit, setOptIsSplit] = useState(70)
-  const [optNTrials] = useState(100)
+  const [optNTrials, setOptNTrials] = useState(200)
   const [optSearchFilters, setOptSearchFilters] = useState(false)
   const [optIndicatorCandidates, setOptIndicatorCandidates] = useState<
     { indicator: string; label: string; op: '>=' | '<='; min: number; max: number }[]
   >([])
   const [optRanges, setOptRanges] = useState({
-    topN_min: 2, topN_max: 8,
-    stocksPerSub_min: 1, stocksPerSub_max: 5,
-    rebalPeriod_options: [5, 10, 20, 40],
-    maxStockWeight_min: 5, maxStockWeight_max: 30,
-    maxSubWeight_min: 10, maxSubWeight_max: 60,
-    bufferRule_min: 0, bufferRule_max: 3,
-    stopLoss_min: 0, stopLoss_max: 20,
-    trailingStop_min: 0, trailingStop_max: 20,
-    takeProfit_min: 0, takeProfit_max: 50,
+    topN_min: 1, topN_max: 15,
+    stocksPerSub_min: 1, stocksPerSub_max: 10,
+    rebalPeriod_options: [5, 10, 20, 40, 60],
+    maxStockWeight_min: 3, maxStockWeight_max: 100,
+    maxSubWeight_min: 5, maxSubWeight_max: 100,
+    bufferRule_min: 0, bufferRule_max: 5,
+    stopLoss_min: 0, stopLoss_max: 30,
+    trailingStop_min: 0, trailingStop_max: 30,
+    takeProfit_min: 0, takeProfit_max: 80,
   })
   const [optSearchableParams, setOptSearchableParams] = useState({
     rankBy: false, weightMode: false, tradingCost: false, spyMaFilter: false,
@@ -2109,10 +2109,10 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
           <div className={sectionCls}>
             <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Optuna 自動優化</h2>
             <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
-              固定目前策略設定（篩選條件、排名方式、成本），透過 GitHub Actions 在雲端跑 {optNTrials} 次 Bayesian 搜尋，找出最佳參數組合。約需 <span className="font-medium text-emerald-500">8–12 分鐘</span>。
+              固定目前策略設定（篩選條件、排名方式、成本），透過 GitHub Actions 在雲端跑 {optNTrials} 次 Bayesian 搜尋，找出最佳參數組合。
             </p>
 
-            <div className="grid grid-cols-2 gap-4 mb-4">
+            <div className="grid grid-cols-3 gap-4 mb-4">
               <div>
                 <label className="block text-xs text-gray-500 dark:text-gray-400 mb-1">優化目標</label>
                 <select
@@ -2141,6 +2141,20 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
                   className="w-full text-sm border border-gray-300 dark:border-gray-600 rounded px-2 py-1.5 bg-white dark:bg-gray-700 dark:text-white"
                 />
                 <p className="text-xs text-gray-400 mt-1">前 {optIsSplit}% 樣本內，後 {100 - optIsSplit}% 樣本外</p>
+              </div>
+              <div>
+                <label className="block text-xs text-gray-500 dark:text-gray-400 mb-1">搜尋次數</label>
+                <select
+                  value={optNTrials}
+                  onChange={e => setOptNTrials(Number(e.target.value))}
+                  className="w-full text-sm border border-gray-300 dark:border-gray-600 rounded px-2 py-1.5 bg-white dark:bg-gray-700 dark:text-white"
+                >
+                  <option value={50}>50 次（~5 分鐘）</option>
+                  <option value={100}>100 次（~10 分鐘）</option>
+                  <option value={200}>200 次（~20 分鐘）</option>
+                  <option value={300}>300 次（~30 分鐘）</option>
+                  <option value={500}>500 次（~50 分鐘）</option>
+                </select>
               </div>
             </div>
 
