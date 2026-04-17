@@ -1007,11 +1007,21 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
 
   const drawdownData = useMemo(() => {
     if (!result) return []
-    return result.dates.map((date, i) => ({
+    const { dates, drawdownCurve, isSplitDay } = result
+    let startIdx = 0
+    let endIdx = dates.length
+
+    if (chartRange === 'is') {
+      endIdx = isSplitDay
+    } else if (chartRange === 'oos') {
+      startIdx = isSplitDay
+    }
+
+    return dates.slice(startIdx, endIdx).map((date, i) => ({
       date,
-      drawdown: -result.drawdownCurve[i + 1] ?? 0,
+      drawdown: -(drawdownCurve[startIdx + i + 1] ?? 0),
     }))
-  }, [result])
+  }, [result, chartRange])
 
   const monthlyData = useMemo(() => {
     if (!result) return []
@@ -1187,7 +1197,7 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
                 <input
                   type="range"
                   min={5}
-                  max={50}
+                  max={100}
                   step={5}
                   value={config.maxStockWeight}
                   onChange={e => setConfig(c => ({ ...c, maxStockWeight: parseInt(e.target.value) }))}
