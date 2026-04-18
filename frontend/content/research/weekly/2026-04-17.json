@@ -1,0 +1,233 @@
+{
+  "slug": "2026-04-17",
+  "issue": 3,
+  "date": "2026-04-17",
+  "snapshotDate": "2026-04-17",
+  "title": "Hormuz 開了，軟體回血了，然後呢",
+  "subtitle": "停火深化 → 油價暴跌 → risk-on 從硬體獨大擴散到全科技。但軟體的反彈是短線均值回歸，不是結構性翻轉",
+  "imageDir": "/research/weekly/2026-04-17",
+  "coverImage": "01_sector_1w.png",
+  "intro": [
+    "上週報告的核心判斷是：「risk-on 的主線是建設型需求 —— 晶片、銅線、電力設備、資料中心 —— 不是軟體或防禦。」依據是半導體硬體四子同時衝進 Top 10、軟體跌到全市場倒數兩名、必需消費防禦配置一週內全數逆轉。結論是市場在主動選擇硬體基建。",
+    "這週那條判斷被市場打了半臉 —— 4 月 17 日伊朗外長宣佈 Hormuz 海峽「完全開放商業船隻通行」，Brent 單日暴跌 11% 至 $88、WTI 跌到 $80 以下，Dow 跳漲 1,005 點，S&P 500 衝破 7,100 歷史新高、Nasdaq 連 12 天收紅（2009 年以來最長連漲）。但真正打到主線的不是油價 —— 是**上週跌到排名 154、155 的 Systems Software 和 Application Software，本週分別暴漲 +13.2% 和 +12.3%，直接衝進全市場 Top 5**。",
+    "所以上週的「硬體 > 軟體」判斷到底被推翻了沒有？**沒有，但需要修正框架。** 看 `mom_score`：硬體四子（Communications Equipment 89.3、SME 87.5、Electronic Components 87.0、Tech Hardware 87.0）依然佔據動能榜前列；軟體兩子 `mom_score` 分別只有 19.8 和 18.7 —— **排名倒數第一和第二**。一週 +13% 的暴漲架在一個 `mom_score` < 20 的底座上，這在 portal 的語言裡不是「趨勢反轉」，是「嚴重超賣後的均值回歸」。類比去年 10 月能源股一週漲 15% 後隔週回吐大半 —— 動能分數要 4–6 週持續爬升才算趨勢建立。**本週真正發生的事情是：停火深化讓 risk-on 的範圍擴大了，但核心主線仍然是硬體基建 —— 只是市場在主線之外開始撿落後者。**"
+  ],
+  "exhibits": [
+    {
+      "number": 1,
+      "title": "板塊一週報酬：科技 +8.3% 斷層領先",
+      "image": "01_sector_1w.png",
+      "caption": "科技 +8.3% 甩開第二名通訊 +6.5% 近 2 個百分點。能源 –3.8% 連三週墊底。公用事業 –1.4% 從中段跌到倒數第二。",
+      "body": "上週的板塊排序是「科技帶頭、能源繼續黑」，本週是**科技斷層領先 +8.3%**，跟第二名通訊 +6.5% 拉開近 2 個百分點。但本週科技內部結構跟上週截然不同：上週科技 +4.3% 裡頭尾差 23pts（硬體 +14% vs 軟體 –9%），本週科技 +8.3% 裡**硬體和軟體同步漲**（SME +23.7% 1M、Semiconductors +10.6% 1W、Systems Software +13.2% 1W、App Software +12.3% 1W）。板塊層面看不出分裂，但 `mom_score` 看得出 —— 硬體 87–89 vs 軟體 18–20，差距仍是 70 分。這代表**「同漲」不等於「同質」—— 硬體是趨勢延續，軟體是均值回歸**。能源 –3.8% 連第三週墊底。上週 –4.2% 是停火打掉戰爭溢價，本週 –3.8% 是 Hormuz 開放實質降低供給風險。公用事業 –1.4% 也值得注意 —— 從中段跌到倒數第二，Δrank 下滑 Electric –26、Multi-Utilities –26、Water –29，**防禦配置的拆倉比上週必需消費還猛**。",
+      "links": [
+        { "label": "Semiconductors", "href": "/sub/3DFD4B15" },
+        { "label": "SME", "href": "/sub/7F8BA218" },
+        { "label": "Systems Software", "href": "/sub/4D1787C4" },
+        { "label": "App Software", "href": "/sub/05F28EE1" },
+        { "label": "E&P", "href": "/sub/8D203C2D" },
+        { "label": "Electric Utilities", "href": "/sub/BCAFA011" }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "輪動地圖：科技擠滿右上，能源從右下開始滑落",
+      "image": "02_rotation_map.png",
+      "caption": "X 軸 3M 報酬、Y 軸 1W 報酬。IT 幾乎獨佔右上象限。能源 3M +16.5% 仍強但 1W 全部轉負。",
+      "body": "上週的圖形是「半導體硬體佔據右上、能源卡在右下」。本週 IT 更進一步擠壓了整個右上象限 —— 不只硬體，連 1W 反彈的軟體也竄到上方，但它們的 3M 位置仍在左側（App Software 3M +13.6%、Systems Software 3M +13.6%），跟硬體族群 3M +30–40% 有明顯落差。**上方但偏左 = 短線彈、中線弱，跟真正的右上象限（短線強 + 中線強）不是同一回事。** 更值得觀察的是能源 —— 3M +16.5% 依然是 sector 層面最高，但 1W –3.8% 已經是第三週收負，**正在從右下象限往左下滑移**。如果下週 3M 報酬被滾動窗口洗掉（3 個月前的漲幅開始退出計算），能源可能從右下直接掉到左下 —— 那就是趨勢正式轉弱，不再只是事件驅動。",
+      "links": [
+        { "label": "Semiconductors", "href": "/sub/3DFD4B15" },
+        { "label": "App Software", "href": "/sub/05F28EE1" },
+        { "label": "E&P", "href": "/sub/8D203C2D" },
+        { "label": "Communications Equipment", "href": "/sub/FE725307" }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "最強 / 最弱次產業：軟體反彈衝進 Top 5，能源繼續沉",
+      "image": "03_top_bottom_subs.png",
+      "caption": "軟體兩子從上週最弱榜（rank 154–155）直接跳到本週 Top 5。最弱榜仍由能源和公用事業包辦。",
+      "body": "這張圖是本期報告的核心證據。上週 Systems Software 1W –6.9%（rank 155）、Application Software –9.1%（rank 154），本週分別 +13.2%（rank 154 → 排名不動）和 +12.3%（rank 155 → 排名不動）。**漲了 13% 但排名依然是倒數第一第二** —— 因為 `mom_score` 是由 1W + 1M + 3M + 6M + 12M 五個窗口的截面 z-score 加權計算，一週暴漲只影響 1W 那個窗口，中長期窗口仍是深度落後。**這就是 portal 跟純看 K 線最大的差異：K 線只看到一根大陽線，portal 看到的是「這根大陽線架在一個爛透的動能結構上」。** 如果下週軟體繼續漲，`mom_score` 才會開始慢慢爬；如果回吐，就是教科書級的死貓跳。最弱榜仍由能源包辦（Coal –7.5%、Drilling –5.7%、E&P –5.3%），但新加入的公用事業（Water –4.6%、Renewable –3.7%、Gas –3.0%）是本週的增量資訊 —— **防禦資金的拆倉從必需消費擴散到公用事業，risk-on 的滲透面在擴大。**",
+      "links": [
+        { "label": "Systems Software", "href": "/sub/4D1787C4" },
+        { "label": "App Software", "href": "/sub/05F28EE1" },
+        { "label": "Semiconductors", "href": "/sub/3DFD4B15" },
+        { "label": "Coal", "href": "/sub/7B1B1651" },
+        { "label": "E&P", "href": "/sub/8D203C2D" },
+        { "label": "Water Utilities", "href": "/sub/F1A64EE7" }
+      ],
+      "chartData": {
+        "type": "hbar",
+        "items": [
+          { "label": "Passenger Ground Transp.", "value": 26.2, "href": "/sub/99726A83" },
+          { "label": "Alternative Carriers", "value": 15.3, "href": "/sub/E1C7925A" },
+          { "label": "Systems Software", "value": 13.2, "href": "/sub/4D1787C4" },
+          { "label": "Health Care Technology", "value": 12.9, "href": "/sub/A8DBD49D" },
+          { "label": "Application Software", "value": 12.3, "href": "/sub/05F28EE1" },
+          { "label": "Internet Services & Infra.", "value": 12.2, "href": "/sub/0FA374B8" },
+          { "label": "Diversified Financial Services", "value": 11.5, "href": "/sub/A4F55D43" },
+          { "label": "Housewares & Specialties", "value": 11.3, "href": "/sub/7123167E" },
+          { "label": "Transaction & Payment Proc.", "value": 11.0, "href": "/sub/DB878878" },
+          { "label": "Diversified Metals & Mining", "value": 10.9, "href": "/sub/650D58F5" },
+          { "label": "Semiconductors", "value": 10.6, "href": "/sub/3DFD4B15" },
+          { "label": "HR & Employment Services", "value": 10.4, "href": "/sub/D4E92F32" },
+          { "label": "Commodity Chemicals", "value": -2.0, "href": "/sub/7BF90D4B" },
+          { "label": "Tobacco", "value": -2.2, "href": "/sub/6912B116" },
+          { "label": "Industrial Gases", "value": -2.2, "href": "/sub/7D825052" },
+          { "label": "Brewers", "value": -2.8, "href": "/sub/3260ED6D" },
+          { "label": "Gas Utilities", "value": -3.0, "href": "/sub/EBA48B83" },
+          { "label": "Integrated Oil & Gas", "value": -3.2, "href": "/sub/630FFAD7" },
+          { "label": "Agricultural Products", "value": -3.7, "href": "/sub/52404E82" },
+          { "label": "Renewable Electricity", "value": -3.7, "href": "/sub/01C6B83E" },
+          { "label": "Agri. & Farm Machinery", "value": -3.8, "href": "/sub/D8F634B1" },
+          { "label": "Oil & Gas Refining", "value": -4.1, "href": "/sub/DB62D66B" },
+          { "label": "Aluminum", "value": -4.4, "href": "/sub/1D0B4025" },
+          { "label": "Water Utilities", "value": -4.6, "href": "/sub/F1A64EE7" },
+          { "label": "Oil & Gas E&P", "value": -5.3, "href": "/sub/8D203C2D" },
+          { "label": "Oil & Gas Drilling", "value": -5.7, "href": "/sub/738405E7" },
+          { "label": "Coal & Consumable Fuels", "value": -7.5, "href": "/sub/7B1B1651" }
+        ]
+      }
+    },
+    {
+      "number": 4,
+      "title": "動能榜 Top 20：硬體穩坐頂端，能源 mom_score 開始鬆動",
+      "image": "04_energy_unwind.png",
+      "caption": "Communications Equipment 89.3 重回第一。能源從上週的 76–90 收縮到 70–84，Integrated Oil 和 E&P 的 mom_score 首次跌破 75。",
+      "body": "上週報告說「能源 mom_score 76–90 的區間仍未瓦解」，本週這個區間已經收縮到 70–84。Integrated Oil 從上週 86 降到 70.3（跌 16 分）、E&P 從 88 降到 72.0（跌 16 分）、Coal 從 90 降到 35.4（腰斬）。**Coal 的 mom_score 從 90 直墜到 35 是本週最劇烈的單一指標變動** —— 因為 coal 1W –7.5%、1M –5.8%，連續兩週重跌讓短線窗口嚴重拖累整體分數。對比硬體四子（Comm Equipment 89.3、SME 87.5、Electronic Components 87.0、Tech Hardware 87.0），頂部完全沒鬆動。**上週是「能源整群 mom_score 還在、排名先跌」；本週進入「mom_score 開始掉，趨勢結構正式弱化」的階段。** 4/21 停火到期的決策窗口已經不只是油價問題了 —— 如果停火延續，mom_score 會加速下滑到 60 以下的「明確轉弱」區間；即使停火破裂油價回彈，mom_score 要重建回 85+ 也需要 3–4 週的持續上漲。**能源的動能結構已經實質性受損，不再是「事件驅動的回調」那麼簡單了。**",
+      "links": [
+        { "label": "Comm. Equipment", "href": "/sub/FE725307" },
+        { "label": "SME", "href": "/sub/7F8BA218" },
+        { "label": "Tech Hardware", "href": "/sub/D10047AB" },
+        { "label": "Coal", "href": "/sub/7B1B1651" },
+        { "label": "E&P", "href": "/sub/8D203C2D" },
+        { "label": "Integrated Oil", "href": "/sub/630FFAD7" }
+      ],
+      "chartData": {
+        "type": "scatter",
+        "xLabel": "Mom Score",
+        "yLabel": "1W return (%)",
+        "quadrants": false,
+        "items": [
+          { "label": "Comm. Equipment", "x": 89.3, "y": 0.5, "href": "/sub/FE725307", "color": "#3b82f6" },
+          { "label": "SME", "x": 87.5, "y": 7.2, "href": "/sub/7F8BA218", "color": "#3b82f6" },
+          { "label": "Heavy Electrical", "x": 87.3, "y": 8.0, "href": "/sub/8D0D1D2F", "color": "#3b82f6" },
+          { "label": "Tech Hardware", "x": 87.0, "y": 7.7, "href": "/sub/D10047AB", "color": "#3b82f6" },
+          { "label": "Elect. Components", "x": 87.0, "y": 8.9, "href": "/sub/3A71D4E6", "color": "#3b82f6" },
+          { "label": "EMS", "x": 81.3, "y": 5.7, "href": "/sub/95B13044", "color": "#3b82f6" },
+          { "label": "Constr. & Eng.", "x": 78.4, "y": 5.4, "href": "/sub/787C9D0B", "color": "#3b82f6" },
+          { "label": "Marine Transp.", "x": 76.5, "y": 3.3, "href": "/sub/8EEB09C8", "color": "#3b82f6" },
+          { "label": "Copper", "x": 76.2, "y": 5.1, "href": "/sub/9D3B3E86", "color": "#3b82f6" },
+          { "label": "Semiconductors", "x": 71.5, "y": 10.6, "href": "/sub/3DFD4B15", "color": "#3b82f6" },
+          { "label": "Data Center REITs", "x": 72.7, "y": 5.4, "href": "/sub/5E2B6876", "color": "#3b82f6" },
+          { "label": "Aluminum", "x": 79.6, "y": -4.4, "href": "/sub/1D0B4025", "color": "#3b82f6" },
+          { "label": "Oil & Gas Equip.", "x": 84.4, "y": -1.2, "href": "/sub/8B53278B", "color": "#f97316" },
+          { "label": "Oil & Gas Storage", "x": 82.6, "y": -1.8, "href": "/sub/0439508E", "color": "#f97316" },
+          { "label": "Oil & Gas Drilling", "x": 80.3, "y": -5.7, "href": "/sub/738405E7", "color": "#f97316" },
+          { "label": "Refining", "x": 72.5, "y": -4.1, "href": "/sub/DB62D66B", "color": "#f97316" },
+          { "label": "E&P", "x": 72.0, "y": -5.3, "href": "/sub/8D203C2D", "color": "#f97316" },
+          { "label": "Integrated Oil", "x": 70.3, "y": -3.2, "href": "/sub/630FFAD7", "color": "#f97316" },
+          { "label": "Coal", "x": 35.4, "y": -7.5, "href": "/sub/7B1B1651", "color": "#f97316" }
+        ],
+        "colorLabels": { "#3b82f6": "硬體 / 基建", "#f97316": "能源" }
+      }
+    },
+    {
+      "number": 5,
+      "title": "排名變動：防禦拆倉從必需消費擴散到公用事業",
+      "image": "05_rank_delta.png",
+      "caption": "上週必需消費逆轉後，本週公用事業加入跌幅榜（Electric –26、Multi-Utilities –26、Water –29）。Technology Distributors Δ+41 為本週最大爬升者。",
+      "body": "上週報告說「防禦部位被拋售追成長」，指的是必需消費（Tobacco Δ–40、Food Retail Δ–32）。本週防禦拆倉的範圍**從必需消費擴散到公用事業** —— Electric Utilities Δ–26、Multi-Utilities Δ–26、Water Utilities Δ–29。加上 Consumer Staples 裡 Tobacco Δ–36（又一週）、Distillers Δ–35、Food Retail Δ–34 仍在持續下滑。**連續兩週、跨兩個防禦性板塊的 delta_rank 大幅下跌，代表資金不再只是「從防禦切到成長」，而是系統性地清掃所有防禦型部位。** 右側爬升榜則是 risk-on 的鏡像：Technology Distributors Δ+41（IT 供應鏈重新補貨）、Hotels Δ+33（消費信心改善 + 油價降低旅遊成本）、Movies & Entertainment Δ+31（連續第二週爬升，從 rank 58 → 43）、Pharmaceuticals Δ+28。Movies & Entertainment 上週我建議觀察一週，本週再升 15 名，`mom_score` 有機會繼續攀升 —— 可以小倉試水。",
+      "links": [
+        { "label": "Tech Distributors", "href": "/sub/7F980CFF" },
+        { "label": "Hotels & Cruise", "href": "/sub/7BC83F5D" },
+        { "label": "Movies & Ent.", "href": "/sub/6D67D3FA" },
+        { "label": "Tobacco", "href": "/sub/6912B116" },
+        { "label": "Electric Utilities", "href": "/sub/BCAFA011" },
+        { "label": "Water Utilities", "href": "/sub/F1A64EE7" }
+      ],
+      "chartData": {
+        "type": "hbar",
+        "items": [
+          { "label": "Technology Distributors", "value": 41, "href": "/sub/7F980CFF" },
+          { "label": "Hotels, Resorts & Cruise", "value": 33, "href": "/sub/7BC83F5D" },
+          { "label": "Movies & Entertainment", "value": 31, "href": "/sub/6D67D3FA" },
+          { "label": "Pharmaceuticals", "value": 28, "href": "/sub/7BF824C1" },
+          { "label": "Office Services & Supplies", "value": 25, "href": "/sub/364050B7" },
+          { "label": "Real Estate Development", "value": 25, "href": "/sub/8622E012" },
+          { "label": "Automotive Retail", "value": 24, "href": "/sub/BA58F32D" },
+          { "label": "Multi-Family Residential REITs", "value": 23, "href": "/sub/521CB7FE" },
+          { "label": "Steel", "value": 23, "href": "/sub/113B2BC3" },
+          { "label": "IT Consulting", "value": 22, "href": "/sub/58FF4A03" },
+          { "label": "Electric Utilities", "value": -26, "href": "/sub/BCAFA011" },
+          { "label": "Multi-Utilities", "value": -26, "href": "/sub/D15D1064" },
+          { "label": "Regional Banks", "value": -26, "href": "/sub/6525BF6D" },
+          { "label": "Fertilizers & Agri. Chem.", "value": -27, "href": "/sub/6A22E83B" },
+          { "label": "Soft Drinks", "value": -28, "href": "/sub/DD15FBF8" },
+          { "label": "Water Utilities", "value": -29, "href": "/sub/F1A64EE7" },
+          { "label": "Brewers", "value": -33, "href": "/sub/3260ED6D" },
+          { "label": "Food Retail", "value": -34, "href": "/sub/E9C739A4" },
+          { "label": "Distillers & Vintners", "value": -35, "href": "/sub/3E115254" },
+          { "label": "Tobacco", "value": -36, "href": "/sub/6912B116" }
+        ],
+        "xLabel": "Delta Rank",
+        "xUnit": ""
+      }
+    },
+    {
+      "number": 6,
+      "title": "原物料分裂 v3：鋁從金屬陣營叛逃",
+      "image": "06_materials_split.png",
+      "caption": "金屬 vs 化學分裂延續，但本週鋁 –4.4%（上週 +5.8%）從強勢榜跌入弱勢榜。銅 +5.1% 仍穩。",
+      "body": "續第一期和第二期判斷。前兩週金屬和化學走出截然不同的方向（金屬強、化學弱），本週分裂仍在但出現了**內部裂縫** —— 鋁本週 –4.4%（上週 +5.8%），`mom_score` 雖仍有 79.6 rank 10，但 1W 轉負代表短線動能已在消退。銅 +5.1%（Diversified Metals +10.9%）仍穩。**金屬內部正在分化：銅走供給斷層（Grasberg）+ AI 需求結構題，鋁走的是宏觀 beta** —— 停火 + 油價降 → 能源成本降 → 鋁冶煉成本降 → 理論上利好但市場解讀為「價格天花板降低」。這個分歧在 portal 上的表現是：銅 `mom_score` 76.2 穩定走平、鋁 79.6 但 1W 開始翻負。鋼鐵 Δ+23 繼續爬升（連續第二週），驗證基建需求端的故事。化學品端依然弱 —— Commodity Chemicals –2.0%、Industrial Gases –2.2%、Fertilizers –1.0%（不在最弱榜但 Δ–27）。**原物料的三分法現在是：銅（結構性強勢）> 鋼（基建 beta）> 鋁（宏觀 beta，開始鬆動）>> 化學品（結構性弱勢）。**",
+      "links": [
+        { "label": "Copper", "href": "/sub/9D3B3E86" },
+        { "label": "Aluminum", "href": "/sub/1D0B4025" },
+        { "label": "Steel", "href": "/sub/113B2BC3" },
+        { "label": "Diversified Metals", "href": "/sub/650D58F5" },
+        { "label": "Commodity Chemicals", "href": "/sub/7BF90D4B" },
+        { "label": "Industrial Gases", "href": "/sub/7D825052" }
+      ],
+      "chartData": {
+        "type": "hbar",
+        "items": [
+          { "label": "Diversified Metals & Mining", "value": 10.9, "href": "/sub/650D58F5" },
+          { "label": "Specialty Chemicals", "value": 9.5, "href": "/sub/33054D65" },
+          { "label": "Copper", "value": 5.1, "href": "/sub/9D3B3E86" },
+          { "label": "Steel", "value": 2.1, "href": "/sub/113B2BC3" },
+          { "label": "Gold", "value": 1.4, "href": "/sub/33E5E2A6" },
+          { "label": "Construction Materials", "value": 1.4, "href": "/sub/4E53B0B8" },
+          { "label": "Paper & Plastic Packaging", "value": 1.4, "href": "/sub/D485FE8C" },
+          { "label": "Silver", "value": 1.0, "href": "/sub/FDF8E7AE" },
+          { "label": "Metal, Glass & Plastic Cont.", "value": 0.7, "href": "/sub/AE23CF9D" },
+          { "label": "Forest Products", "value": 0.2, "href": "/sub/AD968F37" },
+          { "label": "Paper Products", "value": 0.1, "href": "/sub/7BD0E9D6" },
+          { "label": "Diversified Chemicals", "value": -0.7, "href": "/sub/4B59004E" },
+          { "label": "Fertilizers & Agri. Chem.", "value": -1.0, "href": "/sub/6A22E83B" },
+          { "label": "Commodity Chemicals", "value": -2.0, "href": "/sub/7BF90D4B" },
+          { "label": "Industrial Gases", "value": -2.2, "href": "/sub/7D825052" },
+          { "label": "Aluminum", "value": -4.4, "href": "/sub/1D0B4025" }
+        ]
+      }
+    }
+  ],
+  "actions": [
+    "**上週建議績效回顧** | (1) 加碼半導體硬體線 → SME 1M +23.7%、Semiconductors 1W +10.6%、Electronic Components 1M +25.2% ✓ | (2) 續抱工業金屬 → 銅 +5.1%、鋼鐵 Δ+23 ✓、但鋁 –4.4% ✗ | (3) 能源維持小部位觀望 → 能源 –3.8% 連第三週，正確維持小倉 ✓ | (4) 暫撤必需消費防禦 → Tobacco Δ–36、Food Retail Δ–34 持續崩 ✓ | (5) 觀察 Movies & Entertainment → Δ+31 再升 15 名至 rank 43 ✓",
+    "**硬體基建主線續抱，這仍是最高信心的部位**。Communications Equipment `mom_score` 89.3 全場第一、SME 87.5 第二、Electronic Components 87.0 第五。Breadth 93% 代表 14 檔裡 13 檔站上 MA20 —— 趨勢極度健康。Hyperscaler 2026 capex 合計 $700B、YoY +60%，需求端無虞。**不要因為軟體反彈就分散注意力 —— 硬體的 mom_score 是軟體的 4 倍。**",
+    "**軟體不追。** Systems Software 1W +13.2% 但 `mom_score` 19.8（rank 154）、App Software +12.3% 但 `mom_score` 18.7（rank 155）。一週暴漲架在動能倒數第一第二的底座上 = 均值回歸，不是趨勢反轉。等 `mom_score` 連續三週爬升到 50 以上再考慮。",
+    "**能源從「觀望」調整為「逐步退出」**。Coal `mom_score` 從 90 腰斬到 35、Integrated Oil 從 86 跌到 70、E&P 從 88 跌到 72。動能結構已實質性受損。4/21 停火到期仍是關鍵事件 —— 但即使油價短線彈回，mom_score 重建需要 3–4 週，**屆時硬體主線的機會成本更高**。保留 Oil & Gas Equipment（mom 84.4）和 Storage（mom 82.6）這兩個動能仍在的子行業，其餘逐步減出。",
+    "**工業金屬微調：減鋁、持銅鋼**。鋁 1W –4.4% 開始反映「能源成本降 → 鋁價天花板降低」的邏輯，跟銅的結構性供給斷層題材不同。銅 `mom_score` 76.2 穩定走平、鋼鐵 Δ+23 連續兩週爬升 —— 這兩個留著。鋁從核心減到觀察名單。",
+    "**小倉介入 Movies & Entertainment**（Δ+31、rank 43、連續兩週爬升）。停火深化帶動消費信心，加上暑期檔期預期。若下週 `mom_score` 升到 50 以上 + rank 進 Top 40 就加碼；若停滯則出場。",
+    "**公用事業全面迴避**（Electric Δ–26、Multi-Utilities Δ–26、Water Δ–29）。防禦拆倉已從必需消費擴散到公用事業，risk-on 環境下這些板塊會持續被當作資金來源。"
+  ],
+  "sources": [
+    { "title": "CNBC — Dow soars 1,000 points, S&P 500 tops 7,100 as Strait of Hormuz reopens (2026-04-17)", "url": "https://www.cnbc.com/2026/04/16/stock-market-today-live-updates.html" },
+    { "title": "CNBC — U.S. oil price tumbles below $84 as Iran declares Strait of Hormuz open (2026-04-17)", "url": "https://www.cnbc.com/2026/04/17/oil-prices-wti-brent-israel-lebanon-ceasefire-trump.html" },
+    { "title": "NBC News — Oil prices plunge 11% after Iran says Strait of Hormuz is open (2026-04-17)", "url": "https://www.nbcnews.com/business/markets/oil-prices-plunge-stocks-jump-hormuz-open-iran-war-rcna332321" },
+    { "title": "PBS — Wall Street hits record as S&P 500 continues 2-week rally on Iran war hopes (2026-04-16)", "url": "https://www.pbs.org/newshour/economy/wall-street-hits-record-as-sp-500-continues-2-week-rally-boosted-by-hopes-for-iran-wars-end" },
+    { "title": "CNBC — S&P 500, Nasdaq posts new record, longest win streak since 2009 (2026-04-15)", "url": "https://www.cnbc.com/2026/04/15/stock-market-today-live-updates.html" },
+    { "title": "Bloomberg — Oil Steady on Signs US, Iran Working Toward Ceasefire Extension (2026-04-15)", "url": "https://www.bloomberg.com/news/articles/2026-04-15/latest-oil-market-news-and-analysis-for-april-16" },
+    { "title": "Motley Fool — Why April Could Be the Most Important Earnings Season for AI Stocks (2026-04-17)", "url": "https://www.fool.com/investing/2026/04/17/why-april-important-earnings-season-ai-stocks/" },
+    { "title": "Investing.com — Big Tech Will Spend $700B on AI in 2026: 5 Stocks Cashing the Checks", "url": "https://www.investing.com/analysis/big-tech-will-spend-600b-on-ai-in-2026-5-stocks-cashing-the-checks-200674615" },
+    { "title": "IEA — Oil Market Report April 2026", "url": "https://www.iea.org/reports/oil-market-report-april-2026" }
+  ]
+}
