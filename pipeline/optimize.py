@@ -333,11 +333,6 @@ def make_objective(
                 if min_val >= max_val:
                     continue
 
-                # Let Optuna decide whether to activate this indicator at all
-                use_indicator = trial.suggest_categorical(f'use_{ind}', [True, False])
-                if not use_indicator:
-                    continue
-
                 # Step size: aim for ~50 distinct values (finer search)
                 span = max_val - min_val
                 if span <= 1:

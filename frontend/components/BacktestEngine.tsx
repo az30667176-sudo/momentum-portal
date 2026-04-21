@@ -561,11 +561,11 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
     topN_min: 1, topN_max: 15,
     stocksPerSub_min: 1, stocksPerSub_max: 10,
     rebalPeriod_options: [5, 10, 20, 40, 60],
-    maxStockWeight_min: 3, maxStockWeight_max: 100,
-    maxSubWeight_min: 5, maxSubWeight_max: 100,
+    maxStockWeight_min: 100, maxStockWeight_max: 100,
+    maxSubWeight_min: 100, maxSubWeight_max: 100,
     bufferRule_min: 0, bufferRule_max: 5,
     stopLoss_min: 0, stopLoss_max: 30,
-    trailingStop_min: 0, trailingStop_max: 30,
+    trailingStop_min: 0, trailingStop_max: 0,
     takeProfit_min: 0, takeProfit_max: 80,
   })
   const [optSearchableParams, setOptSearchableParams] = useState({
@@ -713,8 +713,8 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
     setOptIsRunning(true)
     setOptError(null)
     const fixedConfig = {
-      subFilters: config.subFilters,
-      exitFilters: config.exitFilters,
+      subFilters: [],
+      exitFilters: [],
       rankBy: config.rankBy,
       rankDir: config.rankDir,
       stockRankBy: config.stockRankBy,
@@ -2645,7 +2645,7 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
                                             weightMode: run.fixed_config?.weightMode,
                                             tradingCost: run.fixed_config?.tradingCost,
                                             spyMaFilter: run.fixed_config?.spyMaFilter,
-                                            subFilters: run.fixed_config?.subFilters ?? [],
+                                            subFilters: [],
                                             filterSummary: t.filter_summary ?? {},
                                           })}
                                           className="px-2 py-0.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded text-xs"
