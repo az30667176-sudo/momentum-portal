@@ -1,0 +1,172 @@
+{
+  "slug": "2026-04-22",
+  "type": "daily",
+  "date": "2026-04-22",
+  "title": "晶片連漲第 16 天，Data Center REITs 一夜衝進前二",
+  "marketSentiment": "risk-on",
+  "spyReturn": 0.96,
+  "intro": "上週週報的核心判斷是「硬體基建仍是主線，軟體反彈是均值回歸不是趨勢翻轉」。今日市場延續並深化了這條主線 —— S&P 500 再創歷史新高，Nasdaq 漲 1.6% 連續第 12 天收紅，SOXX 連續第 16 天上漲，創半導體指數有史以來最長連漲紀錄。Trump 宣布將伊朗停火無限期延長，Brent 反彈至 $92.4（+3.1%），但市場的主角不是油，是 AI 基建 —— **Data Center REITs 單日從排名 12 衝到排名 2，`delta_rank` +10 是今日全市場最大排名躍升**。廣度數據偏中性（75/155 sub 正報酬，48.4%），說明漲勢仍集中在科技硬體鏈，尚未全面擴散。今日最值得關注：TSMC 上季營收 +41% YoY、EPS +65%，AI 晶片需求讓整條半導體供應鏈的動能訊號持續固化，但 Tesla 盤後公布 Q1 財報，交車量 35.8 萬輛低於預期，可能明日牽動科技情緒。",
+  "topSectors": [
+    {
+      "name": "Semiconductor Materials & Equipment",
+      "gicsCode": "7F8BA218",
+      "momScore": 87.12,
+      "deltaRank": 0,
+      "cmf": 0.10,
+      "autocorr": -0.18,
+      "r2": 0.59,
+      "continuity": "watch",
+      "analysis": "`mom_score` 87.1 穩居全市場第一，`rank_today` 連續兩日鎖定 #1，`ret_1w` +7.9%。Sharpe 8W 2.41 仍健康，但 `momentum_autocorr` -0.18 逼近均值回歸區間（< -0.2），`price_trend_r2` 0.59 偏低 —— 說明雖然動能分數高，但**漲幅已從加速轉為震盪式推進**。CMF +0.10 維持正值但不算強勁。",
+      "news": "Bloomberg 報導半導體指數創史上最長連漲 16 天，TSMC Q1 營收 $35.9B（+41% YoY）、EPS $3.49（+65%），上調全年展望。Bank of America 預估 2026 年全球半導體營收突破 $1 兆。",
+      "focusStocks": [
+        { "ticker": "FORM", "momScore": 99.9, "ret1d": 2.9, "note": "mom 接近滿分，rank_in_sub #1" },
+        { "ticker": "ICHR", "momScore": 99.1, "ret1d": 1.5, "note": "連續處於 sub 內 top 3" }
+      ]
+    },
+    {
+      "name": "Data Center REITs",
+      "gicsCode": "5E2B6876",
+      "momScore": 86.69,
+      "deltaRank": 10,
+      "cmf": 0.27,
+      "autocorr": 0.31,
+      "r2": 0.85,
+      "continuity": "strong",
+      "analysis": "**今日最大亮點。** `delta_rank` +10，從上週 #12 直接衝到 #2。`momentum_autocorr` +0.31 > 0.2 且 `price_trend_r2` 0.85 > 0.75 —— 這是教科書等級的「延續性強」訊號。CMF +0.27 是 Top 5 裡最強的資金流入指標。`breadth_20ma` 和 `breadth_50ma` 都是 100%，板塊內所有成分股站上均線。`ret_6m` +26.5%、`ret_12m` +43.6%，中長期動能正在加速。",
+      "news": "AI 基建投資持續升溫，五大雲端巨頭（Amazon、Meta、Alphabet、Oracle、Microsoft）2026 年合計 capex 超過 $4,500 億。Equinix Q4 簽約量 YoY +42% 創紀錄，大部分空間已預租至 2027 年。",
+      "focusStocks": [
+        { "ticker": "EQIX", "momScore": 79.8, "ret1d": 0.7, "note": "全球最大 DC REIT，AFFO 成長 8-10%" },
+        { "ticker": "DLR", "momScore": 70.5, "ret1d": -0.2, "note": "FFO 展望 $7.90-8.00，穩健" }
+      ]
+    },
+    {
+      "name": "Electronic Components",
+      "gicsCode": "3A71D4E6",
+      "momScore": 84.93,
+      "deltaRank": 2,
+      "cmf": 0.11,
+      "autocorr": -0.06,
+      "r2": 0.39,
+      "continuity": "noise",
+      "analysis": "`mom_score` 從昨日 80.1 跳到今日 84.9（+4.8 pts），排名從 #5 升到 #3。但 `momentum_autocorr` -0.06 在不穩定區間，`price_trend_r2` 0.39 偏低 —— 短線暴衝但趨勢尚未建立。`ret_1m` +25.5% 非常強，但需要觀察下週能否維持 `delta_rank` 正值。",
+      "news": "Coherent（COHR）和 Corning（GLW）受惠於 AI 光通訊和資料中心連接器需求，帶動整個板塊。",
+      "focusStocks": [
+        { "ticker": "COHR", "momScore": 99.4, "ret1d": 1.9, "note": "AI 光通訊龍頭，mom 接近滿分" },
+        { "ticker": "GLW", "momScore": 97.6, "ret1d": 2.0, "note": "光纖 + 特殊玻璃雙引擎" }
+      ]
+    },
+    {
+      "name": "Technology Hardware, Storage & Peripherals",
+      "gicsCode": "D10047AB",
+      "momScore": 84.57,
+      "deltaRank": -2,
+      "cmf": 0.13,
+      "autocorr": -0.25,
+      "r2": 0.65,
+      "continuity": "watch",
+      "analysis": "排名從 #2 小退到 #4，`delta_rank` -2，但 `mom_score` 仍在 84.6 高檔。**`momentum_autocorr` -0.25 已進入均值回歸區間** —— 這是五大領先板塊裡最需要警惕的訊號。`ret_12m` +479% 驚人，但這種漲幅的持續性本來就容易出現回調。SNDK 今日 +8.4% 量能突出。",
+      "news": "Seagate（STX）和 Western Digital（WDC）受惠於 AI 伺服器儲存需求持續成長，推動板塊。",
+      "focusStocks": [
+        { "ticker": "SNDK", "momScore": 99.6, "ret1d": 8.4, "note": "今日板塊內最強，單日 +8.4%" },
+        { "ticker": "STX", "momScore": 99.8, "ret1d": 3.6, "note": "AI 儲存受惠者，mom 接近滿分" }
+      ]
+    },
+    {
+      "name": "Oil & Gas Drilling",
+      "gicsCode": "738405E7",
+      "momScore": 84.39,
+      "deltaRank": -1,
+      "cmf": -0.02,
+      "autocorr": 0.07,
+      "r2": 0.75,
+      "continuity": "watch",
+      "analysis": "跟其他 Top 5 不同，這是唯一的非科技板塊。`mom_score` 84.4 排名 #5，`ret_6m` +77.2%、`ret_12m` +134.2%，中長期動能極強。但 CMF -0.02 剛轉負、`momentum_decay_rate` -82.8 是 Top 20 裡最嚴重的衰減率。`price_trend_r2` 0.75 剛好踩在門檻上。`ret_1m` -1.5% 顯示近一個月動能已經轉弱 —— **中長期分數高但短線出現裂縫**。",
+      "news": "WTI 反彈至 $92.4（+3.1%），Trump 延長停火但 EIA 報告指出 Hormuz 相關供給中斷仍是史上最大規模（-10.1 mb/d）。鑽井需求短線受支撐但中期受停火降溫壓力。",
+      "focusStocks": [
+        { "ticker": "PTEN", "momScore": 81.1, "ret1d": 2.4, "note": "板塊內 mom 最高" },
+        { "ticker": "NE", "momScore": 78.9, "ret1d": 1.2, "note": "海上鑽井龍頭" }
+      ]
+    }
+  ],
+  "warningSectors": [
+    {
+      "name": "Application Software",
+      "gicsCode": "05F28EE1",
+      "momentumDecay": -3.3,
+      "deltaRank": 0,
+      "consecutiveDays": 2,
+      "reason": "`mom_score` 15.9 維持全市場墊底（#155），上週 +12.3% 的暴漲未能改善動能排名。這驗證了週報的判斷：軟體反彈是均值回歸，不是趨勢翻轉。CMF -0.07 仍在流出。",
+      "news": "板塊內缺乏催化劑，市場資金持續偏好硬體基建而非軟體訂閱。",
+      "action": "不追漲。`mom_score` < 20 的板塊即使短線反彈，歷史上 4-6 週內回吐機率偏高。"
+    },
+    {
+      "name": "Research & Consulting Services",
+      "gicsCode": "32098B2E",
+      "momentumDecay": 7.28,
+      "deltaRank": -4,
+      "consecutiveDays": 2,
+      "reason": "`mom_score` 20.7、排名 #154、`delta_rank` -4 持續惡化。`ret_1d` -2.7% 是今日跌幅第二大的板塊。`momentum_decay_rate` +7.28 看似正向，但這是因為基期已經很低 —— 動能從「很差」變成「稍微沒那麼差」。",
+      "news": "諮詢業景氣與企業 IT 支出連動，目前企業預算集中投向 AI 基建，傳統顧問服務被擠壓。",
+      "action": "迴避。短期無催化劑，`delta_rank` 連續惡化中。"
+    },
+    {
+      "name": "Interactive Home Entertainment",
+      "gicsCode": "BF1C14FA",
+      "momentumDecay": 3.26,
+      "deltaRank": -15,
+      "consecutiveDays": 2,
+      "reason": "今日最驚人的排名跳水：`delta_rank` -15，從 #136 直接摔到 #151。`mom_score` 22.9 本來就偏低，但突然惡化的速度值得警惕。CMF +0.15 仍正值是唯一亮點，可能是遊戲股內部少數標的撐住。",
+      "news": "遊戲板塊在 AI 敘事中被邊緣化，資金流向 AI 基建和半導體。",
+      "action": "如有持倉留意出場訊號，`delta_rank` 單日 -15 歷史上是強烈的動能崩塌信號。"
+    }
+  ],
+  "fiveDayTrend": [
+    {
+      "name": "Semiconductor Materials & Equipment",
+      "gicsCode": "7F8BA218",
+      "days": ["2026-04-21", "2026-04-22"],
+      "momScore": [86.63, 87.12],
+      "cmf": [0.10, 0.10],
+      "deltaRank": [1, 0],
+      "rvol": [1.12, 1.00],
+      "interpretation": "`mom_score` 連續兩日 86-87 高檔震盪，排名穩定在 #1。量能從 1.12 略降到 1.00，短線可能進入盤整。CMF 維持 +0.10 不變。趨勢仍在，但加速力道放緩。（注：pipeline 僅有 2 日歷史，趨勢判斷需更多數據確認）"
+    },
+    {
+      "name": "Data Center REITs",
+      "gicsCode": "5E2B6876",
+      "days": ["2026-04-21", "2026-04-22"],
+      "momScore": [84.09, 86.69],
+      "cmf": [0.27, 0.27],
+      "deltaRank": [12, 10],
+      "rvol": [0.97, 1.08],
+      "interpretation": "`mom_score` 兩日從 84.1 升至 86.7（+2.6 pts），`delta_rank` 連續兩日 +10 以上，CMF 穩定在 +0.27。量能從 0.97 擴張到 1.08。**所有指標同向改善，是今日最值得關注的板塊。** 但僅 2 日數據，需至少再觀察 1-2 日確認。"
+    },
+    {
+      "name": "Electronic Components",
+      "gicsCode": "3A71D4E6",
+      "days": ["2026-04-21", "2026-04-22"],
+      "momScore": [80.13, 84.93],
+      "cmf": [0.11, 0.11],
+      "deltaRank": [-1, 2],
+      "rvol": [1.06, 1.22],
+      "interpretation": "`mom_score` 單日跳升 +4.8 pts（80.1 → 84.9），`delta_rank` 從 -1 翻正到 +2。量能擴張到 1.22。但 `momentum_autocorr` -0.06 偏低，**跳升速度太快反而可信度打折 —— 需要看明後天能否守住 83 以上**。"
+    }
+  ],
+  "conclusion": "AI 基建主線今日進一步固化：半導體創史上最長連漲、Data Center REITs 量價齊升衝進前二、光通訊零組件加速。資金正在從「買晶片」擴散到「買整條 AI 基礎設施鏈」。但廣度僅 48% 板塊正報酬，說明市場並非全面 risk-on，而是高度集中的主題投資。",
+  "continuityAssessment": "趨勢維持。Top 5 板塊中 Data Center REITs 的延續性訊號最強（autocorr +0.31, r2 0.85），半導體材料設備穩定但加速力道放緩（autocorr -0.18 逼近警戒線），Tech Hardware 的 autocorr -0.25 已進入均值回歸區間需要警惕。整體判斷：硬體基建主線仍在，但從「加速期」進入「分化期」—— 領先板塊內部開始出現強弱分歧。",
+  "tomorrowWatch": [
+    "Tesla 盤後財報：Q1 交車量 35.8 萬輛低於預期，EPS 共識 $0.25。若 Musk 在法說會強調 AI/Robotaxi 而非汽車銷量，可能延續科技情緒；若財報失望，明日科技板塊開盤可能承壓。",
+    "Data Center REITs 的 `delta_rank` 能否連續第三天維持 +5 以上？若是，排名躍升從「跳動」確認為「趨勢」。若 `delta_rank` 驟降至 0 附近，則今日的衝刺可能是雜訊。",
+    "半導體材料設備的 `momentum_autocorr`（-0.18）明日若進一步惡化到 -0.2 以下，代表連漲 16 天後動能進入均值回歸 —— 不代表會跌，但追高的風險報酬比會顯著下降。"
+  ],
+  "sources": [
+    { "title": "Bloomberg: AI Boom Has Chipmaker Stocks Nearing Longest Streak of Daily Gains", "url": "https://www.bloomberg.com/news/articles/2026-04-22/chipmakers-on-track-for-longest-ever-rally-amid-ai-optimism" },
+    { "title": "Yahoo Finance: S&P 500 and Nasdaq hit fresh records", "url": "https://finance.yahoo.com/markets/stocks/live/stock-market-today-wednesday-april-22-dow-sp-500-nasdaq-trump-us-iran-ceasefire-230429476.html" },
+    { "title": "Bloomberg: Stock Market Today — S&P Live Updates", "url": "https://www.bloomberg.com/news/articles/2026-04-21/stock-market-today-dow-s-p-live-updates" },
+    { "title": "Fortune: Current price of oil April 22 2026", "url": "https://fortune.com/article/price-of-oil-04-22-2026/" },
+    { "title": "IEA: Oil Market Report April 2026", "url": "https://www.iea.org/reports/oil-market-report-april-2026" },
+    { "title": "Bloomberg: Tesla Q1 2026 Earnings Live", "url": "https://www.bloomberg.com/news/live-blog/2026-04-22/tesla-first-quarter-earnings" },
+    { "title": "Motley Fool: Best Data Center REITs for 2026", "url": "https://www.fool.com/investing/stock-market/market-sectors/real-estate-investing/reit/data-center-reit/" },
+    { "title": "24/7 Wall St: S&P 500 Rises on Cease Fire News", "url": "https://247wallst.com/investing/2026/04/22/stock-market-live-april-22-2026-sp-500-spy-rises-on-cease-fire-news-again/" }
+  ]
+}
