@@ -2,11 +2,57 @@
   "slug": "2026-04-22",
   "type": "daily",
   "date": "2026-04-22",
-  "title": "晶片連漲第 16 天，Data Center REITs 一夜衝進前二",
+  "title": "停火延長推升原物料，GE Vernova 單日 +12% 帶動重電",
   "marketSentiment": "risk-on",
   "spyReturn": 0.96,
-  "intro": "上週週報的核心判斷是「硬體基建仍是主線，軟體反彈是均值回歸不是趨勢翻轉」。今日市場延續並深化了這條主線 —— S&P 500 再創歷史新高，Nasdaq 漲 1.6% 連續第 12 天收紅，SOXX 連續第 16 天上漲，創半導體指數有史以來最長連漲紀錄。Trump 宣布將伊朗停火無限期延長，Brent 反彈至 $92.4（+3.1%），但市場的主角不是油，是 AI 基建 —— **Data Center REITs 單日從排名 12 衝到排名 2，`delta_rank` +10 是今日全市場最大排名躍升**。廣度數據偏中性（75/155 sub 正報酬，48.4%），說明漲勢仍集中在科技硬體鏈，尚未全面擴散。今日最值得關注：TSMC 上季營收 +41% YoY、EPS +65%，AI 晶片需求讓整條半導體供應鏈的動能訊號持續固化，但 Tesla 盤後公布 Q1 財報，交車量 35.8 萬輛低於預期，可能明日牽動科技情緒。",
+  "intro": "S&P 500 +1.03% 至 7,137 再創歷史新高，Nasdaq +1.64% 至 24,658。Trump 宣布伊朗停火無限期延長是今日最大催化劑，WTI 反彈 +3.1% 至 $92.4，帶動能源和原物料全線走強 —— Copper 單日 +4.1%、Aluminum +3.7%、Oil & Gas Drilling +1.5%。但廣度不佳：S&P 500 僅 55% 站上 5 日均線、52% 站上 50 日均線，Russell 2000 反而收跌 -1%，說明漲勢高度集中在大型股。10Y 殖利率微升 1bp 至 4.305%，市場對利率的看法幾乎沒變。",
   "topSectors": [
+    {
+      "name": "Heavy Electrical Equipment",
+      "gicsCode": "8D0D1D2F",
+      "momScore": 83.99,
+      "deltaRank": -5,
+      "cmf": -0.06,
+      "autocorr": -0.14,
+      "r2": 0.61,
+      "continuity": "watch",
+      "analysis": "今日 `ret_1d` **+6.3%**，是 Top 20 裡單日漲幅最大的板塊。`mom_score` 84.0 排名 #8，但昨天排 #3 —— 排名下滑是因為其他板塊追上來，不是自己弱。CMF -0.06 偏弱，要看後續資金流能否跟上股價。`rvol` 2.01 是全市場最高，量能爆發明確。",
+      "news": "**GE Vernova 單日 +12%**，Q1 EPS $1.98（vs 預期 $1.90），營收上調全年展望至 $44.5-45.5B，backlog $163B 創新高。電網投資是受惠停火行情的第二條線 —— 中東重建 + 全球 AI 資料中心用電需求雙引擎。",
+      "focusStocks": [
+        { "ticker": "GEV", "momScore": 85.2, "ret1d": 12.0, "note": "財報 beat + 上調展望，backlog $163B" },
+        { "ticker": "AZZ", "momScore": 72.1, "ret1d": 3.8, "note": "鍍鋅/電力基建受惠者" }
+      ]
+    },
+    {
+      "name": "Copper",
+      "gicsCode": "9D3B3E86",
+      "momScore": 80.60,
+      "deltaRank": -5,
+      "cmf": 0.17,
+      "autocorr": 0.16,
+      "r2": 0.02,
+      "continuity": "noise",
+      "analysis": "今日 `ret_1d` **+4.1%**，`mom_score` 80.6 排名 #12。CMF +0.17 資金流入健康，但 `price_trend_r2` 0.02 極低 —— 說明短線爆發但中期沒有穩定趨勢。昨天 `ret_1d` 也才 +0.5%，今日跳升幅度非常大，需要觀察明天能否守住。",
+      "news": "銅期貨逼近 $6/lb（6 週新高），Goldman 預估 2026 全年均價 $12,650/ton。銅精礦供給短缺持續惡化，支撐現貨溢價。停火延長 → 中東重建預期 → 基建用銅需求。",
+      "focusStocks": [
+        { "ticker": "FCX", "momScore": 80.6, "ret1d": 4.1, "note": "全球最大上市銅礦商" }
+      ]
+    },
+    {
+      "name": "Aluminum",
+      "gicsCode": "1D0B4025",
+      "momScore": 84.18,
+      "deltaRank": 4,
+      "cmf": 0.15,
+      "autocorr": -0.13,
+      "r2": 0.45,
+      "continuity": "noise",
+      "analysis": "`ret_1d` **+3.7%**，`mom_score` 從昨日 79.4 躍升至 84.2（+4.8 pts），排名從 #9 升到 #7。`delta_rank` +4 是 Top 20 裡排名進步最多的板塊之一。CMF +0.15 正值，`rvol` 1.09 略高於均值。`ret_1m` +34.8% 中期動能非常強。但 `momentum_autocorr` -0.13 和 `price_trend_r2` 0.45 都偏低，趨勢尚未穩固。",
+      "news": "受惠於停火行情和中國刺激政策預期，鋁價近期走強。板塊內成分股少（3 檔），波動容易被單一標的放大。",
+      "focusStocks": [
+        { "ticker": "AA", "momScore": 88.5, "ret1d": 4.2, "note": "鋁業龍頭，受惠供給緊張" }
+      ]
+    },
     {
       "name": "Semiconductor Materials & Equipment",
       "gicsCode": "7F8BA218",
@@ -16,59 +62,11 @@
       "autocorr": -0.18,
       "r2": 0.59,
       "continuity": "watch",
-      "analysis": "`mom_score` 87.1 穩居全市場第一，`rank_today` 連續兩日鎖定 #1，`ret_1w` +7.9%。Sharpe 8W 2.41 仍健康，但 `momentum_autocorr` -0.18 逼近均值回歸區間（< -0.2），`price_trend_r2` 0.59 偏低 —— 說明雖然動能分數高，但**漲幅已從加速轉為震盪式推進**。CMF +0.10 維持正值但不算強勁。",
-      "news": "Bloomberg 報導半導體指數創史上最長連漲 16 天，TSMC Q1 營收 $35.9B（+41% YoY）、EPS $3.49（+65%），上調全年展望。Bank of America 預估 2026 年全球半導體營收突破 $1 兆。",
+      "analysis": "`ret_1d` +2.3%，`mom_score` 87.1（昨日 86.6，+0.5 pts），穩居 #1。SOXX 連續第 16 天上漲。但**加速力道明顯放緩**：昨日 `momentum_autocorr` 還在 -0.09，今天惡化到 -0.18，再往下就進入均值回歸區間。`rvol` 從昨天 1.12 降到 1.00，量能縮減。",
+      "news": "TSMC Q1 營收 $35.9B（+41% YoY），EPS $3.49（+65%），上調全年展望。BofA 預估 2026 年全球半導體營收破 $1 兆。連漲紀錄吸引眼球，但**量能萎縮 + autocorr 逼近 -0.2 門檻，追高風險正在升高**。",
       "focusStocks": [
-        { "ticker": "FORM", "momScore": 99.9, "ret1d": 2.9, "note": "mom 接近滿分，rank_in_sub #1" },
-        { "ticker": "ICHR", "momScore": 99.1, "ret1d": 1.5, "note": "連續處於 sub 內 top 3" }
-      ]
-    },
-    {
-      "name": "Data Center REITs",
-      "gicsCode": "5E2B6876",
-      "momScore": 86.69,
-      "deltaRank": 10,
-      "cmf": 0.27,
-      "autocorr": 0.31,
-      "r2": 0.85,
-      "continuity": "strong",
-      "analysis": "**今日最大亮點。** `delta_rank` +10，從上週 #12 直接衝到 #2。`momentum_autocorr` +0.31 > 0.2 且 `price_trend_r2` 0.85 > 0.75 —— 這是教科書等級的「延續性強」訊號。CMF +0.27 是 Top 5 裡最強的資金流入指標。`breadth_20ma` 和 `breadth_50ma` 都是 100%，板塊內所有成分股站上均線。`ret_6m` +26.5%、`ret_12m` +43.6%，中長期動能正在加速。",
-      "news": "AI 基建投資持續升溫，五大雲端巨頭（Amazon、Meta、Alphabet、Oracle、Microsoft）2026 年合計 capex 超過 $4,500 億。Equinix Q4 簽約量 YoY +42% 創紀錄，大部分空間已預租至 2027 年。",
-      "focusStocks": [
-        { "ticker": "EQIX", "momScore": 79.8, "ret1d": 0.7, "note": "全球最大 DC REIT，AFFO 成長 8-10%" },
-        { "ticker": "DLR", "momScore": 70.5, "ret1d": -0.2, "note": "FFO 展望 $7.90-8.00，穩健" }
-      ]
-    },
-    {
-      "name": "Electronic Components",
-      "gicsCode": "3A71D4E6",
-      "momScore": 84.93,
-      "deltaRank": 2,
-      "cmf": 0.11,
-      "autocorr": -0.06,
-      "r2": 0.39,
-      "continuity": "noise",
-      "analysis": "`mom_score` 從昨日 80.1 跳到今日 84.9（+4.8 pts），排名從 #5 升到 #3。但 `momentum_autocorr` -0.06 在不穩定區間，`price_trend_r2` 0.39 偏低 —— 短線暴衝但趨勢尚未建立。`ret_1m` +25.5% 非常強，但需要觀察下週能否維持 `delta_rank` 正值。",
-      "news": "Coherent（COHR）和 Corning（GLW）受惠於 AI 光通訊和資料中心連接器需求，帶動整個板塊。",
-      "focusStocks": [
-        { "ticker": "COHR", "momScore": 99.4, "ret1d": 1.9, "note": "AI 光通訊龍頭，mom 接近滿分" },
-        { "ticker": "GLW", "momScore": 97.6, "ret1d": 2.0, "note": "光纖 + 特殊玻璃雙引擎" }
-      ]
-    },
-    {
-      "name": "Technology Hardware, Storage & Peripherals",
-      "gicsCode": "D10047AB",
-      "momScore": 84.57,
-      "deltaRank": -2,
-      "cmf": 0.13,
-      "autocorr": -0.25,
-      "r2": 0.65,
-      "continuity": "watch",
-      "analysis": "排名從 #2 小退到 #4，`delta_rank` -2，但 `mom_score` 仍在 84.6 高檔。**`momentum_autocorr` -0.25 已進入均值回歸區間** —— 這是五大領先板塊裡最需要警惕的訊號。`ret_12m` +479% 驚人，但這種漲幅的持續性本來就容易出現回調。SNDK 今日 +8.4% 量能突出。",
-      "news": "Seagate（STX）和 Western Digital（WDC）受惠於 AI 伺服器儲存需求持續成長，推動板塊。",
-      "focusStocks": [
-        { "ticker": "SNDK", "momScore": 99.6, "ret1d": 8.4, "note": "今日板塊內最強，單日 +8.4%" },
-        { "ticker": "STX", "momScore": 99.8, "ret1d": 3.6, "note": "AI 儲存受惠者，mom 接近滿分" }
+        { "ticker": "FORM", "momScore": 99.9, "ret1d": 2.9, "note": "sub 內 mom 最高" },
+        { "ticker": "ICHR", "momScore": 99.1, "ret1d": 1.5, "note": "穩定在 sub 前 3" }
       ]
     },
     {
@@ -80,8 +78,8 @@
       "autocorr": 0.07,
       "r2": 0.75,
       "continuity": "watch",
-      "analysis": "跟其他 Top 5 不同，這是唯一的非科技板塊。`mom_score` 84.4 排名 #5，`ret_6m` +77.2%、`ret_12m` +134.2%，中長期動能極強。但 CMF -0.02 剛轉負、`momentum_decay_rate` -82.8 是 Top 20 裡最嚴重的衰減率。`price_trend_r2` 0.75 剛好踩在門檻上。`ret_1m` -1.5% 顯示近一個月動能已經轉弱 —— **中長期分數高但短線出現裂縫**。",
-      "news": "WTI 反彈至 $92.4（+3.1%），Trump 延長停火但 EIA 報告指出 Hormuz 相關供給中斷仍是史上最大規模（-10.1 mb/d）。鑽井需求短線受支撐但中期受停火降溫壓力。",
+      "analysis": "`ret_1d` +1.5%，`mom_score` 從昨日 79.5 跳到 84.4（**+4.9 pts，今日 Top 20 最大增幅**），排名從 #8 升到 #5。`price_trend_r2` 0.75 踩在門檻上，中期趨勢尚存。但 CMF -0.02 剛轉負、`momentum_decay_rate` -82.8 是全市場最嚴重的衰減訊號 —— 短線靠油價反彈撐著，基本面的動能正在流失。",
+      "news": "Hormuz 封鎖持續，EIA 預估 4 月實際斷供達 9.1M bpd。Brent 突破 $101，IEA 預測 Q2 可能觸及 $115。停火延長 paradoxically 利好鑽井需求 —— 和平環境下中東產能恢復仍需時間。",
       "focusStocks": [
         { "ticker": "PTEN", "momScore": 81.1, "ret1d": 2.4, "note": "板塊內 mom 最高" },
         { "ticker": "NE", "momScore": 78.9, "ret1d": 1.2, "note": "海上鑽井龍頭" }
@@ -90,83 +88,84 @@
   ],
   "warningSectors": [
     {
-      "name": "Application Software",
-      "gicsCode": "05F28EE1",
-      "momentumDecay": -3.3,
-      "deltaRank": 0,
-      "consecutiveDays": 2,
-      "reason": "`mom_score` 15.9 維持全市場墊底（#155），上週 +12.3% 的暴漲未能改善動能排名。這驗證了週報的判斷：軟體反彈是均值回歸，不是趨勢翻轉。CMF -0.07 仍在流出。",
-      "news": "板塊內缺乏催化劑，市場資金持續偏好硬體基建而非軟體訂閱。",
-      "action": "不追漲。`mom_score` < 20 的板塊即使短線反彈，歷史上 4-6 週內回吐機率偏高。"
+      "name": "Managed Health Care",
+      "gicsCode": "3E2ACB37",
+      "momentumDecay": 61.57,
+      "deltaRank": -19,
+      "consecutiveDays": 1,
+      "reason": "今日 `delta_rank` **-19**，全市場最大排名崩跌（#130 → #149）。`mom_score` 24.6、`ret_6m` -9.2%、`ret_12m` -20.3%。Healthcare 整體廣度極弱 —— 僅 31% 站上 50 日均線，是 11 個 sector 中最差的。",
+      "news": "管理式醫療持續承壓。Medicare 藥價談判和 Zepbound 月付 $50 封頂政策壓縮保險公司利潤空間，板塊結構性逆風未解。",
+      "action": "Healthcare 板塊整體弱勢，`delta_rank` -19 是強烈的動能崩塌訊號，短線不碰。"
     },
     {
-      "name": "Research & Consulting Services",
-      "gicsCode": "32098B2E",
-      "momentumDecay": 7.28,
-      "deltaRank": -4,
-      "consecutiveDays": 2,
-      "reason": "`mom_score` 20.7、排名 #154、`delta_rank` -4 持續惡化。`ret_1d` -2.7% 是今日跌幅第二大的板塊。`momentum_decay_rate` +7.28 看似正向，但這是因為基期已經很低 —— 動能從「很差」變成「稍微沒那麼差」。",
-      "news": "諮詢業景氣與企業 IT 支出連動，目前企業預算集中投向 AI 基建，傳統顧問服務被擠壓。",
-      "action": "迴避。短期無催化劑，`delta_rank` 連續惡化中。"
+      "name": "IT Consulting & Other Services",
+      "gicsCode": "364050B7",
+      "momentumDecay": 23.18,
+      "deltaRank": -9,
+      "consecutiveDays": 1,
+      "reason": "`delta_rank` -9（#137 → #146），`mom_score` 25.1、`ret_3m` -20.3%。CMF -0.04 持續流出。企業 IT 預算正在從傳統顧問服務轉向 AI 基建採購，板塊面臨結構性資金排擠。",
+      "news": "Financials 板塊 Q1 earnings +15.1% YoY（11 個 sector 中第三高），但 IT 顧問的客戶端支出被重新分配到 AI 專案，傳統 IT 服務需求縮減。",
+      "action": "迴避。結構性逆風 + 動能持續惡化，沒有短期催化劑。"
     },
     {
-      "name": "Interactive Home Entertainment",
-      "gicsCode": "BF1C14FA",
-      "momentumDecay": 3.26,
-      "deltaRank": -15,
-      "consecutiveDays": 2,
-      "reason": "今日最驚人的排名跳水：`delta_rank` -15，從 #136 直接摔到 #151。`mom_score` 22.9 本來就偏低，但突然惡化的速度值得警惕。CMF +0.15 仍正值是唯一亮點，可能是遊戲股內部少數標的撐住。",
-      "news": "遊戲板塊在 AI 敘事中被邊緣化，資金流向 AI 基建和半導體。",
-      "action": "如有持倉留意出場訊號，`delta_rank` 單日 -15 歷史上是強烈的動能崩塌信號。"
+      "name": "Data Processing & Outsourced Services",
+      "gicsCode": "8CC1BC08",
+      "momentumDecay": 8.87,
+      "deltaRank": -5,
+      "consecutiveDays": 1,
+      "reason": "`ret_1d` -1.19%，`mom_score` 25.0、`delta_rank` -5（#142 → #147）。`sharpe_8w` -1.47 是 Bottom 10 裡最差的風險調整報酬。`ret_3m` -22.7% 中期趨勢極弱。",
+      "news": "Payment/transaction 板塊 `mom_score` 24.7 也在附近掙扎。金融科技和外包服務同步走弱，反映市場偏好實體資產（能源、原物料、半導體硬體）而非服務類。",
+      "action": "與 IT Consulting 類似的結構性問題。服務類板塊整體在 AI 硬體投資潮下被邊緣化。"
     }
   ],
   "fiveDayTrend": [
     {
-      "name": "Semiconductor Materials & Equipment",
-      "gicsCode": "7F8BA218",
+      "name": "Oil & Gas Drilling",
+      "gicsCode": "738405E7",
       "days": ["2026-04-21", "2026-04-22"],
-      "momScore": [86.63, 87.12],
-      "cmf": [0.10, 0.10],
-      "deltaRank": [1, 0],
-      "rvol": [1.12, 1.00],
-      "interpretation": "`mom_score` 連續兩日 86-87 高檔震盪，排名穩定在 #1。量能從 1.12 略降到 1.00，短線可能進入盤整。CMF 維持 +0.10 不變。趨勢仍在，但加速力道放緩。（注：pipeline 僅有 2 日歷史，趨勢判斷需更多數據確認）"
+      "momScore": [79.46, 84.39],
+      "cmf": [-0.03, -0.02],
+      "deltaRank": [1, -1],
+      "rvol": [0.82, 0.66],
+      "interpretation": "`mom_score` 兩日從 79.5 跳到 84.4（+4.9 pts），但 `rvol` 從 0.82 降到 0.66 —— 股價漲但量能在縮。CMF 連兩日為負。這是典型的「油價驅動、量能不配合」格局，持續性存疑。"
     },
     {
-      "name": "Data Center REITs",
-      "gicsCode": "5E2B6876",
+      "name": "Aluminum",
+      "gicsCode": "1D0B4025",
       "days": ["2026-04-21", "2026-04-22"],
-      "momScore": [84.09, 86.69],
-      "cmf": [0.27, 0.27],
-      "deltaRank": [12, 10],
-      "rvol": [0.97, 1.08],
-      "interpretation": "`mom_score` 兩日從 84.1 升至 86.7（+2.6 pts），`delta_rank` 連續兩日 +10 以上，CMF 穩定在 +0.27。量能從 0.97 擴張到 1.08。**所有指標同向改善，是今日最值得關注的板塊。** 但僅 2 日數據，需至少再觀察 1-2 日確認。"
+      "momScore": [79.35, 84.18],
+      "cmf": [0.15, 0.15],
+      "deltaRank": [1, 4],
+      "rvol": [1.09, 1.09],
+      "interpretation": "`mom_score` +4.8 pts，`delta_rank` 從 +1 擴大到 +4，CMF 穩定在 +0.15，`rvol` 穩定在 1.09。跟 Oil & Gas Drilling 比，鋁的量價配合度更好 —— CMF 正值 + 量能穩定。但僅 2 日數據，需再觀察。"
     },
     {
-      "name": "Electronic Components",
-      "gicsCode": "3A71D4E6",
+      "name": "Managed Health Care",
+      "gicsCode": "3E2ACB37",
       "days": ["2026-04-21", "2026-04-22"],
-      "momScore": [80.13, 84.93],
-      "cmf": [0.11, 0.11],
-      "deltaRank": [-1, 2],
-      "rvol": [1.06, 1.22],
-      "interpretation": "`mom_score` 單日跳升 +4.8 pts（80.1 → 84.9），`delta_rank` 從 -1 翻正到 +2。量能擴張到 1.22。但 `momentum_autocorr` -0.06 偏低，**跳升速度太快反而可信度打折 —— 需要看明後天能否守住 83 以上**。"
+      "momScore": [29.64, 24.62],
+      "cmf": [0.07, 0.07],
+      "deltaRank": [8, -19],
+      "rvol": [1.24, 1.24],
+      "interpretation": "`delta_rank` 從 +8 暴跌到 -19，單日擺盪 27 個名次。`mom_score` 同步從 29.6 惡化到 24.6。這不是正常的波動 —— Healthcare 板塊正在經歷系統性的資金撤出。"
     }
   ],
-  "conclusion": "AI 基建主線今日進一步固化：半導體創史上最長連漲、Data Center REITs 量價齊升衝進前二、光通訊零組件加速。資金正在從「買晶片」擴散到「買整條 AI 基礎設施鏈」。但廣度僅 48% 板塊正報酬，說明市場並非全面 risk-on，而是高度集中的主題投資。",
-  "continuityAssessment": "趨勢維持。Top 5 板塊中 Data Center REITs 的延續性訊號最強（autocorr +0.31, r2 0.85），半導體材料設備穩定但加速力道放緩（autocorr -0.18 逼近警戒線），Tech Hardware 的 autocorr -0.25 已進入均值回歸區間需要警惕。整體判斷：硬體基建主線仍在，但從「加速期」進入「分化期」—— 領先板塊內部開始出現強弱分歧。",
+  "conclusion": "今日市場的核心故事不只是半導體 —— 停火延長帶動原物料全線走強（Copper +4.1%、Aluminum +3.7%、Oil +3.1%），GE Vernova +12% 打開電網基建第二條主線。但廣度數據發出警告：僅 52% 站上 50 日均線、Russell 2000 收跌、Healthcare 系統性走弱。漲勢集中在「實體資產 + AI 硬體」，服務類板塊持續被邊緣化。",
+  "continuityAssessment": "趨勢分化。原物料板塊（Copper、Aluminum）今日爆發但延續性訊號不足（r2 偏低），需要再觀察 1-2 日確認。半導體 autocorr 逼近 -0.2 門檻，加速期可能結束。DC REITs 的延續性最強（autocorr 0.31、r2 0.85）但今日漲幅很小（+0.26%）。整體判斷：多頭格局沒變，但領漲板塊正在從科技硬體擴散到原物料和基建。",
   "tomorrowWatch": [
-    "Tesla 盤後財報：Q1 交車量 35.8 萬輛低於預期，EPS 共識 $0.25。若 Musk 在法說會強調 AI/Robotaxi 而非汽車銷量，可能延續科技情緒；若財報失望，明日科技板塊開盤可能承壓。",
-    "Data Center REITs 的 `delta_rank` 能否連續第三天維持 +5 以上？若是，排名躍升從「跳動」確認為「趨勢」。若 `delta_rank` 驟降至 0 附近，則今日的衝刺可能是雜訊。",
-    "半導體材料設備的 `momentum_autocorr`（-0.18）明日若進一步惡化到 -0.2 以下，代表連漲 16 天後動能進入均值回歸 —— 不代表會跌，但追高的風險報酬比會顯著下降。"
+    "Tesla 盤後財報 beat（EPS $0.41 vs $0.37 est），但交車量 35.8 萬輛低於預期。全年 capex 上調至 $250 億（+67%）。股價盤後 +3%，明日開盤若延續漲勢，可能帶動 Industrials 和電動車供應鏈。",
+    "半導體 `momentum_autocorr` 今天 -0.18，明天如果惡化到 -0.2 以下，代表 16 天連漲後正式進入均值回歸區間。不代表會跌，但追高的風險報酬比會顯著下降。",
+    "Copper 和 Aluminum 今日都爆漲 +4%，但 `price_trend_r2` 極低（0.02 和 0.45）。如果明天回吐一半以上漲幅，代表今天只是事件驅動的單日跳動；如果守住並且 `rvol` > 1.0，就值得在週報裡正式列入觀察。"
   ],
   "sources": [
-    { "title": "Bloomberg: AI Boom Has Chipmaker Stocks Nearing Longest Streak of Daily Gains", "url": "https://www.bloomberg.com/news/articles/2026-04-22/chipmakers-on-track-for-longest-ever-rally-amid-ai-optimism" },
-    { "title": "Yahoo Finance: S&P 500 and Nasdaq hit fresh records", "url": "https://finance.yahoo.com/markets/stocks/live/stock-market-today-wednesday-april-22-dow-sp-500-nasdaq-trump-us-iran-ceasefire-230429476.html" },
-    { "title": "Bloomberg: Stock Market Today — S&P Live Updates", "url": "https://www.bloomberg.com/news/articles/2026-04-21/stock-market-today-dow-s-p-live-updates" },
-    { "title": "Fortune: Current price of oil April 22 2026", "url": "https://fortune.com/article/price-of-oil-04-22-2026/" },
-    { "title": "IEA: Oil Market Report April 2026", "url": "https://www.iea.org/reports/oil-market-report-april-2026" },
-    { "title": "Bloomberg: Tesla Q1 2026 Earnings Live", "url": "https://www.bloomberg.com/news/live-blog/2026-04-22/tesla-first-quarter-earnings" },
-    { "title": "Motley Fool: Best Data Center REITs for 2026", "url": "https://www.fool.com/investing/stock-market/market-sectors/real-estate-investing/reit/data-center-reit/" },
-    { "title": "24/7 Wall St: S&P 500 Rises on Cease Fire News", "url": "https://247wallst.com/investing/2026/04/22/stock-market-live-april-22-2026-sp-500-spy-rises-on-cease-fire-news-again/" }
+    { "title": "CNBC: S&P 500, Nasdaq hit fresh records on ceasefire extension", "url": "https://www.cnbc.com/2026/04/21/stock-market-today-live-updates.html" },
+    { "title": "CNBC: Tesla Q1 2026 earnings — EPS $0.41 beats $0.37 estimate", "url": "https://www.cnbc.com/2026/04/22/tesla-tsla-q1-2026-earnings-report.html" },
+    { "title": "Fortune: Oil prices April 22 — WTI $92.43 (+3.08%)", "url": "https://fortune.com/article/price-of-oil-04-22-2026/" },
+    { "title": "IEA: Oil Market Report April 2026 — Hormuz disruption 9.1M bpd", "url": "https://www.iea.org/reports/oil-market-report-april-2026" },
+    { "title": "GE Vernova Q1 2026: revenue guidance raised to $44.5-45.5B, backlog $163B", "url": "https://www.gevernova.com/news/press-releases/ge-vernova-reports-first-quarter-2026-financial" },
+    { "title": "S&P Global: Copper near $6/lb, concentrate shortages tightening supply", "url": "https://www.spglobal.com/market-intelligence/en/news-insights/research/2026/04/copper-gold-market-outlook-2026-prices-supply-mining-costs" },
+    { "title": "FactSet: S&P 500 Financials earnings +15.1% YoY in Q1", "url": "https://insight.factset.com/sp-500-financials-sector-earnings-preview-q1-2026" },
+    { "title": "Schwab: Market breadth — Healthcare only 31% above 50-day MA", "url": "https://www.schwab.com/learn/story/breadth-check-strength-and-weakness-trend-tracker" },
+    { "title": "CNBC: 10Y yield 4.305%, barely moves on risk-on day", "url": "https://www.cnbc.com/2026/04/22/treasury-yields-unchanged-investors-digest-us-iran-ceasefire-extension.html" }
   ]
 }
