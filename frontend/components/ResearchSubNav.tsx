@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 const CATEGORIES = [
-  { key: 'weekly', label: '輪動週報', href: '/research/weekly' },
+  { key: 'weekly', label: '輪動報告', href: '/research/weekly' },
   { key: 'stock', label: '個股想法', href: '/research/stock' },
   { key: 'sector', label: '產業分享', href: '/research/sector' },
 ] as const

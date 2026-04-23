@@ -4,7 +4,7 @@ import path from 'path'
 export type ResearchCategory = 'weekly' | 'stock' | 'sector'
 
 export const CATEGORIES: { key: ResearchCategory; label: string; href: string }[] = [
-  { key: 'weekly', label: '輪動週報', href: '/research/weekly' },
+  { key: 'weekly', label: '輪動報告', href: '/research/weekly' },
   { key: 'stock', label: '個股想法', href: '/research/stock' },
   { key: 'sector', label: '產業分享', href: '/research/sector' },
 ]

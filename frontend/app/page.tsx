@@ -125,7 +125,7 @@ export default async function LandingPage() {
               className="group block rounded-xl border border-gray-200 bg-white p-6 hover:shadow-lg hover:border-emerald-200 transition-all"
             >
               <div className="text-xs font-semibold text-emerald-600 uppercase tracking-wider mb-2">
-                輪動週報 · 第 {latestWeekly.issue} 期
+                週報第{latestWeekly.issue}期
               </div>
               <h3 className="text-lg font-bold text-gray-900 group-hover:text-emerald-700 transition-colors">
                 {latestWeekly.title}

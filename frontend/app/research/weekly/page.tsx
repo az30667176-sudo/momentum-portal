@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { getAllIssues } from '@/lib/research'
 
 export const dynamic = 'force-static'
-export const metadata = { title: '輪動週報 | 研究分享 | Sector Pulse' }
+export const metadata = { title: '輪動報告 | 研究分享 | Sector Pulse' }
 
 export default function WeeklyListPage() {
   const issues = getAllIssues('weekly')
@@ -22,8 +22,11 @@ export default function WeeklyListPage() {
           >
             <div className="flex-1 min-w-0">
               <h2 className="text-lg sm:text-xl font-bold text-black leading-snug group-hover:text-emerald-600 transition-colors">
-                第 {issue.issue} 期 · {issue.title}
+                週報第{issue.issue}期 ({formatDateSlash(issue.date)})
               </h2>
+              <p className="mt-1 text-base font-semibold text-gray-800">
+                {issue.title}
+              </p>
               <p className="mt-2 text-sm text-gray-700 leading-6 line-clamp-2">
                 {issue.subtitle}
               </p>
@@ -58,4 +61,11 @@ function formatDate(d: string) {
   const day = dt.getUTCDate()
   const year = dt.getUTCFullYear()
   return `${month} ${day}, ${year}`
+}
+
+function formatDateSlash(d: string) {
+  const dt = new Date(d + 'T00:00:00Z')
+  const mm = String(dt.getUTCMonth() + 1).padStart(2, '0')
+  const dd = String(dt.getUTCDate()).padStart(2, '0')
+  return `${mm}/${dd}/${dt.getUTCFullYear()}`
 }

@@ -19,9 +19,9 @@ export function generateStaticParams() {
 
 export function generateMetadata({ params }: { params: { slug: string } }) {
   const issue = getIssue('weekly', params.slug)
-  if (!issue) return { title: '輪動週報 | Sector Pulse' }
+  if (!issue) return { title: '輪動報告 | Sector Pulse' }
   return {
-    title: `第 ${issue.issue} 期 · ${issue.title} | 輪動週報`,
+    title: `週報第${issue.issue}期 · ${issue.title} | 輪動報告`,
   }
 }
 
@@ -39,12 +39,12 @@ export default function WeeklyDetailPage({
         href="/research/weekly"
         className="inline-flex items-center text-sm text-emerald-600 hover:underline mb-4"
       >
-        ← 回到輪動週報列表
+        ← 回到輪動報告列表
       </Link>
 
       <header className="mb-10 pb-6 border-b border-gray-200">
         <div className="text-xs uppercase tracking-wider text-emerald-600 font-semibold mb-2">
-          輪動週報 · 第 {issue.issue} 期
+          週報第{issue.issue}期
         </div>
         <h1 className="text-3xl sm:text-4xl font-bold text-black leading-tight">
           {issue.title}
