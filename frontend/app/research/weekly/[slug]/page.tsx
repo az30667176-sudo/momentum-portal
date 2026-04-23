@@ -165,6 +165,8 @@ export default function DetailPage({
    ================================================================ */
 
 function DailyDetailView({ report }: { report: DailyReport }) {
+  const trendMap = new Map(report.fiveDayTrend.map((t) => [t.gicsCode, t]))
+
   return (
     <article>
       <Link
@@ -199,7 +201,7 @@ function DailyDetailView({ report }: { report: DailyReport }) {
         <H2>動能領先板塊</H2>
         <div className="mt-4 space-y-6">
           {report.topSectors.map((s) => (
-            <TopSectorCard key={s.gicsCode} sector={s} />
+            <TopSectorCard key={s.gicsCode} sector={s} trend={trendMap.get(s.gicsCode)} />
           ))}
         </div>
       </section>
@@ -210,19 +212,7 @@ function DailyDetailView({ report }: { report: DailyReport }) {
           <H2>動能警示板塊</H2>
           <div className="mt-4 space-y-4">
             {report.warningSectors.map((s) => (
-              <WarningSectorCard key={s.gicsCode} sector={s} />
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* Section 4 */}
-      {report.fiveDayTrend.length > 0 && (
-        <section>
-          <H2>近 5 日比較</H2>
-          <div className="mt-4 space-y-6">
-            {report.fiveDayTrend.map((t) => (
-              <FiveDayTable key={t.gicsCode} trend={t} />
+              <WarningSectorCard key={s.gicsCode} sector={s} trend={trendMap.get(s.gicsCode)} />
             ))}
           </div>
         </section>
@@ -269,7 +259,7 @@ function DailyDetailView({ report }: { report: DailyReport }) {
 
 /* ---- Sub-components ---- */
 
-function TopSectorCard({ sector }: { sector: DailyTopSector }) {
+function TopSectorCard({ sector, trend }: { sector: DailyTopSector; trend?: DailyFiveDayTrend }) {
   return (
     <div className="rounded-lg border border-gray-200 bg-gray-50 p-4">
       <div className="flex items-center justify-between mb-3">
@@ -291,6 +281,30 @@ function TopSectorCard({ sector }: { sector: DailyTopSector }) {
       {sector.news && (
         <p className="text-sm text-gray-600 leading-6 mb-3"><Inline text={sector.news} /></p>
       )}
+      {trend && (
+        <div className="mt-3 border-t border-gray-200 pt-3">
+          <p className="text-[10px] font-semibold text-gray-500 uppercase tracking-wider mb-2">近日比較</p>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm border-collapse">
+              <thead>
+                <tr className="border-b border-gray-300">
+                  <th className="text-left py-1.5 pr-3 text-xs text-gray-500 font-medium">指標</th>
+                  {trend.days.map((d) => (
+                    <th key={d} className="text-center py-1.5 px-2 text-xs text-gray-500 font-medium">{d.slice(5)}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                <TrendRow label="Mom Score" values={trend.momScore} format={(v) => v.toFixed(1)} />
+                <TrendRow label="CMF" values={trend.cmf} format={(v) => v.toFixed(2)} />
+                <TrendRow label="ΔRank" values={trend.deltaRank} format={(v) => `${v > 0 ? '+' : ''}${v}`} />
+                <TrendRow label="RVol" values={trend.rvol} format={(v) => v.toFixed(2)} />
+              </tbody>
+            </table>
+          </div>
+          <p className="mt-1.5 text-xs text-gray-600 leading-5"><Inline text={trend.interpretation} /></p>
+        </div>
+      )}
       {sector.focusStocks.length > 0 && (
         <div className="mt-3 border-t border-gray-200 pt-3">
           <p className="text-[10px] font-semibold text-gray-500 uppercase tracking-wider mb-2">個股聚焦</p>
@@ -311,7 +325,7 @@ function TopSectorCard({ sector }: { sector: DailyTopSector }) {
   )
 }
 
-function WarningSectorCard({ sector }: { sector: DailyWarningSector }) {
+function WarningSectorCard({ sector, trend }: { sector: DailyWarningSector; trend?: DailyFiveDayTrend }) {
   return (
     <div className="rounded-lg border border-red-200 bg-red-50 p-4">
       <div className="flex items-center justify-between mb-2">
@@ -330,6 +344,30 @@ function WarningSectorCard({ sector }: { sector: DailyWarningSector }) {
       <p className="text-sm text-black leading-6 mb-1"><Inline text={sector.reason} /></p>
       {sector.news && (
         <p className="text-sm text-gray-600 leading-6 mb-1"><Inline text={sector.news} /></p>
+      )}
+      {trend && (
+        <div className="mt-3 border-t border-red-200 pt-3">
+          <p className="text-[10px] font-semibold text-red-500 uppercase tracking-wider mb-2">近日比較</p>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm border-collapse">
+              <thead>
+                <tr className="border-b border-red-200">
+                  <th className="text-left py-1.5 pr-3 text-xs text-gray-500 font-medium">指標</th>
+                  {trend.days.map((d) => (
+                    <th key={d} className="text-center py-1.5 px-2 text-xs text-gray-500 font-medium">{d.slice(5)}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                <TrendRow label="Mom Score" values={trend.momScore} format={(v) => v.toFixed(1)} />
+                <TrendRow label="CMF" values={trend.cmf} format={(v) => v.toFixed(2)} />
+                <TrendRow label="ΔRank" values={trend.deltaRank} format={(v) => `${v > 0 ? '+' : ''}${v}`} />
+                <TrendRow label="RVol" values={trend.rvol} format={(v) => v.toFixed(2)} />
+              </tbody>
+            </table>
+          </div>
+          <p className="mt-1.5 text-xs text-gray-600 leading-5"><Inline text={trend.interpretation} /></p>
+        </div>
       )}
       <p className="text-sm font-semibold text-red-700 mt-2">
         操作含義：<Inline text={sector.action} />

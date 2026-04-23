@@ -5,7 +5,7 @@
   "title": "停火延長推升原物料，GE Vernova 單日 +12% 帶動重電",
   "marketSentiment": "risk-on",
   "spyReturn": 0.96,
-  "intro": "S&P 500 +1.03% 至 7,137 再創歷史新高，Nasdaq +1.64% 至 24,658。Trump 宣布伊朗停火無限期延長是今日最大催化劑，WTI 反彈 +3.1% 至 $92.4，帶動能源和原物料全線走強 —— Copper 單日 +4.1%、Aluminum +3.7%、Oil & Gas Drilling +1.5%。但廣度不佳：S&P 500 僅 55% 站上 5 日均線、52% 站上 50 日均線，Russell 2000 反而收跌 -1%，說明漲勢高度集中在大型股。10Y 殖利率微升 1bp 至 4.305%，市場對利率的看法幾乎沒變。",
+  "intro": "S&P 500 +1.03% 至 7,137 再創歷史新高，Nasdaq +1.64% 至 24,658。**今天的市場在講三個故事：停火延長、財報季展開、半導體連漲極限。** 第一，Trump 宣布伊朗停火無限期延長，直覺上應該壓油價，但 Hormuz 封鎖造成的實質斷供（EIA 估 4 月 9.1M bpd）還在，WTI 反而漲 +3.1% 至 $92.4 —— 市場在交易「重建需求」而非「供給恢復」，這推動銅（+4.1%）、鋁（+3.7%）、鑽井（+1.5%）全線走強。第二，GE Vernova 單日 +12% 是今天的個股之王，Q1 beat + 上調全年展望 + backlog $163B，打開了「電網基建」這條獨立於半導體的投資主線 —— AI 資料中心用電量暴增 + 中東重建電力需求是雙引擎。第三，SOXX 連漲第 16 天但量能開始萎縮（`rvol` 從 1.12 降到 1.00），`momentum_autocorr` 從 -0.09 惡化到 -0.18，離均值回歸門檻只差一步。Tesla 盤後 beat（EPS $0.41 vs $0.37 est），capex 上調至 $250 億，股價 +3%。廣度方面，S&P 500 僅 52% 站上 50 日均線，Russell 2000 收跌 -1%，Healthcare 只有 31% 站上 50 日均線 —— 這是一個高度集中的漲勢，不是全面 risk-on。",
   "topSectors": [
     {
       "name": "Heavy Electrical Equipment",
@@ -120,6 +120,36 @@
   ],
   "fiveDayTrend": [
     {
+      "name": "Heavy Electrical Equipment",
+      "gicsCode": "8D0D1D2F",
+      "days": ["2026-04-21", "2026-04-22"],
+      "momScore": [79.80, 83.99],
+      "cmf": [-0.05, -0.06],
+      "deltaRank": [2, -5],
+      "rvol": [1.05, 2.01],
+      "interpretation": "`rvol` 從 1.05 爆升到 2.01（全市場最高），量能確認今天不是虛漲。但 CMF 連兩日為負，說明大戶資金流入還沒跟上。若明天 CMF 轉正，量價共振確認。"
+    },
+    {
+      "name": "Copper",
+      "gicsCode": "9D3B3E86",
+      "days": ["2026-04-21", "2026-04-22"],
+      "momScore": [78.90, 80.60],
+      "cmf": [0.16, 0.17],
+      "deltaRank": [-3, -5],
+      "rvol": [0.82, 0.76],
+      "interpretation": "CMF 穩定正值（+0.16 → +0.17），但 `delta_rank` 連兩日為負且惡化。`rvol` 偏低不到 1.0。今天 +4.1% 的爆漲主要靠停火事件推動，量能未配合，需觀察明天能否站穩。"
+    },
+    {
+      "name": "Semiconductor Materials & Equipment",
+      "gicsCode": "7F8BA218",
+      "days": ["2026-04-21", "2026-04-22"],
+      "momScore": [86.63, 87.12],
+      "cmf": [0.11, 0.10],
+      "deltaRank": [1, 0],
+      "rvol": [1.12, 1.00],
+      "interpretation": "排名穩定在 #1，但 `rvol` 從 1.12 降到 1.00，量能正在冷卻。`momentum_autocorr` 從 -0.09 惡化到 -0.18，明天若破 -0.2 就正式進入均值回歸區間。"
+    },
+    {
       "name": "Oil & Gas Drilling",
       "gicsCode": "738405E7",
       "days": ["2026-04-21", "2026-04-22"],
@@ -127,17 +157,7 @@
       "cmf": [-0.03, -0.02],
       "deltaRank": [1, -1],
       "rvol": [0.82, 0.66],
-      "interpretation": "`mom_score` 兩日從 79.5 跳到 84.4（+4.9 pts），但 `rvol` 從 0.82 降到 0.66 —— 股價漲但量能在縮。CMF 連兩日為負。這是典型的「油價驅動、量能不配合」格局，持續性存疑。"
-    },
-    {
-      "name": "Aluminum",
-      "gicsCode": "1D0B4025",
-      "days": ["2026-04-21", "2026-04-22"],
-      "momScore": [79.35, 84.18],
-      "cmf": [0.15, 0.15],
-      "deltaRank": [1, 4],
-      "rvol": [1.09, 1.09],
-      "interpretation": "`mom_score` +4.8 pts，`delta_rank` 從 +1 擴大到 +4，CMF 穩定在 +0.15，`rvol` 穩定在 1.09。跟 Oil & Gas Drilling 比，鋁的量價配合度更好 —— CMF 正值 + 量能穩定。但僅 2 日數據，需再觀察。"
+      "interpretation": "`mom_score` +4.9 pts 是今日最大增幅，但 `rvol` 從 0.82 降到 0.66、CMF 連兩日為負。股價靠油價推，量能沒有跟上，典型的事件驅動格局。"
     },
     {
       "name": "Managed Health Care",
@@ -147,7 +167,7 @@
       "cmf": [0.07, 0.07],
       "deltaRank": [8, -19],
       "rvol": [1.24, 1.24],
-      "interpretation": "`delta_rank` 從 +8 暴跌到 -19，單日擺盪 27 個名次。`mom_score` 同步從 29.6 惡化到 24.6。這不是正常的波動 —— Healthcare 板塊正在經歷系統性的資金撤出。"
+      "interpretation": "`delta_rank` 從 +8 暴跌到 -19，單日擺盪 27 個名次。Healthcare 廣度僅 31% 站上 50 日均線，系統性資金撤出。"
     }
   ],
   "conclusion": "今日市場的核心故事不只是半導體 —— 停火延長帶動原物料全線走強（Copper +4.1%、Aluminum +3.7%、Oil +3.1%），GE Vernova +12% 打開電網基建第二條主線。但廣度數據發出警告：僅 52% 站上 50 日均線、Russell 2000 收跌、Healthcare 系統性走弱。漲勢集中在「實體資產 + AI 硬體」，服務類板塊持續被邊緣化。",
