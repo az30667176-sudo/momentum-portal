@@ -92,6 +92,130 @@ export function getAllSlugs(category: ResearchCategory): string[] {
     .map((f) => f.replace('.json', ''))
 }
 
+// ---------------- Daily Report (日報) ----------------
+
+export interface DailyFocusStock {
+  ticker: string
+  momScore: number
+  ret1d: number
+  note: string
+}
+
+export interface DailyTopSector {
+  name: string
+  gicsCode: string
+  momScore: number
+  deltaRank: number
+  cmf: number
+  autocorr: number
+  r2: number
+  continuity: 'strong' | 'watch' | 'noise'
+  analysis: string
+  news: string
+  focusStocks: DailyFocusStock[]
+}
+
+export interface DailyWarningSector {
+  name: string
+  gicsCode: string
+  momentumDecay: number
+  deltaRank: number
+  consecutiveDays: number
+  reason: string
+  news: string
+  action: string
+}
+
+export interface DailyFiveDayTrend {
+  name: string
+  gicsCode: string
+  days: string[]
+  momScore: number[]
+  cmf: number[]
+  deltaRank: number[]
+  rvol: number[]
+  interpretation: string
+}
+
+export interface DailyReport {
+  slug: string
+  type: 'daily'
+  date: string
+  title: string
+  marketSentiment: 'risk-on' | 'risk-off' | 'neutral'
+  spyReturn: number
+  intro: string
+  topSectors: DailyTopSector[]
+  warningSectors: DailyWarningSector[]
+  fiveDayTrend: DailyFiveDayTrend[]
+  conclusion: string
+  continuityAssessment: string
+  tomorrowWatch: string[]
+  sources: { title: string; url: string }[]
+}
+
+function dailyDir() {
+  return path.join(process.cwd(), 'content', 'research', 'daily')
+}
+
+export function getAllDailyReports(): DailyReport[] {
+  const dir = dailyDir()
+  if (!fs.existsSync(dir)) return []
+  const files = fs.readdirSync(dir).filter((f) => f.endsWith('.json'))
+  return files
+    .map((f) => JSON.parse(fs.readFileSync(path.join(dir, f), 'utf-8')) as DailyReport)
+    .sort((a, b) => b.date.localeCompare(a.date))
+}
+
+export function getDailyReport(slug: string): DailyReport | null {
+  const file = path.join(dailyDir(), `${slug}.json`)
+  if (!fs.existsSync(file)) return null
+  return JSON.parse(fs.readFileSync(file, 'utf-8')) as DailyReport
+}
+
+export function getAllDailySlugs(): string[] {
+  const dir = dailyDir()
+  if (!fs.existsSync(dir)) return []
+  return fs.readdirSync(dir).filter((f) => f.endsWith('.json')).map((f) => f.replace('.json', ''))
+}
+
+export interface ReportListItem {
+  slug: string
+  date: string
+  type: 'weekly' | 'daily'
+  title: string
+  issue?: number
+  subtitle?: string
+  imageDir?: string
+  coverImage?: string
+  marketSentiment?: string
+}
+
+export function getAllReportListItems(): ReportListItem[] {
+  const weekly = getAllIssues('weekly').map((w) => ({
+    slug: w.slug,
+    date: w.date,
+    type: 'weekly' as const,
+    title: w.title,
+    issue: w.issue,
+    subtitle: w.subtitle,
+    imageDir: w.imageDir,
+    coverImage: w.coverImage,
+  }))
+  const daily = getAllDailyReports().map((d) => ({
+    slug: d.slug,
+    date: d.date,
+    type: 'daily' as const,
+    title: d.title,
+    marketSentiment: d.marketSentiment,
+  }))
+  return [...weekly, ...daily].sort((a, b) => b.date.localeCompare(a.date))
+}
+
+export function getAllWeeklyAndDailySlugs(): string[] {
+  return Array.from(new Set([...getAllSlugs('weekly'), ...getAllDailySlugs()]))
+}
+
 // ---------------- Stock Memo (個股想法) ----------------
 
 export interface StockMemo {

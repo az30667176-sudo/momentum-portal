@@ -490,9 +490,129 @@ PYTHONIOENCODING=utf-8 venv/Scripts/python.exe scripts/make_sector_charts.py
 **已有文章**：
 - `heavy-electrical-equipment`：重電產業分析（GEV/AZZ），6 張 exhibit（前 3 互動 + 後 3 靜態 PNG）
 
+### 日報（/research/daily）— 2026-04-22 新增
+
+**定位**：給自己看的每日盤後研究筆記，仿 JPMorgan *Daily Market Intelligence*。風格比週報更即時、更聚焦，但維持同樣的專業口吻和跨期連貫性。
+
+**架構**：
+- JSON 路徑：`frontend/content/research/daily/<YYYY-MM-DD>.json`
+- 列表頁：與週報混合顯示在 `/research/weekly`（「輪動報告」tab），以日期 desc 排序
+- 詳情頁：`/research/weekly/<slug>`（共用路由，依 JSON 的 `type` 欄位判斷渲染模板）
+
+**核心原則**：
+1. **跨日連貫性**：每份日報 intro 必須說明昨日核心判斷今天是驗證、深化，還是出現裂縫
+2. **3 日動能視角**：任何指標都要對照「今天 vs 昨天 vs 3 天前」的趨勢，單日數據雜訊太多
+3. **動能延續性是核心問題**：每份結尾都要回答「今天的訊號是雜訊，還是趨勢正在建立？」用 `momentum_autocorrelation` + `price_trend_r2` + `delta_rank` 聯合判斷
+4. **不能有被打臉的語氣**（同週報）：用「訊號出現分歧，需要再觀察 1-2 個交易日確認方向」，不說「昨天說錯了」
+
+**日報 5 個區塊**：
+| Section | 內容 | 長度 |
+|---------|------|------|
+| 1. 今日市場定調 | risk-on/off? 和昨天比? 最值得關注的一件事? | 3-4 句 |
+| 2. 動能領先板塊 | mom_score 前 5（排除無 3 日基礎的暴衝），每個含量化摘要 + 新聞 + 延續性評估 + 個股聚焦 | 每板塊 3-5 句 |
+| 3. 動能警示板塊 | momentum_decay_rate < -10 OR delta_rank 連 2 天惡化 | 2-3 個板塊 |
+| 4. 近 5 日比較 | 前 3 板塊的 5 日迷你趨勢表（mom_score / CMF / delta_rank / rvol） | 表格 + 解讀 |
+| 5. 今日結論 | 核心判斷 1 句 + 延續性總評 + 明日觀察重點 2-3 條 | 短 |
+
+**延續性判斷標準**：
+| autocorrelation | price_trend_r2 | 判斷 |
+|-----------------|---------------|------|
+| > 0.2 | > 0.75 | 延續性強，值得持續關注 |
+| > 0.2 | 0.5–0.75 | 趨勢存在但有震盪，注意進場時機 |
+| -0.2 到 0.2 | 任何 | 動能不穩定，訊號可信度低 |
+| < -0.2 | 任何 | 均值回歸傾向，追高風險高 |
+
+**日報 JSON Schema**：
+```json
+{
+  "slug": "2026-04-22",
+  "type": "daily",
+  "date": "2026-04-22",
+  "title": "一句話核心判斷",
+  "marketSentiment": "risk-on | risk-off | neutral",
+  "spyReturn": -0.4,
+  "intro": "今日市場定調的 3-4 句話",
+  "topSectors": [
+    {
+      "name": "Semiconductors",
+      "gicsCode": "XXXXXXXX",
+      "momScore": 92,
+      "deltaRank": 7,
+      "cmf": 0.18,
+      "autocorr": 0.31,
+      "r2": 0.88,
+      "continuity": "strong | watch | noise",
+      "analysis": "量化訊號摘要",
+      "news": "新聞脈絡",
+      "focusStocks": [
+        { "ticker": "NVDA", "momScore": 97, "ret1d": 2.3, "note": "連續 3 日量能擴張" }
+      ]
+    }
+  ],
+  "warningSectors": [
+    {
+      "name": "...",
+      "gicsCode": "...",
+      "momentumDecay": -15,
+      "deltaRank": -5,
+      "consecutiveDays": 3,
+      "reason": "警示原因",
+      "news": "新聞背景",
+      "action": "操作含義"
+    }
+  ],
+  "fiveDayTrend": [
+    {
+      "name": "Semiconductors",
+      "gicsCode": "...",
+      "days": ["2026-04-16", "2026-04-17", "2026-04-18", "2026-04-21", "2026-04-22"],
+      "momScore": [72, 78, 81, 88, 92],
+      "cmf": [-0.04, 0.01, 0.08, 0.11, 0.18],
+      "deltaRank": [-3, 1, 2, 5, 7],
+      "rvol": [0.9, 1.1, 1.2, 1.4, 1.6],
+      "interpretation": "連續 5 日改善，趨勢確認"
+    }
+  ],
+  "conclusion": "今日核心判斷 1 句話",
+  "continuityAssessment": "趨勢建立 | 趨勢維持 | 出現分歧",
+  "tomorrowWatch": ["觀察重點 1", "觀察重點 2"],
+  "sources": [{ "title": "...", "url": "..." }]
+}
+```
+
+**日報 vs 週報的關係**：
+- 日報是週報的「原料庫」。出週報時，Section 2 的板塊分析可直接引用本週最強 2-3 份日報觀察
+- 週報的「跨期承接感」有一部分來自日報的連貫記錄
+
+**出日報 SOP**：
+
+Step 1：確認 pipeline 已跑完，抓今日資料
+```bash
+cd momentum-portal
+python scripts/fetch_daily_snapshot.py > scripts/daily_snap.json
+```
+
+Step 2：讀近 3 份日報 JSON，看昨日核心判斷 + 哪些板塊被點名
+
+Step 3：用 WebSearch 搜今日新聞（mom_score 前 5 板塊 + 大盤事件）
+
+Step 4：寫 JSON → `frontend/content/research/daily/<今日日期>.json`
+
+Step 5：commit + push
+```bash
+git add frontend/content/research/daily/
+git commit -m "feat(daily): <日期> — <一句話核心判斷>"
+git push
+```
+
+**口吻規範（補充日報特有）**：
+- 要有：跨日比較語言（「延續昨日」「連續 N 日」）、具體數字支撐、每個板塊明確的延續性判斷
+- 不要有：流水帳、沒有跨日比較的孤立數據、模糊語氣（「可能」→「需要再觀察 1-2 日確認」）、一次列 17 個指標（每板塊只講 3-4 個最關鍵的）
+
 ### 已知 limitation / 下一步
 - 自動化策略：選擇 **本機 Windows Task Scheduler 排程**，每週六早上呼叫 Claude Code 自動跑寫稿 → commit → push（吃 Max 額度，不付 API 錢）。**目前尚未實作**，仍然手動觸發 Claude Code session 來寫稿
 - 個股想法（`/research/stock`）目前只有 placeholder 頁
+- 日報所需的部分指標（CMF、momentum_autocorrelation、price_trend_r2、momentum_decay_rate、MFI）尚未在 pipeline 中計算，需新增到 `calculator.py`
 
 ---
 
