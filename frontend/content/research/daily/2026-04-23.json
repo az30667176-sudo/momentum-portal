@@ -17,7 +17,7 @@
       "r2": 0.60,
       "continuity": "watch",
       "analysis": "連續兩天 `ret_1d` 超過 +5%（昨天 +6.3%，今天 +5.3%），`rvol` 從 2.01 升到 **2.68**（全市場最高），量能不但沒有萎縮反而加速。`autocorr` 從昨天 -0.14 翻正到 0.19（+0.33 pts 單日改善），差一步就進入強延續區。CMF 從 -0.06 轉正至 +0.01 —— 昨天說「若明天 CMF 轉正，量價共振確認」，今天兌現了。`mom_score` 94.05 排名 #1，昨天還是 #8（+10 pts，7 個名次的單日進步）。",
-      "news": "**Boeing +5.5%** —— Qatar Airways 簽下 $200B 歷史最大訂單（130 架 787 + 30 架 777X + 50 選擇權），GE Aerospace 同步獲得 400 顆引擎訂單。GEV 延續昨日 +12% 的動能再漲 +2.1%，收在 $1,146。Boeing backlog 達 $695B 新高。電網基建 + 航太國防兩條主線同時爆發。",
+      "news": "GEV 延續昨日 +12% 的動能再漲 +2.1%，收在 $1,146，市值突破 $3,090 億。Q1 訂單 $183 億（+71% YoY），backlog $163B 持續創新高。Qatar Airways 和 GE Aerospace 簽下 400 顆引擎訂單（為 Boeing $200B 寬體機訂單配套），進一步確認電力基建長期需求。",
       "focusStocks": [
         { "ticker": "GEV", "momScore": 94, "ret1d": 2.1, "note": "連續兩日大漲，backlog $163B，電網基建核心" },
         { "ticker": "AZZ", "momScore": 80, "ret1d": 3.5, "note": "鍍鋅/變壓器受惠者，跟隨 GEV 動能" }
