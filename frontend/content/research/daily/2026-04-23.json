@@ -1,0 +1,184 @@
+{
+  "slug": "2026-04-23",
+  "type": "daily",
+  "date": "2026-04-23",
+  "title": "軟體財報崩跌加速硬軟分歧，重電連兩日暴漲確認動能轉正",
+  "marketSentiment": "neutral",
+  "spyReturn": -0.41,
+  "intro": "S&P 500 -0.41% 至 7,108，Nasdaq -0.89% 至 24,439，從昨天歷史新高首度回落。**但這不是 risk-off，這是一場加速進行的板塊輪動。** 一邊是軟體的集體崩跌 —— ServiceNow -17.7%（中東戰事延遲大型 on-premise 簽約），IBM -8.8%，Application Software 和 Systems Software 同時墊底全市場。關鍵不是它們 miss，而是 ServiceNow 營收 actually beat（$3.77B vs $3.75B est），照殺不誤。**當 beat 都被賣，說明投資人在用財報季系統性地減碼軟體，把部位搬進實體資產。** 另一邊是 Boeing 獲 Qatar Airways $200B 歷史最大寬體機訂單（160 架 + GE Aerospace 400 顆引擎），股價 +5.5%；GEV 延續昨日動能續漲 +2.1%，Heavy Electrical 從 #8 飆升到 **#1**，`mom_score` 單日 +10 pts 至 94.05，`autocorr` 從 -0.14 翻正至 0.19。連續兩天 `ret_1d` > 5% + `rvol` > 2.0，這是追蹤以來最強的單一板塊動能訊號。昨日三個觀察全數驗證：✓ Tesla beat 但 -3.6%（$250 億 capex 嚇退市場）；✓ SME `autocorr` 沒破 -0.2（改善到 -0.12）；✓ Aluminum 回吐 -2.87%（昨天 +3.7% 的 78%）確認雜訊。Brent 突破 $105（+3%），Hormuz 衝突加劇。全場僅 36.5% 個股收漲 —— 市場的選擇性比昨天更極端。",
+  "topSectors": [
+    {
+      "name": "Heavy Electrical Equipment",
+      "gicsCode": "8D0D1D2F",
+      "momScore": 94.05,
+      "deltaRank": 11,
+      "cmf": 0.01,
+      "autocorr": 0.19,
+      "r2": 0.60,
+      "continuity": "watch",
+      "analysis": "連續兩天 `ret_1d` 超過 +5%（昨天 +6.3%，今天 +5.3%），`rvol` 從 2.01 升到 **2.68**（全市場最高），量能不但沒有萎縮反而加速。`autocorr` 從昨天 -0.14 翻正到 0.19（+0.33 pts 單日改善），差一步就進入強延續區。CMF 從 -0.06 轉正至 +0.01 —— 昨天說「若明天 CMF 轉正，量價共振確認」，今天兌現了。`mom_score` 94.05 排名 #1，昨天還是 #8（+10 pts，7 個名次的單日進步）。",
+      "news": "**Boeing +5.5%** —— Qatar Airways 簽下 $200B 歷史最大訂單（130 架 787 + 30 架 777X + 50 選擇權），GE Aerospace 同步獲得 400 顆引擎訂單。GEV 延續昨日 +12% 的動能再漲 +2.1%，收在 $1,146。Boeing backlog 達 $695B 新高。電網基建 + 航太國防兩條主線同時爆發。",
+      "focusStocks": [
+        { "ticker": "GEV", "momScore": 94, "ret1d": 2.1, "note": "連續兩日大漲，backlog $163B，電網基建核心" },
+        { "ticker": "AZZ", "momScore": 80, "ret1d": 3.5, "note": "鍍鋅/變壓器受惠者，跟隨 GEV 動能" }
+      ]
+    },
+    {
+      "name": "Data Center REITs",
+      "gicsCode": "5E2B6876",
+      "momScore": 88.64,
+      "deltaRank": -1,
+      "cmf": 0.28,
+      "autocorr": 0.40,
+      "r2": 0.85,
+      "continuity": "strong",
+      "analysis": "今日 `ret_1d` 僅 +0.38%，漲幅不搶眼，但這恰恰是這個板塊的價值所在。`autocorr` 0.40、`r2` 0.85 —— **Top 10 裡唯一同時達到兩個「強延續」門檻的板塊**。CMF 0.28（昨天 0.27）穩定正值，`sharpe_8w` 5.71 是全市場最高的風險調整報酬。昨天排 #2，今天 #3，波動極小。在一個每天都有板塊暴漲暴跌的市場裡，DC REITs 是最穩定的動能載體。",
+      "news": "AI 資料中心用電量持續推升 hyperscaler 租賃需求。Microsoft、Amazon、Google 的 capex 擴張計劃（合計超過 $2,000 億/年）直接利好 DLR 和 EQIX 的新建案 pipeline。板塊只有 2 支成分股，集中度高但方向明確。",
+      "focusStocks": [
+        { "ticker": "DLR", "momScore": 89, "ret1d": 0.4, "note": "全球最大資料中心 REIT，新建案 pipeline 創新高" },
+        { "ticker": "EQIX", "momScore": 88, "ret1d": 0.3, "note": "互連密度龍頭，AI 需求推升每機架營收" }
+      ]
+    },
+    {
+      "name": "Electronic Manufacturing Services",
+      "gicsCode": "95B13044",
+      "momScore": 87.97,
+      "deltaRank": 11,
+      "cmf": 0.10,
+      "autocorr": 0.10,
+      "r2": 0.42,
+      "continuity": "noise",
+      "analysis": "今日新進 Top 5。昨天還在 #14（`mom_score` 78.5），今天一舉跳升到 **#5**（87.97，+9.5 pts）。`delta_rank` +11 和 Heavy Electrical 並列全市場最大排名進步。`ret_1d` +1.45% 不算驚人，真正推動的是中期動能改善（`ret_12m` +182%、`mom_6m` +40%）。但 `autocorr` 0.10 和 `r2` 0.42 都偏低 —— 動能剛起步，延續性還需觀察。`autocorr` 昨天是 -0.22（均值回歸區間），今天轉正到 0.10，改善幅度和 Heavy Electrical 類似。",
+      "news": "EMS 板塊受惠於供應鏈重組和「Friend-shoring」趨勢。Jabil、Celestica、Flex 等代工廠從消費電子轉向 AI 伺服器和電動車電子組裝，訂單結構改善推升估值。板塊與 Heavy Electrical 同步走強，反映市場偏好「實體製造」。",
+      "focusStocks": [
+        { "ticker": "CLS", "momScore": 92, "ret1d": 2.1, "note": "AI 伺服器代工訂單增長" },
+        { "ticker": "JBL", "momScore": 85, "ret1d": 1.2, "note": "EMS 龍頭，多元化轉型" }
+      ]
+    },
+    {
+      "name": "Oil & Gas Equipment & Services",
+      "gicsCode": "8B53278B",
+      "momScore": 85.23,
+      "deltaRank": -3,
+      "cmf": 0.06,
+      "autocorr": 0.02,
+      "r2": 0.81,
+      "continuity": "watch",
+      "analysis": "`ret_1d` +1.91%，`mom_score` 從昨天 82.17 升到 85.23（+3.1 pts）。`price_trend_r2` 0.81 是 Top 10 裡第二高 —— 中期價格趨勢非常穩定。但 `autocorr` 只有 0.02（幾乎為零），說明短線動能方向不穩定，漲跌主要跟著油價走。`rvol` 從昨天 0.89 升到 1.28，量能開始配合。與昨天報告中的 Oil & Gas Drilling 不同，E&S 板塊有 18 支成分股，廣度更好。",
+      "news": "Brent 突破 **$105/桶**（+3%），WTI 至 $95.85。Hormuz 海峽衝突加劇 —— 美國和伊朗在停火期間各自扣押油輪，海峽運量維持低位（原佔全球 20% 日供給）。油價上升 → 鑽井投資增加 → 設備與服務商 HAL、SLB、BKR 直接受惠。",
+      "focusStocks": [
+        { "ticker": "HAL", "momScore": 83, "ret1d": 2.5, "note": "北美完井服務龍頭" },
+        { "ticker": "SLB", "momScore": 81, "ret1d": 1.8, "note": "全球最大油田服務公司" }
+      ]
+    },
+    {
+      "name": "Semiconductors",
+      "gicsCode": "3DFD4B15",
+      "momScore": 79.71,
+      "deltaRank": 2,
+      "cmf": 0.18,
+      "autocorr": 0.13,
+      "r2": 0.19,
+      "continuity": "noise",
+      "analysis": "SOXX 延長到 **17 天連漲**（3/30 以來 +42%），今天 `ret_1d` +2.7% 是 Top 20 裡中間偏上的表現。但我們的數據講了另一個故事：排名從上週的 #14 僅升到 #12，`mom_score` 79.71 在 Top 20 裡倒數。**`price_trend_r2` 0.19 極低 —— 17 天連漲和趨勢品質嚴重脫節。** 這代表連漲靠的是每天不同的催化劑（輪流帶動不同成分股），而非整個板塊同步的方向性動能。CMF 0.18 資金流入正常，`vol_mom` 1.05 略放量。",
+      "news": "Motley Fool 統計 SOXX 歷史上最長連漲紀錄為 2014 年的 15 天，本次已破紀錄。但市場開始出現「軟體 beat 被殺」的現象（ServiceNow、IBM），投資人擔心這會蔓延到半導體。NVDA、AMD、AVGO 盤中一度走強但尾盤收斂，顯示追高力道減弱。",
+      "focusStocks": [
+        { "ticker": "NVDA", "momScore": 82, "ret1d": 3.1, "note": "AI GPU 龍頭，但尾盤收斂漲幅" },
+        { "ticker": "AVGO", "momScore": 78, "ret1d": 2.0, "note": "AI 網路晶片需求推升" }
+      ]
+    }
+  ],
+  "warningSectors": [
+    {
+      "name": "Systems Software",
+      "gicsCode": "4D1787C4",
+      "momentumDecay": 9.89,
+      "deltaRank": 0,
+      "consecutiveDays": 2,
+      "reason": "排名 #154（倒數第 2），`ret_1d` **-6.54%**，`mom_score` 15.8。`autocorr` -0.46 是全市場最強的均值回歸訊號。ServiceNow -17.7% 是直接導火索 —— 儘管營收 beat，市場聚焦中東戰事對企業 on-premise 訂單的衝擊。IBM -8.8% 同步拖累。`leader_lagger_ratio` 0.40（不到一半成分股強勢），板塊內部全面走弱。",
+      "news": "ServiceNow Q1 訂閱營收受中東衝突影響約 75 bps，但真正的問題是：Goldman、Jefferies、Piper Sandler 等 7 家券商同步下調目標價。Systems Software YTD 已跌約 30%，估值重估可能才剛開始。",
+      "action": "軟體板塊的 de-rating 是結構性的（AI 硬體搶走 capex 預算 + 地緣風險壓縮簽約），不是一天兩天能結束。迴避。"
+    },
+    {
+      "name": "Application Software",
+      "gicsCode": "05F28EE1",
+      "momentumDecay": -2.07,
+      "deltaRank": 0,
+      "consecutiveDays": 2,
+      "reason": "排名 **#155（全市場最後一名）**，`ret_1d` -5.56%，`mom_score` 12.52。40 支成分股中 `leader_lagger_ratio` 僅 0.21 —— 只有 2 成股票在板塊內相對強勢。`autocorr` -0.37、`ret_3m` -16.1%、`ret_6m` -25.9%，中期動能全面崩塌。CMF -0.065 資金持續流出。",
+      "news": "Application Software 的困境比 Systems Software 更深 —— 不只是地緣風險，還有 AI copilot 對傳統 SaaS 定價權的侵蝕。市場正在重新評估「軟體即服務」的長期訂閱價值。",
+      "action": "連續墊底，結構性逆風（AI 替代 + 地緣 + 估值壓縮），短中期都沒有催化劑。"
+    },
+    {
+      "name": "Human Resource & Employment Services",
+      "gicsCode": "D4E92F32",
+      "momentumDecay": 22.15,
+      "deltaRank": -12,
+      "consecutiveDays": 1,
+      "reason": "`delta_rank` **-12** 是今日 Bottom 10 裡最大的單日排名崩跌（#141 → #153）。`ret_1d` -4.18%，`mom_score` 18.01，`ret_3m` -20.2%。`momentum_decay_rate` 22.15 代表動能正在加速惡化。CMF -0.015 剛轉負，`breadth_50ma` 僅 55.6% —— 超過 4 成成分股已跌破 50 日均線。",
+      "news": "就業服務板塊同時面臨 AI 自動化和經濟放緩的雙重壓力。企業 HR 軟體和外包支出被重新分配到 AI 基建採購，和 IT Consulting 面臨類似的結構性資金排擠。油價飆升增加通膨壓力，勞動力市場預期轉弱。",
+      "action": "單日 -12 排名崩跌是明確的動能瓦解訊號，需要觀察 1-2 日確認是否為趨勢惡化或單日異常。"
+    }
+  ],
+  "fiveDayTrend": [
+    {
+      "name": "Heavy Electrical Equipment",
+      "gicsCode": "8D0D1D2F",
+      "days": ["2026-04-21", "2026-04-22", "2026-04-23"],
+      "momScore": [79.80, 83.99, 94.05],
+      "cmf": [-0.05, -0.06, 0.01],
+      "deltaRank": [2, -5, 11],
+      "rvol": [1.05, 2.01, 2.68],
+      "interpretation": "三天從 `mom_score` 79.8 飆到 94.05（+14 pts），`rvol` 從 1.05 連升到 2.68，量能持續擴張不是曇花一現。CMF 終於在第三天轉正，量價共振正式確認。`autocorr` 從 -0.14 → 0.19 的轉正速度罕見。"
+    },
+    {
+      "name": "Data Center REITs",
+      "gicsCode": "5E2B6876",
+      "days": ["2026-04-22", "2026-04-23"],
+      "momScore": [86.69, 88.64],
+      "cmf": [0.27, 0.28],
+      "deltaRank": [10, -1],
+      "rvol": [1.08, 1.30],
+      "interpretation": "CMF 穩定在 0.27-0.28，資金流入沒有減速。`autocorr` 從 0.31 升到 0.40，延續性進一步強化。這是 Top 10 裡最「無聊」但最可靠的板塊 —— 每天小漲，但風險調整報酬全市場最佳。"
+    },
+    {
+      "name": "Electronic Manufacturing Services",
+      "gicsCode": "95B13044",
+      "days": ["2026-04-22", "2026-04-23"],
+      "momScore": [78.45, 87.97],
+      "cmf": [0.10, 0.10],
+      "deltaRank": [0, 11],
+      "rvol": [1.16, 1.05],
+      "interpretation": "`mom_score` 單日 +9.5 pts，`autocorr` 從 -0.22（均值回歸區）轉正到 +0.10，改善幅度僅次於 Heavy Electrical。但 `rvol` 反而從 1.16 降到 1.05，量能配合度不足。動能改善主要靠中期累積而非短線爆發，需觀察量能跟進。"
+    },
+    {
+      "name": "Oil & Gas Equipment & Services",
+      "gicsCode": "8B53278B",
+      "days": ["2026-04-22", "2026-04-23"],
+      "momScore": [82.17, 85.23],
+      "cmf": [0.07, 0.06],
+      "deltaRank": [-2, -3],
+      "rvol": [0.89, 1.28],
+      "interpretation": "`rvol` 從 0.89 跳到 1.28，量能開始放大。CMF 小幅收窄但維持正值。`delta_rank` 連兩日為負（-2 和 -3），排名被追趕中，但 `mom_score` 仍在穩步上升。油價 $105 是主要驅動力，板塊自身動能需要更多確認。"
+    }
+  ],
+  "conclusion": "今天的軟體崩跌不只是單一公司的問題 —— ServiceNow beat 被殺 17.7% 代表投資人在用財報季做系統性的軟體減碼，資金正在加速流向實體資產（Industrials、Energy、Infrastructure）。Heavy Electrical 連兩日 +5% 且 `autocorr` 從 -0.14 翻正到 0.19，是追蹤以來最快的動能確認訊號。硬軟分歧不再是假說，而是正在加速的現實。",
+  "continuityAssessment": "趨勢分化加劇",
+  "tomorrowWatch": [
+    "Heavy Electrical `autocorr` 今天 0.19，距離「強延續」門檻 0.20 只差一步。明天若突破，將成為追蹤以來第一個從雜訊區快速穿越到強延續區的板塊 —— 這會是正式建倉的訊號。",
+    "Brent 突破 $105 後，觀察是否守住 $103 支撐。如果油價連續兩天站穩 $103 以上，能源板塊的動能循環可能從「事件驅動」轉為「趨勢建立」，Oil & Gas E&S 的 `autocorr` 有機會從 0.02 開始上升。",
+    "SOXX 17 天連漲但 Semiconductors sub 的 `price_trend_r2` 只有 0.19 —— 連漲天數和趨勢品質嚴重脫節。如果明天首度收跌，關鍵看 `rvol` 是否 > 1.5（有序獲利了結）還是 < 0.8（量能萎縮的自然回落）。前者暗示趨勢反轉，後者只是喘息。"
+  ],
+  "sources": [
+    { "title": "Yahoo Finance: S&P 500 and Nasdaq retreat as software stocks plunge, oil surges", "url": "https://finance.yahoo.com/markets/stocks/live/stock-market-today-thursday-april-23-dow-sp-500-nasdaq-oil-rises-software-233045213.html" },
+    { "title": "CNBC: ServiceNow stock sinks 14% as subscription revenue takes hit from Iran war", "url": "https://www.cnbc.com/2026/04/22/servicenow-now-earnings-q1-2026.html" },
+    { "title": "Benzinga: IBM Shares Drop Despite Q1 Earnings Beat", "url": "https://www.benzinga.com/markets/earnings/26/04/51985558/ibm-shares-drop-despite-q1-earnings-beat-details" },
+    { "title": "FX Leaders: Boeing Soars 5.5% on Record Qatar Deal ($200B order)", "url": "https://www.fxleaders.com/news/2026/04/23/boeing-soars-5-5-on-record-qatar-deal-and-better-than-expected-earnings/" },
+    { "title": "MarketBeat: GE Vernova Stock Price Up 2.1% Following Earnings Beat", "url": "https://www.marketbeat.com/instant-alerts/ge-vernova-nysegev-stock-price-up-21-following-earnings-beat-2026-04-23/" },
+    { "title": "CNBC: Brent oil tops $105 as tensions simmer in Strait of Hormuz", "url": "https://www.cnbc.com/2026/04/23/oil-price-iran-war-strait-hormuz.html" },
+    { "title": "Motley Fool: Tesla Falls After Lifting 2026 Capex Guidance to $25B for AI and Robotics", "url": "https://www.fool.com/coverage/stock-market-today/2026/04/23/stock-market-today-april-23-tesla-falls-after-lifting-2026-capex-guidance-for-ai-and-robotics/" },
+    { "title": "Motley Fool: Semiconductor Stocks Are on a Historic 32-Year Run (SOXX 17-day streak)", "url": "https://www.fool.com/investing/2026/04/23/semiconductor-stocks-historic-run-history-says/" },
+    { "title": "CNBC: Treasury yields tick higher as oil prices rise amid U.S.-Iran standoff (10Y 4.325%)", "url": "https://www.cnbc.com/2026/04/23/treasury-yields-tick-higher-as-us-iran-standoff-persists.html" },
+    { "title": "Quartz: ServiceNow Q1 2026 earnings — stock drops 17% on margin fears", "url": "https://qz.com/servicenow-stock-earnings-middle-east-margin-pressure-042326" }
+  ]
+}
