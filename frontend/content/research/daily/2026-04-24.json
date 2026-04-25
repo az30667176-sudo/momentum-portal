@@ -5,7 +5,7 @@
   "title": "Intel+23%點燃半導體18連漲破32年紀錄，重電與DC REITs的「追高代價」同日浮現",
   "marketSentiment": "risk-on",
   "spyReturn": 0.80,
-  "intro": "S&P 500 +0.80% 至 7,165 創歷史新高，Nasdaq +1.63% 至 24,837 同步破紀錄，但 Dow -0.16% 被 Honeywell -5.6%（營收 miss）拖累。**今天有三條故事線。** 第一，Intel Q1 EPS $0.29 打爆華爾街預期的 $0.02（surprise +1,350%），Client Computing 營收 $7.7B、Data Center $5.1B 雙雙超標，股價暴漲 **+23.6%** 創 1987 年以來最大單日漲幅。NVDA 市值突破 **$5 兆**，SOXX 延長到 **18 天連漲**，打破 1993 年以來任何半導體指標紀錄。半導體 sub 的 `autocorr` 從昨天 0.13 飆到 **0.339** —— 動能終於開始自我強化。第二，Brent 站穩 **$106/桶**，IEA 稱 Hormuz 封鎖為「史上最大供給中斷」，24 小時僅 5 艘船通過海峽。Oil & Gas E&S 安靜爬到 #5，`autocorr` 從 0.02 升到 0.18，一步步接近強延續區。第三，也是最值得警惕的 —— **昨天報告中的兩個主角同步回吐**：Heavy Electrical 從 #1 跌到 #6（`autocorr` 從 0.19 暴跌到 0.05），DC REITs 從 #3 墜落到 #17（`autocorr` 從 +0.40 翻負到 -0.19）。昨天被稱為「Top 10 裡最穩定的動能載體」的板塊，一天就證明穩定從來不是免死金牌。昨日三個觀察驗證：✗ Heavy Electrical `autocorr` 沒有突破 0.20，反而暴跌到 0.05；✓ Brent 不僅守住 $103 還漲到 $106；✓ SOXX 不僅沒斷還延長到 18 天，半導體 `autocorr` 突破 0.33 確認動能加速。DOJ 撤銷對 Fed 主席 Powell 的刑事調查，Kevin Warsh 的提名確認路徑掃清 —— 這可能是 Powell 最後一次 FOMC 會議（4/28-29）。",
+  "intro": "S&P 500 +0.80% 至 7,165 創歷史新高，Nasdaq +1.63% 至 24,837 同步破紀錄，但 Dow -0.16% 是唯一收跌的主指數。**今天有三條故事線。** 第一，Intel Q1 EPS $0.29 打爆華爾街預期的 $0.02（surprise +1,350%），Client Computing 營收 $7.7B、Data Center $5.1B 雙雙超標，股價暴漲 **+23.6%** 創 1987 年以來最大單日漲幅。NVDA 市值突破 **$5 兆**，SOXX 延長到 **18 天連漲**，打破 1993 年以來任何半導體指標紀錄。半導體 sub 的 `autocorr` 從昨天 0.13 飆到 **0.339** —— 動能終於開始自我強化。第二，Brent 站穩 **$106/桶**，IEA 稱 Hormuz 封鎖為「史上最大供給中斷」，24 小時僅 5 艘船通過海峽。Oil & Gas E&S 安靜爬到 #5，`autocorr` 從 0.02 升到 0.18，一步步接近強延續區。第三，也是最值得警惕的 —— **昨天報告中的兩個主角同步回吐**：Heavy Electrical 從 #1 跌到 #6（`autocorr` 從 0.19 暴跌到 0.05），DC REITs 從 #3 墜落到 #17（`autocorr` 從 +0.40 翻負到 -0.19）。昨天被稱為「Top 10 裡最穩定的動能載體」的板塊，一天就證明穩定從來不是免死金牌。昨日三個觀察驗證：✗ Heavy Electrical `autocorr` 沒有突破 0.20，反而暴跌到 0.05；✓ Brent 不僅守住 $103 還漲到 $106；✓ SOXX 不僅沒斷還延長到 18 天，半導體 `autocorr` 突破 0.33 確認動能加速。DOJ 撤銷對 Fed 主席 Powell 的刑事調查，Kevin Warsh 的提名確認路徑掃清 —— 這可能是 Powell 最後一次 FOMC 會議（4/28-29）。",
   "topSectors": [
     {
       "name": "Semiconductors",
@@ -179,6 +179,6 @@
     { "title": "CNBC: DOJ drops criminal probe of Fed Chair Powell, clearing path for Warsh confirmation", "url": "https://www.cnbc.com/2026/04/24/fed-powell-doj-warsh-trump.html" },
     { "title": "StockStory: Strategic Education (STRA) shares falling on Q1 miss", "url": "https://stockstory.org/us/stocks/nasdaq/stra/news/why-up-down/why-strategic-education-stra-shares-are-falling-today" },
     { "title": "FactSet: S&P 500 earnings season update — Q1 blended growth 15.1%", "url": "https://insight.factset.com/sp-500-earnings-season-update-april-24-2026" },
-    { "title": "Seeking Alpha: Honeywell declines after revenue miss, cash flow cut clouds profit beat", "url": "https://seekingalpha.com/news/4578571-honeywell-declines-after-revenue-miss-cash-flow-cut-clouds-profit-beat" }
+    { "title": "ETF.com: Semiconductor ETFs have never had a run like this", "url": "https://www.etf.com/sections/features/semiconductor-etfs-have-never-had-run" }
   ]
 }
