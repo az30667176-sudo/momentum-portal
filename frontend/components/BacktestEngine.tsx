@@ -708,20 +708,28 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
 
     try {
       let doneCount = 0
-      const results = await Promise.allSettled(
-        selected.map(async (preset) => {
-          const res = await fetch('/api/scan-signal', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ config: preset.config }),
+      const CONCURRENCY = 2
+      type ScanOk = { presetName: string; result: ScanSignalResult }
+      const results: PromiseSettledResult<ScanOk>[] = []
+
+      for (let i = 0; i < selected.length; i += CONCURRENCY) {
+        const batch = selected.slice(i, i + CONCURRENCY)
+        const batchResults = await Promise.allSettled(
+          batch.map(async (preset) => {
+            const res = await fetch('/api/scan-signal', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ config: preset.config }),
+            })
+            const data = await res.json()
+            if (!res.ok) throw new Error(data.error ?? `HTTP ${res.status}`)
+            doneCount++
+            setConsensusProgress({ done: doneCount, total: selected.length })
+            return { presetName: preset.name, result: data as ScanSignalResult }
           })
-          const data = await res.json()
-          if (!res.ok) throw new Error(data.error ?? `HTTP ${res.status}`)
-          doneCount++
-          setConsensusProgress({ done: doneCount, total: selected.length })
-          return { presetName: preset.name, result: data as ScanSignalResult }
-        })
-      )
+        )
+        results.push(...batchResults)
+      }
 
       const ok: { presetName: string; result: ScanSignalResult }[] = []
       const failed: string[] = []
