@@ -275,3 +275,13 @@ export interface ScanSignalResult {
   selectedSubCount: number    // how many subs selected after rank/topN
   warnings: string[]          // e.g. "X tickers missing close prices"
 }
+
+export interface ConsensusRow {
+  ticker: string
+  subName: string
+  gics_code: string
+  appearedIn: string[]
+  count: number
+  totalStrategies: number
+  entryPrice: number | null
+}

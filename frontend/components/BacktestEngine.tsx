@@ -11,7 +11,7 @@ import {
   SubFilter, BacktestConfig,
   FilterDetail, FilterConditionDetail, RebalLog, PerfMetrics, BacktestResult,
   FilterType, WeightMode,
-  BacktestPreset, ScanSignalResult,
+  BacktestPreset, ScanSignalResult, ConsensusRow,
 } from '@/lib/types'
 
 // ── Indicator Groups ──────────────────────────────────────────
@@ -593,6 +593,14 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
   const [signalResult, setSignalResult] = useState<ScanSignalResult | null>(null)
   const [signalError, setSignalError] = useState<string | null>(null)
 
+  // ── Consensus scan state ────────────────────────────────────
+  const [consensusSelected, setConsensusSelected] = useState<Set<number>>(new Set())
+  const [consensusRunning, setConsensusRunning] = useState(false)
+  const [consensusProgress, setConsensusProgress] = useState<{ done: number; total: number } | null>(null)
+  const [consensusResults, setConsensusResults] = useState<ConsensusRow[] | null>(null)
+  const [consensusError, setConsensusError] = useState<string | null>(null)
+  const [consensusScanDate, setConsensusScanDate] = useState<string | null>(null)
+
   const loadPresets = useCallback(async () => {
     setPresetLoading(true)
     setPresetError(null)
@@ -670,6 +678,95 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
       setSignalRunning(false)
     }
   }, [config])
+
+  // ── Consensus callbacks ─────────────────────────────────────
+  const toggleConsensusPreset = useCallback((id: number) => {
+    setConsensusSelected(prev => {
+      const next = new Set(prev)
+      if (next.has(id)) next.delete(id); else next.add(id)
+      return next
+    })
+  }, [])
+
+  const selectAllConsensus = useCallback(() => {
+    setConsensusSelected(new Set(presets.map(p => p.id)))
+  }, [presets])
+
+  const deselectAllConsensus = useCallback(() => {
+    setConsensusSelected(new Set())
+  }, [])
+
+  const runConsensusScan = useCallback(async () => {
+    const selected = presets.filter(p => consensusSelected.has(p.id))
+    if (selected.length === 0) { setConsensusError('請至少勾選一個策略'); return }
+
+    setConsensusRunning(true)
+    setConsensusError(null)
+    setConsensusResults(null)
+    setConsensusProgress({ done: 0, total: selected.length })
+    setConsensusScanDate(null)
+
+    try {
+      let doneCount = 0
+      const results = await Promise.allSettled(
+        selected.map(async (preset) => {
+          const res = await fetch('/api/scan-signal', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ config: preset.config }),
+          })
+          const data = await res.json()
+          if (!res.ok) throw new Error(data.error ?? `HTTP ${res.status}`)
+          doneCount++
+          setConsensusProgress({ done: doneCount, total: selected.length })
+          return { presetName: preset.name, result: data as ScanSignalResult }
+        })
+      )
+
+      const ok: { presetName: string; result: ScanSignalResult }[] = []
+      const failed: string[] = []
+      results.forEach((r, i) => {
+        if (r.status === 'fulfilled') ok.push(r.value)
+        else failed.push(selected[i].name)
+      })
+
+      if (ok.length === 0) { setConsensusError('所有策略都掃描失敗'); return }
+      setConsensusScanDate(ok[0].result.scanDate)
+
+      const tickerMap = new Map<string, ConsensusRow>()
+      for (const { presetName, result } of ok) {
+        for (const h of result.holdings) {
+          const existing = tickerMap.get(h.ticker)
+          if (existing) {
+            existing.appearedIn.push(presetName)
+            existing.count++
+            if (existing.entryPrice == null && h.entryPrice != null) existing.entryPrice = h.entryPrice
+          } else {
+            tickerMap.set(h.ticker, {
+              ticker: h.ticker,
+              subName: h.subName,
+              gics_code: h.gics_code,
+              appearedIn: [presetName],
+              count: 1,
+              totalStrategies: ok.length,
+              entryPrice: h.entryPrice,
+            })
+          }
+        }
+      }
+
+      const rows = Array.from(tickerMap.values())
+        .sort((a, b) => b.count - a.count || a.ticker.localeCompare(b.ticker))
+      setConsensusResults(rows)
+
+      if (failed.length > 0) setConsensusError(`以下策略掃描失敗：${failed.join('、')}`)
+    } catch (e: any) {
+      setConsensusError(e.message ?? String(e))
+    } finally {
+      setConsensusRunning(false)
+      setConsensusProgress(null)
+    }
+  }, [presets, consensusSelected])
 
   // Load presets when entering the signal tab
   useEffect(() => {
@@ -2886,6 +2983,132 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
                           <td className="px-3 py-2 text-right font-mono text-red-500">{h.stopLossPrice != null ? h.stopLossPrice.toFixed(2) : '—'}</td>
                           <td className="px-3 py-2 text-right font-mono text-emerald-600">{h.takeProfitPrice != null ? h.takeProfitPrice.toFixed(2) : '—'}</td>
                           <td className="px-3 py-2 text-right">{(h.weight * 100).toFixed(2)}%</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </>
+            )}
+          </div>
+
+          {/* ── Section C: 策略共識 ──────────────────────────────── */}
+          <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-5">
+            <div className="flex items-center justify-between mb-2">
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-white">策略共識</h2>
+              <button
+                onClick={runConsensusScan}
+                disabled={consensusRunning || consensusSelected.size === 0}
+                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white text-sm rounded"
+              >
+                {consensusRunning
+                  ? `掃描中 (${consensusProgress?.done ?? 0}/${consensusProgress?.total ?? 0})…`
+                  : `🔍 跑共識掃描 (${consensusSelected.size} 個策略)`}
+              </button>
+            </div>
+            <p className="text-xs text-gray-500 dark:text-gray-400 mb-4">
+              勾選多個已存策略，同時跑訊號掃描，統計各股被幾個策略同時選中。出現次數越多，代表多策略共識度越高。
+            </p>
+
+            {presets.length === 0 ? (
+              <p className="text-xs text-gray-400 mb-3">尚無 preset，請先在上方儲存策略。</p>
+            ) : (
+              <>
+                <div className="flex gap-2 mb-2">
+                  <button onClick={selectAllConsensus}
+                    className="px-2 py-1 text-xs bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 rounded">
+                    全選
+                  </button>
+                  <button onClick={deselectAllConsensus}
+                    className="px-2 py-1 text-xs bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 rounded">
+                    取消全選
+                  </button>
+                  <span className="text-xs text-gray-400 self-center">
+                    已選 {consensusSelected.size} / {presets.length}
+                  </span>
+                </div>
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 mb-4">
+                  {presets.map(p => (
+                    <label key={p.id}
+                      className={`flex items-center gap-2 px-3 py-2 rounded border text-xs cursor-pointer transition-colors ${
+                        consensusSelected.has(p.id)
+                          ? 'border-blue-400 bg-blue-50 dark:bg-blue-900/20 dark:border-blue-600'
+                          : 'border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700/50'
+                      }`}
+                    >
+                      <input
+                        type="checkbox"
+                        checked={consensusSelected.has(p.id)}
+                        onChange={() => toggleConsensusPreset(p.id)}
+                        className="accent-blue-600"
+                      />
+                      <span className="truncate font-medium text-gray-900 dark:text-white">{p.name}</span>
+                    </label>
+                  ))}
+                </div>
+              </>
+            )}
+
+            {consensusError && (
+              <div className="mb-3 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-700 rounded text-xs text-red-700 dark:text-red-300">
+                {consensusError}
+              </div>
+            )}
+
+            {consensusResults && (
+              <>
+                <div className="mb-3 p-3 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded text-xs text-blue-700 dark:text-blue-300 space-y-1">
+                  <div>
+                    <span className="font-medium">訊號日：</span>
+                    <span className="font-mono">{consensusScanDate}</span>
+                  </div>
+                  <div>
+                    共 {consensusResults.length} 檔股票被至少一個策略選入
+                    {consensusResults.filter(r => r.count >= 2).length > 0 &&
+                      ` · 其中 ${consensusResults.filter(r => r.count >= 2).length} 檔被 2+ 策略共選`}
+                  </div>
+                </div>
+
+                <div className="overflow-x-auto">
+                  <table className="w-full text-xs">
+                    <thead className="bg-gray-50 dark:bg-gray-700/50 text-gray-500 dark:text-gray-400">
+                      <tr>
+                        <th className="px-3 py-2 text-left">Ticker</th>
+                        <th className="px-3 py-2 text-left">Sub-industry</th>
+                        <th className="px-3 py-2 text-center">出現次數</th>
+                        <th className="px-3 py-2 text-left">選中的策略</th>
+                        <th className="px-3 py-2 text-right">入場價</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {consensusResults.length === 0 && (
+                        <tr><td colSpan={5} className="px-3 py-6 text-center text-gray-400">沒有任何策略選出股票</td></tr>
+                      )}
+                      {consensusResults.map(row => (
+                        <tr key={row.ticker} className="border-t border-gray-100 dark:border-gray-700">
+                          <td className="px-3 py-2 font-mono font-medium text-gray-900 dark:text-white">{row.ticker}</td>
+                          <td className="px-3 py-2 text-gray-600 dark:text-gray-400">{row.subName}</td>
+                          <td className="px-3 py-2 text-center">
+                            <span className={`inline-block px-2 py-0.5 rounded font-medium ${
+                              row.count === row.totalStrategies
+                                ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300'
+                                : row.count >= Math.ceil(row.totalStrategies / 2)
+                                  ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300'
+                                  : 'bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300'
+                            }`}>
+                              {row.count}/{row.totalStrategies}
+                            </span>
+                          </td>
+                          <td className="px-3 py-2">
+                            <div className="flex flex-wrap gap-1">
+                              {row.appearedIn.map(name => (
+                                <span key={name} className="bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 px-1.5 py-0.5 rounded text-[10px]">
+                                  {name}
+                                </span>
+                              ))}
+                            </div>
+                          </td>
+                          <td className="px-3 py-2 text-right font-mono">{row.entryPrice != null ? row.entryPrice.toFixed(2) : '—'}</td>
                         </tr>
                       ))}
                     </tbody>
