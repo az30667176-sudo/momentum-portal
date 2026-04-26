@@ -23,15 +23,15 @@ export function generateStaticParams() {
 }
 
 export function generateMetadata({ params }: { params: { slug: string } }) {
+  const issue = getIssue('weekly', params.slug)
+  if (issue) {
+    return { title: `週報第${issue.issue}期 · ${issue.title} | 輪動報告` }
+  }
   const daily = getDailyReport(params.slug)
   if (daily) {
     return { title: `日報 · ${daily.title} | 輪動報告` }
   }
-  const issue = getIssue('weekly', params.slug)
-  if (!issue) return { title: '輪動報告 | Sector Pulse' }
-  return {
-    title: `週報第${issue.issue}期 · ${issue.title} | 輪動報告`,
-  }
+  return { title: '輪動報告 | Sector Pulse' }
 }
 
 export default function DetailPage({
@@ -39,13 +39,9 @@ export default function DetailPage({
 }: {
   params: { slug: string }
 }) {
-  const daily = getDailyReport(params.slug)
-  if (daily) return <DailyDetailView report={daily} />
-
   const issue = getIssue('weekly', params.slug)
-  if (!issue) notFound()
-
-  return (
+  if (issue) {
+    return (
     <article>
       <Link
         href="/research/weekly"
@@ -157,7 +153,13 @@ export default function DetailPage({
         公開新聞所做的研究紀錄，不構成任何投資建議。所有數據截至 {issue.snapshotDate}。
       </footer>
     </article>
-  )
+    )
+  }
+
+  const daily = getDailyReport(params.slug)
+  if (daily) return <DailyDetailView report={daily} />
+
+  notFound()
 }
 
 /* ================================================================
