@@ -1204,3 +1204,80 @@ export async function runSignalScan(config: BacktestConfig): Promise<ScanSignalR
     warnings,
   }
 }
+
+export async function runBatchSignalScan(
+  configs: { name: string; config: BacktestConfig }[],
+): Promise<{ scanDate: string; results: { presetName: string; result: ScanSignalResult }[] }> {
+  const subHistory = await fetchSubHistory()
+  if (subHistory.length === 0) {
+    const empty: ScanSignalResult = {
+      scanDate: '', requestedFriday: '', holdingCount: 0,
+      holdings: [], passedSubCount: 0, selectedSubCount: 0,
+      warnings: ['no sub history available'],
+    }
+    return { scanDate: '', results: configs.map(c => ({ presetName: c.name, result: empty })) }
+  }
+
+  const requestedFriday = mostRecentFriday()
+  const idx = findSnapshotIndexAtOrBefore(subHistory, requestedFriday)
+  if (idx < 0) {
+    const empty: ScanSignalResult = {
+      scanDate: '', requestedFriday, holdingCount: 0,
+      holdings: [], passedSubCount: 0, selectedSubCount: 0,
+      warnings: [`no trading-day snapshot ≤ ${requestedFriday}`],
+    }
+    return { scanDate: '', results: configs.map(c => ({ presetName: c.name, result: empty })) }
+  }
+  const scanDate = subHistory[idx].date
+  const stockHistory = await fetchFullStockHistory()
+
+  const allTickers = new Set<string>()
+  const scanResults: {
+    name: string; config: BacktestConfig
+    passedSubCount: number; selectedSubCount: number
+    picks: { ticker: string; gics_code: string; subName: string; weight: number }[]
+    warnings: string[]
+  }[] = []
+
+  for (const { name, config } of configs) {
+    const warnings: string[] = []
+    if (scanDate !== requestedFriday) {
+      warnings.push(`requested ${requestedFriday}, using nearest trading day ${scanDate}`)
+    }
+    const { passedSubCount, selectedSubCount, picks } =
+      scanSingleDay(config, subHistory, stockHistory, idx)
+    for (const p of picks) allTickers.add(p.ticker)
+    scanResults.push({ name, config, passedSubCount, selectedSubCount, picks, warnings })
+  }
+
+  const closeMap = await fetchClosesFromYahoo(Array.from(allTickers))
+
+  const results = scanResults.map(({ name, config, passedSubCount, selectedSubCount, picks, warnings }) => {
+    const missingPrices = picks.filter(p => !closeMap.has(p.ticker)).length
+    if (missingPrices > 0) warnings.push(`${missingPrices} ticker(s) missing close prices from Yahoo`)
+
+    const slPct = config.stopLoss
+    const tpPct = config.takeProfit
+    const holdings: SignalHolding[] = picks.map(p => {
+      const entryPrice = closeMap.get(p.ticker) ?? null
+      const stopLossPrice = entryPrice != null && slPct < 0
+        ? +(entryPrice * (1 + slPct / 100)).toFixed(4) : null
+      const takeProfitPrice = entryPrice != null && tpPct > 0
+        ? +(entryPrice * (1 + tpPct / 100)).toFixed(4) : null
+      return {
+        subName: p.subName, gics_code: p.gics_code, ticker: p.ticker,
+        weight: +(p.weight ?? 0).toFixed(6), entryPrice, stopLossPrice, takeProfitPrice,
+      }
+    })
+
+    return {
+      presetName: name,
+      result: {
+        scanDate, requestedFriday, holdingCount: holdings.length,
+        holdings, passedSubCount, selectedSubCount, warnings,
+      } as ScanSignalResult,
+    }
+  })
+
+  return { scanDate, results }
+}

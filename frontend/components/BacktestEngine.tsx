@@ -707,42 +707,26 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
     setConsensusScanDate(null)
 
     try {
-      let doneCount = 0
-      const CONCURRENCY = 2
-      type ScanOk = { presetName: string; result: ScanSignalResult }
-      const results: PromiseSettledResult<ScanOk>[] = []
+      const res = await fetch('/api/consensus-scan', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          configs: selected.map(p => ({ name: p.name, config: p.config })),
+        }),
+      })
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error ?? `HTTP ${res.status}`)
 
-      for (let i = 0; i < selected.length; i += CONCURRENCY) {
-        const batch = selected.slice(i, i + CONCURRENCY)
-        const batchResults = await Promise.allSettled(
-          batch.map(async (preset) => {
-            const res = await fetch('/api/scan-signal', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ config: preset.config }),
-            })
-            const data = await res.json()
-            if (!res.ok) throw new Error(data.error ?? `HTTP ${res.status}`)
-            doneCount++
-            setConsensusProgress({ done: doneCount, total: selected.length })
-            return { presetName: preset.name, result: data as ScanSignalResult }
-          })
-        )
-        results.push(...batchResults)
+      const { scanDate, results } = data as {
+        scanDate: string
+        results: { presetName: string; result: ScanSignalResult }[]
       }
 
-      const ok: { presetName: string; result: ScanSignalResult }[] = []
-      const failed: string[] = []
-      results.forEach((r, i) => {
-        if (r.status === 'fulfilled') ok.push(r.value)
-        else failed.push(selected[i].name)
-      })
-
-      if (ok.length === 0) { setConsensusError('所有策略都掃描失敗'); return }
-      setConsensusScanDate(ok[0].result.scanDate)
+      if (results.length === 0) { setConsensusError('所有策略都掃描失敗'); return }
+      setConsensusScanDate(scanDate)
 
       const tickerMap = new Map<string, ConsensusRow>()
-      for (const { presetName, result } of ok) {
+      for (const { presetName, result } of results) {
         for (const h of result.holdings) {
           const existing = tickerMap.get(h.ticker)
           if (existing) {
@@ -756,7 +740,7 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
               gics_code: h.gics_code,
               appearedIn: [presetName],
               count: 1,
-              totalStrategies: ok.length,
+              totalStrategies: results.length,
               entryPrice: h.entryPrice,
             })
           }
@@ -766,8 +750,6 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
       const rows = Array.from(tickerMap.values())
         .sort((a, b) => b.count - a.count || a.ticker.localeCompare(b.ticker))
       setConsensusResults(rows)
-
-      if (failed.length > 0) setConsensusError(`以下策略掃描失敗：${failed.join('、')}`)
     } catch (e: any) {
       setConsensusError(e.message ?? String(e))
     } finally {
@@ -3010,7 +2992,7 @@ export function BacktestEngine({ latestData, prevData: prevDataInitial }: Props)
                 className="px-4 py-2 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white text-sm rounded"
               >
                 {consensusRunning
-                  ? `掃描中 (${consensusProgress?.done ?? 0}/${consensusProgress?.total ?? 0})…`
+                  ? '掃描中…'
                   : `🔍 跑共識掃描 (${consensusSelected.size} 個策略)`}
               </button>
             </div>
