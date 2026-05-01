@@ -1,0 +1,178 @@
+{
+  "slug": "2026-04-30",
+  "type": "daily",
+  "date": "2026-04-30",
+  "title": "CAT資料中心發電+41%推重電翻盤回#1，GOOGL +10% vs META -8.5%——AI從「花多少」切到「賺多少」",
+  "marketSentiment": "risk-on",
+  "spyReturn": 1.02,
+  "intro": "S&P 500 **+1.02%** 收 7,209，**首次站上 7,200**，4 月累計 +10.4% 是 2020 年 11 月以來最強單月。Nasdaq +1.52%。早盤因 GDP 僅 +2.0%（低於共識 2.3%）一度翻綠，但 GOOGL +10%、CAT +10%、LLY +9% 三巨頭聯手拉回。昨日三個觀察驗證：✓ GOOGL 開盤漲幅維持 > 5%（實際 +10%），半導體 `autocorr` 從 0.22 升到 **0.27** 確認趨勢走高；✓/✗ GDP +2.0% 持平門檻但 GDP deflator **4.5%** 遠超預期，stagflation 信號出現但被財報壓蓋；✗ Oil & Gas Drilling 從 #1 降到 #5（`ret_1d` -0.79%），Brent 從 $118 回落到 ~$111，但 `mom_score` 90.4 仍極強。**三條故事線。** 第一，**AI 定價分水嶺成形**——GOOGL Cloud +63%（營收 $109.9B +22%，EPS $5.11 +82%）開盤兌現盤後全部漲幅 **+10%**，但 META -8.5%（capex 上調 $125-145B，JPM 降評至 neutral），MSFT -3.9%（Azure +40% 不夠，市場要看利潤轉化）。市場從「你花了多少在 AI」切換到「你從 AI 賺了多少」。NVDA 反而 -4.6%（AI 最大受惠者卻下跌），QCOM +16%（自研晶片 + 資料中心需求爆發）——AI 供應鏈內部也在分化。第二，**重電鳳凰式回歸**——昨天標記為「結構性轉折確認」（`autocorr` -0.27）的 Heavy Electrical，今天回到 **#1**（`mom_score` 84.1 → 93.2，+9.1 pts 單日）。催化劑是 CAT 財報：Q1 **資料中心發電業務 +41%**，backlog $63B（+79%），上調全年指引到低雙位數成長。昨日的統計讀數在事件間隙期是準確的——但財報季催化劑的密度讓 `autocorr` 的半衰期壓縮到 24 小時，分析框架需要搭配催化劑日曆使用。第三，**GDP deflator 4.5% 是一顆定時炸彈**——GDP +2.0%（Q4 的 0.5% 反彈）看似尚可，但物價加速器 4.5% 是 2023 年以來最高。10Y 殖利率 **4.38%**（-4bps），市場選擇先看財報再說。LLY +8.7%（營收 $19.8B +56%，Mounjaro +125%，上調指引 $2B）獨立於 AI 主線，GLP-1 週期仍在加速。AAPL 盤後公布 Q2 營收 $111.2B（+17%），EPS $2.01 beat，盤後反彈 +1.9%。",
+  "topSectors": [
+    {
+      "name": "Heavy Electrical Equipment",
+      "gicsCode": "8D0D1D2F",
+      "momScore": 93.24,
+      "deltaRank": 6,
+      "cmf": 0.119,
+      "autocorr": 0.12,
+      "r2": 0.60,
+      "continuity": "watch",
+      "analysis": "**從昨天的「結構性轉折確認」直接翻盤回 #1**——`mom_score` 從 84.08 暴升到 **93.24**（+9.1 pts，Top 20 最大單日漲幅），排名從 #10 → **#1**（Δ+6 vs prev week）。`ret_1d` **+2.79%**，`breadth_20ma` 和 `breadth_50ma` 均 **100%**——2 支成分股全數站上均線。`autocorr` 從昨天的 -0.27 回升到 **+0.12**——方向逆轉但尚未站穩 0.2 強延續門檻。`price_trend_r2` 從昨天的 0.60 持平，趨勢品質中等。CMF 0.12 和昨天的 0.08 比略有回升。關鍵問題：昨天的 `autocorr` -0.27 讀數在事件間隙期是準確的（GEV 財報動能確實已消化），但 CAT 的資料中心發電數據注入了**全新的催化劑**——這不是舊趨勢延續，而是新事件週期啟動。需要連續 2 天 `autocorr` 維持正值才能確認。",
+      "news": "**CAT Q1 財報是今天的隱藏王者。** 營收 $17.4B（+22%），EPS $5.54（大幅超越 $4.62 預期），股價 **+9.9% 至 $890**。最關鍵的數字：**資料中心發電業務 +41%**——包括柴油/天然氣引擎、渦輪機和渦輪相關服務。Backlog 創歷史新高 **$63B**（+79%），三大部門全面成長。上調全年營收指引到「低雙位數」（原 7%）。CAT 的數字直接驗證了 GEV 所在的電力基建 super-cycle：當 hyperscaler 的 capex 加總逼近 $6,000 億（GOOGL 今天確認 $185B），這些錢需要實體發電和輸配電設備來支撐——CAT 賣發電機、GEV 賣渦輪和變壓器，都在同一條需求鏈上。",
+      "focusStocks": [
+        { "ticker": "GEV", "momScore": 92, "ret1d": 2.8, "note": "backlog $163B，受惠 CAT 驗證資料中心電力需求 super-cycle" },
+        { "ticker": "AZZ", "momScore": 88, "ret1d": 2.5, "note": "變壓器/電力保護設備，跟隨板塊反彈" }
+      ]
+    },
+    {
+      "name": "Semiconductors",
+      "gicsCode": "3DFD4B15",
+      "momScore": 84.71,
+      "deltaRank": 1,
+      "cmf": 0.255,
+      "autocorr": 0.27,
+      "r2": 0.36,
+      "continuity": "watch",
+      "analysis": "`ret_1d` **+4.42%** 是 Top 20 最大漲幅之一，`mom_score` 從 81.84 跳升到 **84.71**（+2.87），終於突破前 4 天的 81-82 穩態區間。**`autocorr` 0.27 是連續第 5 天維持在 0.2 以上**（4/24: 0.34 → 4/25: 0.30 → 4/28: 0.20 → 4/29: 0.22 → 今天 0.27），且今天首度回升——動能自我強化結構不僅沒有瓦解，反而在 GOOGL Cloud +63% 的財報驗證下加速。CMF **0.255**（從 0.21 大幅升高），資金流入加速。`breadth_20ma` **93.5%**、`breadth_50ma` **96.8%**——31 支成分股幾乎全部站上均線。但 `price_trend_r2` 0.36 極低，代表漲幅集中在事件日（Intel +23% / GOOGL +10%）而非線性上升。NVDA -4.6% 是個值得注意的矛盾——AI capex 最大受惠者反而下跌，而 QCOM +16%（自研晶片 + 資料中心 CPU 需求）、AVGO 等走強，暗示市場正在重新分配 AI 供應鏈內部的定價權。",
+      "news": "**GOOGL Cloud +63% 是半導體板塊今天的直接催化劑。** Alphabet Q1 營收 $109.9B（+22%），Cloud 營收逼近 $20B，backlog 環比幾乎翻倍。Pichai 再次強調「短期算力受限」——這代表 Google 會繼續加碼購買更多晶片。GOOGL capex 上調至 **$185B**。但另一面：NVDA -4.6%（儘管所有 hyperscaler 都在加碼 AI capex），QCOM 卻 +16%（資料中心 CPU 需求爆發 + 自研晶片故事）。市場正在區分「AI 軍火商」——不是所有半導體都等值受惠，能提供差異化能力的（QCOM 的 Nuvia 架構）比純算力供應商（NVDA 面臨競爭壓力）更受青睞。",
+      "focusStocks": [
+        { "ticker": "QCOM", "momScore": 88, "ret1d": 16.0, "note": "資料中心 CPU 需求爆發，自研晶片故事被市場重新定價" },
+        { "ticker": "AVGO", "momScore": 86, "ret1d": 3.5, "note": "AI 網路晶片龍頭，受惠 hyperscaler capex 加碼" }
+      ]
+    },
+    {
+      "name": "Oil & Gas Drilling",
+      "gicsCode": "738405E7",
+      "momScore": 90.36,
+      "deltaRank": 8,
+      "cmf": 0.135,
+      "autocorr": 0.13,
+      "r2": 0.73,
+      "continuity": "watch",
+      "analysis": "從昨天的 **#1 退到 #5**，`ret_1d` -0.79%，但 `mom_score` 90.36（從 88.93 再升 +1.4）——排名下滑是因為 Heavy Electrical 和 Electronic Components 的暴漲壓縮了截面位置，不是 Drilling 本身惡化。`autocorr` 從 0.06 升到 **0.13**，方向正確但仍低於 0.2 門檻。`price_trend_r2` **0.73** 穩定在高位，中期趨勢品質好。CMF 0.135（從 0.12 微升），資金流入持續但不急促。`breadth_20ma` 和 `breadth_50ma` 均 100%，4 支成分股全數同步。`rvol` 降到 1.03（正常量），昨天 Brent +6% 的爆量已消化。Brent 從 $118 回落到 ~$111，利潤回吐明顯，但 Hormuz 封鎖的結構性因素未變——油價的下行空間有限。",
+      "news": "Brent 從昨日的 $118 高點回落到 $111 附近，盤中一度觸及 $114。Trump 將聽取對伊朗擴大軍事選項的簡報，地緣風險未解除但市場注意力被財報季搶走。全美汽油均價維持在 $4.23/加侖 以上。Baker Hughes 鑽井數據顯示北美鑽探活動仍在上升軌道——Brent $110+ 的油價水準讓幾乎所有北美頁岩油田都有利可圖。",
+      "focusStocks": [
+        { "ticker": "HP", "momScore": 86, "ret1d": -0.5, "note": "油價回落但北美鑽探活動仍在擴張" },
+        { "ticker": "NBR", "momScore": 82, "ret1d": -1.0, "note": "全球鑽探服務，Hormuz 維持封鎖支撐需求" }
+      ]
+    },
+    {
+      "name": "Data Center REITs",
+      "gicsCode": "5E2B6876",
+      "momScore": 86.19,
+      "deltaRank": -3,
+      "cmf": 0.283,
+      "autocorr": 0.33,
+      "r2": 0.84,
+      "continuity": "strong",
+      "analysis": "**連續第 5 天維持全 Top 20 最優質的趨勢結構。** `autocorr` **0.33** + `price_trend_r2` **0.84**——高自相關 × 高趨勢品質的組合持續穩固。`mom_score` 86.19（從 85.54 微升 +0.65），`ret_1d` +1.35%。排名從 #7 小退到 #9（Δ-3 vs prev week），是因為 EMS 和 Drilling 的暴漲壓縮位置，非 DC REITs 自身走弱。CMF **0.283** 居全 Top 20 之冠——遙遙領先第二名（Semiconductors 0.255）。`sharpe_8w` **4.93** 也是 Top 20 前段。`breadth_20ma` 和 `breadth_50ma` 均 100%。板塊只有 2 支成分股（DLR、EQIX），但完全同步。GOOGL 今天確認 capex **$185B**（Cloud backlog 翻倍），加上昨天 MSFT $190B 和 META $125-145B——hyperscaler 合計 $5,000 億+ 的實體基建支出，最終都需要資料中心容量。DC REITs 是 AI capex 的「賣鏟人」，且趨勢數據證明這不是短期炒作。",
+      "news": "GOOGL 今天確認 FY26 capex $185B，Cloud backlog 環比近翻倍。加上昨日 MSFT $190B、META $125-145B，三家合計超過 $5,000 億。DLR（Digital Realty）和 EQIX（Equinix）是全球最大的第三方資料中心營運商，直接受惠這波 capex 浪潮。DLR Q1 預租賃持續創新高，2026 年開發 pipeline 達 $15B。值得注意的是 GOOGL Pichai 再次說「短期算力受限」——這意味更多急單和更高的租金定價權。",
+      "focusStocks": [
+        { "ticker": "DLR", "momScore": 85, "ret1d": 1.5, "note": "全球最大 DC REIT，預租賃持續創新高" },
+        { "ticker": "EQIX", "momScore": 84, "ret1d": 1.2, "note": "互聯互通龍頭，CMF 居 Top 20 之冠" }
+      ]
+    },
+    {
+      "name": "Construction & Engineering",
+      "gicsCode": "787C9D0B",
+      "momScore": 79.56,
+      "deltaRank": 3,
+      "cmf": 0.091,
+      "autocorr": -0.15,
+      "r2": 0.49,
+      "continuity": "noise",
+      "analysis": "**昨天的警示板塊今天以 +7.15% 反彈回 Top 20。** `ret_1d` **+7.15%** 是今天全 Top 20 最大單日漲幅。`mom_score` 從 74.01 回升到 **79.56**（+5.5 pts），排名從 #19 升到 #16（Δ+3 vs prev week）。但延續性指標仍然偏弱：`autocorr` **-0.15**（從昨天的 -0.29 回升，但還是負值），`price_trend_r2` 0.49（趨勢模糊）。`breadth_20ma` **94.1%** 從昨天的 76.5% 大幅回升——表面看像是全面反彈，但 `rvol` 1.60（放量反彈）+ `autocorr` 負值的組合更像是「超跌反彈」而非趨勢重建。CAT +10% 的財報直接帶動了整條基建供應鏈：DY（Dycom）、MTZ（MasTec）等 C&E 成分股同步跟漲。和 Heavy Electrical 類似，CAT 是外部催化劑——但 C&E 的 `autocorr` 沒有像重電那樣翻正，代表反彈品質較差。",
+      "news": "CAT 的 $63B backlog（+79%）直接惠及基建供應鏈。C&E 板塊的 DY（Dycom）專注電信/光纖基建、MTZ（MasTec）做大型基建工程、PWR（Quanta）做電網和再生能源——這些公司是 CAT 設備的下游使用者和工程執行者。同時 CHIPS Act 工廠建設進度加速（Intel 俄亥俄 + TSMC 亞利桑那），也為 C&E 板塊提供中長期訂單能見度。但短線漲 7% 後需要冷卻。",
+      "focusStocks": [
+        { "ticker": "MTZ", "momScore": 78, "ret1d": 7.5, "note": "大型基建工程，受惠 CAT backlog 爆發" },
+        { "ticker": "DY", "momScore": 76, "ret1d": 6.8, "note": "電信/光纖基建龍頭，5G + 資料中心佈線需求" }
+      ]
+    }
+  ],
+  "warningSectors": [
+    {
+      "name": "Application Software",
+      "gicsCode": "05F28EE1",
+      "momentumDecay": 1.66,
+      "deltaRank": 0,
+      "consecutiveDays": 5,
+      "reason": "**連續穩坐 #155 死尾（Δ0），結構性底部毫無改善跡象。** `mom_score` 13.21 是全市場最低。40 支成分股，`breadth_20ma` 57.5%、`breadth_50ma` 僅 **37.5%**——近三分之二跌破 50 日均線。`ret_3m` **-8.8%**、`ret_6m` -24.8%。`autocorr` **-0.31** 深度負值，均值回歸傾向強。CMF 0.003 接近零——既沒有資金流入，也沒有恐慌出逃，市場對這個板塊完全冷漠。",
+      "news": "MSFT 今天 -3.9% 是 Application Software 板塊情緒的縮影。儘管 Azure +40%，市場認為 MSFT 的 $190B capex 回報率不夠清晰——對比 GOOGL Cloud +63% 帶動 +10% 的反差極其鮮明。SaaS 估值在高利率環境下持續承壓：10Y 4.38% + GDP deflator 4.5% 意味 Fed 降息遙遙無期，成長股折現率維持高位。CRM、ADBE、NOW 等 SaaS 龍頭 YTD 全面落後大盤。",
+      "action": "結構性底部，短線反彈都不值得追。除非 Fed 轉鴿或某家 SaaS 龍頭公布突破性的 AI 貨幣化數字（目前還沒看到），否則迴避。"
+    },
+    {
+      "name": "Insurance Brokers",
+      "gicsCode": "95BF86A5",
+      "momentumDecay": 2.47,
+      "deltaRank": -2,
+      "consecutiveDays": 3,
+      "reason": "**主動賣壓明顯。** `ret_1d` **-3.59%** 搭配 `rvol` **1.76**（近 2 倍放量下跌），這不是溫和的獲利了結。`mom_score` 16.40，排名 #154（Δ-2）。`breadth_20ma` 12.5%、`breadth_50ma` **0%**——8 支成分股**沒有任何一支**站在 50 日均線之上，板塊已全面破位。`autocorr` **-0.34** 是 Bottom 10 裡最深的負值之一，均值回歸壓力極大。`ret_6m` -23.2%、`ret_12m` -32.9%。",
+      "news": "保險經紀股在高利率環境下反而走弱——理論上利率上升利好保險業投資收益，但市場擔心的是更高的理賠成本（通膨推升醫療/財產理賠）和 2026 年以來颶風/野火引發的再保險成本飆升。GDP deflator 4.5% 進一步壓低降息預期，理賠成本通膨沒有緩和的跡象。",
+      "action": "`breadth_50ma` 0% + `rvol` 1.76 放量下跌 = 板塊全面崩潰中。純粹迴避，不要試圖抄底。等 `breadth_50ma` 回升到 25%+ 再觀察。"
+    },
+    {
+      "name": "Data Processing & Outsourced Services",
+      "gicsCode": "8CC1BC08",
+      "momentumDecay": 10.20,
+      "deltaRank": -8,
+      "consecutiveDays": 1,
+      "reason": "**單日 Δrank -8（#139 → #147）是今天 Bottom 20 裡排名惡化最快的板塊之一。** `mom_score` 21.01，`ret_3m` **-21.5%**、`ret_6m` -22.4%。`breadth_20ma` 28.6%、`breadth_50ma` 28.6%——7 支成分股只有 2 支還在均線之上。CMF **-0.028** 資金持續流出。`rvol` 1.50 放量下行。這個板塊包含非 AI 的 IT 服務和外包公司——在 AI 重新定義所有 IT 服務的年代，傳統外包/數據處理被市場視為「被 AI 取代」的最大受害者。",
+      "news": "在 GOOGL 和 MSFT 都在大談 AI 自動化的今天，傳統 IT 外包和數據處理公司的價值主張遭到根本質疑。今天 GOOGL +10% 和 META -8.5% 的分化本質上是在問：你是 AI 的贏家還是被取代者？Data Processing 板塊裡的傳統 BPO/IT 服務公司顯然被市場歸類為後者。",
+      "action": "Δrank -8 + `breadth` 雙雙跌到 28.6% = 正在加速惡化。結構性逆風（AI 取代傳統 IT 服務），短期無催化劑。"
+    }
+  ],
+  "fiveDayTrend": [
+    {
+      "name": "Heavy Electrical Equipment",
+      "gicsCode": "8D0D1D2F",
+      "days": ["2026-04-24", "2026-04-25", "2026-04-28", "2026-04-29", "2026-04-30"],
+      "momScore": [87.78, 89.53, 83.64, 84.08, 93.24],
+      "cmf": [0.06, 0.11, 0.17, 0.08, 0.12],
+      "deltaRank": [-5, 3, -1, -7, 6],
+      "rvol": [1.24, 1.24, 1.20, 1.27, 1.01],
+      "interpretation": "**鳳凰曲線。** `mom_score` 軌跡 87.8 → 89.5 → 83.6 → 84.1 → **93.2**——4/23 GEV 財報的事件動能在 4/28-29 完全消化（-6 pts），然後 4/30 CAT 資料中心發電 +41% 注入全新催化劑，一天暴漲 +9.1 pts 創 5 天新高。`autocorr` 軌跡 0.05 → 0.08 → -0.28 → -0.27 → **+0.12**：昨天的 -0.27 確認了 GEV 動能消化，今天翻正代表新事件週期啟動，但需要連續 2 天正值才能確認。**重點：在財報密集期，事件間隙的統計訊號半衰期只有 24 小時。**"
+    },
+    {
+      "name": "Semiconductors",
+      "gicsCode": "3DFD4B15",
+      "days": ["2026-04-24", "2026-04-25", "2026-04-28", "2026-04-29", "2026-04-30"],
+      "momScore": [82.97, 81.80, 81.83, 81.84, 84.71],
+      "cmf": [0.22, 0.22, 0.24, 0.21, 0.26],
+      "deltaRank": [3, -3, -3, 0, 1],
+      "rvol": [1.87, 1.34, 1.32, 1.31, 1.54],
+      "interpretation": "**穩態突破。** 前 4 天 `mom_score` 鎖定在 81.8-83.0 的窄幅區間，今天 GOOGL Cloud +63% + QCOM +16% 的雙催化劑終於把分數推到 **84.7**——突破了 4/24 以來的盤整上緣。`autocorr` 軌跡 0.34 → 0.30 → 0.20 → 0.22 → **0.27**：穩定在 0.2 門檻之上，且今天首度回升。CMF 從 0.21 跳到 **0.26**，`rvol` 從 1.31 升到 1.54（量能配合放大）。**半導體正在從「穩態」切換到「加速」模式。** 但 NVDA -4.6% 和 QCOM +16% 的反差提醒：不是所有半導體都等值受惠，AI 供應鏈內部的分化正在加速。"
+    },
+    {
+      "name": "Oil & Gas Drilling",
+      "gicsCode": "738405E7",
+      "days": ["2026-04-24", "2026-04-25", "2026-04-28", "2026-04-29", "2026-04-30"],
+      "momScore": [80.85, 84.78, 80.88, 88.93, 90.36],
+      "cmf": [0.05, 0.05, 0.10, 0.12, 0.13],
+      "deltaRank": [4, 4, -2, 6, 8],
+      "rvol": [1.10, 1.30, 1.19, 1.21, 1.03],
+      "interpretation": "**動能穩定化。** 從 4/29 的 V 型暴漲（80.9 → 88.9）到今天 **90.4**（+1.4），漲勢從「事件爆發」轉為「趨勢鞏固」。CMF 軌跡 0.05 → 0.05 → 0.10 → 0.12 → **0.13**——資金流入穩步加速，5 天翻了 2.6 倍。`autocorr` 軌跡 0.14 → 0.14 → -0.08 → 0.06 → **0.13**——方向正確，逐步接近 0.2 門檻。`rvol` 從事件日的 1.21-1.30 回落到正常的 1.03。**Brent 從 $118 回到 $111 沒有摧毀動能——說明 Drilling 的中期結構已經從「事件驅動」過渡到「趨勢驅動」。**"
+    }
+  ],
+  "conclusion": "財報季的定價力壓過 GDP 通膨信號——GOOGL +10%、CAT +10%、LLY +9% 三巨頭同日創造的敘事動力，比 GDP deflator 4.5% 的數字更有感。市場正在進入「看獲利、暫時忽略宏觀」的模式。但財報季即將收尾，當催化劑密度下降，GDP deflator 4.5% 和 10Y 4.38% 就是唯一的定價因子——那時 Application Software 的結構性底部和 Insurance Brokers 的全面崩潰，可能不再只是 Bottom 10 的事。",
+  "continuityAssessment": "趨勢維持但領導權 24 小時內可翻轉 —— Heavy Electrical 從警示翻盤回 #1，半導體 autocorr 0.27 確認延續且首度回升，DC REITs autocorr 0.33 + r2 0.84 仍是全市場最穩的趨勢信號。但今天的教訓很明確：在催化劑密集的財報季，autocorr 的預測力會被大幅壓縮。昨天 -0.27 的「結構性轉折」在 24 小時後被 CAT 資料中心發電 +41% 徹底推翻——框架有效，但需要搭配財報日曆使用。下週財報密度下降後，統計訊號的可靠度會回升。",
+  "tomorrowWatch": [
+    "**AAPL 盤後 beat 的開盤反應是 5/1 第一個催化劑。** 營收 $111.2B（+17%），iPhone 17 史上最強首發，但 Cook 警告「記憶體成本顯著上升」。如果開盤維持盤後 +1.9% 的漲幅，確認「財報 > 宏觀」的主導邏輯；如果 sell the news，代表市場對財報季的容忍度已到極限。觀察 Tech Hardware（#8）是否因 AAPL 走強繼續留在 Top 10。",
+    "**ISM Manufacturing PMI（5/1 公布）是 GDP deflator 之後的第二顆炸彈。** 4 月共識約 50。若跌破 48，結合 GDP +2.0% 和物價加速器 4.5%，「成長放緩 + 通膨加速」的 stagflation 敘事將從市場邊緣進入主流。利率敏感型板塊（Application Software、SaaS）可能承受新一輪壓力。若 ISM > 50，市場可繼續忽略宏觀。",
+    "**Heavy Electrical autocorr 需要連續 2 天正值。** 今天從 -0.27 翻正到 +0.12 是好的開始，但一天不代表趨勢。如果明天 `autocorr` 維持正值且 GEV 穩住不回吐，代表 CAT 催化劑確實啟動了新事件週期；如果再度翻負（回到 < -0.1），今天的 +9.1 pts 就只是超跌反彈。同樣邏輯適用於 C&E（今天 `autocorr` -0.15，需要改善到 -0.05 以上）。"
+  ],
+  "sources": [
+    { "title": "Yahoo Finance — Stock market today Apr 30: S&P 500, Nasdaq turn around early declines thanks to LLY, CAT, and Alphabet", "url": "https://finance.yahoo.com/markets/stocks/articles/stock-market-today-apr-30-151918957.html" },
+    { "title": "TheStreet — Stock Market Today Apr 30: S&P 500 caps off best month since 2020 as Alphabet rallies, Apple beats", "url": "https://www.thestreet.com/latest-news/stock-market-today-apr-30-2026-updates" },
+    { "title": "Motley Fool — Stock Market Today April 30: Alphabet surges after Google Cloud growth", "url": "https://www.fool.com/coverage/stock-market-today/2026/04/30/stock-market-today-april-30-alphabet-surges-after-reporting-accelerating-google-cloud-growth/" },
+    { "title": "CNBC — Alphabet Q1 2026: Cloud revenue accelerates to +63%, capex $185B", "url": "https://www.cnbc.com/2026/04/29/alphabet-googl-q1-2026-earnings.html" },
+    { "title": "CNBC — Meta stock sinks after raising 2026 AI capex to $125-145B", "url": "https://www.cnbc.com/2026/04/29/meta-q1-earnings-report-2026.html" },
+    { "title": "Motley Fool — Meta falls as higher AI capex outlook overshadows strong Q1 results", "url": "https://www.fool.com/coverage/stock-market-today/2026/04/30/stock-market-today-april-30-meta-falls-as-higher-ai-capex-outlook-overshadows-strong-q1-results/" },
+    { "title": "Yahoo Finance — Caterpillar stock jumps: record backlog, boom in data center equipment", "url": "https://finance.yahoo.com/markets/article/caterpillar-stock-jumps-after-first-quarter-earnings-as-company-highlights-record-backlog-boom-in-data-center-equipment-130525289.html" },
+    { "title": "CNBC — Caterpillar Q1: Revenue $17.4B (+22%), data center power generation +41%", "url": "https://www.cnbc.com/2026/04/30/caterpillar-cat-q1-earnings.html" },
+    { "title": "BEA — GDP Advance Estimate Q1 2026: +2.0%", "url": "https://www.bea.gov/news/2026/gdp-advance-estimate-1st-quarter-2026" },
+    { "title": "Fox Business — US economy grows 2% in Q1, missing expectations of 2.3%", "url": "https://www.foxbusiness.com/economy/us-economy-q1-2026-advance" },
+    { "title": "CNBC — Stocks making biggest moves midday: QCOM, LLY, META, MSFT", "url": "https://www.cnbc.com/2026/04/30/stocks-making-the-biggest-moves-midday-qcom-htz-lly-meta-msft.html" },
+    { "title": "Yahoo Finance — Qualcomm stock surges on data center demand, Eli Lilly lifts outlook", "url": "https://finance.yahoo.com/video/qualcomm-stock-surges-on-data-center-demand-eli-lilly-lifts-outlook-150646566.html" },
+    { "title": "CNBC — Apple Q2 2026: Revenue $111.2B (+17%), EPS $2.01 beat", "url": "https://www.cnbc.com/2026/04/30/apple-aapl-q2-2026-earnings-report.html" },
+    { "title": "Fortune — Current price of oil as of April 30, 2026", "url": "https://fortune.com/article/price-of-oil-04-30-2026/" }
+  ]
+}
