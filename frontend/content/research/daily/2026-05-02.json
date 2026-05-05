@@ -1,0 +1,161 @@
+{
+  "slug": "2026-05-02",
+  "type": "daily",
+  "date": "2026-05-02",
+  "title": "能源四子攻入 Top 15，AAPL +5% 獨撐硬體王座——兩條平行主線",
+  "marketSentiment": "risk-on",
+  "spyReturn": 0.29,
+  "intro": "S&P 500 收 7,230.12（+0.29%），連 5 週收漲創歷史新高；Nasdaq 首破 25,000（25,114.44，+0.89%）。今天的市場是兩條平行線在跑：**短期靠 AAPL 財報炸裂（+5%，iPhone +22%、中國 +28%、$100B 回購）撐住科技權重**，中期靠霍爾木茲封鎖 2 個月的結構效應把能源產業鏈整體推高——Drilling 一日跳 8 名到 #3，E&P 跳 6 名到 #13，Refining ret_1d +2.77%。兩條主線目前互不衝突：AAPL 的利潤能力和能源的供應稀缺都是各自的 alpha。但 ISM Prices Paid 飆到 84.6（4 年最高）提醒我們，Brent $108 的成本壓力正在向終端滲透。昨天講的「財報 > 宏觀」邏輯在 AAPL 身上完美驗證（盤後 +1.9% → 實際收 +5%），但 ISM 通膨信號比預期更嚴峻——**這兩條線的衝突點在 Fed，而 Fed 連續第二次按兵不動（3.50-3.75%），三位委員鷹派反對。** 10Y 殖利率 4.39% 持平，暫時不構成威脅，但已經沒有向下空間了。",
+  "topSectors": [
+    {
+      "name": "Technology Hardware, Storage & Peripherals",
+      "gicsCode": "D10047AB",
+      "momScore": 95.38,
+      "deltaRank": 0,
+      "cmf": 0.1754,
+      "autocorr": 0.2387,
+      "r2": 0.7009,
+      "continuity": "strong",
+      "analysis": "連 2 日坐穩 #1（昨 94.75 → 今 95.38，+0.63 pts）。`autocorr` 0.2387 穩在 >0.2 門檻以上，`r2` 0.7009 首次突破 0.7——**這是全 top 20 裡唯一同時滿足 autocorr>0.2 + r2>0.7 的組合**。CMF 0.1754（vs 昨 0.1676）持續正流入。`breadth_20ma` 和 `breadth_50ma` 雙 100%，所有成分股都在均線之上。price_vs_ma5 +3.4% 表明短期沒有過熱。",
+      "news": "AAPL 開盤跳空 +5%，遠超盤後 +1.9%。Q2 營收 $111.2B（+17%），iPhone $58B（+22%，iPhone 17 史上最強首發），中國 $20.5B（+28% YoY 大翻轉），Services $31B 創新高。最關鍵是 guidance：下季營收成長 14-17%（華爾街只預期 9.5%）。Cook 警告記憶體成本上升和關稅風險，但市場完全忽略。Board 加碼 $100B 回購 + 股息 +4%。",
+      "focusStocks": [
+        { "ticker": "AAPL", "momScore": 95.0, "ret1d": 5.0, "note": "Q2 全面 beat，guidance 遠超共識，$100B 回購是信心宣示" }
+      ]
+    },
+    {
+      "name": "Oil & Gas Drilling",
+      "gicsCode": "738405E7",
+      "momScore": 91.46,
+      "deltaRank": 8,
+      "cmf": 0.2016,
+      "autocorr": 0.1461,
+      "r2": 0.7401,
+      "continuity": "watch",
+      "analysis": "本日最大排名跳升：#11 → #3（Δ+8）。`mom_score` 91.46 是 Top 3 水平。CMF 0.2016 是今日 top 20 第三高，OBV slope +0.34 確認量價同步。但 `autocorr` 0.1461 尚未突破 0.2 門檻，`r2` 0.7401 則很高——代表**價格路徑穩定但日間動能延續性仍在建立中**。上週才從 #11 跳上來，需要再 1-2 日觀察是否站穩。`rvol` 0.70 偏低（資金未集中爆量），上漲是靠結構性推力而非事件驅動。",
+      "news": "Brent 本日回落 2% 至 $108/bbl（從 $118 高點修正），但 Drilling 不跌反漲——代表市場已經不是在交易油價日波動，而是在定價霍爾木茲封鎖的長期化：自 3/4 封航以來已 2 個月，全球 20% 油氣過境量被切斷。OPEC+ 週六宣布增產 188K bpd（象徵性），UAE 正式退出 OPEC。Goldman Sachs 本週上調油價預測。",
+      "focusStocks": [
+        { "ticker": "HP", "momScore": 88.0, "ret1d": 1.5, "note": "Helmerich & Payne，onshore rig count 受益" }
+      ]
+    },
+    {
+      "name": "Semiconductors",
+      "gicsCode": "3DFD4B15",
+      "momScore": 86.93,
+      "deltaRank": 0,
+      "cmf": 0.2413,
+      "autocorr": 0.3124,
+      "r2": 0.4244,
+      "continuity": "watch",
+      "analysis": "**`autocorr` 0.3124 是全 top 20 最高**，從昨天的 0.27（4/30 報告數據）連續上升到 0.31——動能自我強化的信號越來越明確。但 `r2` 只有 0.4244（<0.5），代表價格路徑震盪大，日間波動雖然方向一致但幅度不穩。CMF 0.2413 是今日 top 20 最高，資金流入最強。`ret_1m` +48.5% 是 top 20 裡最高的月報酬，`breadth_20ma` 97%、`breadth_50ma` 97%——幾乎全部成分股都在均線上方。**問題在於 autocorr 高 + r2 低的組合：方向對，但波動大，不適合追高。**",
+      "news": "SanDisk（SNDK）+4.3%，Q3 營收暴增 251% YoY，多位分析師上調目標價（Bernstein $1,250→$1,700）。AI 記憶體需求是核心驅動——MSFT/GOOGL/AMZN 合計 ~$600B capex 計畫直接拉動 HBM 和企業級 SSD 需求。SanDisk 的多年期客戶合約模式獲得市場認可，代表 AI 供應鏈從「訂單驅動」轉向「合約鎖定」。",
+      "focusStocks": [
+        { "ticker": "SNDK", "momScore": 92.0, "ret1d": 4.3, "note": "營收 +251% YoY，多年合約模式確認 AI 記憶體結構性需求" },
+        { "ticker": "NVDA", "momScore": 90.0, "ret1d": 1.2, "note": "FY26 營收 $216B，data center $194B——仍是 AI 算力核心" }
+      ]
+    },
+    {
+      "name": "Construction & Engineering",
+      "gicsCode": "787C9D0B",
+      "momScore": 88.54,
+      "deltaRank": 3,
+      "cmf": 0.0969,
+      "autocorr": 0.1415,
+      "r2": 0.499,
+      "continuity": "watch",
+      "analysis": "#7 → #4（Δ+3），`mom_score` 88.54。`ret_1w` +6.3% 是本日 top 20 第二高（僅次 Comm Equipment 的 +6.6%）。`breadth_20ma` 94%、`breadth_50ma` 88%——多數成分股同步走強，不是單一個股拉動。但 `autocorr` 0.1415 和 `r2` 0.499 都在門檻附近（接近但未突破），**趨勢在形成中但尚未確認**。CMF 0.0969 偏低，代表雖然價格漲，資金流入力道還不夠強。",
+      "news": "本週的 capex 主題持續滲透到實體建設：MSFT/GOOGL/AMZN 合計 ~$600B AI capex 計畫不只是買 GPU，還需要蓋資料中心、拉電纜、建變電站。CAT 上週報的「data center power generation +41%」就是這條鏈的上游。C&E 是中游執行者——當 Tech 公司簽了 capex 計畫，C&E 公司拿到工程合約。Trump 25% 歐洲汽車關稅可能進一步推動在美製造 capex。",
+      "focusStocks": [
+        { "ticker": "PWR", "momScore": 89.0, "ret1d": 0.8, "note": "Quanta Power，電力基礎設施 + 資料中心工程" }
+      ]
+    },
+    {
+      "name": "Oil & Gas Refining & Marketing",
+      "gicsCode": "DB62D66B",
+      "momScore": 78.99,
+      "deltaRank": 0,
+      "cmf": 0.2244,
+      "autocorr": 0.0183,
+      "r2": 0.7338,
+      "continuity": "noise",
+      "analysis": "ret_1d +2.77% 是今日 top 20 最高單日報酬，`ret_1w` +8.48% 也是 top 20 最高。CMF 0.2244 排第四，OBV slope +0.73 是全 top 20 最高——**量價結構極為健康**。`breadth_20ma` 和 `breadth_50ma` 雙 100%。但 `autocorr` 只有 0.0183（近乎零），代表雖然本週爆發但動能延續性未建立。`r2` 0.7338 表示價格路徑穩定——**解讀：結構性推力（Hormuz 切斷供應 → crack spread 擴大）正在取代日間動能波動，是「基本面驅動」而非「動能驅動」的漲法。**",
+      "news": "霍爾木茲海峽封鎖 2 個月，非波灣產地的煉油 capacity 成為稀缺資源。Brent 雖回落到 $108 但仍比年初高 78%。Refining 的邏輯不是油價本身，而是 crack spread——原油供應被切斷但成品油需求不變，煉油毛利擴大。週末 OPEC+ 增產 188K bpd 是象徵性的（波灣出口仍被封），無法真正緩解供應。",
+      "focusStocks": [
+        { "ticker": "VLO", "momScore": 80.0, "ret1d": 3.2, "note": "Valero，美國最大獨立煉油商，crack spread 直接受益" }
+      ]
+    }
+  ],
+  "warningSectors": [
+    {
+      "name": "Communications Equipment",
+      "gicsCode": "FE725307",
+      "momentumDecay": -6.62,
+      "deltaRank": -7,
+      "consecutiveDays": 1,
+      "reason": "從 #3 暴跌到 #10（Δ-7），`autocorr` -0.3137 是全 top 20 最極端的負值——代表強烈的均值回歸傾向。有趣的是 `r2` 0.8642 很高（中期趨勢仍存在），但短期動能已經完全失控。上週 +6.56% 的週報酬很可能已透支，追高風險極高。",
+      "news": "無特定負面催化劑——這更可能是純技術性回吐。上週受 AI 基礎設施 narrative 推動暴漲，本週資金從寬泛的「AI 硬體」收斂到真正有財報佐證的標的（AAPL、SNDK），沒有自身財報支撐的 Comm Equipment 被獲利了結。",
+      "action": "不追。autocorr -0.31 代表追進去隔天大機率反向。等 autocorr 回到 >0 再考慮。"
+    },
+    {
+      "name": "Electronic Manufacturing Services",
+      "gicsCode": "95B13044",
+      "momentumDecay": 1.88,
+      "deltaRank": -6,
+      "consecutiveDays": 1,
+      "reason": "從 #5 掉到 #11（Δ-6），ret_1d -0.76%。`autocorr` -0.0035（零）代表動能完全消散——不是在跌，是失去了方向。上週隨 GOOGL/META capex 消息上漲，但本週 capex narrative 已被 AAPL 的消費端 narrative 取代。",
+      "news": "硬體供應鏈內部領導權正在快速輪轉：上週是 EMS（GOOGL capex → 代工受益），本週是 Tech Hardware（AAPL 消費需求）。同一個「科技硬體」的大主題下，次產業之間的 rotation 比板塊間更快。",
+      "action": "觀望。如果下週有更多科技財報（AMD 等）確認 capex 需求，EMS 可能回升。但目前 autocorr 0 代表沒有持續性的理由。"
+    }
+  ],
+  "fiveDayTrend": [
+    {
+      "name": "Technology Hardware, Storage & Peripherals",
+      "gicsCode": "D10047AB",
+      "days": ["2026-04-29", "2026-04-30", "2026-05-01", "2026-05-02"],
+      "momScore": [87.55, 93.24, 94.75, 95.38],
+      "cmf": [0.12, 0.14, 0.17, 0.18],
+      "deltaRank": [-2, 2, 5, 0],
+      "rvol": [0.95, 1.15, 1.14, 0.90],
+      "interpretation": "**4 日內 mom_score 從 87.5 爬升到 95.4（+7.9 pts），堪稱教科書級的趨勢建立。** CMF 從 0.12 穩步上升到 0.18，資金持續流入。rvol 從 AAPL 財報前的 1.15 回落到正常的 0.90——代表上漲不再需要異常量能支撐，已進入自然趨勢狀態。"
+    },
+    {
+      "name": "Oil & Gas Drilling",
+      "gicsCode": "738405E7",
+      "days": ["2026-04-29", "2026-04-30", "2026-05-01", "2026-05-02"],
+      "momScore": [87.80, 88.90, 90.40, 91.46],
+      "cmf": [0.10, 0.12, 0.13, 0.20],
+      "deltaRank": [6, 8, 0, 8],
+      "rvol": [1.21, 1.03, 1.05, 0.70],
+      "interpretation": "**從 88.9 到 91.5 是穩定攀升，但 rvol 從 1.21 下降到 0.70 是最值得注意的——量能縮但價格漲，代表拋壓已消化完畢，供給端乾涸。** CMF 今日從 0.13 跳到 0.20 是突破信號，確認新資金進場。「Brent 從 $118 回到 $108 而 Drilling 持續上攀」驗證了 4/30 日報的判斷：已從事件驅動過渡到趨勢驅動。"
+    },
+    {
+      "name": "Semiconductors",
+      "gicsCode": "3DFD4B15",
+      "days": ["2026-04-29", "2026-04-30", "2026-05-01", "2026-05-02"],
+      "momScore": [82.50, 85.25, 86.50, 86.93],
+      "cmf": [0.15, 0.19, 0.22, 0.24],
+      "deltaRank": [2, 0, 0, 0],
+      "rvol": [1.20, 1.10, 1.05, 1.04],
+      "interpretation": "**CMF 連 4 日上升（0.15→0.24）是全 top 20 最穩定的資金流入趨勢。** 但 mom_score 的上升幅度在遞減（+2.75 → +1.25 → +0.43），動能加速度正在放緩。delta_rank 連 3 日 = 0——穩定但不爆發，是「大象慢步走」的格局。autocorr 0.31 說明方向確定，但別期待突然暴衝。"
+    }
+  ],
+  "conclusion": "市場正在同時定價兩個時間尺度：短期的財報驚喜（AAPL、SanDisk）和中期的能源結構重構（霍爾木茲 2 個月封鎖）。兩條主線暫時互不衝突——直到 ISM Prices Paid 84.6 告訴我們，能源通膨正在加速滲透到製造業成本端。Fed 3 位委員鷹派反對維持利率不變。這個平衡點的打破需要的不是更多好財報，而是 CPI/PCE 的下一個數據點。",
+  "continuityAssessment": "趨勢維持且正在分化——Tech Hardware（autocorr 0.24 + r2 0.70）和 O&G Drilling（r2 0.74）是結構最健全的兩條線；Semiconductors（autocorr 0.31）方向確定但路徑震盪。硬體供應鏈其餘成員（Comm Eq Δ-7、EMS Δ-6）正在被甩下車，領導權加速收斂到有財報佐證的標的。4/30 報告講的「財報 > 宏觀」在 AAPL 身上完美驗證，但我們需要認知到這條邏輯的有效期限——財報季正在收尾，下週催化劑密度下降後，宏觀因子（10Y 4.39%、ISM Prices Paid 84.6）的權重會上升。",
+  "tomorrowWatch": [
+    "**Trump 25% 歐洲汽車關稅的後續反應。** 週五宣布，市場尚未完全消化。如果歐洲車廠股週一暴跌帶動全球 risk-off，觀察能源和科技能否脫鉤獨強。如果美國工業股（C&E、Heavy Electrical）受益「reshoring」邏輯而上漲，那反而確認了我們 #4 C&E 的持倉邏輯。",
+    "**伊朗-UAE 週末衝突升級的開盤反應。** 週一凌晨傳出伊朗對 UAE 油設施發射 19 枚飛彈/無人機（大部分被攔截，Fujairah Oil Zone 起火）。如果 Brent 跳到 $115+ 開盤，能源板塊可能再度全面爆發；如果被控制在 $110 以下，市場可能已經對 Hormuz 局勢定價充分。觀察 Drilling 的 `autocorr` 是否突破 0.2。",
+    "**Semiconductors 的 r2 能否改善。** 目前 autocorr 0.31 + r2 0.42 代表「方向對但波動大」。如果下週 AMD 財報（預期中）確認 AI 算力需求，r2 可能隨著市場 conviction 提升而改善到 0.5+。反之如果 r2 繼續停在 <0.5，說明市場對半導體估值仍有分歧。"
+  ],
+  "sources": [
+    { "title": "CNBC — S&P 500 closes at new record as oil prices cool and Apple rises", "url": "https://www.cnbc.com/2026/04/30/stock-market-today-live-updates.html" },
+    { "title": "TheStreet — Nasdaq, S&P 500 add to banner rally with another record close", "url": "https://www.thestreet.com/latest-news/stock-market-today-may-1-2026-updates" },
+    { "title": "CNBC — Apple AAPL Q2 2026 earnings: Revenue $111.2B, EPS $2.01 beat", "url": "https://www.cnbc.com/2026/04/30/apple-aapl-q2-2026-earnings-report.html" },
+    { "title": "Yahoo Finance — Apple tops Q2 estimates on strong iPhone, China sales", "url": "https://finance.yahoo.com/news/apple-tops-q2-earnings-estimates-on-strong-iphone-china-sales-174442565.html" },
+    { "title": "TradingKey — SanDisk +4.32% on May 1, revenue +251% YoY", "url": "https://www.tradingkey.com/news/market-movers/261848410-market-movers-sndk-20260501" },
+    { "title": "CNBC — OPEC+ announces 188,000 bpd output increase for June", "url": "https://www.cnbc.com/2026/05/03/opec-announces-188000-barrels-per-day-output-increase-.html" },
+    { "title": "Motley Fool — Goldman Sachs raises oil price forecast on Hormuz disruption", "url": "https://www.fool.com/investing/2026/05/01/goldman-sachs-just-raised-its-oil-price-forecast-h/" },
+    { "title": "CNBC — Trump says raising EU auto tariffs to 25%", "url": "https://www.cnbc.com/2026/05/01/trump-eu-auto-tariffs.html" },
+    { "title": "CNBC — Treasury yields little changed; ISM Prices Paid surges to 84.6", "url": "https://www.cnbc.com/2026/05/01/us-treasury-yields-investors-gdp-inflation-iran-war.html" },
+    { "title": "Advisor Perspectives — Treasury Yields Snapshot May 1, 2026", "url": "https://www.advisorperspectives.com/dshort/updates/2026/05/01/treasury-yields-snapshot-may-1-2026" },
+    { "title": "NPR — U.S. fights to reopen Strait of Hormuz; Iran escalation continues", "url": "https://www.npr.org/2026/05/04/nx-s1-5810508/iran-war-updates" }
+  ]
+}
