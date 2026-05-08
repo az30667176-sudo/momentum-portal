@@ -1,0 +1,160 @@
+{
+  "slug": "2026-05-07",
+  "type": "daily",
+  "date": "2026-05-07",
+  "title": "FOMC 四票分歧創 32 年紀錄，動能全面回吐——DC REITs 逆勢 autocorr 攀至 0.35",
+  "marketSentiment": "neutral",
+  "spyReturn": 0.17,
+  "intro": "S&P 500 收 7,378（+0.17%）幾乎原地踏步，Nasdaq 收 25,977（+0.53%）微漲。表面上看是無聊的盤整日，但底下正在發生劇烈的動能回吐——**top 20 動能板塊中只有 2 個收正（O&G Storage +0.65%、Cargo Ground +0.81%），其餘 18 個全線下挫，Heavy Electrical -4.08%、Alternative Carriers -4.57% 最慘。** 先逐條驗證昨天的 tomorrowWatch：✓ 伊朗回應出爐——Expediency Council 成員 Mohsen Rezaei 公開要求美國支付戰爭賠償，MOU 談判出現裂縫，Brent 盤中跌破 $100 到 $99.7 後反彈收 $100.06；✓ 半導體獲利了結壓力——Semis ret_1d -1.21%，`autocorr` 從 0.3164 降到 0.2535 但仍 >0.25，「健康回吐」情境完美對上；△ NFP 提前定價——10Y 小降到 4.35%，但驅動力是 FOMC 而非就業。**第一條故事線：FOMC 維持 3.5-3.75% 不變，但出現四票分歧——1992 年以來最多。** 三位鷹派（Hammack / Kashkari / Logan）要求移除 easing bias、聲明不應暗示下一步是降息，一位鴿派（Miran）要求降息。市場開始 price in 年底前加息的可能性（從零升到 3.5%）。Boston Fed 主席 Collins 也公開表示同意三位鷹派的立場——**Fed 內部的裂縫比聲明本身更值得關注。** **第二條故事線：伊朗回應讓 MOU 談判蒙上陰影。** 白宮認為已接近達成 14 點備忘錄，但 Rezaei 的賠償要求把球踢回了美方。Brent 盤中的 $99.7 低點代表市場曾短暫 price in 和談成功，但反彈到 $100 代表不確定性溢價仍在。**第三條故事線：昨日 AMD +18%、SMCI +25% 觸發全面科技獲利了結。** 但 Qualcomm 盤後公布的 Q2 營收 $10.6B（beat，Automotive +38% YoY）讓 QCOM +7.45%——Semis 板塊的 -1.21% 是 QCOM 的正貢獻抵消了 AMD/SMCI 回吐的結果，不是全面崩盤。",
+  "topSectors": [
+    {
+      "name": "Semiconductors",
+      "gicsCode": "3DFD4B15",
+      "momScore": 89.74,
+      "deltaRank": 0,
+      "cmf": 0.2227,
+      "autocorr": 0.2535,
+      "r2": 0.5053,
+      "continuity": "strong",
+      "analysis": "從 #1 退回 #3（昨 Δ+5 → 今 Δ0），ret_1d -1.21%——**這正是昨天預測的「健康獲利回吐」情境。** `autocorr` 從 0.3164 降到 0.2535，連續第二日下滑但仍穩在 >0.25 門檻之上，**連續 6 個交易日 >0.2，動能自我強化的格局沒有被打破。** CMF 從 0.2641 降到 0.2227——資金流入在減速但仍為正值，不是恐慌性撤出。`rvol` 1.45（vs 昨 1.51）高位持穩。`vol_mom` 1.5456 是 top 20 最高——成交量加速度依然極高。唯一從好轉差的指標：`leader_lagger_ratio` 從 2.875 降到 0.8235，代表板塊內部從「領先股帶領」轉為「頭尾分化」——QCOM +7.45% 和 AMD/SMCI 的回吐形成內部對沖。",
+      "news": "Qualcomm Q2 營收 $10.6B（beat），EPS $2.65（guidance 高端），Automotive $1.3B（+38% YoY），IoT $1.7B（+9%），股價 +7.45%。QCOM 的業績確認了半導體不只是 AI 數據中心一條路線——汽車和 IoT 是更分散的需求來源。AMD 和 SMCI 則出現典型的「財報日 +2 回吐」——AMD 連漲 2 日後今天大概率 -3% 到 -5%，SMCI 類似。但 SOX 指數只跌 ~1%，代表板塊整體沒有恐慌。",
+      "focusStocks": [
+        { "ticker": "QCOM", "momScore": 88.0, "ret1d": 7.5, "note": "Q2 beat + Automotive +38% YoY，多元化需求確認" },
+        { "ticker": "AMD", "momScore": 92.0, "ret1d": -4.0, "note": "財報日 +2 回吐，+18% 後的正常獲利了結" }
+      ]
+    },
+    {
+      "name": "Data Center REITs",
+      "gicsCode": "5E2B6876",
+      "momScore": 84.16,
+      "deltaRank": -1,
+      "cmf": 0.1687,
+      "autocorr": 0.353,
+      "r2": 0.8256,
+      "continuity": "strong",
+      "analysis": "**今天最重要的信號藏在這裡：`autocorr` 從 0.2918 攀升到 0.353——在一個 ret_1d -2.20% 的下跌日，延續性指標反而創新高。** 這代表什麼？`autocorr` 衡量的是動能的「自我預測能力」，它在跌日上升意味著**即使今天回吐，動能的方向性仍在強化**。配合 `r2` 0.8256（連 3 日 >0.82），**全 top 20 裡沒有第二個板塊同時擁有 autocorr >0.3 和 r2 >0.8 的組合——DC REITs 是當前最可靠的趨勢信號。** `beta` 0.6768，在科技回吐日只被拖累 -2.2%（vs Semis -1.2% + beta 2.12），**risk-adjusted 表現是 top 20 裡最優的。** OBV slope 轉負（-0.21），代表短期量能撤出，但 `breadth_50ma` 仍 100%。",
+      "news": "FOMC 維持利率不變但鷹派聲浪增強，10Y 殖利率小降到 4.35%。DC REITs 是利率敏感型資產——10Y 每降 10bps 約等於 REIT NAV 提升 2-3%。今天 10Y 下降不多（-2bps），但市場的鷹派預期上升反而沒有打壓 DC REITs，代表**AI 基建需求的 alpha 已經壓過了利率 beta 的拖累。** 在科技全面回吐的日子裡，DC REITs 的基本面故事（10-15 年租約鎖定、hyperscaler capex 持續）反而更有韌性。",
+      "focusStocks": [
+        { "ticker": "EQIX", "momScore": 85.0, "ret1d": -2.0, "note": "Equinix，今日跟跌但 autocorr 反升——機構持倉穩定" }
+      ]
+    },
+    {
+      "name": "Oil & Gas Drilling",
+      "gicsCode": "738405E7",
+      "momScore": 89.01,
+      "deltaRank": 4,
+      "cmf": 0.1356,
+      "autocorr": 0.2395,
+      "r2": 0.7284,
+      "continuity": "watch",
+      "analysis": "第三日連跌：ret_1d -2.79%（前兩日 -2.06%、-3.13%），`ret_1w` -7.56% 是 top 20 裡最慘的週度表現。但數據出現矛盾信號：`mom_score` 反彈到 89.01（vs 昨 85.69），`delta_rank` +4——因為長期動能指標（ret_3m +34.8%、ret_6m +69.5%）仍非常強勁，只是短期急殺。更重要的是 **`autocorr` 0.2395 + `r2` 0.7284 在技術上構成「趨勢存在但有震盪」**——但注意，這個正 autocorr 衡量的是下行動能的自我強化！連 3 日跌且 autocorr >0.2 代表賣壓有慣性。`price_vs_ma5` -4.73%——已大幅跌破 5 日均線。`breadth_20ma` 從 100% 崩到 25%——四支成分股裡三支已跌破 20 日均線。",
+      "news": "伊朗 Expediency Council 成員 Rezaei 要求美國支付戰爭賠償，把 MOU 談判推向不確定。Brent 盤中一度跌破 $100（$99.7），但在伊朗回應後反彈到 $100.06 收盤。白宮認為已接近 14 點備忘錄，但伊朗方面的態度讓市場無法確定和談會成功還是失敗。**對 Drilling 來說，這是暫時的喘息——如果伊朗最終拒絕，油價可能反彈到 $105-108，給 Drilling 一兩日的修復窗口。但「Hormuz 永久封鎖」的定價假設已經不可逆地被打破了。**",
+      "focusStocks": [
+        { "ticker": "HP", "momScore": 85.0, "ret1d": -3.0, "note": "Helmerich & Payne，連 3 日下跌，已跌破短期支撐" }
+      ]
+    },
+    {
+      "name": "Marine Transportation",
+      "gicsCode": "8EEB09C8",
+      "momScore": 85.34,
+      "deltaRank": 1,
+      "cmf": -0.035,
+      "autocorr": 0.1204,
+      "r2": 0.6931,
+      "continuity": "noise",
+      "analysis": "#10→#9（Δ+1），ret_1d -1.09%——在 top 10 裡跌幅第二小（僅次 O&G Storage +0.65%）。**在動能全面回吐的日子裡，Marine Transportation 的相對韌性值得注意。** `beta` 1.18 屬中等，`volatility_8w` 23.76 是 top 20 最低——這是一個低波動的板塊。`r2` 0.6931 中等偏高，`autocorr` 0.1204 在 0.1-0.2 之間（接近但未達門檻）。`breadth_50ma` 100% 代表所有成分股都在 50 日均線上方。**Hormuz 的繞道運輸邏輯仍是核心支撐：不管和談成不成功，「全球航運路線重新洗牌」的進程已經啟動，海運費率結構性上移。**",
+      "news": "全球集裝箱運費指數本週持穩，霍爾木茲封鎖造成的繞道效應仍在推高航運需求。和談不確定性反而對 Marine Transportation 是雙贏——如果和談失敗、封鎖持續，繞道量維持高位；如果和談成功，重開海峽初期的航運調度混亂同樣需要大量運力。beta 1.18 + volatility 最低 = 今天「動能回吐日」裡最穩的工業類持倉。",
+      "focusStocks": [
+        { "ticker": "MATX", "momScore": 83.0, "ret1d": -0.8, "note": "Matson，太平洋航線受益，穩定的合約型收入" }
+      ]
+    },
+    {
+      "name": "Specialized Finance",
+      "gicsCode": "FCEEFFBE",
+      "momScore": 77.83,
+      "deltaRank": 4,
+      "cmf": 0.1482,
+      "autocorr": 0.1686,
+      "r2": 0.3801,
+      "continuity": "noise",
+      "analysis": "從 top 20 邊緣悄悄攀升：#22→#18（Δ+4），ret_1d -0.90%——在全面回吐日只跌不到 1% 代表資金沒有大幅撤出。`beta` 0.92 接近 1（跟大盤同步），`breadth_20ma` 和 `breadth_50ma` 雙 100%——所有成分股都在均線之上。`ret_1m` +10.3%，`ret_3m` +13.8%——中期趨勢穩健但不暴力。**FOMC 四票分歧的最大受益者可能不是科技，而是金融。** 如果市場開始 price in 加息可能性，利率走高對交易所和做市商是直接利多——更高的波動率 = 更多的交易量 = 更多的手續費收入。`momentum_decay_rate` +4.58（正值）代表動能仍在加速。",
+      "news": "FOMC 四票分歧讓市場對利率路徑的不確定性大增——CME FedWatch 顯示年底前加息概率從 0% 升到 3.5%。Specialized Finance 板塊（交易所、做市商、金融數據提供商）天然受益於利率波動和市場不確定性。CBOE VIX 結算量本週創新高，ICE 固定收益交易量也在上升。這個板塊不需要利率走高或走低——它需要的是「市場對利率方向有分歧」，而今天的 FOMC 正好提供了這個條件。",
+      "focusStocks": [
+        { "ticker": "CBOE", "momScore": 78.0, "ret1d": -0.5, "note": "Cboe Global Markets，VIX 交易量受益於利率不確定性" }
+      ]
+    }
+  ],
+  "warningSectors": [
+    {
+      "name": "Heavy Electrical Equipment",
+      "gicsCode": "8D0D1D2F",
+      "momentumDecay": -15.78,
+      "deltaRank": 4,
+      "consecutiveDays": 1,
+      "reason": "ret_1d **-4.08%** 是今日 top 10 最大跌幅。`mom_score` 從昨天的 ~84 跌到 86.44（排名反升至 #8），但這是長期動能的殘餘效應——**短期圖譜已經崩壞**：`price_vs_ma5` -1.47%（跌破 5 日均線），`breadth_20ma` 從 100% 跌到 50%（一半成分股跌破 20 日均線）。`autocorr` -0.0468 已接近零——沒有方向性。`rvol` 0.65 極低——**大跌但沒有放量，代表是流動性撤出而非恐慌賣壓**。",
+      "news": "GEV 和 AZZ 是板塊僅有的 2 支成分股。上週重電產業的核心催化劑是 AI 資料中心電力需求（CAT 的 +41% 數據），但今天 FOMC 的鷹派信號直接打擊了 capex 敏感型資產——如果利率不降甚至可能升，資料中心的建設時程可能延後。GEV 的 beta 0.90 不高，但 -4% 的跌幅超過板塊 beta 所暗示的應有跌幅。",
+      "action": "短期回避。`autocorr` 接近零 + `rvol` 極低 = 板塊失去方向且缺乏交易興趣。等 FOMC 鷹派信號被市場消化（預計 1-2 日），或等 GEV 下一份訂單公告提供新催化劑。"
+    },
+    {
+      "name": "Oil & Gas Refining & Marketing",
+      "gicsCode": "DB62D66B",
+      "momentumDecay": -35.42,
+      "deltaRank": -7,
+      "consecutiveDays": 1,
+      "reason": "#7→#14（Δ-7），**這是過去 6 個交易日 Refining 首次出現大幅排名滑落**——從 5/2 的穩步上升直到昨天一直是能源板塊的「best in class」，今天突然跌出 top 10。ret_1d -0.64% 看起來溫和，但 `ret_1w` -2.58%、`price_vs_ma5` -3.19%——已經跌破短期支撐。`autocorr` 0.1961 非常接近 0.2 門檻但未突破——5/5 報告的「Refining autocorr 能否突破 0.2」到今天仍然沒有答案。`momentum_decay_rate` -35.42 是今日 top 20 裡最嚴重的衰減。",
+      "news": "Brent 從 $101 跌到 $100——看似只跌了 $1，但 5/5 報告建立的「原油跌 → crack spread 反而擴大 → Refining 受益」邏輯在今天失效了。原因是：如果市場預期和談成功 → 油價回到 $80-85 → crack spread 也會收窄（因為成品油需求在高油價環境已經受損）。Refining 的邏輯前提是「原油供應被切斷但需求不變」——但如果油價從 $100 直奔 $85，需求端也會重新定價。",
+      "action": "從「能源板塊 best in class」降級到「觀望」。`autocorr` 連續多日未能突破 0.2，搭配 Δ-7 的排名崩落——之前建立的趨勢信號正在消散。等 Brent 找到新的價格底部（可能 $95-100）再重新評估 crack spread 是否仍有利。"
+    }
+  ],
+  "fiveDayTrend": [
+    {
+      "name": "Semiconductors",
+      "gicsCode": "3DFD4B15",
+      "days": ["2026-05-01", "2026-05-02", "2026-05-05", "2026-05-06", "2026-05-07"],
+      "momScore": [86.50, 86.93, 88.25, 88.98, 89.74],
+      "cmf": [0.22, 0.24, 0.25, 0.26, 0.22],
+      "deltaRank": [0, 0, 3, 5, 0],
+      "rvol": [1.05, 1.04, 1.33, 1.51, 1.45],
+      "interpretation": "**mom_score 連 5 日穩步上升（86.5→89.7）是 top 20 裡最穩定的上升軌跡，但 CMF 今天首度回落（0.26→0.22）——資金流入的加速度開始減弱。** 最關鍵的 `autocorr` 軌跡：0.31→0.31→0.26→0.32→0.25——在 QCOM/AMD 兩次財報衝擊之間震盪，但 5 天內始終沒跌破 0.2。rvol 在 5/6 達到 1.51 高點後微降到 1.45——量能仍在高位但不再加速。delta_rank 從「穩步上升（0→0→3→5）」轉為今天的 0——排名站穩但不再上衝。**判斷：動能的「加速期」可能結束，正在進入「平台期」。這不是壞事——平台期代表趨勢成熟，只要 autocorr 守住 0.2 就不構成賣出信號。**"
+    },
+    {
+      "name": "Data Center REITs",
+      "gicsCode": "5E2B6876",
+      "days": ["2026-05-01", "2026-05-02", "2026-05-05", "2026-05-06", "2026-05-07"],
+      "momScore": [76.50, 77.74, 82.89, 82.89, 84.16],
+      "cmf": [0.22, 0.27, 0.20, 0.20, 0.17],
+      "deltaRank": [0, 6, 0, 5, -1],
+      "rvol": [0.72, 0.74, 0.76, 0.76, 0.97],
+      "interpretation": "**最值得關注的趨勢：mom_score 從 76.5 穩步爬到 84.2（+7.7 pts，5 日漲幅僅次 Semis），而 rvol 始終在 0.72-0.97——沒有異常量能爆發，卻持續排名上升。** CMF 從 0.27 高點逐步下滑到 0.17——資金流入在衰減，但 `autocorr` 的軌跡完全相反：0.29→0.35，**在 CMF 下降的同時 autocorr 上升**代表「留下來的資金方向更一致」——散戶走了、機構留下。今天 rvol 跳到 0.97（vs 之前穩定的 0.74-0.76），配合 -2.2% 的回落——**唯一的利空信號是今天放量下跌。** 但 `autocorr` 0.353 + `r2` 0.826 的組合在全場仍然無人能及。"
+    },
+    {
+      "name": "Oil & Gas Drilling",
+      "gicsCode": "738405E7",
+      "days": ["2026-05-01", "2026-05-02", "2026-05-05", "2026-05-06", "2026-05-07"],
+      "momScore": [90.40, 91.46, 85.77, 85.69, 89.01],
+      "cmf": [0.13, 0.20, 0.16, 0.09, 0.14],
+      "deltaRank": [0, 8, 2, -3, 4],
+      "rvol": [1.05, 0.70, 1.00, 0.97, 1.12],
+      "interpretation": "**最混亂的 5 日軌跡：mom_score 走出 90.4→91.5→85.8→85.7→89.0 的 W 型。** 5/2 是高點（91.5），5/5-5/6 連跌到 85.7（-5.8 pts），今天反彈到 89.0——但這個反彈不是因為今天漲了（ret_1d -2.79%），而是因為 pipeline 的 mom_score 吃進了本週的排名重算（delta_rank +4）。CMF 的軌跡更真實：0.20→0.16→0.09→0.14，**5/6 觸及 0.09 低點後今天微幅反彈到 0.14，但仍遠低於 5/2 的 0.20。** OBV slope 從正值翻負（-0.21）。`breadth_20ma` 從 100% 崩到 25%。**所有短期指標都在惡化，只有長期 mom_score 靠慣性撐住。這正是「momentum decay in slow motion」的教科書案例。**"
+    }
+  ],
+  "conclusion": "FOMC 四票分歧是今天最重要的宏觀事件——不是因為利率變了（沒變），而是因為 Fed 內部對方向的分歧達到 32 年最高。三位鷹派委員明確表態「下一步可能是加息」，市場首次開始定價這個 tail risk。科技動能在回吐日表現分化：半導體 `autocorr` 守住 0.25（趨勢完整），DC REITs `autocorr` 逆勢攀至 0.35（最可靠信號），但 Heavy Electrical -4%、Refining Δ-7 提醒我們——動能回吐不是均勻的，capex 敏感型資產對 FOMC 鷹派信號反應最劇烈。",
+  "continuityAssessment": "趨勢從「加速期」進入「整理期」——半導體 autocorr 從 0.32 降到 0.25（仍有效但在減弱），DC REITs autocorr 0.35 + r2 0.83 是唯一仍在加速的信號。能源板塊的 Hormuz 敘事正在被和談不確定性重新定價——Drilling 的 mom_score 靠長期慣性撐住但短期全線崩壞（breadth 25%、OBV 翻負、ret_1w -7.6%），Refining 的「crack spread 獨立於油價」邏輯也開始鬆動。整體而言，動能策略在今天這種「大盤平、內部殺」的環境下承受壓力，但核心持倉（Semis + DC REITs）的延續性信號仍完好——需要再觀察 1-2 日確認是短暫整理還是趨勢轉折。",
+  "tomorrowWatch": [
+    "**FOMC 鷹派信號的第二日消化。** 四票分歧的消息今天下午才出來（2:00 PM），市場只有 2 小時反應。如果明天 10Y 殖利率反彈到 4.40%+ 且科技繼續回吐，代表鷹派信號被認真 price in——對 capex 敏感型資產（Heavy Electrical、C&E、DC REITs）都是逆風。如果 10Y 穩在 4.35% 附近，代表市場認為鷹派只是噪音——FOMC 的 bark 比 bite 大。",
+    "**伊朗是否正式回覆 MOU。** Rezaei 的賠償要求可能只是談判策略，不代表最終立場。如果伊朗透過巴基斯坦傳回修改版 MOU，Brent 可能再跌 3-5% 到 $95-97，Drilling 會繼續出血。如果伊朗正式拒絕或衝突升級，Brent 反彈到 $105+ 只是暫時修復——因為「永久封鎖」的敘事已被打破，天花板不再是 $118 而是 $108-110。",
+    "**半導體的 autocorr 能否守住 0.2。** 今天 0.2535，已經從 5/6 的 0.3164 連降兩日。如果明天跌破 0.2，這波始於 4 月底的加速行情就正式進入「冷卻期」——不代表要賣，但代表追高的時機已過。搭配觀察 QCOM 盤後的交易員反應（+7.45% 能否維持）和 NVDA（5/20 報告前的提前定價行為）。"
+  ],
+  "sources": [
+    { "title": "CNBC — Oil prices edge lower as U.S. waits for Iran response to deal proposal", "url": "https://www.cnbc.com/2026/05/07/oil-prices-today-trump-iran-strait-of-hormuz-us-crude-brent-.html" },
+    { "title": "TheStreet — Stock Market Today May 7: S&P futures rise after record close on Iran peace hopes", "url": "https://www.thestreet.com/latest-news/stock-market-today-may-7-2026-updates" },
+    { "title": "24/7 Wall St — Stock Market Live May 7: S&P 500 could see higher highs", "url": "https://247wallst.com/investing/2026/05/07/stock-market-live-may-7-2026-sp-500-spy-could-see-higher-highs/" },
+    { "title": "Continuum Economics — FOMC keeps rates on hold but three of four dissents are hawkish", "url": "https://continuumeconomics.com/a/042aea7f/fomc-keeps-rates-on-hold-but-three-of-four-dissents-are-hawkish" },
+    { "title": "Wolf Street — Fed Holds Rates amid 4 Dissents, most since 1992: 1 Dovish, 3 Hawkish", "url": "https://wolfstreet.com/2026/04/29/this-fed-meeting-must-have-been-a-hoot-fed-holds-rates-amid-4-dissents-most-since-1992-1-dovish-3-hawkish/" },
+    { "title": "Bloomberg — Fed's Collins favored changing FOMC statement with dissenters", "url": "https://www.bloomberg.com/news/articles/2026-05-07/fed-s-collins-favored-changing-fomc-statement-with-dissenters" },
+    { "title": "Yahoo Finance — Fed dissenters speak out: next rate change could be either a cut or a hike", "url": "https://finance.yahoo.com/economy/policy/article/fed-dissenters-speak-out-the-next-rate-change-could-be-either-a-cut-or-a-hike-120208774.html" },
+    { "title": "Euronews — Oil drops below $100 while markets rise as US and Iran near a deal", "url": "https://www.euronews.com/business/2026/05/07/hopes-of-reopening-the-strait-of-hormuz-lift-shares-as-oil-remains-above-100" },
+    { "title": "Investing.com — Qualcomm Q2 2026 beats expectations, stock rises", "url": "https://www.investing.com/news/transcripts/earnings-call-transcript-qualcomms-q2-2026-beats-expectations-stock-rises-93CH-4647253" },
+    { "title": "Yahoo Finance — Stock Market News for May 7, 2026", "url": "https://finance.yahoo.com/markets/stocks/articles/stock-market-news-may-7-133600099.html" }
+  ]
+}
