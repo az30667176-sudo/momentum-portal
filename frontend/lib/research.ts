@@ -179,10 +179,79 @@ export function getAllDailySlugs(): string[] {
   return fs.readdirSync(dir).filter((f) => f.endsWith('.json')).map((f) => f.replace('.json', ''))
 }
 
+// ---------------- Notable Report (個股話題) ----------------
+
+export interface NotableStockEntry {
+  ticker: string
+  company: string
+  sector: string
+  returnPct: number
+  vsIndustry: number
+  zScore?: number
+  momScore: number | null
+  badges: string[]
+  news: string
+}
+
+export interface NotableReversalEntry {
+  ticker: string
+  company: string
+  prior4d: number
+  today: number
+  type: 'Rally Reversal' | 'Decline Reversal'
+  news: string
+}
+
+export interface NotableReport {
+  slug: string
+  type: 'notable'
+  date: string
+  title: string
+  marketSummary: {
+    totalStocks: number
+    medianReturn: number
+    meanReturn: number
+    positivePct: number
+  }
+  intro: string
+  topGainers: NotableStockEntry[]
+  topLosers: NotableStockEntry[]
+  reversals: NotableReversalEntry[]
+  summary: string[]
+  sources: { title: string; url: string }[]
+}
+
+function notableDir() {
+  return path.join(process.cwd(), 'content', 'research', 'notable')
+}
+
+export function getAllNotableReports(): NotableReport[] {
+  const dir = notableDir()
+  if (!fs.existsSync(dir)) return []
+  const files = fs.readdirSync(dir).filter((f) => f.endsWith('.json'))
+  return files
+    .map((f) => JSON.parse(fs.readFileSync(path.join(dir, f), 'utf-8')) as NotableReport)
+    .sort((a, b) => b.date.localeCompare(a.date))
+}
+
+export function getNotableReport(slug: string): NotableReport | null {
+  const file = path.join(notableDir(), `${slug}.json`)
+  if (!fs.existsSync(file)) return null
+  return JSON.parse(fs.readFileSync(file, 'utf-8')) as NotableReport
+}
+
+export function getAllNotableSlugs(): string[] {
+  const dir = notableDir()
+  if (!fs.existsSync(dir)) return []
+  return fs.readdirSync(dir).filter((f) => f.endsWith('.json')).map((f) => f.replace('.json', ''))
+}
+
+// ---------------- Unified List ----------------
+
 export interface ReportListItem {
   slug: string
   date: string
-  type: 'weekly' | 'daily'
+  type: 'weekly' | 'daily' | 'notable'
   title: string
   issue?: number
   subtitle?: string
@@ -209,11 +278,17 @@ export function getAllReportListItems(): ReportListItem[] {
     title: d.title,
     marketSentiment: d.marketSentiment,
   }))
-  return [...weekly, ...daily].sort((a, b) => b.date.localeCompare(a.date))
+  const notable = getAllNotableReports().map((n) => ({
+    slug: n.slug,
+    date: n.date,
+    type: 'notable' as const,
+    title: n.title,
+  }))
+  return [...weekly, ...daily, ...notable].sort((a, b) => b.date.localeCompare(a.date))
 }
 
 export function getAllWeeklyAndDailySlugs(): string[] {
-  return Array.from(new Set([...getAllSlugs('weekly'), ...getAllDailySlugs()]))
+  return Array.from(new Set([...getAllSlugs('weekly'), ...getAllDailySlugs(), ...getAllNotableSlugs()]))
 }
 
 // ---------------- Stock Memo (個股想法) ----------------

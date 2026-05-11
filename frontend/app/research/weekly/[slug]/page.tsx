@@ -6,8 +6,9 @@ import {
   getAllWeeklyAndDailySlugs,
   getIssue,
   getDailyReport,
+  getNotableReport,
 } from '@/lib/research'
-import type { DailyReport, DailyTopSector, DailyWarningSector, DailyFiveDayTrend } from '@/lib/research'
+import type { DailyReport, DailyTopSector, DailyWarningSector, DailyFiveDayTrend, NotableReport, NotableStockEntry, NotableReversalEntry } from '@/lib/research'
 import { Inline } from '@/components/WeeklyMarkdown'
 
 const ExhibitChart = dynamicImport(() => import('@/components/ExhibitChart'), {
@@ -30,6 +31,10 @@ export function generateMetadata({ params }: { params: { slug: string } }) {
   const daily = getDailyReport(params.slug)
   if (daily) {
     return { title: `日報 · ${daily.title} | 輪動報告` }
+  }
+  const notable = getNotableReport(params.slug)
+  if (notable) {
+    return { title: `個股話題 · ${notable.title} | 輪動報告` }
   }
   return { title: '輪動報告 | Sector Pulse' }
 }
@@ -159,6 +164,9 @@ export default function DetailPage({
   const daily = getDailyReport(params.slug)
   if (daily) return <DailyDetailView report={daily} />
 
+  const notable = getNotableReport(params.slug)
+  if (notable) return <NotableDetailView report={notable} />
+
   notFound()
 }
 
@@ -256,6 +264,163 @@ function DailyDetailView({ report }: { report: DailyReport }) {
         公開新聞所做的盤後研究筆記，不構成任何投資建議。所有數據截至 {report.date}。
       </footer>
     </article>
+  )
+}
+
+/* ================================================================
+   Notable Report Template (個股話題)
+   ================================================================ */
+
+function NotableDetailView({ report }: { report: NotableReport }) {
+  const ms = report.marketSummary
+  return (
+    <article>
+      <Link
+        href="/research/weekly"
+        className="inline-flex items-center text-sm text-emerald-600 hover:underline mb-4"
+      >
+        ← 回到輪動報告列表
+      </Link>
+
+      <header className="mb-10 pb-6 border-b border-gray-200">
+        <div className="flex items-center gap-2 mb-2">
+          <span className="text-xs uppercase tracking-wider text-orange-600 font-semibold">個股話題</span>
+        </div>
+        <h1 className="text-3xl sm:text-4xl font-bold text-black leading-tight">
+          {report.title}
+        </h1>
+        <p className="mt-3 text-sm text-gray-500">{report.date}</p>
+        <div className="mt-3 flex flex-wrap gap-x-6 gap-y-1 text-sm text-gray-700">
+          <span>{ms.totalStocks} 檔</span>
+          <span>中位數 <strong className={ms.medianReturn >= 0 ? 'text-green-600' : 'text-red-500'}>{ms.medianReturn >= 0 ? '+' : ''}{ms.medianReturn.toFixed(2)}%</strong></span>
+          <span>平均 <strong className={ms.meanReturn >= 0 ? 'text-green-600' : 'text-red-500'}>{ms.meanReturn >= 0 ? '+' : ''}{ms.meanReturn.toFixed(2)}%</strong></span>
+          <span>上漲 <strong>{ms.positivePct.toFixed(1)}%</strong></span>
+        </div>
+      </header>
+
+      <section>
+        <H2>市場概況</H2>
+        <P><Inline text={report.intro} /></P>
+      </section>
+
+      <section>
+        <H2>漲幅最大</H2>
+        <NotableTable stocks={report.topGainers} />
+      </section>
+
+      <section>
+        <H2>跌幅最大</H2>
+        <NotableTable stocks={report.topLosers} />
+      </section>
+
+      {report.reversals.length > 0 && (
+        <section>
+          <H2>動能反轉股</H2>
+          <p className="my-2 text-sm text-gray-500">前 4 日累計漲/跌 ≥3%，今日反轉 ≥3%</p>
+          <ReversalReportTable reversals={report.reversals} />
+        </section>
+      )}
+
+      {report.summary.length > 0 && (
+        <section>
+          <H2>報告摘要</H2>
+          <ol className="mt-4 space-y-3 text-[15px] leading-7 text-black list-decimal list-outside pl-6">
+            {report.summary.map((s, i) => (
+              <li key={i}><Inline text={s} /></li>
+            ))}
+          </ol>
+        </section>
+      )}
+
+      <H2>新聞來源</H2>
+      <ul className="mt-4 space-y-2 text-sm text-gray-600 list-disc list-outside pl-6">
+        {report.sources.map((s, i) => (
+          <li key={i}>
+            <a className="text-emerald-600 hover:underline" href={s.url} target="_blank" rel="noreferrer">
+              {s.title}
+            </a>
+          </li>
+        ))}
+      </ul>
+
+      <footer className="mt-16 pt-6 border-t border-gray-200 text-xs text-gray-400">
+        本文僅為基於 Sector Pulse 量化訊號 + 公開新聞所做的個股異動分析，不構成任何投資建議。所有數據截至 {report.date}。
+      </footer>
+    </article>
+  )
+}
+
+function NotableTable({ stocks }: { stocks: NotableStockEntry[] }) {
+  const badgeStyles: Record<string, string> = {
+    'Top Gainer': 'bg-green-100 text-green-800',
+    'Top Loser': 'bg-red-100 text-red-800',
+    'Strong Outperformer': 'bg-green-50 text-green-700 border border-green-400',
+    'Strong Underperformer': 'bg-red-50 text-red-700 border border-red-400',
+    'Industry Outlier – Positive': 'bg-blue-100 text-blue-800',
+    'Industry Outlier – Negative': 'bg-orange-100 text-orange-800',
+  }
+  return (
+    <div className="mt-4 space-y-4">
+      {stocks.map((s) => (
+        <div key={s.ticker} className="rounded-lg border border-gray-200 bg-gray-50 p-4">
+          <div className="flex items-center gap-3 mb-2">
+            <Link href={`/stock/${s.ticker}`} className="text-lg font-bold text-emerald-700 hover:text-emerald-500">
+              {s.ticker}
+            </Link>
+            <span className="text-sm text-gray-600">{s.company}</span>
+            <span className="text-xs text-gray-400">{s.sector}</span>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-3">
+            <NIndicator label="報酬" value={`${s.returnPct >= 0 ? '+' : ''}${s.returnPct.toFixed(2)}%`} positive={s.returnPct >= 0} />
+            <NIndicator label="vs 產業" value={`${s.vsIndustry >= 0 ? '+' : ''}${s.vsIndustry.toFixed(2)}%`} positive={s.vsIndustry >= 0} />
+            {s.momScore != null && <NIndicator label="Mom Score" value={s.momScore.toFixed(1)} />}
+            {s.zScore != null && <NIndicator label="|Z-Score|" value={Math.abs(s.zScore).toFixed(1)} />}
+          </div>
+          <div className="flex flex-wrap gap-1 mb-2">
+            {s.badges.map((b) => (
+              <span key={b} className={`inline-block px-1.5 py-0.5 text-[10px] font-medium rounded ${badgeStyles[b] ?? 'bg-gray-100 text-gray-700'}`}>
+                {b}
+              </span>
+            ))}
+          </div>
+          <p className="text-sm text-black leading-6"><Inline text={s.news} /></p>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+function ReversalReportTable({ reversals }: { reversals: NotableReversalEntry[] }) {
+  return (
+    <div className="mt-4 space-y-4">
+      {reversals.map((r) => (
+        <div key={r.ticker} className={`rounded-lg border p-4 ${r.type === 'Rally Reversal' ? 'border-red-200 bg-red-50' : 'border-green-200 bg-green-50'}`}>
+          <div className="flex items-center gap-3 mb-2">
+            <Link href={`/stock/${r.ticker}`} className="text-lg font-bold text-emerald-700 hover:text-emerald-500">
+              {r.ticker}
+            </Link>
+            <span className="text-sm text-gray-600">{r.company}</span>
+            <span className={`inline-block px-1.5 py-0.5 text-[10px] font-medium rounded ${r.type === 'Rally Reversal' ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800'}`}>
+              {r.type === 'Rally Reversal' ? '漲多回落' : '跌深反彈'}
+            </span>
+          </div>
+          <div className="grid grid-cols-2 gap-2 mb-3">
+            <NIndicator label="前 4 日" value={`${r.prior4d >= 0 ? '+' : ''}${r.prior4d.toFixed(2)}%`} positive={r.prior4d >= 0} />
+            <NIndicator label="今日" value={`${r.today >= 0 ? '+' : ''}${r.today.toFixed(2)}%`} positive={r.today >= 0} />
+          </div>
+          <p className="text-sm text-black leading-6"><Inline text={r.news} /></p>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+function NIndicator({ label, value, positive }: { label: string; value: string; positive?: boolean }) {
+  return (
+    <div className="rounded border border-gray-200 bg-white px-3 py-2">
+      <div className="text-[10px] uppercase tracking-wider text-gray-500">{label}</div>
+      <div className={`mt-0.5 text-sm font-semibold ${positive === true ? 'text-green-600' : positive === false ? 'text-red-500' : 'text-black'}`}>{value}</div>
+    </div>
   )
 }
 

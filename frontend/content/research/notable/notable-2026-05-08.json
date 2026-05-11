@@ -1,0 +1,302 @@
+{
+  "slug": "notable-2026-05-08",
+  "type": "notable",
+  "date": "2026-05-08",
+  "title": "AI 記憶體超級週期帶動半導體全線暴漲，財報季分化極端",
+  "marketSummary": {
+    "totalStocks": 1504,
+    "medianReturn": 0.02,
+    "meanReturn": 0.20,
+    "positivePct": 50.6
+  },
+  "intro": "S&P 1500 共 1,504 檔，中位數報酬 +0.02%，平均 +0.20%，上漲比例 50.6%——表面持平，但個股層面極度分化。本日財報季密集公布，97 檔產業異常股 + 56 檔動能反轉股，波動集中在 Health Care、IT、Industrials 三大板塊。**AI 基礎設施需求**持續拉動半導體/記憶體/雲端服務股（AKAM、MXL、SYNA、SNDK、MU），財報 beat + 上修指引是主要催化劑；跌幅股則集中在財報重大 miss + 下修指引（FWRD、AORT、DXC、FLR）和結構性需求疑慮（UPWK 被 AI 取代）兩類。",
+  "topGainers": [
+    {
+      "ticker": "AMN",
+      "company": "AMN Healthcare Services",
+      "sector": "Health Care",
+      "returnPct": 29.04,
+      "vsIndustry": 26.23,
+      "zScore": 2.94,
+      "momScore": 87.72,
+      "badges": ["Top Gainer", "Strong Outperformer"],
+      "news": "Q1 財報大幅超預期：營收與 EPS 雙雙 beat，受惠多起大型醫療人力緊急派遣事件，自由現金流爆發。Healthcare Services 同業平均僅 +2.8%，AMN 以 z=2.94 成為當日最強個股。`mom_score` 87.7 顯示動能早已啟動，今日是加速確認。"
+    },
+    {
+      "ticker": "AKAM",
+      "company": "Akamai Technologies",
+      "sector": "Information Technology",
+      "returnPct": 26.58,
+      "vsIndustry": 19.26,
+      "zScore": 1.95,
+      "momScore": 96.98,
+      "badges": ["Top Gainer"],
+      "news": "宣布與一家「頂尖前沿模型公司」簽訂 **7 年 $18 億 AI 雲端基礎設施合約**，Q1 雲端業務營收年增 40%，FY26 EPS 指引 $6.40–$7.15 高於共識。這是 Akamai 從 CDN 轉型 AI infra 的里程碑事件，市場給予高度認可。`mom_score` 97.0，動能極強。"
+    },
+    {
+      "ticker": "PGNY",
+      "company": "Progyny",
+      "sector": "Health Care",
+      "returnPct": 23.80,
+      "vsIndustry": 20.99,
+      "zScore": 2.35,
+      "momScore": 68.79,
+      "badges": ["Top Gainer", "Strong Outperformer"],
+      "news": "Q1 營收創新高 $3.29 億（beat），EPS $0.29 超預期，**上修全年 EPS 指引至 $1.98–$2.09**（共識 $1.74），並完成 $2 億回購計畫。生育醫療需求持續成長，市場對其指引上修幅度印象深刻。"
+    },
+    {
+      "ticker": "MXL",
+      "company": "MaxLinear",
+      "sector": "Information Technology",
+      "returnPct": 21.20,
+      "vsIndustry": 16.43,
+      "zScore": 2.72,
+      "momScore": 100.0,
+      "badges": ["Top Gainer", "Strong Outperformer"],
+      "news": "**AI 光學資料中心營收年增 136%**，成為公司最大業務線。Q2 指引 $1.6–1.7 億（季增 17–24%），全年光學營收目標 $1.5–1.7 億。`mom_score` 滿分 100，半導體板塊中 z-score 最高（2.72），是 AI 光通訊子題的核心標的。"
+    },
+    {
+      "ticker": "WSC",
+      "company": "WillScot Holdings",
+      "sector": "Industrials",
+      "returnPct": 20.60,
+      "vsIndustry": 16.54,
+      "zScore": 1.86,
+      "momScore": 81.68,
+      "badges": ["Top Gainer"],
+      "news": "Q1 營收 $5.49 億 beat 共識 $5.23 億，**上修全年營收、EBITDA、capex 指引**，商業需求回暖訊號明確。`rvol` 5.13 為全場最高之一，量能爆發程度罕見。減債 $7,600 萬 + 回購股利 ~$2,000 萬，資本配置積極。"
+    },
+    {
+      "ticker": "NSIT",
+      "company": "Insight Enterprises",
+      "sector": "Information Technology",
+      "returnPct": 19.07,
+      "vsIndustry": 14.91,
+      "zScore": 2.19,
+      "momScore": 44.14,
+      "badges": ["Top Gainer", "Strong Outperformer"],
+      "news": "Q1 EPS $2.88 大幅超越共識 $2.45，**毛利年增 14%，毛利率擴張 240bp 至 21.7%**，上修 FY26 EPS 指引至 $11.00–$11.50。IT 分銷商在 AI 設備換機潮中受惠，但 `mom_score` 僅 44.1，之前市場預期保守。"
+    },
+    {
+      "ticker": "SYNA",
+      "company": "Synaptics",
+      "sector": "Information Technology",
+      "returnPct": 18.55,
+      "vsIndustry": 13.78,
+      "zScore": 2.29,
+      "momScore": 94.55,
+      "badges": ["Top Gainer", "Strong Outperformer"],
+      "news": "Q3 FY26 營收 $2.94 億（年增 10%），**Core IoT 年增 31%**，EPS $1.09 beat $1.01，Q4 指引上修。Edge AI 佈局獲市場認可，`mom_score` 94.6 反映持續性強勁的動能。"
+    },
+    {
+      "ticker": "SNDK",
+      "company": "Sandisk",
+      "sector": "Information Technology",
+      "returnPct": 16.60,
+      "vsIndustry": 9.88,
+      "zScore": 2.0,
+      "momScore": 100.0,
+      "badges": ["Top Gainer", "Strong Outperformer"],
+      "news": "AI 記憶體超級週期：**HBM + 企業級 NAND 結構性供不應求**，年初至今已漲超過 500%。`mom_score` 滿分 100，與 MU 同為記憶體超級週期的核心受惠股。今日上漲是趨勢延續而非單一事件驅動。"
+    },
+    {
+      "ticker": "MU",
+      "company": "Micron Technology",
+      "sector": "Information Technology",
+      "returnPct": 15.49,
+      "vsIndustry": 10.72,
+      "zScore": 1.78,
+      "momScore": 99.97,
+      "badges": ["Top Gainer"],
+      "news": "同受 AI 記憶體超級週期帶動，營收 $239 億（年增 196%），**下季指引 $335 億遠超華爾街預期**。HBM 產能滿載到 2027 年。`mom_score` 99.97，僅次於滿分。記憶體板塊整體 +4.77%，MU 和 SNDK 領跑。"
+    }
+  ],
+  "topLosers": [
+    {
+      "ticker": "FWRD",
+      "company": "Forward Air",
+      "sector": "Industrials",
+      "returnPct": -43.05,
+      "vsIndustry": -37.43,
+      "zScore": -2.26,
+      "momScore": 3.19,
+      "badges": ["Top Loser", "Strong Underperformer"],
+      "news": "災難性財報：(1) 佔營收 10% 的大客戶宣布分散物流供應商、(2) **戰略性檢討以「無可行方案」收場**，只考慮出售部分資產而非整體。Q1 淨虧 $3,400 萬。`mom_score` 3.19（接近最低），單日跌 43% 創該股歷史紀錄。"
+    },
+    {
+      "ticker": "AORT",
+      "company": "Artivion",
+      "sector": "Health Care",
+      "returnPct": -28.26,
+      "vsIndustry": -25.76,
+      "zScore": -4.50,
+      "momScore": 6.64,
+      "badges": ["Top Loser", "Strong Underperformer"],
+      "news": "Q1 調整後 EPS $0.08 miss 共識 $0.12，**下修全年營收指引中位數至 $4.88 億**（原 $4.95 億）+ EBITDA 指引同步下修。z-score -4.50 為全場最極端，RSI 跌至 24.1 進入超賣區。"
+    },
+    {
+      "ticker": "DXC",
+      "company": "DXC Technology",
+      "sector": "Information Technology",
+      "returnPct": -21.48,
+      "vsIndustry": -20.55,
+      "zScore": -2.78,
+      "momScore": 9.17,
+      "badges": ["Top Loser", "Strong Underperformer"],
+      "news": "Q4 營收 $31.3 億 miss 共識 $31.8 億（有機營收低於指引約 $7,500 萬），**FY27 指引有機營收年減 3–5%**，IT 服務需求持續疲弱。傳統 IT 外包在 AI 時代的結構性衰退加速。"
+    },
+    {
+      "ticker": "AMPH",
+      "company": "Amphastar Pharmaceuticals",
+      "sector": "Health Care",
+      "returnPct": -20.93,
+      "vsIndustry": -19.16,
+      "zScore": -3.56,
+      "momScore": 15.43,
+      "badges": ["Top Loser", "Strong Underperformer"],
+      "news": "Q1 營收持平 $1.71 億但 miss 預期，**調整後 EPS $0.42 低於共識約 40%**，營業利潤率從去年 21.9% 驟降至 8%。Jefferies 4 月已降評，今日確認基本面惡化。"
+    },
+    {
+      "ticker": "UPWK",
+      "company": "Upwork",
+      "sector": "Information Technology",
+      "returnPct": -16.87,
+      "vsIndustry": -14.66,
+      "zScore": -2.61,
+      "momScore": 7.14,
+      "badges": ["Top Loser", "Strong Underperformer"],
+      "news": "Q1 營收勉強符合預期但 **Q2 指引 $1.9 億低於共識 6.9%，宣布裁員 24%**。AI 取代自由工作者的敘事加劇恐慌，Canaccord 降評至 Hold，目標價砍至 $10。這是「AI 受害者」主題的最新案例。"
+    },
+    {
+      "ticker": "FLR",
+      "company": "Fluor",
+      "sector": "Industrials",
+      "returnPct": -15.21,
+      "vsIndustry": -14.34,
+      "zScore": -3.41,
+      "momScore": 29.21,
+      "badges": ["Top Loser", "Strong Underperformer"],
+      "news": "Q1 EPS $0.14 **重大 miss 共識 $0.61**，營收 $36 億 miss $39 億（年減 8%），受中東地緣政治暫停工程 + 美洲礦業成本超支拖累，下修全年 EBITDA 指引上限。"
+    },
+    {
+      "ticker": "MTD",
+      "company": "Mettler-Toledo",
+      "sector": "Health Care",
+      "returnPct": -14.77,
+      "vsIndustry": -12.90,
+      "zScore": -2.87,
+      "momScore": 19.23,
+      "badges": ["Top Loser", "Strong Underperformer"],
+      "news": "Q1 EPS $8.91 beat $8.70，但**全年指引僅重申（$46.30–$46.95）無上修驚喜**，分析師下調目標價。市場對高估值成長股容忍度極低，beat 但不 raise 等於 miss。"
+    },
+    {
+      "ticker": "KMT",
+      "company": "Kennametal",
+      "sector": "Industrials",
+      "returnPct": -13.45,
+      "vsIndustry": -12.77,
+      "zScore": -4.56,
+      "momScore": 45.93,
+      "badges": ["Top Loser", "Strong Underperformer"],
+      "news": "EPS beat 但**營收年減 3.9%**，Jefferies 降評至 Hold。z-score -4.56 為 Industrials 板塊最極端值，工業金屬切削需求疲軟，反映製造業景氣下行壓力。"
+    }
+  ],
+  "reversals": [
+    {
+      "ticker": "AMPH",
+      "company": "Amphastar Pharmaceuticals",
+      "prior4d": 9.83,
+      "today": -20.93,
+      "type": "Rally Reversal",
+      "news": "財報前 4 日反彈 9.8%（市場對 Jefferies 降評過度反應的修正），Q1 miss 後暴跌。典型「期待→失望」反轉。"
+    },
+    {
+      "ticker": "MTD",
+      "company": "Mettler-Toledo",
+      "prior4d": 4.12,
+      "today": -14.77,
+      "type": "Rally Reversal",
+      "news": "財報前溫和反彈 +4.1%，結果指引無驚喜，高估值股票遭拋售。"
+    },
+    {
+      "ticker": "KMT",
+      "company": "Kennametal",
+      "prior4d": 8.42,
+      "today": -13.45,
+      "type": "Rally Reversal",
+      "news": "過去一週漲 8.4%（預期 beat），財報日營收 miss + 降評，全數回吐。"
+    },
+    {
+      "ticker": "LFST",
+      "company": "LifeStance Health",
+      "prior4d": 17.53,
+      "today": -12.99,
+      "type": "Rally Reversal",
+      "news": "前期漲幅極大（+17.5%），今日逆勢下跌 -13%，方向與 Health Care Services 同業不同。"
+    },
+    {
+      "ticker": "APP",
+      "company": "AppLovin",
+      "prior4d": 8.45,
+      "today": -6.08,
+      "type": "Rally Reversal",
+      "news": "連續上漲後的獲利了結，AppLovin 在 ad-tech 領域的高估值引發短線回調壓力。"
+    },
+    {
+      "ticker": "NSIT",
+      "company": "Insight Enterprises",
+      "prior4d": -3.30,
+      "today": 19.07,
+      "type": "Decline Reversal",
+      "news": "前 4 日跌 3.3%（市場對 IT 分銷商預期保守），Q1 大幅 beat + 上修指引，完全反轉。"
+    },
+    {
+      "ticker": "BILL",
+      "company": "BILL Holdings",
+      "prior4d": -3.61,
+      "today": 11.07,
+      "type": "Decline Reversal",
+      "news": "Q3 **首度 GAAP 獲利**、核心營收成長 16%、宣布 $10 億回購 + AI 優先戰略 + 裁員 30%（效率提升敘事），前期跌幅全數收復。"
+    },
+    {
+      "ticker": "HIMS",
+      "company": "Hims & Hers Health",
+      "prior4d": -6.42,
+      "today": 10.21,
+      "type": "Decline Reversal",
+      "news": "前期因 FDA 複方藥規管 + Novo Nordisk 訴訟跌 6.4%，Q1 財報前技術性反彈 + 短期空頭回補。"
+    },
+    {
+      "ticker": "SEDG",
+      "company": "SolarEdge Technologies",
+      "prior4d": -10.02,
+      "today": 6.97,
+      "type": "Decline Reversal",
+      "news": "Q1 營收**年增 46%** 超預期，歐洲需求強勁 + 電池銷售成長，Q2 接近損益兩平。前期跌 10% 為過度反應。"
+    },
+    {
+      "ticker": "PLNT",
+      "company": "Planet Fitness",
+      "prior4d": -32.69,
+      "today": 4.25,
+      "type": "Decline Reversal",
+      "news": "前 4 日暴跌 32.7% 後的技術性反彈，跌幅過深觸發超賣買盤。"
+    }
+  ],
+  "summary": [
+    "**AI 記憶體超級週期**是本日最強主線——SNDK、MU、MXL、SYNA、AKAM 全線暴漲，HBM 和企業 NAND 供不應求的共識持續強化",
+    "**財報季分化極端**：beat 的股票動輒 +15–29%（AMN、AKAM、MXL），miss 的股票跌幅同樣驚人（FWRD -43%、AORT -28%、DXC -21%）",
+    "**反轉股的共同規律**：漲多回落多因「財報前期待過高→結果失望」（AMPH、MTD、KMT）；跌深反彈多因「利空過度定價→實際結果沒那麼差」（NSIT、BILL、SEDG）",
+    "**UPWK -17% 值得特別關注**：AI 取代自由工作者的敘事 + 裁員 24% + Q2 指引 miss 6.9%，這是「AI 受害者」主題的最新案例"
+  ],
+  "sources": [
+    { "title": "WillScot Q1 2026 — Raises Full-Year Outlook", "url": "https://www.globenewswire.com/news-release/2026/05/07/3290651/0/en/WillScot-Reports-First-Quarter-2026-Results-and-Raises-2026-Full-Year-Outlook.html" },
+    { "title": "Artivion Q1 2026 — Guidance Cut", "url": "https://markets.financialcontent.com/stocks/article/stockstory-2026-5-8-why-artivion-aort-stock-is-falling-today" },
+    { "title": "Fluor Q1 2026 — Earnings Miss & Guidance Cut", "url": "https://finance.yahoo.com/markets/stocks/articles/fluor-flr-shares-decline-earnings-134850180.html" },
+    { "title": "Upwork Q1 — AI Fears & 24% Layoffs", "url": "https://www.timothysykes.com/news/upworkinc-upwk-news-2026_05_09/" },
+    { "title": "Upwork Downgraded by Canaccord Genuity", "url": "https://www.gurufocus.com/news/8846870/upwk-downgraded-by-canaccord-genuity-price-target-lowered-to-10" },
+    { "title": "SolarEdge Q1 Revenue +46% YoY", "url": "https://www.stocktitan.net/sec-filings/SEDG/8-k-solaredge-technologies-inc-reports-material-event-3045c67aac5a.html" },
+    { "title": "Artivion RSI Enters Oversold Territory", "url": "https://www.marketnewsvideo.com/article/202605/artivion-stock-enters-oversold-territory-as-rsi-falls-to-24-1-aort-AORT05082026rsi.htm/" },
+    { "title": "BILL Holdings First GAAP Profit", "url": "https://in.investing.com/news/company-news/bill-q3-2026-slides-first-gaap-profit-16-core-revenue-growth-93CH-5389652" }
+  ]
+}

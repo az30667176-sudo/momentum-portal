@@ -26,10 +26,12 @@ export default function WeeklyListPage() {
                   className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold ${
                     item.type === 'weekly'
                       ? 'bg-emerald-100 text-emerald-700'
+                      : item.type === 'notable'
+                      ? 'bg-orange-100 text-orange-700'
                       : 'bg-blue-100 text-blue-700'
                   }`}
                 >
-                  {item.type === 'weekly' ? '週報' : '日報'}
+                  {item.type === 'weekly' ? '週報' : item.type === 'notable' ? '個股話題' : '日報'}
                 </span>
                 {item.type === 'daily' && item.marketSentiment && (
                   <SentimentBadge sentiment={item.marketSentiment} />
@@ -38,6 +40,8 @@ export default function WeeklyListPage() {
               <h2 className="text-lg sm:text-xl font-bold text-black leading-snug group-hover:text-emerald-600 transition-colors">
                 {item.type === 'weekly'
                   ? `週報第${item.issue}期 (${formatDateSlash(item.date)})`
+                  : item.type === 'notable'
+                  ? `個股話題 (${formatDateSlash(item.date)})`
                   : `日報 (${formatDateSlash(item.date)})`}
               </h2>
               <p className="mt-1 text-base font-semibold text-gray-800">
