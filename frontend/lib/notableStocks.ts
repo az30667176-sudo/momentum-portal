@@ -22,6 +22,22 @@ export interface NotableStock {
   direction_disagree: boolean
 }
 
+export interface ReversalStock {
+  ticker: string
+  company: string
+  sector: string
+  sub_industry: string
+  index_member: string | null
+  gics_code: string
+  reversal_type: 'Rally Reversal' | 'Decline Reversal'
+  prior_return_pct: number
+  today_return_pct: number
+  ret_1w: number
+  reversal_score: number
+  mom_score: number | null
+  rvol: number | null
+}
+
 export interface NotableStocksResult {
   date: string
   mode: 'daily' | 'weekly'
@@ -30,6 +46,7 @@ export interface NotableStocksResult {
   top_gainers: NotableStock[]
   top_losers: NotableStock[]
   industry_outliers: NotableStock[]
+  reversals: ReversalStock[]
   summary: {
     total_flagged: number
     overlap_count: number
@@ -135,6 +152,48 @@ function computeNotabilityScore(
   const rvolComp = rvol != null && rvol > 0 ? Math.min(rvol / 3.0, 1.0) : 0.0
   const score = 0.30 * zComp + 0.25 * pctile + 0.25 * dirPenalty + 0.20 * rvolComp
   return Math.round(score * 1000) / 10
+}
+
+// ── Reversal Detection ─────────────────────────────────────────
+
+const PRIOR_THRESHOLD = 3.0
+const TODAY_THRESHOLD = 3.0
+
+function detectReversals(stocks: StockReturn[], mode: 'daily' | 'weekly'): ReversalStock[] {
+  const results: ReversalStock[] = []
+  for (const s of stocks) {
+    const ret1d = safeNum(s.ret_1d)
+    const ret1w = safeNum(s.ret_1w)
+    if (ret1d == null || ret1w == null) continue
+    if (Math.abs(ret1d) < TODAY_THRESHOLD) continue
+
+    const prior4d = ((1 + ret1w / 100) / (1 + ret1d / 100) - 1) * 100
+    if (Math.abs(prior4d) < PRIOR_THRESHOLD) continue
+
+    const isRally = prior4d > 0 && ret1d < 0
+    const isDecline = prior4d < 0 && ret1d > 0
+    if (!isRally && !isDecline) continue
+
+    const reversalScore = Math.min(Math.abs(ret1d) * 2 / 10, 100)
+
+    results.push({
+      ticker: s.ticker,
+      company: getCompany(s),
+      sector: getSector(s),
+      sub_industry: getSubIndustry(s),
+      index_member: getIndexMember(s),
+      gics_code: s.gics_code,
+      reversal_type: isRally ? 'Rally Reversal' : 'Decline Reversal',
+      prior_return_pct: Math.round(prior4d * 100) / 100,
+      today_return_pct: Math.round(ret1d * 100) / 100,
+      ret_1w: Math.round(ret1w * 100) / 100,
+      reversal_score: Math.round(reversalScore * 10) / 10,
+      mom_score: safeNum(s.mom_score),
+      rvol: safeNum(s.rvol),
+    })
+  }
+  results.sort((a, b) => b.reversal_score - a.reversal_score)
+  return results
 }
 
 // ── Main Function ───────────────────────────────────────────────
@@ -303,6 +362,8 @@ export async function getNotableStocks(mode: 'daily' | 'weekly'): Promise<Notabl
   const positivePct = allReturns.length > 0
     ? Math.round(allReturns.filter(r => r > 0).length / allReturns.length * 1000) / 10 : 0
 
+  const reversals = detectReversals(stocks, mode)
+
   return {
     date, mode, total_stocks: stocks.length,
     market_summary: {
@@ -313,6 +374,7 @@ export async function getNotableStocks(mode: 'daily' | 'weekly'): Promise<Notabl
     top_gainers: topGainers,
     top_losers: topLosers,
     industry_outliers: industryOutliers,
+    reversals,
     summary: { total_flagged: allOutliers.length, overlap_count: overlapCount, sectors_with_most_outliers: sectorsWithMost },
   }
 }

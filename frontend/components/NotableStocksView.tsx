@@ -2,7 +2,7 @@
 
 import React, { useState, useMemo } from 'react'
 import Link from 'next/link'
-import { NotableStocksResult, NotableStock } from '@/lib/notableStocks'
+import { NotableStocksResult, NotableStock, ReversalStock } from '@/lib/notableStocks'
 
 type SortCol = 'return' | 'diff' | 'z' | 'mom' | 'rvol' | 'notability'
 type SortDir = 'asc' | 'desc'
@@ -167,6 +167,111 @@ function StockTable({
   )
 }
 
+const REVERSAL_BADGE: Record<string, { label: string; cls: string }> = {
+  'Rally Reversal': { label: '漲多回落', cls: 'bg-red-100 text-red-800 border-red-300' },
+  'Decline Reversal': { label: '跌深反彈', cls: 'bg-green-100 text-green-800 border-green-300' },
+}
+
+function ReversalTable({ stocks }: { stocks: ReversalStock[] }) {
+  type RCol = 'today' | 'prior' | 'score' | 'mom' | 'rvol'
+  const [sortCol, setSortCol] = useState<RCol>('score')
+  const [sortDir, setSortDir] = useState<SortDir>('desc')
+
+  const handleSort = (col: RCol) => {
+    if (sortCol === col) setSortDir(d => d === 'desc' ? 'asc' : 'desc')
+    else { setSortCol(col); setSortDir('desc') }
+  }
+
+  const sorted = useMemo(() => {
+    return [...stocks].sort((a, b) => {
+      let av: number, bv: number
+      switch (sortCol) {
+        case 'today': av = Math.abs(a.today_return_pct); bv = Math.abs(b.today_return_pct); break
+        case 'prior': av = Math.abs(a.prior_return_pct); bv = Math.abs(b.prior_return_pct); break
+        case 'score': av = a.reversal_score; bv = b.reversal_score; break
+        case 'mom': av = a.mom_score ?? -999; bv = b.mom_score ?? -999; break
+        case 'rvol': av = a.rvol ?? -999; bv = b.rvol ?? -999; break
+      }
+      return sortDir === 'desc' ? bv - av : av - bv
+    })
+  }, [stocks, sortCol, sortDir])
+
+  const ColHeader = ({ col, label }: { col: RCol; label: string }) => (
+    <th
+      className="px-2 py-2 text-left text-xs font-medium text-gray-600 cursor-pointer select-none hover:text-emerald-600 whitespace-nowrap"
+      onClick={() => handleSort(col)}
+    >
+      {label}{' '}
+      <span className="text-gray-400">
+        {sortCol === col ? (sortDir === 'desc' ? '↓' : '↑') : '↕'}
+      </span>
+    </th>
+  )
+
+  if (stocks.length === 0) {
+    return (
+      <div className="mt-6">
+        <h3 className="text-base font-bold text-black mb-2">動能反轉股</h3>
+        <p className="text-sm text-gray-500">今日無符合條件的反轉股</p>
+      </div>
+    )
+  }
+
+  return (
+    <div className="mt-6">
+      <h3 className="text-base font-bold text-black mb-1">動能反轉股</h3>
+      <p className="text-xs text-gray-500 mb-2">前 4 日累計漲/跌 &ge;3%，今日反轉 &ge;3%</p>
+      <div className="overflow-x-auto -mx-4 px-4">
+        <table className="min-w-full text-sm">
+          <thead>
+            <tr className="border-b border-gray-200">
+              <th className="px-2 py-2 text-left text-xs font-medium text-gray-600 whitespace-nowrap">Ticker</th>
+              <th className="px-2 py-2 text-left text-xs font-medium text-gray-600 whitespace-nowrap hidden sm:table-cell">公司</th>
+              <th className="px-2 py-2 text-left text-xs font-medium text-gray-600 whitespace-nowrap hidden md:table-cell">板塊</th>
+              <ColHeader col="prior" label="前4日" />
+              <ColHeader col="today" label="今日" />
+              <ColHeader col="score" label="反轉強度" />
+              <ColHeader col="mom" label="Mom" />
+              <ColHeader col="rvol" label="RVol" />
+              <th className="px-2 py-2 text-left text-xs font-medium text-gray-600 whitespace-nowrap">類型</th>
+            </tr>
+          </thead>
+          <tbody>
+            {sorted.map(s => {
+              const badge = REVERSAL_BADGE[s.reversal_type] ?? { label: s.reversal_type, cls: 'bg-gray-100 text-gray-700 border-gray-300' }
+              return (
+                <tr key={s.ticker} className="border-b border-gray-100 hover:bg-gray-50">
+                  <td className="px-2 py-2 whitespace-nowrap">
+                    <Link href={`/stock/${s.ticker}`} className="font-semibold text-emerald-700 hover:text-emerald-500">
+                      {s.ticker}
+                    </Link>
+                  </td>
+                  <td className="px-2 py-2 text-gray-700 whitespace-nowrap hidden sm:table-cell max-w-[140px] truncate" title={s.company}>
+                    {s.company}
+                  </td>
+                  <td className="px-2 py-2 text-gray-500 whitespace-nowrap hidden md:table-cell max-w-[160px] truncate" title={s.sub_industry}>
+                    {s.sub_industry}
+                  </td>
+                  <td className="px-2 py-2 whitespace-nowrap">{fmtPct(s.prior_return_pct)}</td>
+                  <td className="px-2 py-2 whitespace-nowrap font-medium">{fmtPct(s.today_return_pct)}</td>
+                  <td className="px-2 py-2 whitespace-nowrap text-gray-700">{fmtNum(s.reversal_score)}</td>
+                  <td className="px-2 py-2 whitespace-nowrap text-gray-700">{fmtNum(s.mom_score)}</td>
+                  <td className="px-2 py-2 whitespace-nowrap text-gray-700">{fmtNum(s.rvol, 2)}</td>
+                  <td className="px-2 py-2 whitespace-nowrap">
+                    <span className={`inline-block px-1.5 py-0.5 text-[10px] font-medium border rounded ${badge.cls}`}>
+                      {badge.label}
+                    </span>
+                  </td>
+                </tr>
+              )
+            })}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  )
+}
+
 export function NotableStocksView({ dailyData, weeklyData }: Props) {
   const [mode, setMode] = useState<'daily' | 'weekly'>('daily')
   const data = mode === 'daily' ? dailyData : weeklyData
@@ -206,6 +311,9 @@ export function NotableStocksView({ dailyData, weeklyData }: Props) {
 
       {/* Industry outliers */}
       <StockTable stocks={data.industry_outliers} title="產業異常股" showZScore />
+
+      {/* Reversals */}
+      <ReversalTable stocks={data.reversals} />
 
       {/* Sector summary */}
       {data.summary.sectors_with_most_outliers.length > 0 && (

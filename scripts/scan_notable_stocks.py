@@ -269,6 +269,129 @@ def detect_outliers(stocks, universe, sub_stats, sector_stats, return_field,
     return results
 
 
+# ── Reversal Detection ───────────────────────────────────────────
+
+REVERSAL_LOOKBACK = 7
+PRIOR_THRESHOLD = 3.0   # prior period cumulative return must exceed this (%)
+TODAY_THRESHOLD = 3.0    # today's reversal return must exceed this (%)
+
+
+def fetch_recent_dates(n=REVERSAL_LOOKBACK):
+    """Return the most recent N distinct trading dates, descending."""
+    res = (sb.table("daily_stock_returns")
+           .select("date")
+           .order("date", desc=True)
+           .limit(n * 2)
+           .execute())
+    dates = sorted(set(r["date"] for r in (res.data or [])), reverse=True)
+    return dates[:n]
+
+
+def fetch_multi_day_returns(dates):
+    """Fetch ret_1d for all stocks across multiple dates. Returns {ticker: {date: ret_1d}}."""
+    all_rows = []
+    for dt in dates:
+        offset = 0
+        while True:
+            res = (sb.table("daily_stock_returns")
+                   .select("ticker, date, ret_1d")
+                   .eq("date", dt)
+                   .order("ticker")
+                   .range(offset, offset + CHUNK - 1)
+                   .execute())
+            all_rows.extend(res.data or [])
+            if not res.data or len(res.data) < CHUNK:
+                break
+            offset += CHUNK
+
+    by_ticker = {}
+    for r in all_rows:
+        by_ticker.setdefault(r["ticker"], {})[r["date"]] = safe_val(r.get("ret_1d"))
+    return by_ticker
+
+
+def detect_reversals(stocks, universe, multi_day, latest_date, dates_desc):
+    """
+    Detect reversals using two methods:
+    1. Primary: ret_1w vs ret_1d from today's data (prior ~4d direction vs today)
+    2. Enhancement: multi-day streak info from historical data
+    """
+    results = []
+    now = datetime.now()
+    month_name = now.strftime("%B")
+    year = now.year
+
+    for s in stocks:
+        ticker = s["ticker"]
+        ret_1d = safe_val(s.get("ret_1d"))
+        ret_1w = safe_val(s.get("ret_1w"))
+        if ret_1d is None or ret_1w is None:
+            continue
+        if abs(ret_1d) < TODAY_THRESHOLD:
+            continue
+
+        prior_4d = ((1 + ret_1w / 100) / (1 + ret_1d / 100) - 1) * 100
+        if abs(prior_4d) < PRIOR_THRESHOLD:
+            continue
+
+        is_rally_reversal = prior_4d > 0 and ret_1d < 0
+        is_decline_reversal = prior_4d < 0 and ret_1d > 0
+        if not is_rally_reversal and not is_decline_reversal:
+            continue
+
+        streak = 0
+        streak_total = 0.0
+        daily_returns = []
+        ticker_history = multi_day.get(ticker, {})
+        if ticker_history:
+            prior_dates = [d for d in dates_desc if d != latest_date and d in ticker_history]
+            for d in prior_dates:
+                r = ticker_history[d]
+                if r is None:
+                    break
+                if is_rally_reversal and r > 0:
+                    streak += 1
+                    streak_total += r
+                elif is_decline_reversal and r < 0:
+                    streak += 1
+                    streak_total += r
+                else:
+                    break
+            for d in reversed(dates_desc):
+                v = ticker_history.get(d)
+                if v is not None:
+                    daily_returns.append(round(v, 2))
+
+        reversal_type = "Rally Reversal" if is_rally_reversal else "Decline Reversal"
+        effective_streak = max(streak, 2)
+        reversal_score = min(abs(ret_1d) * effective_streak / 10, 100)
+
+        u = universe.get(ticker, {})
+        company = u.get("company", "")
+
+        results.append({
+            "ticker": ticker,
+            "company": company,
+            "sector": u.get("sector", ""),
+            "sub_industry": u.get("sub_industry", ""),
+            "index_member": u.get("index_member"),
+            "gics_code": u.get("gics_code", ""),
+            "streak_days": streak,
+            "prior_return_pct": round(prior_4d, 2),
+            "today_return_pct": round(ret_1d, 2),
+            "ret_1w": round(ret_1w, 2),
+            "reversal_type": reversal_type,
+            "reversal_score": round(reversal_score, 1),
+            "daily_returns": daily_returns,
+            "mom_score": safe_val(s.get("mom_score")),
+            "rvol": safe_val(s.get("rvol")),
+            "news_search_query": f"{ticker} {company} stock news {month_name} {year}",
+        })
+
+    results.sort(key=lambda x: x["reversal_score"], reverse=True)
+    return results
+
+
 # ── Output ───────────────────────────────────────────────────────
 
 def build_stock_entry(s, universe, sub_stats, sector_stats, return_field, all_returns):
@@ -369,6 +492,12 @@ def main():
     for l in losers:
         l["abnormal_types"].append("Top Loser")
 
+    print("Detecting reversals...", file=sys.stderr)
+    dates_desc = fetch_recent_dates(REVERSAL_LOOKBACK)
+    multi_day = fetch_multi_day_returns(dates_desc)
+    reversals = detect_reversals(stocks, universe, multi_day, date, dates_desc)
+    print(f"  Found {len(reversals)} reversals", file=sys.stderr)
+
     print("Detecting outliers...", file=sys.stderr)
     outliers = detect_outliers(
         stocks, universe, sub_stats, sector_stats, return_field,
@@ -427,6 +556,7 @@ def main():
         "top_gainers": gainers,
         "top_losers": losers,
         "industry_outliers": industry_only,
+        "reversals": reversals,
         "summary": {
             "total_flagged": len(outliers),
             "overlap_count": overlap_count,
@@ -437,7 +567,7 @@ def main():
     }
 
     json.dump(output, sys.stdout, default=str, ensure_ascii=False, indent=2)
-    print(f"\nDone: {len(gainers)} gainers, {len(losers)} losers, {len(industry_only)} industry outliers", file=sys.stderr)
+    print(f"\nDone: {len(gainers)} gainers, {len(losers)} losers, {len(industry_only)} industry outliers, {len(reversals)} reversals", file=sys.stderr)
 
 
 if __name__ == "__main__":
