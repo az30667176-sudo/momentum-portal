@@ -1,0 +1,160 @@
+{
+  "slug": "2026-05-08",
+  "type": "daily",
+  "date": "2026-05-08",
+  "title": "非農翻倍預期——科技包攬動能前五，Semis autocorr 飆到 0.45 宣告加速期重啟",
+  "marketSentiment": "risk-on",
+  "spyReturn": 0.84,
+  "intro": "S&P 500 收 7,399（+0.84%）、Nasdaq 收 26,247（+1.71%），**雙雙刷新歷史新高**——六週連漲，是 2024 年以來最長連漲紀錄。先逐條驗證昨天的 tomorrowWatch：✓ FOMC 鷹派信號第二日消化——**市場根本不理。** 非農 +115K（vs 共識 +55K）狠狠打臉「鷹派加息」敘事，10Y 穩在 4.38%（vs 昨 4.35%）完全沒動，代表市場認為 FOMC 四票分歧只是噪音，經濟數據才是真章。✓ 半導體 autocorr 能否守 0.2——**不只守住，從 0.2535 飆到 0.4488。** 這是 Semis 過去 8 週最高的 autocorr 讀數，代表動能自我強化的力度遠超預期，「整理期」說法只維持了一天。△ 伊朗 MOU 回應——仍未正式簽署，但白宮透露已接近 14 點備忘錄，Brent 反而從 $100 跳到 $104（+$3.62），**市場不再 price in 和談成功，而是 price in 不確定性延長。** **第一條故事線：非農擊碎 FOMC 恐懼。** 4 月新增就業 115K，幾乎翻倍預期的 55-65K，失業率穩在 4.3%。醫療保健 +37K、運輸倉儲 +30K、零售 +22K 是主力。時薪 +3.6% YoY 溫和——**經濟夠強讓 Fed 不用降息，但薪資沒熱到讓 Fed 必須加息。** 這是 goldilocks：昨天那三位鷹派委員的加息呼聲，在這份數據面前顯得多餘。**第二條故事線：Intel-Apple 晶片代工協議正式浮出水面。** Bloomberg 報導 Intel 與 Apple 達成初步協議，用 Intel 18A 製程為 Apple 代工部分晶片——這是 Intel 代工轉型戰略的最大背書。INTC 單日 +14% 刷新歷史新高，年初至今 +240%。華爾街稱之為「AI 的 changing of the guard」：不再只有 NVDA 資料中心 GPU 一條路線，CPU（AMD Q1 beat + Q2 guidance 上調）、代工（Intel 18A）、記憶體（Micron）全面開花。**直接結果：IT 板塊包攬動能排名前五——Tech Hardware #1、SME #2、Electronic Components #3、Semis #4、EMS #5——這是我們追蹤以來首次出現 top 5 全部來自同一 sector 的情況。** **第三條故事線：市場廣度跟上了嗎？** Nasdaq +1.71% 遠超 S&P +0.84%、Dow 幾乎持平（+0.02%）。大型科技領漲但工業、材料、能源落後——XLB -1.9%、XLE -1.8%、XLI -1.6% 全線收跌。**科技和其他一切之間的裂口正在擴大。** 六週連漲的基礎如果只靠科技撐，下次回調的烈度會更大。",
+  "topSectors": [
+    {
+      "name": "Semiconductors",
+      "gicsCode": "3DFD4B15",
+      "momScore": 91.40,
+      "deltaRank": -3,
+      "cmf": 0.2410,
+      "autocorr": 0.4488,
+      "r2": 0.5369,
+      "continuity": "strong",
+      "analysis": "ret_1d **+4.77%** 是 top 20 裡第二大單日漲幅（僅次 Tech Hardware +6.72%），**`autocorr` 從昨天的 0.2535 飆到 0.4488——動能自我強化的力度在一天之內翻倍。** 昨天的 tomorrowWatch 問「autocorr 能否守 0.2」，答案不只是守住，而是直接衝到 8 週最高。CMF 0.2410（vs 昨 0.2227）——資金流入重新加速。`rvol` 1.2232（vs 昨 1.45），量能微降但仍在高位。但注意 `r2` 只有 0.5369——**autocorr 極高但 r2 偏低代表什麼？動能方向很一致（大家都在買），但價格走勢的「可預測性」沒那麼高——盤中震盪劇烈。** 這是典型的催化劑驅動行情而非穩定趨勢。`delta_rank` -3（#1→#4），排名反而下滑——因為其他 IT 板塊漲得更多（Tech Hardware +6.72% 把 Semis 擠下來了）。",
+      "news": "NVDA 盤中觸及歷史新高 $217.80，但今天的主角不是 NVDA。**「AI 的 changing of the guard」——Intel +14%（Apple 代工協議）、AMD 財報餘波繼續發酵（Q2 guidance $11.2B 超共識）、Micron 雙位數大漲。** 華爾街重新評估 AI 投資版圖：從「NVDA 一枝獨秀」轉向「CPU + 代工 + 記憶體全面開花」。SOX 指數本週 +8% 是今年最強單週表現。這個 narrative 轉變的深度不只是一天的 trade——如果 Intel 18A 真能量產，整個半導體供應鏈的定價邏輯都要改寫。",
+      "focusStocks": [
+        { "ticker": "INTC", "momScore": 91.0, "ret1d": 14.0, "note": "Apple 代工協議 + 18A 里程碑，年初至今 +240%，代工轉型最大背書" },
+        { "ticker": "NVDA", "momScore": 95.0, "ret1d": 2.5, "note": "盤中歷史新高 $217.80，但漲幅被 INTC/AMD 搶走光環" }
+      ]
+    },
+    {
+      "name": "Technology Hardware, Storage & Peripherals",
+      "gicsCode": "D10047AB",
+      "momScore": 93.82,
+      "deltaRank": 1,
+      "cmf": 0.2683,
+      "autocorr": 0.2094,
+      "r2": 0.7254,
+      "continuity": "watch",
+      "analysis": "ret_1d **+6.72%** 是今日 top 20 裡最大的單日漲幅。**連續穩坐 #1 已經第 4 週**，`mom_score` 93.82 僅次於去年 12 月 NVDA 獨霸期的水位。CMF 0.2683 是全場最高——資金流入力道最強。`rvol` 1.5397 也是全場最高——成交量爆發。但 `autocorr` 0.2094 勉強過線——**+6.72% 的巨量單日漲幅反而降低了 autocorr**（因為這種跳躍式上漲打破了此前穩定的日間相關性）。這代表什麼？如果明天漲幅收斂到 1-2%，autocorr 會回升（代表趨勢恢復穩定）；如果明天就崩回來，autocorr 會跌破 0.2（代表今天只是事件驅動的脈衝）。",
+      "news": "Apple-Intel 代工協議的直接受益者。Apple 是 Tech Hardware 板塊的絕對權重股——AAPL +2% 看似不多，但真正的邏輯是：**Apple 開始分散代工來源，意味著供應鏈韌性提升 + 未來晶片成本可能下降（台積電不再是唯一選項）。** 市場在定價的不只是今天的協議，而是 2-3 年後 Apple 在晶片議價能力上的結構性改善。DELL 和 HPQ 也受惠於 AI PC 換機潮預期。",
+      "focusStocks": [
+        { "ticker": "AAPL", "momScore": 88.0, "ret1d": 2.0, "note": "Intel 代工協議提升供應鏈多元化，中長期晶片成本結構改善" }
+      ]
+    },
+    {
+      "name": "Oil & Gas Drilling",
+      "gicsCode": "738405E7",
+      "momScore": 82.94,
+      "deltaRank": -3,
+      "cmf": 0.1656,
+      "autocorr": -0.0327,
+      "r2": 0.7213,
+      "continuity": "noise",
+      "analysis": "ret_1d **+2.36%**——**連跌 3 日後的首日反彈**（5/5 -2.06%、5/6 -3.13%、5/7 -2.79%）。但反彈力度不強：昨天跌 2.79%，今天只彈 2.36%，收復不到前日跌幅。`autocorr` -0.0327 接近零——**沒有方向性，純粹的均值回歸反彈。** `mom_score` 從昨天的 89.01 暴跌到 82.94（-6.1 pts），是今日 top 20 裡 mom_score 下降最劇烈的板塊——**pipeline 的截面排名重算終於反映了過去一週的急殺。** `rvol` 0.7574（vs 昨 1.12）——反彈日成交量反而大幅萎縮，代表這是空頭回補而非新多頭進場。`breadth_20ma` 如果仍在 25% 附近，代表四支成分股裡三支仍在 20 日均線下方。",
+      "news": "Brent 跳到 $104（+$3.62），伊朗 MOU 談判拖延但白宮仍樂觀。**矛盾的是：油價上漲但 Drilling 的反彈無力。** 原因是市場已經開始區分「油價因地緣風險溢價撐高」vs「鑽探活動因需求增長而擴張」——前者對 Drilling 的提振是暫時的，後者才是持久的。目前 Rig Count 數據顯示美國活躍鑽機數已連續 3 週持平，代表營運商在等待油價方向更明確才會加鑽。",
+      "focusStocks": [
+        { "ticker": "HP", "momScore": 80.0, "ret1d": 2.5, "note": "Helmerich & Payne，技術性反彈但量能不足，短期仍在修復" }
+      ]
+    },
+    {
+      "name": "Oil & Gas Refining & Marketing",
+      "gicsCode": "DB62D66B",
+      "momScore": 80.75,
+      "deltaRank": 5,
+      "cmf": 0.2569,
+      "autocorr": 0.2331,
+      "r2": 0.7320,
+      "continuity": "watch",
+      "analysis": "**5/5 日報的核心問題「Refining autocorr 能否突破 0.2」——今天答案出來了：0.2331，正式突破。** ret_1d +1.90%，`delta_rank` +5（從 #14 回升到 #11），CMF 0.2569 是全場第二高（僅次 Tech Hardware 0.2683）——**資金流入力道極強，不是技術性反彈。** `r2` 0.7320 搭配 autocorr 0.2331 符合「趨勢存在但有震盪」的判斷標準。昨天被列為 warningSector（Δ-7），今天 Δ+5 完全收復——**Refining 的 crack spread 邏輯沒有被打破，只是被 FOMC + 伊朗雙重恐慌暫時壓低。** 今天 Brent +$3.62 到 $104，但 Refining 的反彈不完全靠油價——CMF 的強勢代表有實質資金配置。",
+      "news": "Brent $104 + MOU 延遲 = 「原油供應被切斷但需求不變」的邏輯重新上線。美國 crack spread（Brent-RB 裂解價差）本週維持在歷史高位附近。Valero（VLO）和 Marathon Petroleum（MPC）的 Q2 利潤率預期因裂解價差走闊而被上修。**昨天的 warning 是過度反應——Refining 的基本面（高裂解價差 + 夏季駕車旺季）沒有因為一天的 FOMC 恐慌而改變。**",
+      "focusStocks": [
+        { "ticker": "VLO", "momScore": 82.0, "ret1d": 2.1, "note": "Valero，crack spread 受益者，CMF 強勢代表機構在加碼" }
+      ]
+    },
+    {
+      "name": "Heavy Electrical Equipment",
+      "gicsCode": "8D0D1D2F",
+      "momScore": 81.87,
+      "deltaRank": 0,
+      "cmf": 0.0219,
+      "autocorr": -0.1329,
+      "r2": 0.6281,
+      "continuity": "noise",
+      "analysis": "**昨天的 warningSector（-4.08%）今天修復 +0.96%——但只恢復了不到四分之一的跌幅。** `mom_score` 81.87（vs 昨 86.44），下滑 4.6 pts。`autocorr` -0.1329——**負值代表均值回歸傾向，昨天跌多今天就會彈一點，但沒有方向性趨勢。** CMF 0.0219 幾乎為零——沒有資金在進也沒有在出，板塊處於「被遺忘」狀態。`rvol` 0.755（vs 昨 0.65）略有改善但仍低——**量能枯竭的狀態沒有解決。** 和昨天的評估一致：等待新催化劑（GEV 訂單或 AI 資料中心電力需求的新數據）才會有方向。",
+      "news": "今天的修復主要是因為大盤 risk-on 情緒的「漲潮效應」而非板塊特有催化劑。FOMC 鷹派恐懼消退（非農強勁 = Fed 不用激進加息）理論上有利於 capex 敏感型資產，但 Heavy Electrical 的反應很溫吞——代表市場仍在等 FOMC 鷹派言論的進一步消化。GEV 盤後沒有新聞，AZZ 同樣安靜。",
+      "focusStocks": [
+        { "ticker": "GEV", "momScore": 82.0, "ret1d": 1.0, "note": "修復性反彈，量能仍低，等待下一個訂單催化劑" }
+      ]
+    }
+  ],
+  "warningSectors": [
+    {
+      "name": "Marine Transportation",
+      "gicsCode": "8EEB09C8",
+      "momentumDecay": -28.72,
+      "deltaRank": -7,
+      "consecutiveDays": 1,
+      "reason": "**從 #5→#12（Δ-7），昨天還是 topSector 今天直接進 warning。** `autocorr` 從 0.1204 崩到 -0.006（歸零），CMF 從 -0.035 惡化到 -0.0208（仍為負值），`rvol` 從 0.97 暴跌到 0.46——**成交量直接腰斬，代表市場對航運板塊的興趣急速消退。** ret_1d +0.72% 看似正，但在 SPY +0.84% 的 risk-on 日裡跑輸大盤。`momentum_decay_rate` -28.72 嚴重衰減。",
+      "news": "伊朗 MOU 談判延續代表 Hormuz 封鎖短期不會解除——理論上應該利好 Marine Transportation 的繞道邏輯。但市場似乎在重新定價：**如果封鎖真的是「新常態」，繞道的溢價已經被充分反映在運費裡了，接下來的 upside 有限。** 更重要的是，今天資金明顯從「Hormuz 受益者」轉向「科技 AI 受益者」——Marine 的 rvol 腰斬 vs Tech Hardware rvol 1.54，說明資金在板塊間大遷移。",
+      "action": "從 topSector 降級到 warning。`autocorr` 歸零 + 成交量腰斬 = 趨勢已失效。除非出現 Hormuz 衝突升級的新催化劑（例如伊朗重新攔截商船），否則航運板塊的動能已經耗盡。"
+    },
+    {
+      "name": "Specialized Finance",
+      "gicsCode": "FCEEFFBE",
+      "momentumDecay": -4.03,
+      "deltaRank": 3,
+      "consecutiveDays": 1,
+      "reason": "ret_1d **-1.56%**——**在 SPY +0.84% 的大漲日裡，Specialized Finance 是 top 20 裡跌幅最大的板塊。** `rvol` 1.7972 全場最高——放量下跌是最危險的訊號。昨天分析說「FOMC 四票分歧讓利率不確定性大增，利好 Specialized Finance（交易量增加）」——但今天非農數據一出來，利率不確定性瞬間消退（10Y 穩在 4.38%，market 不再 price in 加息），**Specialized Finance 的「不確定性溢價」被一份就業數據就擠掉了。**",
+      "news": "VIX 從 18 附近回落到 15 以下，CBOE 和 ICE 的隱含波動率交易量開始萎縮。非農強勁 + FOMC 鷹派信號被忽視 = 市場波動預期下降 = 交易所和做市商的手續費收入預期下修。CBOE 今天 -2.1%——**正好驗證了昨天分析的反面：Specialized Finance 不需要利率走高或走低，它需要「市場對利率有分歧」。今天分歧消失了。**",
+      "action": "從 topSector 降級到 warning。這個板塊的邏輯高度依賴宏觀不確定性——在一份強勁的就業數據面前，不確定性溢價可以在一天內歸零。等下一個「驚嚇」事件（CPI 超預期、地緣衝突升級）才會重新啟動。"
+    }
+  ],
+  "fiveDayTrend": [
+    {
+      "name": "Semiconductors",
+      "gicsCode": "3DFD4B15",
+      "days": ["2026-05-02", "2026-05-05", "2026-05-06", "2026-05-07", "2026-05-08"],
+      "momScore": [86.93, 88.25, 88.98, 89.74, 91.40],
+      "cmf": [0.24, 0.25, 0.26, 0.22, 0.24],
+      "deltaRank": [0, 3, 5, 0, -3],
+      "rvol": [1.04, 1.33, 1.51, 1.45, 1.22],
+      "interpretation": "**mom_score 連 6 日上升（86.9→91.4），最長連升紀錄。** CMF 在 5/7 回落到 0.22 後今天反彈到 0.24——資金流入恢復。rvol 從 1.51 高點回落到 1.22——量能在降溫但仍高於均值。最關鍵的是 `autocorr` 軌跡：0.31→0.26→0.32→0.25→**0.45**——在 5/7 跌到 0.25 後今天爆發性上升到 0.45。**但 delta_rank 從穩步改善（0→3→5）轉為 -3，代表在 IT 板塊內部 Semis 被 Tech Hardware 和 SME 超車。** 判斷：Semis 的絕對動能在加速（autocorr 0.45 + mom 91.4），但相對排名開始輸給更廣泛的硬體供應鏈——AI 從「NVDA 獨秀」轉向「全面開花」對板塊整體是好事，但 Semis 的排名領先會縮窄。"
+    },
+    {
+      "name": "Oil & Gas Drilling",
+      "gicsCode": "738405E7",
+      "days": ["2026-05-02", "2026-05-05", "2026-05-06", "2026-05-07", "2026-05-08"],
+      "momScore": [91.46, 85.77, 85.69, 89.01, 82.94],
+      "cmf": [0.20, 0.16, 0.09, 0.14, 0.17],
+      "deltaRank": [8, 2, -3, 4, -3],
+      "rvol": [0.70, 1.00, 0.97, 1.12, 0.76],
+      "interpretation": "**mom_score 畫出完美的崩落曲線：91.5→85.8→85.7→89.0→82.9。** 5/2 的 91.5 高點已是遙遠記憶，今天 82.9 是 5 日最低。CMF 微幅改善（0.14→0.17），但 rvol 從 1.12 跌回 0.76——反彈日量能不足。delta_rank 呈 +8→+2→-3→+4→-3 的劇烈震盪——**沒有方向性，純粹的 noise。** 和 Semis 的穩步上升形成鮮明對比：同為 top 10 板塊，Semis autocorr 0.45 vs Drilling autocorr -0.03——趨勢品質天壤之別。Drilling 的 6M 和 12M 長期動能仍強，但短期已完全失控。"
+    },
+    {
+      "name": "Heavy Electrical Equipment",
+      "gicsCode": "8D0D1D2F",
+      "days": ["2026-05-02", "2026-05-05", "2026-05-06", "2026-05-07", "2026-05-08"],
+      "momScore": [86.00, 84.00, 84.00, 86.44, 81.87],
+      "cmf": [0.05, 0.03, 0.02, 0.02, 0.02],
+      "deltaRank": [0, 0, 0, 4, 0],
+      "rvol": [0.80, 0.75, 0.70, 0.65, 0.76],
+      "interpretation": "**CMF 連 5 日維持在 0.02-0.05 的極低水準——沒有資金願意大規模進出。** mom_score 在 5/7 短暫反彈到 86.4 後今天崩回 81.9——昨天的 -4.08% 急殺效應在今天的 pipeline 重算中完全體現。rvol 始終在 0.65-0.80 之間低位徘徊。**最值得注意的是 delta_rank：前 4 天都是 0（排名不動），5/7 突然 +4（因為其他板塊跌更多），今天又回到 0。** 這代表 Heavy Electrical 的排名變化完全是被動的——不是自身在改善，是周遭在惡化然後恢復。板塊處於「冬眠」狀態，等待外部催化劑喚醒。"
+    }
+  ],
+  "conclusion": "非農 +115K 一舉擊碎 FOMC 鷹派恐懼——10Y 完全沒反應、VIX 跌破 15、SPY 刷新歷史新高。但今天最深層的訊號不是就業數據本身，而是**科技板塊前所未見的集中度：IT 包攬動能前五，Semis autocorr 飆到 0.45 宣告加速期重啟，Tech Hardware 單日 +6.72% 是 Intel-Apple 代工協議的直接定價。** 風險在於：Nasdaq +1.71% vs Dow +0.02% 的裂口代表漲幅極度集中，一旦科技回調，前五名會同時受創，沒有非科技板塊可以對沖。",
+  "continuityAssessment": "趨勢加速——昨天的「從加速期進入整理期」判斷被今天的非農數據直接否定。Semis autocorr 0.2535→0.4488 代表動能自我強化到了極端水位，短期（1-3 日）很可能出現 mean reversion。DC REITs 從昨天的 top signal（autocorr 0.35 + r2 0.83）被科技股的爆發性表現搶走目光——但穩定型資產在科技回調時反而是避風港。整體判斷：趨勢方向明確（科技 + 能源），但集中度風險升高——需要觀察下週一非科技板塊能否跟上。",
+  "tomorrowWatch": [
+    "**Semis autocorr 0.45 的可持續性。** 歷史上 >0.4 的 autocorr 讀數往往在 2-3 個交易日內 mean-revert——不代表板塊要崩，但代表「追高的最佳窗口已過」。如果下週一 autocorr 回落到 0.3-0.35 且 ret_1d 仍為正，那是「趨勢成熟化」的健康信號；如果 autocorr 和 ret_1d 同步下跌，就是短期過熱的修正。",
+    "**US-Iran MOU 是否在週末簽署。** 白宮透露已接近 14 點備忘錄，瑞士談判仍在進行。如果週末宣布簽署——Brent 可能暴跌 8-12% 到 $90-95，所有能源板塊（Drilling、Refining、O&G Storage）都會承壓，但 Marine Transportation 的繞道邏輯也會瓦解。如果談判破裂，Brent 反彈到 $108-110。",
+    "**Dow +0.02% vs Nasdaq +1.71% 的裂口。** 非科技板塊（材料 -1.9%、能源 -1.8%、工業 -1.6%）在一個「大盤新高」的日子裡全線收跌——下週一如果工業和材料不能跟上，市場廣度的惡化會成為系統性風險。觀察 XLI 和 XLB 的成交量是否放大。"
+  ],
+  "sources": [
+    { "title": "CNBC — Stock market news for May 8, 2026", "url": "https://www.cnbc.com/2026/05/07/stock-market-today-live-updates.html" },
+    { "title": "TheStreet — Nasdaq, S&P 500 jump as strong April jobs report overshadows fresh military exchange", "url": "https://www.thestreet.com/latest-news/stock-market-today-may-8-2026-updates" },
+    { "title": "CNBC — Wall Street sees 'changing of the guard in AI' as Intel, AMD shares soar", "url": "https://www.cnbc.com/2026/05/08/wall-street-ai-chip-love-moves-from-nvidia-to-intel-amd-and-micron.html" },
+    { "title": "CNBC — Intel shares soar on Apple chip deal report", "url": "https://www.cnbc.com/2026/05/08/intel-stock-apple-chip-deal.html" },
+    { "title": "BLS — Employment Situation Summary, April 2026", "url": "https://www.bls.gov/news.release/empsit.nr0.htm" },
+    { "title": "Bloomberg — US April Jobs Report: Payrolls Rise 115K in First Back-to-Back Gain in Nearly a Year", "url": "https://www.bloomberg.com/news/articles/2026-05-08/us-jobs-rise-115-000-in-first-back-to-back-gain-in-nearly-a-year" },
+    { "title": "Fortune — Current price of oil as of May 8, 2026 (Brent $104.07)", "url": "https://fortune.com/article/price-of-oil-05-08-2026/" },
+    { "title": "Advisor Perspectives — Treasury Yields Snapshot: May 8, 2026 (10Y 4.38%)", "url": "https://www.advisorperspectives.com/dshort/updates/2026/05/08/treasury-yields-snapshot-may-8-2026" },
+    { "title": "CNBC — Oil prices: Trump, Iran, Strait of Hormuz update", "url": "https://www.cnbc.com/2026/05/07/oil-prices-today-trump-iran-strait-of-hormuz-us-crude-brent-.html" },
+    { "title": "FactSet — S&P 500 Earnings Season Update: May 8, 2026", "url": "https://insight.factset.com/sp-500-earnings-season-update-may-8-2026" }
+  ]
+}
