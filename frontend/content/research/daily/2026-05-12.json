@@ -1,0 +1,160 @@
+{
+  "slug": "2026-05-12",
+  "type": "daily",
+  "date": "2026-05-12",
+  "title": "CPI 3.8% 終結 goldilocks 美夢——油價衝破 $108，但 Semis autocorr 0.41 拒絕投降",
+  "marketSentiment": "neutral",
+  "spyReturn": -0.16,
+  "intro": "S&P 500 收 7,401（-0.16%），結束七連漲。表面上看只是微幅修正，但底層暗潮洶湧——**SOXX 單日 -3.2%，QCOM -14%，INTC -6.8%，科技板塊在創歷史新高後遭遇今年最猛烈的獲利了結。** 先追溯週五（5/8）以來的兩日行情再逐條驗證 tomorrowWatch：昨天（5/11，週一）S&P 勉強再刷新高到 7,413（+0.19%），但**廣度只有 37.8%——不到四成個股上漲就創了新高，這是標準的「假突破」前兆。** ✗ Semis autocorr 0.45 可持續性——**從 0.4488 降到 0.4136，仍 >0.4，在 -3.5% 的急殺日裡守住比預期好。** 但 0.4136 是第二日下滑，mean reversion 進行中。✗ US-Iran MOU 週末簽署——**完全相反。Trump 公開表示停火協議處於「massive life support」，否決了德黑蘭的最新和平提案。** Brent 單日暴漲 3.4% 到 $107.77，WTI 突破 $102。✓ Dow vs Nasdaq 裂口——**今天兩邊一起跌，但 Nasdaq 跌幅更大（~-0.7% vs Dow ~-0.3%），正好驗證了週五的警告：科技集中度是雙刃劍。** **第一條故事線：CPI 3.8% 擊穿 goldilocks 敘事。** 4 月 CPI 月增 0.6%、年增 3.8%——**三年新高**，核心 CPI 2.8%（月增 0.4%）同樣超預期。能源價格月增 3.8% 貢獻了超過 40% 的漲幅（伊朗戰爭直接效應），住房成本月增 0.6% 代表通膨不只是油價的事。**最要命的數字：實質平均時薪年減 0.3%——2023 年 4 月以來首度轉負。** 週五非農 +115K 建立的「經濟強勁但薪資溫和」goldilocks 故事，在三個交易日內被 CPI 徹底打破。Fed 現在面臨經典 stagflation 困境：就業強（不用降息）+ 通膨升（可能要加息）+ 實質薪資負（消費者承壓）。**第二條故事線：伊朗停火瓦解推高油價到 $108。** Trump 的「massive life support」宣言等於告訴市場——別再 price in 和談成功了。Brent $107.77（+3.4%）、WTI $102.18（+4.2%），沙特 Aramco CEO 警告全球每週損失 1 億桶供應。霍爾木茲海峽封鎖正態化的最壞情境正在成為基準假設——**如果這不是暫時的危機而是「新常態」，所有依賴中東石油的產業鏈都要重新定價。** **第三條故事線：科技七連漲後的清算日。** SOXX -3.2% 是今年最大單日跌幅，QCOM -14%（William Blair 降評 + 估值壓力）、INTC -6.8%（回吐上週 Apple 代工協議的漲幅）。但 NVDA +0.6% 逆勢收漲——**市場在區分「基本面驅動的 NVDA」和「故事驅動的其他晶片股」。** 週五喊的「AI changing of the guard」在四天後迎來第一次信任測試。",
+  "topSectors": [
+    {
+      "name": "Semiconductors",
+      "gicsCode": "3DFD4B15",
+      "momScore": 91.14,
+      "deltaRank": 3,
+      "cmf": 0.2337,
+      "autocorr": 0.4136,
+      "r2": 0.6185,
+      "continuity": "strong",
+      "analysis": "ret_1d **-3.49%** 是今日 top 20 裡最大跌幅——但 **`delta_rank` +3（#4→#1），在暴跌日反而升到了排名第一。** 原因：其他 IT 板塊跌得更慘（Tech Hardware -1.70% + mom -4.6 pts，SME -3.0% + mom -5.2 pts），Semis 的 `mom_score` 91.14 只比週五的 91.40 跌了 0.3 pts——**動能分數的韌性遠超價格表現。** `autocorr` 從 0.4488 降到 0.4136——連續第二日下滑但仍在 0.4 以上，**在 -3.5% 的急殺日裡這個讀數異常堅挺。** CMF 0.2337（vs 週五 0.2410）幾乎沒動——資金沒有大幅撤出。`rvol` 1.0934（vs 週五 1.2232），量能降溫但仍略高於均值。NVDA 逆勢 +0.6% 是板塊內部的定海神針——剔除 QCOM -14% 的拖累，其餘成分股的平均跌幅只有 ~1.5%。",
+      "news": "**QCOM -14% 是今天科技板塊的最大痛點**——William Blair 降評至 Underperform（5/8 發出），加上估值 P/E 22.5x 遠高於 5 年中位數 17.5x，在 CPI 恐慌日被集中清算。INTC -6.8% 回吐 Apple 代工協議漲幅。但 NVDA 逆勢 +0.6%（盤中觸及 $220.78）——**市場資金在科技回調日「升級」到最高品質的持倉。** Semis 板塊 5 日仍漲 +5.4%，年初至今 +60%——今天的 -3.2% SOXX 跌幅只是「漣漪」。",
+      "focusStocks": [
+        { "ticker": "NVDA", "momScore": 95.0, "ret1d": 0.6, "note": "逆勢收漲，科技回調日的避風港——市場在 quality 和 story 之間選了 quality" },
+        { "ticker": "QCOM", "momScore": 75.0, "ret1d": -14.0, "note": "William Blair 降評 + P/E 溢價被擠壓，單日最大跌幅" }
+      ]
+    },
+    {
+      "name": "Diversified Chemicals",
+      "gicsCode": "4B59004E",
+      "momScore": 87.51,
+      "deltaRank": 25,
+      "cmf": 0.1607,
+      "autocorr": 0.0097,
+      "r2": 0.7545,
+      "continuity": "noise",
+      "analysis": "**`delta_rank` +25 是今日全場最大的排名躍升——從 top 20 外直接衝到 #4。** 但細看數據：昨天（5/11）ret_1d +9.6%（單日暴漲）主要貢獻了這個排名跳升，今天 ret_1d 只有 -0.10%（幾乎持平），代表「漲上來之後站穩了，但沒有後續動能」。`autocorr` 0.0097 幾乎為零——**沒有方向性趨勢，完全是單日事件驅動。** CMF 0.1607 中等，`rvol` 0.9845 接近均值。`r2` 0.7545 中偏高，代表長期價格趨勢存在。**判斷：這更像是 mean reversion 反彈（化學品類股在今年被超賣後的估值修復）而非新趨勢的起點。** 如果明天 autocorr 沒有顯著上升，排名會很快回落。",
+      "news": "DOW（道化學）和 EMN（Eastman Chemical）是板塊主力。DOW 股價約 $33.6，從 2025 年「chemicals 長期低谷」反彈中——分析師共識 Hold，EBITDA 預估 $60B。Eastman Q1 營收 $2.2B 但利潤率壓縮（淨利率 4.6% vs 去年 9.8%）。化學品板塊是典型的週期股——在 CPI 上升、商品價格走高的環境下理論上受益（pricing power），但今天 CPI 恐慌並沒有額外推升化學品，代表市場尚未買單「通膨受益者」敘事。",
+      "focusStocks": [
+        { "ticker": "DOW", "momScore": 70.0, "ret1d": -0.1, "note": "昨日暴漲後今天持平，等待後續催化劑確認" }
+      ]
+    },
+    {
+      "name": "Oil & Gas Drilling",
+      "gicsCode": "738405E7",
+      "momScore": 85.50,
+      "deltaRank": 1,
+      "cmf": 0.2618,
+      "autocorr": -0.1225,
+      "r2": 0.7719,
+      "continuity": "watch",
+      "analysis": "ret_1d +0.86%——**在大盤 -0.16% 的日子裡正向收漲，且連續第二日上漲**（昨 +2.6%、今 +0.86%）。`mom_score` 從 82.94（週五）反彈到 85.50——回升了 2.6 pts。**最重要的變化是 `CMF` 從 0.1656 飆到 0.2618——這是 Drilling 板塊近一個月最強的資金流入信號。** `r2` 0.7719（vs 週五 0.7213），價格趨勢的可預測性在上升。但 `autocorr` -0.1225 仍為負值——**資金在進，但動能的自我強化還沒建立。** Brent 從 $104 跳到 $108 提供了直接催化劑。和週五的判斷（「反彈無力、空頭回補」）相比，**今天的數據更像是真實的資金重新配置——CMF 0.26 + rvol 0.62 代表中等量能配合強勁資金流入。**",
+      "news": "**Trump 的「massive life support」宣言改變了油價的定價邏輯。** 上週市場還在猶豫「和談成功 vs 失敗」，今天答案變得更明確：短期內不會有和平協議。沙特 Aramco CEO 警告全球每週損失 1 億桶供應。Brent $107.77 已經遠超 $100 的心理關口——**如果油價持續在 $105-110 區間，Drilling 的營運商會重新考慮增加鑽機數（過去 3 週活躍鑽機數持平就是因為 $100 附近的方向不確定，$108 消除了這個猶豫）。**",
+      "focusStocks": [
+        { "ticker": "HP", "momScore": 83.0, "ret1d": 1.0, "note": "連續 2 日反彈，CMF 飆升代表機構資金回流" }
+      ]
+    },
+    {
+      "name": "Data Center REITs",
+      "gicsCode": "5E2B6876",
+      "momScore": 80.69,
+      "deltaRank": 11,
+      "cmf": 0.1008,
+      "autocorr": 0.2912,
+      "r2": 0.8036,
+      "continuity": "strong",
+      "analysis": "**Δ+11 是今日 top 20 裡第二大排名躍升（僅次 Diversified Chemicals Δ+25），從 #20 重返 #14。** 但更有意義的是指標組合：`autocorr` 0.2912 + `r2` 0.8036——**這是 5/7 日報就指出的「全場最可靠趨勢信號」回來了。** 回顧軌跡：5/7 autocorr 0.353 + r2 0.826（被選為當日最佳信號）→ 5/8 科技暴漲日 DC REITs 被擠出 top 20 → 5/11-5/12 科技回調日又浮出水面——**這完美印證了 DC REITs 作為「科技回調避風港」的定位。** `mom_score` 從 73.19（昨日低點）暴彈到 80.69（+7.5 pts），ret_1d 只跌 -0.50%（在大盤 -0.16%、SOXX -3.2% 的日子裡表現極其穩健）。CMF 0.10 偏低但 `rvol` 0.7988 在改善。",
+      "news": "科技賣壓日是 DC REITs 的天然利好——投資人從高 beta 科技股撤出，轉向低 beta 但有 AI 基建基本面支撐的 REITs。EQIX（Equinix）和 DLR（Digital Realty）的 10-15 年租約鎖定結構讓它們在通膨升溫環境下有天然對沖（租金隨 CPI 調升）。**CPI 3.8% 對 DC REITs 是雙面刃：短期推高利率預期（利空 REIT 估值），但中長期租金上調條款保護了現金流。** 今天市場選擇了後者。",
+      "focusStocks": [
+        { "ticker": "EQIX", "momScore": 82.0, "ret1d": -0.3, "note": "科技急殺日只跌 0.3%，autocorr 回升確認避風港地位" }
+      ]
+    },
+    {
+      "name": "Aluminum",
+      "gicsCode": "1D0B4025",
+      "momScore": 86.46,
+      "deltaRank": 7,
+      "cmf": 0.1520,
+      "autocorr": -0.0608,
+      "r2": 0.6516,
+      "continuity": "noise",
+      "analysis": "ret_1d **+2.13%** 是今日 top 20 裡最大正向漲幅。`delta_rank` +7（#13→#6），`mom_score` 從 79.04（週五）跳到 86.46（+7.4 pts）——**在科技回調 + 油價暴漲的日子裡，工業金屬是最大受益者。** CMF 0.152（vs 週五 0.0545）大幅改善。`r2` 0.6516 中等。但 `autocorr` -0.0608 仍略負——和 Diversified Chemicals 類似，**是單日事件驅動而非趨勢建立。** `rvol` 0.958 接近均值，不是暴量拉升。如果明天 autocorr 翻正且 ret_1d 繼續為正，才能判定趨勢開始。",
+      "news": "鋁價受惠於兩個因素：(1) 油價 $108 推高能源密集型冶煉成本——鋁冶煉佔全球電力消費 ~3.5%，能源成本上升直接支撐鋁價；(2) 全球供應鏈在伊朗危機後重新佈局，鋁需求（汽車輕量化、建築、包裝）結構性增長。Alcoa（AA）和 Century Aluminum（CENX）受益於北美冶煉產能的戰略價值重估。**在 stagflation 環境下，大宗商品是天然的通膨對沖——鋁比銅或鐵礦石更 pure-play 因為它同時有供應端（能源成本）和需求端（輕量化趨勢）的支撐。**",
+      "focusStocks": [
+        { "ticker": "AA", "momScore": 80.0, "ret1d": 2.5, "note": "Alcoa，鋁價上漲 + 能源成本推高入場門檻，北美冶煉戰略價值重估" }
+      ]
+    }
+  ],
+  "warningSectors": [
+    {
+      "name": "Construction & Engineering",
+      "gicsCode": "787C9D0B",
+      "momentumDecay": -7.16,
+      "deltaRank": -5,
+      "consecutiveDays": 2,
+      "reason": "**ret_1w -7.58% 是今日 top 20 裡最慘的週度表現。** `delta_rank` -5（#7→#12），`mom_score` 從 90.12（昨日）暴跌到 82.07（-8.1 pts）——**不到一天跌掉 8 分是罕見的急殺。** `autocorr` -0.3007 深度負值代表「強烈均值回歸傾向」——昨天漲了（+2.29%），今天就跌回來（-1.77%），完全沒有方向性。CMF 0.1195 勉強為正但在下滑。`rvol` 1.0013 代表量能正常——這不是恐慌賣壓，而是系統性的資金撤出。",
+      "news": "CPI 3.8% + Fed 可能加息的前景對 capex 敏感型資產是直接打擊。建築工程板塊依賴基建投資和房地產開發——如果利率走高，建設時程會被延後。上週 C&E 曾短暫受惠於非農強勁（建築業就業穩定），但今天 CPI 翻轉了那個邏輯：強就業 + 高通膨 = 利率更高 = 建設成本更高。Quanta Services（PWR）和 MasTec（MTZ）今天均跌超過 2%。",
+      "action": "短期回避。autocorr -0.30 + 連續 2 日排名下滑代表趨勢已完全破壞。需要等 10Y 殖利率穩定後才能重新評估——如果 10Y 從 4.38% 升到 4.50%+，C&E 會繼續出血。"
+    },
+    {
+      "name": "Electronic Manufacturing Services",
+      "gicsCode": "95B13044",
+      "momentumDecay": 1.98,
+      "deltaRank": -6,
+      "consecutiveDays": 1,
+      "reason": "`delta_rank` -6（#5→#11），**從上週五的動能前五直接跌出前十。** ret_1d -2.17%，`mom_score` 從 90.61（週五）暴跌到 82.73（-7.9 pts）。`autocorr` -0.1549 負值 + `r2` 0.5737 偏低——趨勢信號已消失。**但 `ret_1w` +6.92% 仍很強——這是一個「短期急殺、中期仍強」的板塊。** 問題在於：今天的急殺是不是中期趨勢轉折的開始？CMF 0.1508 尚可，但 `rvol` 1.0066 平庸。",
+      "news": "EMS 板塊（Flex、Jabil 等）是科技供應鏈的代工環節——受上游（晶片）和下游（品牌商）雙重影響。今天科技全線回調，EMS 作為 beta 最高的供應鏈環節首當其衝。上週受惠於 Intel-Apple 代工協議的漲幅被部分回吐。如果 Semis 的 autocorr 繼續守住 0.4，EMS 會跟著修復；如果 Semis 也開始崩，EMS 會跌更多。",
+      "action": "暫時降級到 warning，但不等同於 C&E 的結構性惡化。EMS 的命運取決於 Semis 的趨勢——如果 Semis autocorr 守住 0.3+，EMS 的回調就是買入機會。"
+    }
+  ],
+  "fiveDayTrend": [
+    {
+      "name": "Semiconductors",
+      "gicsCode": "3DFD4B15",
+      "days": ["2026-05-06", "2026-05-07", "2026-05-08", "2026-05-11", "2026-05-12"],
+      "momScore": [88.98, 89.74, 91.40, 90.17, 91.14],
+      "cmf": [0.26, 0.22, 0.24, 0.24, 0.23],
+      "deltaRank": [5, 0, -3, 1, 3],
+      "rvol": [1.51, 1.45, 1.22, 1.20, 1.09],
+      "interpretation": "**mom_score 在 88.9-91.4 之間震盪但穩步上行（5 日 +2.2 pts），是 top 20 裡最穩定的上升軌跡。** CMF 穩定在 0.22-0.26——資金流入不急不緩但持續。rvol 從 1.51 逐步降到 1.09——量能在正常化，代表從「爆發期」進入「穩定期」。最關鍵的 autocorr 軌跡（未列入表格但追蹤中）：0.32→0.25→0.45→0.49→**0.41**——即使在今天 -3.5% 的急殺中仍 >0.4，**過去 5 個交易日 autocorr 始終 >0.25，這是連續 8 個交易日 >0.2 的記錄。** 只要 autocorr 不跌破 0.3，Semis 的動能就是「暫時喘息」而非「趨勢轉折」。"
+    },
+    {
+      "name": "Data Center REITs",
+      "gicsCode": "5E2B6876",
+      "days": ["2026-05-06", "2026-05-07", "2026-05-08", "2026-05-11", "2026-05-12"],
+      "momScore": [82.89, 84.16, 72.00, 73.19, 80.69],
+      "cmf": [0.20, 0.17, 0.12, 0.11, 0.10],
+      "deltaRank": [5, -1, -10, 5, 11],
+      "rvol": [0.76, 0.97, 0.50, 0.53, 0.80],
+      "interpretation": "**最戲劇性的 5 日軌跡：mom_score 從 84.2 暴跌到 72.0（5/8 科技暴漲日被擠出 top 20），然後在 5/12 反彈到 80.7。** 這完美示範了 DC REITs 的「科技反向指標」屬性——科技漲它跌（相對排名被壓縮），科技跌它漲。CMF 持續下滑（0.20→0.10），代表資金流入在減弱——但 autocorr 軌跡（0.29→0.35→?→0.07→0.29）在今天回到接近 5/6 的水位。**關鍵信號：autocorr 0.29 + r2 0.80 的組合再次出現——這是 5/7 日報標記的「全場最可靠趨勢信號」的回歸。** 如果明天科技繼續回調，DC REITs 的 autocorr 可能再次攀向 0.35。"
+    },
+    {
+      "name": "Oil & Gas Drilling",
+      "gicsCode": "738405E7",
+      "days": ["2026-05-06", "2026-05-07", "2026-05-08", "2026-05-11", "2026-05-12"],
+      "momScore": [85.69, 89.01, 82.94, 87.22, 85.50],
+      "cmf": [0.09, 0.14, 0.17, 0.21, 0.26],
+      "deltaRank": [-3, 4, -3, 2, 1],
+      "rvol": [0.97, 1.12, 0.76, 0.57, 0.62],
+      "interpretation": "**CMF 連 5 日穩步上升（0.09→0.26）是全場最顯著的資金流入加速趨勢——在 mom_score 劇烈震盪（85.7→89.0→82.9→87.2→85.5）的同時，資金流入方向始終一致。** 這代表什麼？機構投資人在「低買高賣」的同時穩定加碼——不追高，但每次回落都在承接。rvol 從 0.97 降到 0.62，量能偏低但 CMF 的持續改善比量能更重要（代表每一筆交易的淨買入傾向在增強）。delta_rank 震盪但圍繞 0 軸——板塊穩在 #8-#9 附近。**伊朗停火瓦解 + Brent $108 提供了基本面支撐，如果 CMF 繼續上升到 0.30+，Drilling 可能從「noise」轉為「watch」信號。**"
+    }
+  ],
+  "conclusion": "CPI 3.8% 在三個交易日內徹底推翻了週五非農建立的 goldilocks 敘事——實質薪資轉負、能源佔 CPI 漲幅 40%、住房成本再加速。伊朗停火瓦解推動 Brent 到 $108，讓 stagflation 不再是尾部風險而是基準情境。科技板塊在七連漲後遭遇今年最猛烈的獲利了結（SOXX -3.2%），但 Semis autocorr 0.41 拒絕跌破 0.4——動能的方向性仍在，只是速度在減慢。**今天最有意義的信號是板塊輪動的方向：資金從高 beta 科技（QCOM -14%、INTC -6.8%）流向低 beta 避風港（DC REITs Δ+11）和通膨受益者（Aluminum +2.1%、O&G Drilling CMF 5 日連升）。**",
+  "continuityAssessment": "出現分歧——Semis 的動能結構仍完好（autocorr 0.41），但宏觀環境從 goldilocks 急轉為 stagflation 風險。5/8 建立的「科技加速期重啟」判斷被 CPI 和油價同時衝擊，需要再觀察 1-2 日確認科技回調的深度。DC REITs 的 autocorr 0.29 + r2 0.80 再次出現，驗證了它作為「科技回調避風港」的結構性角色。能源板塊（Drilling CMF 5 日連升、Refining 穩在 top 15）正在從「地緣風險交易」轉向「結構性配置」——如果油價繼續在 $105-110 區間，能源板塊的 autocorr 可能開始翻正。",
+  "tomorrowWatch": [
+    "**Semis autocorr 能否守住 0.35。** 連續兩日從 0.45 降到 0.41，如果明天跌破 0.35，代表 mean reversion 正在加速——板塊仍強但最佳追高窗口已過。搭配觀察 NVDA（5/20 財報前的提前定價行為）：如果 NVDA 在板塊回調日繼續逆勢，代表市場對 AI 基本面仍有信心。",
+    "**10Y 殖利率對 CPI 的反應。** 今天 CPI 3.8% 但 10Y 只微升到 4.38-4.40%——市場似乎認為通膨是「伊朗效應」而非結構性。如果明天 10Y 突破 4.45%，代表 bond market 開始 price in 加息可能——對所有利率敏感資產（DC REITs、C&E、Heavy Electrical）都是逆風。如果 10Y 穩在 4.40% 以下，代表 CPI 被視為一次性衝擊。",
+    "**油價在 $108 的可持續性。** 如果 Brent 連續 3 日站穩 $105+，能源板塊的定價邏輯會從「地緣風險溢價」升級為「結構性供應短缺」——觀察 Drilling 的 autocorr 是否從 -0.12 翻正，以及 Refining 的 CMF 能否維持在 0.23 以上。"
+  ],
+  "sources": [
+    { "title": "CNBC — CPI inflation April 2026: Prices rose 3.8% annually", "url": "https://www.cnbc.com/2026/05/12/cpi-inflation-april-2026-.html" },
+    { "title": "CNN — US inflation rose to 3.8% in April, eroding Americans' paychecks", "url": "https://www.cnn.com/2026/05/12/economy/us-cpi-inflation-april" },
+    { "title": "TheStreet — Stock Market Today May 12, 2026: Nasdaq, Russell 2000 recover some losses", "url": "https://www.thestreet.com/latest-news/stock-market-today-may-12-2026-updates" },
+    { "title": "CNBC — U.S. crude oil tops $100 again as hope fades for a U.S.-Iran peace deal", "url": "https://www.cnbc.com/2026/05/12/oil-prices-today-brent-wti-trump-iran-war-hormuz.html" },
+    { "title": "Republic World — Oil Prices Surge to $105 as US-Iran Ceasefire Weakens", "url": "https://www.republicworld.com/business/business-markets-crude-oil-price-brent-105-trump-iran-ceasefire-india-impact-may-12" },
+    { "title": "24/7 Wall St — Chip Stocks Are Bleeding Today: 2018 and 2022 Selloffs Tell You What Comes Next", "url": "https://247wallst.com/investing/2026/05/12/chip-stocks-are-bleeding-today-the-2018-and-2022-selloffs-tell-you-exactly-what-comes-next/" },
+    { "title": "Seeking Alpha — Semiconductor and AI software stocks see red amid tech selloff", "url": "https://seekingalpha.com/news/4569429-semiconductor-and-ai-software-stocks-see-red-amid-tech-stock-selloff" },
+    { "title": "TipRanks — Why Qualcomm (QCOM) Stock Tanked Today – May 12, 2026", "url": "https://www.tipranks.com/news/why-qualcomm-qcom-stock-is-tanking-today" },
+    { "title": "TheStreet — Stock Market Today May 11, 2026: Stocks post modest gains as oil rises", "url": "https://www.thestreet.com/latest-news/stock-market-today-may-11-2026-updates" },
+    { "title": "BLS — Consumer Price Index Summary, April 2026", "url": "https://www.bls.gov/news.release/cpi.nr0.htm" }
+  ]
+}
