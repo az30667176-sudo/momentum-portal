@@ -1,0 +1,234 @@
+{
+  "slug": "2026-05-15",
+  "issue": 7,
+  "date": "2026-05-15",
+  "snapshotDate": "2026-05-15",
+  "title": "CPI 3.8% 翻轉引擎——IT 六連漲撞上通膨牆，能源接棒獨走",
+  "subtitle": "能源唯一正報酬板塊 +4.1%，Drilling +7.4% 領跑。IT 六連漲終結 -1.6%，SOXX 單日暴跌 5%。CPI 能源成本 +17.9% YoY 推升通膨至 3 年新高，市場開始定價年底升息",
+  "imageDir": "/research/weekly/2026-05-15",
+  "coverImage": "01_sector_1w.png",
+  "intro": [
+    "上期核心判斷是「雙引擎只剩一個，IT 獨走全場，FOMC 分歧劃定 rally 天花板」。操作建議把能源全面退出、IT 從三角擴展到四角（Tech Hardware + Semis + SME + Internet Services）、Copper 加回、Gold/Silver 中性偏多。本週結果：**IT 四角全面失速（IT -1.6%、Tech Hardware -2.9%、Semis -1.3%），但能源完全逆轉——Drilling +7.4% 登頂、Integrated +7.2%、E&P +6.2%，Energy 是 11 個板塊中唯一正報酬的。** 能源「全面退出」是本系列七期以來最糟的單一操作——上週 Drilling 是迴避名單，本週是 #1。直接原因是 CPI：4 月 CPI 3.8% YoY 是三年新高，能源成本 +17.9% YoY 是 2022 年 9 月以來最猛，**油價既是通膨的成因又是通膨的受益者**。",
+    "S&P 500 六連漲在本週正式終結。11 個板塊只有 Energy +4.1% 正報酬，其餘 10 個全軍覆沒——這是追蹤以來最窄的市場寬度（上週 7/11 負，本週 10/11 負）。消費循環 -6.2% 是最大犧牲品：零售 ETF（XRT）創去年 10 月以來最差單週，National Vision、Kohl's、Sally Beauty 單週跌幅兩位數。4 月零售銷售（ex-auto）從 +1.9% 降到 +0.7%，消費者在通膨面前正在收縮支出。IT -1.6% 打斷了從第 2 期開始的連續正報酬——催化劑是 CPI 發布當天 SOXX 單日暴跌 5%，QCOM -14%、INTC -6.8%，市場開始定價「年底升息」的可能性（CME 顯示 1/3 機率）。但 NVDA 在血洗中仍收漲 +0.6%，**核心 AI 基建邏輯沒壞，被打的是估值倍數不是基本面。**",
+    "本期核心判斷：**通膨才是市場的真老闆。CPI 3.8% 揭示了 IT 和 Energy 結構性反向的本質——油價漲 → CPI 漲 → 升息預期 → 科技殺估值；油價漲 → 能源股漲。** 過去四期的引擎故事是一場旋轉門：第 4 期雙引擎啟動，第 5 期雙引擎減速，第 6 期能源死 IT 獨走，第 7 期 IT 死能源獨走。雙引擎從來沒有穩定超過兩週——因為它們透過通膨管道結構性對沖。只有在「油價穩定 + 通膨降溫 + Fed 鴿派」的窗口期，兩者才能共存。**這個窗口在 CPI 3.8% 面前被釘死了。** 經濟學家預測 Q2 通膨將觸及 6%，新任 Fed 主席 Warsh 本月就任面對的第一個問題是「要不要升息」。NVDA 5/20 財報是下週最大催化劑——如果 AI capex 指引再次上修，IT 動能可能短暫抵抗通膨壓力；但只要 Brent 在 $105 以上，每次 CPI 發布都是 IT 的地雷。"
+  ],
+  "exhibits": [
+    {
+      "number": 1,
+      "title": "板塊一週報酬：能源 +4.1% 獨佔正報酬，其餘 10 板塊全軍覆沒",
+      "image": "01_sector_1w.png",
+      "caption": "Energy +4.1% 是唯一正報酬板塊。IT -1.6% 打斷六連漲，Consumer Discretionary -6.2% 被通膨碾壓。10/11 板塊負報酬是追蹤以來最差寬度。",
+      "body": "上週板塊排序是「IT +6.9% 獨走，能源 -4.6% 墊底，只有 4/11 板塊正報酬」。本週引擎完全對調——**能源 +4.1% 從墊底翻回唯一正報酬，IT 從冠軍跌到 -1.6%**。過去四期的引擎輪替史：第 4 期雙引擎同步（能源 +5.4%、IT +2.8%）→ 第 5 期減速（+3.5%、+1.6%）→ 第 6 期 IT 獨走（+6.9%、能源 -4.6%）→ 第 7 期能源獨走（+4.1%、IT -1.6%）。**引擎每週換一次，從來沒穩定超過兩期。** 消費循環 -6.2% 是全場最弱——Housewares -15.4%、Tires -13.4%、Apparel -10.7% 全是兩位數跌幅，零售股創去年 10 月以來最差單週。通訊 -3.3%（Interactive Media -11.0%，反映廣告預算在通膨環境下被砍）和工業 -3.6% 也慘重。**上週只有 7/11 板塊負報酬已是追蹤以來最差，本週更進一步到 10/11——通膨恐慌正在系統性抽乾市場流動性。**",
+      "links": [
+        { "label": "Oil & Gas Drilling", "href": "/sub/738405E7" },
+        { "label": "Integrated Oil & Gas", "href": "/sub/630FFAD7" },
+        { "label": "Oil & Gas E&P", "href": "/sub/8D203C2D" },
+        { "label": "Semiconductors", "href": "/sub/3DFD4B15" },
+        { "label": "Tech Hardware", "href": "/sub/D10047AB" }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "輪動地圖：能源重返右上唯一亮點，IT 從極端右上跌破零線",
+      "image": "02_rotation_map.png",
+      "caption": "Energy 在 3M ~13% + 1W +4.1% 的位置獨佔右上。IT 從上週的極端右上（3M ~25%, 1W +6.9%）跌到右側零線下方（1W -1.6%）。Consumer Discretionary 落在左下角深淵。",
+      "body": "上週 IT 射到右上極端（3M ~25% + 1W +6.9%），我說「在圖上的位置幾乎碰到邊界」。本週直接從邊界摔下來——**IT 的 1W 從 +6.9% 跌到 -1.6%，Y 軸位移超過 8 個百分點，但 3M 仍有 ~24%**——這是經典的「趨勢領跑者開始回吐」位置，從右上滑到右下。Energy 走了一條完美的反向路徑：上週從右上摔到右下（1W -4.6%），本週彈回右上（1W +4.1%，3M ~13%）。**這就是第 2 期開始追蹤的輪動地圖上最清晰的「引擎交替」畫面：IT 和 Energy 在右側上下跳動，每週換位一次。** Consumer Discretionary 掉到了最左下角的深淵（3M ~-10%、1W -6.2%），是圖上離原點最遠的負面極端。Materials 從上週的右中回到中心偏左下（1W -3.9%）——上期的 Copper 反彈只撐了一週。**右上象限的佔領者從兩週前的「IT 獨佔」變成「Energy 獨佔」——孤獨的引擎在旋轉，但永遠只有一個。**",
+      "links": [
+        { "label": "Oil & Gas Drilling", "href": "/sub/738405E7" },
+        { "label": "Tech Hardware", "href": "/sub/D10047AB" },
+        { "label": "Semiconductors", "href": "/sub/3DFD4B15" },
+        { "label": "Oil & Gas E&P", "href": "/sub/8D203C2D" },
+        { "label": "Oil & Gas Storage", "href": "/sub/0439508E" }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "最強 / 最弱次產業：能源包辦前 6 中 5 席，消費循環佔據最弱 12 中 7 席",
+      "image": "03_top_bottom_subs.png",
+      "caption": "Oil & Gas Drilling +7.4% 重返第一（上週被迴避）。能源 5 個子行業包辦 Top 6 中 5 席。Bottom 12 被消費循環包辦 7 席——Housewares -15.4% 最慘。上週 Top 12 的 IT 完全消失。",
+      "body": "上週 Top 12 由 IT 壟斷（Internet Services +23.7%、Tech Hardware +13.9%、Semis +11.1%），能源全在 Bottom。本週完全翻轉——**能源 5 個子行業（Drilling +7.4%、Integrated +7.2%、E&P +6.2%、Storage +5.0%、Equipment +2.9%）包辦前 6 中的 5 席**，上週的 IT 霸主全部消失。Tobacco +5.9% 擠進第四名是個意外——通膨環境下消費必需品的價格轉嫁能力反而變成優勢。Interactive Home Entertainment +5.0%（Δ+28）也在 Top 12——遊戲業不受通膨影響的特性在本週被 reprice。**Bottom 12 的結構是本期最重要的訊號：Consumer Discretionary 獨佔 7 席**——Housewares -15.4%、Tires -13.4%、Apparel -10.7%、Specialty Stores -10.1%、Automotive Retail -9.1%、Home Improvement -9.0%、Household Appliances -11.1%。上週 Household Appliances -20.5% 是單一最慘，本週整個消費循環板塊集體崩跌——**不再是個別公司問題，是通膨 + 零售支出收縮的系統性衝擊。** Interactive Media -11.0% 和 Advertising -8.9% 反映廣告預算在經濟放緩預期下被砍。Health Care Technology -11.8% 延續結構性下滑。",
+      "links": [
+        { "label": "Oil & Gas Drilling", "href": "/sub/738405E7" },
+        { "label": "Integrated Oil & Gas", "href": "/sub/630FFAD7" },
+        { "label": "Tobacco", "href": "/sub/6912B116" },
+        { "label": "Managed Health Care", "href": "/sub/3E2ACB37" },
+        { "label": "Housewares", "href": "/sub/7123167E" },
+        { "label": "Interactive Media", "href": "/sub/0D9F6537" }
+      ],
+      "chartData": {
+        "type": "hbar",
+        "items": [
+          { "label": "Oil & Gas Drilling", "value": 7.4, "href": "/sub/738405E7" },
+          { "label": "Integrated Oil & Gas", "value": 7.2, "href": "/sub/630FFAD7" },
+          { "label": "Oil & Gas Exploration & Production", "value": 6.2, "href": "/sub/8D203C2D" },
+          { "label": "Tobacco", "value": 5.9, "href": "/sub/6912B116" },
+          { "label": "Interactive Home Entertainment", "value": 5.0, "href": "/sub/951C6D9C" },
+          { "label": "Oil & Gas Storage & Transportation", "value": 5.0, "href": "/sub/0439508E" },
+          { "label": "Alternative Carriers", "value": 4.0, "href": "/sub/E1C7925A" },
+          { "label": "Managed Health Care", "value": 3.2, "href": "/sub/3E2ACB37" },
+          { "label": "Oil & Gas Equipment & Services", "value": 2.9, "href": "/sub/8B53278B" },
+          { "label": "Health Care Distributors", "value": 2.8, "href": "/sub/D67DD572" },
+          { "label": "Copper", "value": 2.2, "href": "/sub/9D3B3E86" },
+          { "label": "Rail Transportation", "value": 1.8, "href": "/sub/AA6314B8" },
+          { "label": "Advertising", "value": -8.9, "href": "/sub/F60915FE" },
+          { "label": "Home Improvement Retail", "value": -9.0, "href": "/sub/94A22E14" },
+          { "label": "Paper Products", "value": -9.0, "href": "/sub/7BD0E9D6" },
+          { "label": "Automotive Retail", "value": -9.1, "href": "/sub/8AD509DF" },
+          { "label": "Specialty Stores", "value": -10.1, "href": "/sub/3EFA9656" },
+          { "label": "Apparel, Accessories & Luxury Goods", "value": -10.7, "href": "/sub/1AC64996" },
+          { "label": "Interactive Media & Services", "value": -11.0, "href": "/sub/0D9F6537" },
+          { "label": "Household Appliances", "value": -11.1, "href": "/sub/5C1D8B69" },
+          { "label": "Commercial Printing", "value": -11.1, "href": "/sub/F5204203" },
+          { "label": "Health Care Technology", "value": -11.8, "href": "/sub/A8DBD49D" },
+          { "label": "Tires & Rubber", "value": -13.4, "href": "/sub/B5BAF43F" },
+          { "label": "Housewares & Specialties", "value": -15.4, "href": "/sub/7123167E" }
+        ]
+      }
+    },
+    {
+      "number": 4,
+      "title": "動能榜 Top 20：能源橘點全數回到上方，科技藍點集體沉沒",
+      "image": "04_energy_unwind.png",
+      "caption": "4 個能源橘點（Drilling +7.4%、Storage +5.0%、Equipment +2.9%、Refining +1.2%）全在 X 軸上方。科技藍點多數在零線或下方——Tech Hardware（96.9, -2.9%）是最極端的「高動能負報酬」。",
+      "body": "上期散點圖是「橘點全沉、藍點壟斷上半部」。**本週完全鏡像反轉——所有 4 個能源橘點回到 X 軸上方**（Drilling +7.4%、Storage +5.0%、Equipment +2.9%、Refining +1.2%），而科技藍點集體沉沒。Tech Hardware（96.9, -2.9%）是最極端的離群值——**全場最高 `mom_score` 搭配負報酬，代表 3M 趨勢極強但短期被通膨衝擊打斷。** 上期說 `mom_score` 90+ 的預測力「完全兌現」，本週被打臉：90+ 群的平均 1W 報酬接近零，動能框架在通膨事件面前暫時失效。但注意 Electronic Components（94.6, +1.7%）和 SME（91.4, +0.9%）仍然正報酬——**不是所有科技都被打，供應鏈硬體比消費終端更抗跌。** Oil & Gas Drilling（86.0, +7.4%）是整張圖的右上極端值，能源中 `mom_score` 最高的 Storage（87.4, +5.0%）緊隨其後。Aluminum（86.8, -3.6%）和 Diversified Metals（86.8, -3.2%）的負報酬代表通膨環境並非所有大宗商品都受益——只有直接跟油價掛鉤的品項才是贏家。**整體訊號：通膨事件改寫了動能→報酬的關係，「高 `mom_score` = 正報酬」的假設需要加入通膨濾鏡。**",
+      "links": [
+        { "label": "Oil & Gas Drilling", "href": "/sub/738405E7" },
+        { "label": "Tech Hardware", "href": "/sub/D10047AB" },
+        { "label": "Semiconductors", "href": "/sub/3DFD4B15" },
+        { "label": "Oil & Gas Storage", "href": "/sub/0439508E" },
+        { "label": "Electronic Components", "href": "/sub/3A71D4E6" },
+        { "label": "Aluminum", "href": "/sub/1D0B4025" }
+      ],
+      "chartData": {
+        "type": "scatter",
+        "xLabel": "Mom Score",
+        "yLabel": "1W return (%)",
+        "quadrants": false,
+        "items": [
+          { "label": "Tech Hardware", "x": 96.9, "y": -2.9, "href": "/sub/D10047AB", "color": "#3b82f6" },
+          { "label": "Elect. Components", "x": 94.6, "y": 1.7, "href": "/sub/3A71D4E6", "color": "#3b82f6" },
+          { "label": "Semiconductors", "x": 94.1, "y": -1.3, "href": "/sub/3DFD4B15", "color": "#3b82f6" },
+          { "label": "SME", "x": 91.4, "y": 0.9, "href": "/sub/7F8BA218", "color": "#3b82f6" },
+          { "label": "Comm. Equipment", "x": 90.2, "y": 0.1, "href": "/sub/FE725307", "color": "#3b82f6" },
+          { "label": "EMS", "x": 89.2, "y": -0.1, "href": "/sub/95B13044", "color": "#3b82f6" },
+          { "label": "Oil & Gas Storage", "x": 87.4, "y": 5.0, "href": "/sub/0439508E", "color": "#f97316" },
+          { "label": "C&E", "x": 87.1, "y": -0.7, "href": "/sub/787C9D0B", "color": "#3b82f6" },
+          { "label": "Aluminum", "x": 86.8, "y": -3.6, "href": "/sub/1D0B4025", "color": "#3b82f6" },
+          { "label": "Div. Metals", "x": 86.8, "y": -3.2, "href": "/sub/650D58F5", "color": "#3b82f6" },
+          { "label": "Oil & Gas Drilling", "x": 86.0, "y": 7.4, "href": "/sub/738405E7", "color": "#f97316" },
+          { "label": "Heavy Electrical", "x": 81.1, "y": -1.7, "href": "/sub/8D0D1D2F", "color": "#3b82f6" },
+          { "label": "Oil & Gas Equip.", "x": 81.1, "y": 2.9, "href": "/sub/8B53278B", "color": "#f97316" },
+          { "label": "Oil & Gas Refining", "x": 81.0, "y": 1.2, "href": "/sub/DB62D66B", "color": "#f97316" },
+          { "label": "Cargo Ground", "x": 78.0, "y": 0.5, "href": "/sub/AE21267B", "color": "#3b82f6" },
+          { "label": "Commodity Chem.", "x": 76.6, "y": -2.4, "href": "/sub/7BF90D4B", "color": "#3b82f6" },
+          { "label": "Other Spec. REITs", "x": 76.1, "y": -4.6, "href": "/sub/7C3EE8B5", "color": "#3b82f6" },
+          { "label": "Alt. Carriers", "x": 75.3, "y": 4.0, "href": "/sub/E1C7925A", "color": "#3b82f6" },
+          { "label": "Marine Transp.", "x": 75.1, "y": 0.5, "href": "/sub/8EEB09C8", "color": "#3b82f6" },
+          { "label": "Specialized Finance", "x": 75.0, "y": -0.9, "href": "/sub/FCEEFFBE", "color": "#3b82f6" }
+        ],
+        "colorLabels": { "#3b82f6": "科技 / 基建", "#f97316": "能源" }
+      }
+    },
+    {
+      "number": 5,
+      "title": "排名變動：Technology Distributors Δ+42 領漲，Telecom Tower REITs Δ-38 最大崩跌",
+      "image": "05_rank_delta.png",
+      "caption": "Technology Distributors Δ+42 是近 7 期單一最大攀升。Health Care 兩席（Services Δ+33、Equipment Δ+29）反映防禦性輪動。跌幅榜被利率敏感型主導：Telecom Tower REITs Δ-38、Gold Δ-24。",
+      "body": "上期排名攀升榜由 Health Care 三席包辦，本週主題轉向「通膨驅動的結構性重新定價」。**Technology Distributors Δ+42 是近七期單一最大排名攀升**——這個子行業（Arrow Electronics、Avnet 等）專門把半導體和電子元件配送到終端客戶，在通膨推高元件價格時直接受益於 ASP 上升。Health Care 再次兩席（Services Δ+33、Equipment Δ+29），延續上期防禦性輪動。**Interactive Home Entertainment Δ+28 值得特別關注**——遊戲和串流娛樂的需求不受 CPI 影響（數位內容不在通膨籃子裡），在消費緊縮環境下反而是「便宜的替代娛樂」。跌幅榜完全被利率敏感型資產主導——**Telecom Tower REITs Δ-38 是本週最大崩跌，也是近 7 期第二大單週暴跌（僅次於第 4 期 Cable Δ-49）**，直接反映升息預期對高槓桿 REIT 的估值壓縮。Gold Δ-24 和 Multi-Sector Holdings Δ-24 也是利率衝擊的犧牲品——升息預期推強美元、推高無風險利率，黃金和複合型金控同時承壓。**Advertising Δ-23 是另一個結構性訊號**——在通膨 + 消費減速的雙重壓力下，企業砍的第一筆預算永遠是廣告。這跟第 6 期 Cloudflare -23% 裁員轉型 AI 的故事一脈相承。",
+      "links": [
+        { "label": "Technology Distributors", "href": "/sub/7F980CFF" },
+        { "label": "Health Care Services", "href": "/sub/CE2456A9" },
+        { "label": "Interactive Home Ent.", "href": "/sub/951C6D9C" },
+        { "label": "Telecom Tower REITs", "href": "/sub/249286FE" },
+        { "label": "Gold", "href": "/sub/33E5E2A6" },
+        { "label": "Advertising", "href": "/sub/F60915FE" }
+      ],
+      "chartData": {
+        "type": "hbar",
+        "items": [
+          { "label": "Technology Distributors", "value": 42, "href": "/sub/7F980CFF" },
+          { "label": "Health Care Services", "value": 33, "href": "/sub/CE2456A9" },
+          { "label": "Leisure Facilities", "value": 32, "href": "/sub/FD39D067" },
+          { "label": "Office Services & Supplies", "value": 30, "href": "/sub/31A0D44A" },
+          { "label": "Health Care Equipment", "value": 29, "href": "/sub/60CF7D84" },
+          { "label": "Interactive Home Entertainment", "value": 28, "href": "/sub/951C6D9C" },
+          { "label": "Industrial Machinery & Supplies", "value": 24, "href": "/sub/8D96C21A" },
+          { "label": "Industrial Conglomerates", "value": 23, "href": "/sub/1BE528D2" },
+          { "label": "Environmental & Facilities Services", "value": 21, "href": "/sub/5A3615BB" },
+          { "label": "Footwear", "value": 21, "href": "/sub/ABFF7D9B" },
+          { "label": "Data Processing & Outsourced Services", "value": -21, "href": "/sub/01E7F748" },
+          { "label": "Passenger Ground Transportation", "value": -22, "href": "/sub/99726A83" },
+          { "label": "Agricultural & Farm Machinery", "value": -22, "href": "/sub/D8F634B1" },
+          { "label": "Household Products", "value": -23, "href": "/sub/12D686D0" },
+          { "label": "Air Freight & Logistics", "value": -23, "href": "/sub/67278C25" },
+          { "label": "Advertising", "value": -23, "href": "/sub/F60915FE" },
+          { "label": "Multi-Sector Holdings", "value": -24, "href": "/sub/87FCAE9A" },
+          { "label": "Gold", "value": -24, "href": "/sub/33E5E2A6" },
+          { "label": "Metal, Glass & Plastic Containers", "value": -28, "href": "/sub/AE23CF9D" },
+          { "label": "Telecom Tower REITs", "value": -38, "href": "/sub/249286FE" }
+        ],
+        "xLabel": "Delta Rank",
+        "xUnit": ""
+      }
+    },
+    {
+      "number": 6,
+      "title": "原物料分裂 v7：銅和肥料獨撐正報酬，其餘從金屬到紙類全線潰敗",
+      "image": "06_materials_split.png",
+      "caption": "Copper +2.2% 是唯一正報酬金屬。Fertilizers +1.3% 和 Industrial Gases +1.3% 溫和正向。其餘 13 個子行業全數下跌——Paper Products -9.0% 和 Construction Materials -8.8% 最慘。",
+      "body": "原物料觀察連續第七期。上期框架是「金屬（受惠油價下跌）vs 化學品（下游疲弱）」。本週油價不但沒跌還反彈（Brent 從 $101 回到 $108-110），但**金屬除了銅以外全線下跌** —— Aluminum -3.6%、Diversified Metals -3.2%、Gold -5.4%、Silver -5.2%。原因是 CPI 推升的升息預期壓制了所有非孳息資產和工業金屬需求預期。**Copper +2.2% 是唯一倖存者**——AI 基礎設施的電網需求（J.P. Morgan 重申 $6+/lb 目標價）和智利供給收縮提供了獨立於宏觀環境的結構性支撐。上期「加回 Copper」的建議本週溫和兌現。化學品端更慘：Paper Products -9.0%（上週 +9.0%的 Internet Services 反彈一週就消化完）、Construction Materials -8.8%、Paper & Plastic Packaging -7.5%。**上期把 Gold/Silver 從「迴避」調升為「中性偏多」又被打臉——Gold Δ-24 進了排名跌幅榜。** CPI 3.8% + 年底升息定價讓美元和殖利率同步走強，黃金在 $4,550 測試支撐。**修正後的框架徹底簡化：原物料只有一個安全港——Copper。** 銅的定價邏輯已經跟其他金屬脫鉤：它不是「反通膨」也不是「反美元」，它是「AI 電網基建的物理瓶頸」。其他一切——Gold、Silver、Aluminum、化學品、紙類——在升息預期面前都不安全。",
+      "links": [
+        { "label": "Copper", "href": "/sub/9D3B3E86" },
+        { "label": "Gold", "href": "/sub/33E5E2A6" },
+        { "label": "Aluminum", "href": "/sub/1D0B4025" },
+        { "label": "Fertilizers", "href": "/sub/6A22E83B" },
+        { "label": "Paper Products", "href": "/sub/7BD0E9D6" },
+        { "label": "Construction Materials", "href": "/sub/4E53B0B8" }
+      ],
+      "chartData": {
+        "type": "hbar",
+        "items": [
+          { "label": "Copper", "value": 2.2, "href": "/sub/9D3B3E86" },
+          { "label": "Fertilizers & Agri. Chem.", "value": 1.3, "href": "/sub/6A22E83B" },
+          { "label": "Industrial Gases", "value": 1.3, "href": "/sub/7D825052" },
+          { "label": "Diversified Chemicals", "value": -1.4, "href": "/sub/4B59004E" },
+          { "label": "Steel", "value": -2.3, "href": "/sub/113B2BC3" },
+          { "label": "Commodity Chemicals", "value": -2.4, "href": "/sub/7BF90D4B" },
+          { "label": "Diversified Metals & Mining", "value": -3.2, "href": "/sub/650D58F5" },
+          { "label": "Aluminum", "value": -3.6, "href": "/sub/1D0B4025" },
+          { "label": "Specialty Chemicals", "value": -4.1, "href": "/sub/33054D65" },
+          { "label": "Silver", "value": -5.2, "href": "/sub/FDF8E7AE" },
+          { "label": "Gold", "value": -5.4, "href": "/sub/33E5E2A6" },
+          { "label": "Forest Products", "value": -6.6, "href": "/sub/AD968F37" },
+          { "label": "Paper & Plastic Packaging", "value": -7.5, "href": "/sub/D485FE8C" },
+          { "label": "Metal, Glass & Plastic Cont.", "value": -7.6, "href": "/sub/AE23CF9D" },
+          { "label": "Construction Materials", "value": -8.8, "href": "/sub/4E53B0B8" },
+          { "label": "Paper Products", "value": -9.0, "href": "/sub/7BD0E9D6" }
+        ]
+      }
+    }
+  ],
+  "actions": [
+    "**上週建議績效回顧** | (1) IT 四角加碼（Tech Hardware + Semis + SME + Internet Services）→ IT -1.6%，TH -2.9% ✗、Semis -1.3% ✗、SME +0.9% ✓（微正，最抗跌）、Internet Services 不在 Top/Bottom ✗ —— CPI 通膨衝擊讓 IT 四角整體虧損 | (2) **能源全面退出 → Drilling +7.4% ✗✗✗、Integrated +7.2% ✗✗、E&P +6.2% ✗✗、Storage +5.0% ✗✗ —— 七期以來最差的單一操作建議，整個能源板塊是本週唯一正報酬** | (3) Copper 加回 → +2.2% ✓ 溫和正報酬 | (4) Gold/Silver 中性偏多 → Gold -5.4% ✗、Silver -5.2% ✗ —— 升息預期再次打臉 | (5) HC 防禦觀察 → HC -2.8% ✗ 連動下跌，但 Managed HC +3.2% 是少數正報酬標的 ✓ | (6) 迴避 Consumer Staples/Cable/Air Freight/Independent Power → Staples -2.4% ✓、Air Freight -5.5% ✓ | **框架 batting average：3/10。能源全面退出是致命失誤——框架對地緣政治反轉的反應太慢。CPI 催化下 IT 和 Gold 同時失靈，代表「升息預期」是這週的統一壓制力。**",
+    "**能源重新列為核心配置，但用通膨對沖框架定位。** 第 6 期把能源「從核心持有移到迴避名單」，本週用 +4.1% 證明這個判斷太急。修正原因：(a) Brent 從 $101 回到 $108-110，伊朗 MOU 談判仍在僵局（美方要求 20 年核濃縮凍結，伊朗只願 5 年），Hormuz 關閉狀態持續；(b) CPI 3.8% 中能源成本 +17.9% YoY 反映油價直接推通膨——**能源股是通膨的直接受益者，IT 是通膨的直接受害者，兩者透過 CPI 管道結構性反向。** 建議配置：**Drilling（#11，+7.4%，`mom_score` 86）+ Storage（#7，+5.0%，`mom_score` 87.4）+ Equipment（#13，+2.9%，`mom_score` 81.1）**。不碰 Integrated Oil（`mom_score` 只有 61.2，短線反彈不是趨勢）。**核心邏輯：只要 Brent 在 $105 以上、CPI 在 3.5% 以上，能源就是天然的通膨對沖。**",
+    "**IT 從「核心四角」降格為「趨勢持有、事件迴避」。** IT -1.6% 是五週來首次負報酬，但 `mom_score` 仍然極高（Tech Hardware 96.9、Semis 94.1、SME 91.4、Electronic Components 94.6）—— **3M 趨勢完好無損，被打的是短期估值倍數不是基本面。** NVDA 5/20 財報是本週最大催化劑：市場預期 $79.2B 營收（+79.5% YoY）、EPS $1.78（+120%），但 Polymarket 顯示 97% 機率 beat，**surprise 的空間幾乎不存在。** 過去 4 次 NVDA 財報 beat 但 3 次股價下跌——高預期是雙面刃。建議：**IT 核心持有 Electronic Components + SME（本週唯二正報酬的 IT sub），Tech Hardware 和 Semis 從加碼降為持有。** 下一個 CPI 發布前考慮部分獲利了結——每次 CPI > 3.5% 都是 IT 的估值壓力測試。",
+    "**Consumer Discretionary 全面迴避，通膨 + 消費減速雙殺。** 本週 -6.2% 是全場最弱，7 個子行業進入 Bottom 12——這不是個別公司問題，是系統性崩塌。零售銷售（ex-auto）從 +1.9% 減速到 +0.7%，National Vision、Kohl's、Sally Beauty 單週跌幅兩位數。**Home Depot（5/19 財報）和 Walmart（5/21 財報）是下週消費風向標**——如果 Home Depot same-store sales 持平、Walmart 確認低收入家庭在縮減支出，Consumer Discretionary 可能迎來第二波殺跌。操作：**Consumer Discretionary 全板塊迴避，不抄底、不試探。**",
+    "**原物料只持有 Copper，其餘全部退出。** 連續七期的原物料框架修正，這一期終於收斂到最簡版本——**原物料安全港只有 Copper 一個。** Copper +2.2% 是 16 個原物料子行業中僅有的 3 個正報酬之一（另外兩個 Fertilizers +1.3% 和 Industrial Gases +1.3% 幅度太小不值得進場）。銅的邏輯已經完全獨立：AI 電網基建 + 智利減產 + 全球庫存歷史低位，不受美元或利率環境左右。**Gold 從「中性偏多」再次退回「迴避」**——在升息預期環境下，$4,550 的支撐很脆弱。Aluminum、Silver、化學品、紙類全面迴避。",
+    "**下週三大觀察。** (1) **NVDA 5/20 財報**：$79.2B 營收共識已極高，beat 是基本期待，forward guidance 才是重點。如果 FY2027 datacenter capex 指引再上修 10%+，IT 動能可能短暫重啟；指引持平則上週的估值壓縮會延續。(2) **零售財報週**：Home Depot（5/19）、Lowe's、Walmart（5/21）、Target——如果大型零售商確認消費減速（same-store sales < 1%），Consumer Discretionary 會進一步崩跌，拖累整體市場寬度。(3) **伊朗 MOU 進展**：30 天談判窗口正在倒數，美方要求 20 年核凍結、伊朗只願 5 年，僵局不解 Brent 就留在 $105+，通膨引擎持續運轉。**核心風險：NVDA 不及預期 + 零售確認消費崩 + 伊朗談判破裂油價衝 $120，三重負面會讓 S&P 500 六連漲後的修正深化到 5-7%。**"
+  ],
+  "sources": [
+    { "title": "BLS — Consumer Price Index, April 2026: CPI-U +3.8% YoY, energy costs +17.9% (2026-05-12)", "url": "https://www.bls.gov/news.release/archives/cpi_05122026.htm" },
+    { "title": "CNBC — Markets raise chances for a Fed rate hike following hot inflation report (2026-05-12)", "url": "https://www.cnbc.com/2026/05/12/markets-raise-chances-for-a-fed-rate-hike-following-hot-inflation-report.html" },
+    { "title": "CNBC — Inflation rate projected to hit 6% in Q2, top economic forecasters say (2026-05-15)", "url": "https://www.cnbc.com/2026/05/15/inflation-rate-projected-to-hit-6percent-in-the-second-quarter-top-economic-forecasters-say.html" },
+    { "title": "247 Wall St — S&P 500 (SPY) Sinks on Higher Inflation, May 12, 2026", "url": "https://247wallst.com/investing/2026/05/12/stock-market-live-may-12-2026-sp-500-spy-sinks-on-higher-inflation/" },
+    { "title": "CNBC — Stock market news for May 15, 2026: Retail stocks post worst week since October", "url": "https://www.cnbc.com/amp/2026/05/14/stock-market-today-live-updates.html" },
+    { "title": "NBC News — Are consumers cracking under high prices? Home Depot, Walmart earnings will tell (2026-05)", "url": "https://www.nbcnews.com/business/consumer/home-depot-earnings-walmart-inflation-rcna345368" },
+    { "title": "Axios — Exclusive: U.S. and Iran closing in on one-page memo to end war (2026-05-06)", "url": "https://www.axios.com/2026/05/06/iran-us-deal-one-page-memo" },
+    { "title": "Time — U.S. and Iran Offer Mixed Messages on Deal to End War (2026-05-07)", "url": "https://time.com/article/2026/05/07/us-iran-war-deal-mou-axios-report-negotiations-strait-nuclear/" },
+    { "title": "Fortune — Current price of oil: Brent crude at $110.43/bbl (2026-05-12)", "url": "https://fortune.com/article/price-of-oil-05-12-2026/" },
+    { "title": "Intellectia — NVIDIA Earnings Preview May 2026: AI Chip Demand Drives $78B Revenue Expectations", "url": "https://intellectia.ai/blog/nvidia-earnings-preview-q1-2026" },
+    { "title": "247 Wall St — NVIDIA Up 20% in a Month: Could the May 20 Earnings Knock It Down? (2026-05-14)", "url": "https://247wallst.com/investing/2026/05/14/nvidia-is-up-20-in-a-month-could-the-may-20-earnings-report-knock-it-right-back-down/" },
+    { "title": "J.P. Morgan — Copper Prices Outlook: AI infrastructure and supply constraints drive sustained demand (2026-05)", "url": "https://www.jpmorgan.com/insights/global-research/commodities/copper-outlook" },
+    { "title": "Charles Schwab — Monthly Stock Sector Outlook: Consumer Discretionary under pressure (2026-05)", "url": "https://www.schwab.com/learn/story/stock-sector-outlook" }
+  ]
+}
