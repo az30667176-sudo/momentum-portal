@@ -17,17 +17,23 @@ MAX_RETRIES = 3        # 失敗重試次數
 
 
 _NUMERIC_7_4_MAX = 999.9999  # NUMERIC(7,4) 上限
+_NUMERIC_6_4_MAX = 99.9999   # NUMERIC(6,4) 上限
+_NUMERIC_6_4_COLS = frozenset({
+    'downside_capture', 'leader_lagger_ratio', 'cmf',
+    'momentum_autocorr', 'price_trend_r2',
+})
 
 
 def _sanitize(records: list[dict]) -> list[dict]:
-    """把 float NaN / Inf 換成 None；超出 NUMERIC(7,4) 範圍也換成 None"""
+    """把 float NaN / Inf 換成 None；超出 DB 欄位範圍也換成 None"""
     import math
     cleaned = []
     for row in records:
         new_row = {}
         for k, v in row.items():
             if isinstance(v, float):
-                if not math.isfinite(v) or abs(v) > _NUMERIC_7_4_MAX:
+                limit = _NUMERIC_6_4_MAX if k in _NUMERIC_6_4_COLS else _NUMERIC_7_4_MAX
+                if not math.isfinite(v) or abs(v) > limit:
                     new_row[k] = None
                 else:
                     new_row[k] = v

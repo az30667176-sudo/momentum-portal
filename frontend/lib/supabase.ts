@@ -73,23 +73,35 @@ export async function getSubHistory(gicsCode: string): Promise<SubReturn[]> {
 
 export async function getSubStocks(
   gicsCode: string,
-  targetDate: string
-): Promise<StockReturn[]> {
+  targetDate?: string
+): Promise<{ date: string; stocks: StockReturn[] }> {
   const supabase = createServerClient()
+
+  let date = targetDate
+  if (!date) {
+    const { data: dateRow } = await supabase
+      .from('daily_stock_returns')
+      .select('date')
+      .eq('gics_code', gicsCode)
+      .order('date', { ascending: false })
+      .limit(1)
+    date = dateRow?.[0]?.date
+    if (!date) return { date: '', stocks: [] }
+  }
 
   const { data, error } = await supabase
     .from('daily_stock_returns')
     .select('*')
     .eq('gics_code', gicsCode)
-    .eq('date', targetDate)
+    .eq('date', date)
     .order('mom_score', { ascending: false })
 
   if (error) {
     console.error('getSubStocks error:', error)
-    return []
+    return { date, stocks: [] }
   }
 
-  return (data as StockReturn[]) || []
+  return { date, stocks: (data as StockReturn[]) || [] }
 }
 
 export async function getLatestDate(): Promise<string | null> {

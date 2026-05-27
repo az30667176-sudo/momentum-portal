@@ -18,12 +18,11 @@ export default async function SubDetailPage({ params }: Props) {
     )
   }
 
-  const latestDate = history[history.length - 1].date
-  const stocks = await getSubStocks(params.gicsCode, latestDate)
+  const { date: stockDate, stocks } = await getSubStocks(params.gicsCode)
 
   return (
     <main className="min-h-screen bg-gray-50 max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-      <SubDetail gicsCode={params.gicsCode} history={history} stocks={stocks} />
+      <SubDetail gicsCode={params.gicsCode} history={history} stocks={stocks} stockDate={stockDate} />
     </main>
   )
 }

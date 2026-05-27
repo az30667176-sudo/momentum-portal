@@ -12,6 +12,7 @@ interface Props {
   gicsCode: string
   history: SubReturn[]
   stocks: StockReturn[]
+  stockDate?: string
 }
 
 // ─── Card config ─────────────────────────────────────────────
@@ -286,7 +287,7 @@ function CustomizeModal({
 
 // ─── Main Component ──────────────────────────────────────────
 
-export function SubDetail({ gicsCode, history, stocks }: Props) {
+export function SubDetail({ gicsCode, history, stocks, stockDate }: Props) {
   const latest = history[history.length - 1]
   if (!latest) return <div className="p-8 text-center text-gray-400">No data</div>
 
@@ -465,7 +466,7 @@ export function SubDetail({ gicsCode, history, stocks }: Props) {
           <div className="px-4 py-3 border-b border-gray-100 dark:border-gray-700">
             <h2 className="text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wide">
               Individual Stocks
-              <span className="ml-2 font-normal text-gray-400">({stocks.length} stocks · {latest.date})</span>
+              <span className="ml-2 font-normal text-gray-400">({stocks.length} stocks · {stockDate ?? latest.date})</span>
             </h2>
           </div>
           <div className="overflow-x-auto">
