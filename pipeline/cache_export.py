@@ -33,7 +33,7 @@ STOCK_COLS = ','.join([
 
 # 只匯出 backtestEngine.ts 實際用到的欄位，跳過大量 NULL 的新指標
 EXPORT_COLS = ','.join([
-    'date', 'gics_code', 'rank_today', 'stock_count',
+    'date', 'gics_code', 'rank_today', 'rank_prev_week', 'delta_rank', 'stock_count',
     'ret_1d', 'ret_1w', 'ret_1m', 'ret_3m', 'ret_6m', 'ret_12m', 'mom_6m',
     'mom_score', 'obv_trend', 'rvol', 'vol_mom', 'vol_surge_score',
     'sharpe_8w', 'sortino_8w', 'volatility_8w', 'calmar_ratio',
