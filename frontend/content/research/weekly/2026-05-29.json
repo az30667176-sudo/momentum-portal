@@ -1,0 +1,232 @@
+{
+  "slug": "2026-05-29",
+  "issue": 9,
+  "date": "2026-05-29",
+  "snapshotDate": "2026-06-01",
+  "title": "IT 脫離地心引力——3M +40% 是追蹤以來最極端的單一板塊位置",
+  "subtitle": "IT +7.0% 獨走全場，3M 報酬從 ~32% 拉到 ~40%，輪動地圖上已無人能望其項背。Brent 暴跌至 $92（5 月跌 19%），伊朗協議 mostly agreed，能源繼續探底。Dell 營收 +88% 盤後飆 39%、SOX 年初至今 +65%——AI 基建週期正在加速，不是減速。9/11 板塊正報酬的假象下，真正的故事是 IT 已經進入自己的軌道",
+  "imageDir": "/research/weekly/2026-05-29",
+  "coverImage": "01_sector_1w.png",
+  "intro": [
+    "上期核心判斷是「旋轉門的真相揭曉了——Brent 原油在控制一切，正確操作是停止追旋轉門、把能源移除配置清單、資源集中在不管油價漲跌都能贏的標的」。操作建議把能源歸零（不參與）、IT 升格絕對核心（Semis + Tech Hardware + SME + EC 四角）、原物料擴展到 Copper + Aluminum + Steel 三金屬、Consumer Discretionary 觀察性持有不追。本週結果：**能源不參與——正確，Energy -1.5%，Drilling -6.2%、Storage -7.9% 繼續探底 ✓✓。IT 絕對核心——大正確，IT +7.0% 獨領全場，Tech Hardware +22.8%（！）、Systems Software +16.1%、Application Software +11.5% ✓✓✓。三金屬——Steel +11.8% ✓✓✓、Copper +8.1% ✓✓、Aluminum +3.9% ✓。Consumer Disc 觀察不追——正確，+2.5% 正報酬但幅度溫和，不追沒少賺太多 ✓。** 九期以來第一次全線正確的操作週。不是我突然變聰明了——是上期終於承認「不在沒有 edge 的地方下注」這個基本原則。",
+    "S&P 500 連續第九週收漲（7,599.96），創 2023 年以來最長連漲紀錄。道指和 Nasdaq 均觸及歷史新高。本週是 Memorial Day 縮短交易週（週一休市），但四天的成交量和方向性比很多完整週更清晰。**催化劑是兩個疊加的加速器：** 第一，Brent 原油 5 月暴跌 19% 至 $92.05，是 2020 年 3 月以來最慘月份——伊朗和美國「基本上同意」60 天停火備忘錄框架，Trump 週五在白宮戰情室做最終裁決。油價從 2026 年高點已回落超過 20%。第二，Dell Q1 營收 $43.84B（+88% YoY），EPS $4.86（共識 $2.94），盤後飆升 39% 至 $441——AI 伺服器需求的第二波浪潮從 NVDA 向下游蔓延到了 OEM 端。Snowflake 營收 +33% 同樣 beat。NVDA 本週發布新 PC 處理器，股價再漲 6%。SOX 年初至今 +65%，18 個交易日飆漲 47%——有人說像 2000 年了，但這次不是本夢比，Dell 的 88% 營收增長是真金白銀。",
+    "本期核心判斷：**IT 已經脫離地心引力了。** 輪動地圖上 IT 的位置從 3M ~32% 拉到 ~40%，離其他 10 個板塊的距離幾乎是整張圖的寬度。這不是「趨勢領跑」——這是「進入自己的軌道」。從第 2 期開始 IT 就沒離開過右半邊，但過去每週 1W 報酬在 -1.6% 到 +8.2% 之間波動、偶爾會跟著油價跳一下。本週 3M +40% 代表 IT 的趨勢加速已經把它推到一個其他板塊物理上追不到的位置。這意味著：(1) 追 IT 的風險是它從太高的地方回落——但 3M 趨勢方向九期沒變過；(2) 不追 IT 的風險是你只能在 0% 附近的板塊裡挑——Materials +2.9%、Consumer Disc +2.5% 是第二三名，跟 IT 差了 4-5 個百分點。**旋轉門不是停了——是 IT 把門軸拆走了。** 50% Section 232 鋼鋁銅關稅推動美國製造業 PMI 創四年新高，Steel +11.8% 是關稅受益者。但 Steel 的 `mom_score` 84.5 仍低於 IT 四角的任何一個。結論：IT 是主菜，其他都是配菜——配菜可以吃、但別把它當主菜。"
+  ],
+  "exhibits": [
+    {
+      "number": 1,
+      "title": "板塊一週報酬：IT +7.0% 獨走，領先第二名 Materials 4.1 個百分點",
+      "image": "01_sector_1w.png",
+      "caption": "IT +7.0% 遙遙領先。Materials +2.9%、Consumer Disc +2.5% 遠遠落後。6/11 板塊正報酬，但拿掉 IT 後剩下 5 個板塊平均只有 +2.1%。Utilities -2.7% 墊底。",
+      "body": "上週是 10/11 板塊正報酬的「全面 risk-on」——油價暴跌讓所有人都賺錢。本週回到更正常的 6/11 結構，但分布極度不均：**IT +7.0% 獨占超過一半的市場 alpha，其餘 5 個正報酬板塊（Materials +2.9%、Consumer Disc +2.5%、Comms +1.8%、Health Care +1.7%、Industrials +1.6%）加總平均只有 +2.1%。** 上期預測 Consumer Discretionary 是「laggards bouncing 不是趨勢反轉」——本週 +2.5% 比上週 +8.7% 大幅收斂，驗證了這個判斷。底部是防禦型板塊的集體崩塌：**Utilities -2.7%、Consumer Staples -2.1%、Financials -1.7%。** 原因很明確——油價暴跌 + 消費數據不差 + AI 基建加速 = risk-on 情緒持續 = 資金從防禦型板塊流出。上期說「Energy 不參與」——本週 Energy -1.5% 繼續跌，但跌幅從上週的 -4.2% 收窄，代表油價利空在被消化中。**九期以來的板塊排序規律越來越清楚：IT 穩定在第一梯隊（均值 +5-7%），Materials/Industrials 在第二梯隊（+2-3%），其他都在零線附近擺盪。**",
+      "links": [
+        { "label": "Tech Hardware", "href": "/sub/D10047AB" },
+        { "label": "Semiconductors", "href": "/sub/3DFD4B15" },
+        { "label": "Steel", "href": "/sub/113B2BC3" },
+        { "label": "Systems Software", "href": "/sub/4D1787C4" },
+        { "label": "Oil & Gas Storage", "href": "/sub/0439508E" }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "輪動地圖：IT 飛到右上極端（3M ~40%, 1W +7%），離其他板塊差了半張圖",
+      "image": "02_rotation_map.png",
+      "caption": "IT（3M ~40%、1W +7.0%）佔據全場最右上極端，距離第二群（Materials、Comms、Consumer Disc 在 3M 0-7% 附近）差了整整 30 個百分點的 X 軸距離。Energy 落在中間偏右下。Utilities/Staples 在左下角。",
+      "body": "上期輪動地圖的解讀是「IT 是唯一的趨勢型資產（連八期待在右半部）」。本週這個判斷被再次加強到極致——**IT 的 3M 報酬從 ~32% 拉到 ~40%，是追蹤九期以來任何單一板塊在這張圖上走過最遠的距離。** 其他 10 個板塊全部擠在 3M -7% 到 +7% 的窄幅區間內，IT 在 +40%——這不是「領先」，這是「脫離」。上期 Consumer Discretionary 從左下跳到左上（laggards bouncing），本週回到中間偏左上（3M ~-4%、1W +2.5%），確認了反彈不是趨勢。Materials 也從上週的中上回到類似位置（3M ~2%、1W +2.9%）——第二梯隊的天花板大概就在這裡。**Energy 終於停止乒乓球模式**——上週從右上摔到右下、這週繼續在右下偏中（3M ~6%、1W -1.5%），沒有像前幾期那樣每週跳一次。Brent 從 $100 繼續跌到 $92，如果伊朗框架簽署，Energy 會進一步滑向中下。**結論：輪動地圖從 10 個板塊的「旋轉門」簡化成了一張單點圖——IT 在右上角，其他在原點附近。**",
+      "links": [
+        { "label": "Semiconductors", "href": "/sub/3DFD4B15" },
+        { "label": "Tech Hardware", "href": "/sub/D10047AB" },
+        { "label": "Diversified Metals", "href": "/sub/650D58F5" },
+        { "label": "Oil & Gas Drilling", "href": "/sub/738405E7" },
+        { "label": "Copper", "href": "/sub/9D3B3E86" }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "最強 / 最弱次產業：IT 包辦 Top 12 過半（7 席），Bottom 12 是能源 + 消費必需 + 公用事業的混合陣亡",
+      "image": "03_top_bottom_subs.png",
+      "caption": "Tech Hardware +22.8% 領跑全場（Dell +39% 效應）。IT 7 席進入 Top 12。Bottom 12 由 Brewers -9.6% 領跌，能源 3 席、消費必需 2 席、公用事業 2 席分散分布。",
+      "body": "上週 Top 12 由 Consumer Discretionary（6 席）和 IT（3 席）共治。本週 IT 獨佔——**Technology Hardware +22.8%、Systems Software +16.1%、Application Software +11.5%、IT Consulting +11.3%、Technology Distributors +9.5%、Health Care Technology +9.0%、Computer & Electronics Retail +8.6%——IT 或 IT-adjacent 拿了 Top 12 中的 7 席。** Tech Hardware +22.8% 是本週最大亮點，直接催化劑是 Dell 營收 +88% 盤後飆 39%、HP +8%——AI 伺服器需求從晶片端蔓延到 OEM 端，Tech Hardware 的 `mom_score` 87.4 還有持續攀升空間。Coal +14.7% 和 Steel +11.8% 是非 IT 的兩個亮點——Coal 是純粹的均值回歸反彈（上週無特別表現），Steel 則受益於 50% Section 232 關稅帶動的美國鋼鐵股重新定價。**Bottom 12 不再由單一板塊壟斷**——Brewers -9.6% 領跌（消費必需），Oil & Gas Storage -7.9%、Drilling -6.2%、Equipment -6.0%（能源 3 席繼續探底），Gas Utilities -5.8%、Heavy Electrical -5.6%（公用事業），Reinsurance -7.0%、Multi-line Insurance -5.8%（金融 2 席）。**這種散裝式的底部比前幾週「單一板塊屠殺」更健康——代表市場不是在恐慌性拋售某個主題，而是正常的資金重新配置。**",
+      "links": [
+        { "label": "Tech Hardware", "href": "/sub/D10047AB" },
+        { "label": "Systems Software", "href": "/sub/4D1787C4" },
+        { "label": "Steel", "href": "/sub/113B2BC3" },
+        { "label": "Coal", "href": "/sub/7B1B1651" },
+        { "label": "App Software", "href": "/sub/05F28EE1" },
+        { "label": "Oil & Gas Storage", "href": "/sub/0439508E" }
+      ],
+      "chartData": {
+        "type": "hbar",
+        "items": [
+          { "label": "Technology Hardware, Storage & Peripherals", "value": 22.8, "href": "/sub/D10047AB" },
+          { "label": "Systems Software", "value": 16.1, "href": "/sub/4D1787C4" },
+          { "label": "Coal & Consumable Fuels", "value": 14.7, "href": "/sub/7B1B1651" },
+          { "label": "Steel", "value": 11.8, "href": "/sub/113B2BC3" },
+          { "label": "Application Software", "value": 11.5, "href": "/sub/05F28EE1" },
+          { "label": "IT Consulting & Other Services", "value": 11.3, "href": "/sub/364050B7" },
+          { "label": "Casinos & Gaming", "value": 10.7, "href": "/sub/CFE6AF7B" },
+          { "label": "Life Sciences Tools & Services", "value": 10.3, "href": "/sub/19BD4D4B" },
+          { "label": "Technology Distributors", "value": 9.5, "href": "/sub/7F980CFF" },
+          { "label": "Health Care Technology", "value": 9.0, "href": "/sub/A8DBD49D" },
+          { "label": "Human Resource & Employment Services", "value": 8.8, "href": "/sub/D4E92F32" },
+          { "label": "Computer & Electronics Retail", "value": 8.6, "href": "/sub/37AFA426" },
+          { "label": "Health Care REITs", "value": -5.4, "href": "/sub/B1592F52" },
+          { "label": "Tobacco", "value": -5.5, "href": "/sub/6912B116" },
+          { "label": "Heavy Electrical Equipment", "value": -5.6, "href": "/sub/8D0D1D2F" },
+          { "label": "Gas Utilities", "value": -5.8, "href": "/sub/EBA48B83" },
+          { "label": "Multi-line Insurance", "value": -5.8, "href": "/sub/80622FA2" },
+          { "label": "Oil & Gas Equipment & Services", "value": -6.0, "href": "/sub/8B53278B" },
+          { "label": "Oil & Gas Drilling", "value": -6.2, "href": "/sub/738405E7" },
+          { "label": "Distillers & Vintners", "value": -6.4, "href": "/sub/3E115254" },
+          { "label": "Housewares & Specialties", "value": -6.7, "href": "/sub/7123167E" },
+          { "label": "Reinsurance", "value": -7.0, "href": "/sub/1B318BE5" },
+          { "label": "Oil & Gas Storage & Transportation", "value": -7.9, "href": "/sub/0439508E" },
+          { "label": "Brewers", "value": -9.6, "href": "/sub/3260ED6D" }
+        ]
+      }
+    },
+    {
+      "number": 4,
+      "title": "動能榜 Top 20：只剩 1 個能源橘點（Refining），IT 藍點佔據右上全部空間",
+      "image": "04_energy_unwind.png",
+      "caption": "Semiconductors `mom_score` 94.6 穩居最右、Tech Hardware（87.4, +22.8%）飛到最上方。Top 20 中只剩 Oil & Gas Refining 1 個橘點（mom 72.8, +1.7%），能源的動能優勢正在系統性消退。",
+      "body": "上期散點圖有 4 個能源橘點全在 X 軸下方。本週能源在 Top 20 中**只剩 1 個：Oil & Gas Refining（`mom_score` 72.8, 1W +1.7%）**——而且它是墊底的那個，在圖上幾乎是最左下角。Drilling 的 `mom_score` 從上週 78.9 跌到本週被擠出 Top 20（掉到 ~69），Storage 同樣消失。**能源不只是本週跌了，是 3 個月的動能累積正在系統性蒸發。** 藍點方面，**Tech Hardware（87.4, +22.8%）在散點圖上佔據最上方的極端位置**——1W 報酬是 Top 20 中任何子行業的兩倍以上。Semiconductors（94.6, +1.9%）在最右邊（`mom_score` 最高），但 1W 報酬溫和——這是「高 momentum 進入盤整」的典型形態，不是動能衰竭。**Steel（84.5, +11.8%）是非 IT 藍點中的亮點**——Section 232 關稅 50% 帶動美國鋼鐵股的結構性重新定價。Cargo Ground Transport（88.5, +8.4%）延續物流業復甦。**整張圖的訊息很清楚：`mom_score` 80+ 的子行業幾乎全部正報酬——動能框架在油價穩定的環境下完全有效。上期說「`mom_score` 的預測力不是被通膨打壞、是被油價暴漲打壞」，本週再次驗證。**",
+      "links": [
+        { "label": "Semiconductors", "href": "/sub/3DFD4B15" },
+        { "label": "Tech Hardware", "href": "/sub/D10047AB" },
+        { "label": "Steel", "href": "/sub/113B2BC3" },
+        { "label": "Cargo Ground", "href": "/sub/AE21267B" },
+        { "label": "Oil & Gas Refining", "href": "/sub/DB62D66B" },
+        { "label": "Electronic Components", "href": "/sub/3A71D4E6" }
+      ],
+      "chartData": {
+        "type": "scatter",
+        "xLabel": "Mom Score",
+        "yLabel": "1W return (%)",
+        "quadrants": false,
+        "items": [
+          { "label": "Semiconductors", "x": 94.6, "y": 1.9, "href": "/sub/3DFD4B15", "color": "#3b82f6" },
+          { "label": "Elect. Components", "x": 90.4, "y": 3.0, "href": "/sub/3A71D4E6", "color": "#3b82f6" },
+          { "label": "EMS", "x": 90.0, "y": 0.2, "href": "/sub/95B13044", "color": "#3b82f6" },
+          { "label": "Cargo Ground", "x": 88.5, "y": 8.4, "href": "/sub/AE21267B", "color": "#3b82f6" },
+          { "label": "Aluminum", "x": 88.0, "y": 3.9, "href": "/sub/1D0B4025", "color": "#3b82f6" },
+          { "label": "Tech Hardware", "x": 87.4, "y": 22.8, "href": "/sub/D10047AB", "color": "#3b82f6" },
+          { "label": "SME", "x": 86.3, "y": 0.3, "href": "/sub/7F8BA218", "color": "#3b82f6" },
+          { "label": "Comm. Equipment", "x": 85.6, "y": 2.4, "href": "/sub/FE725307", "color": "#3b82f6" },
+          { "label": "Alt. Carriers", "x": 85.1, "y": 2.2, "href": "/sub/E1C7925A", "color": "#3b82f6" },
+          { "label": "Steel", "x": 84.5, "y": 11.8, "href": "/sub/113B2BC3", "color": "#3b82f6" },
+          { "label": "Div. Metals", "x": 84.2, "y": 5.7, "href": "/sub/650D58F5", "color": "#3b82f6" },
+          { "label": "Managed HC", "x": 83.9, "y": 2.5, "href": "/sub/3E2ACB37", "color": "#3b82f6" },
+          { "label": "C&E", "x": 78.3, "y": 2.7, "href": "/sub/787C9D0B", "color": "#3b82f6" },
+          { "label": "Marine Transp.", "x": 76.0, "y": 1.3, "href": "/sub/8EEB09C8", "color": "#3b82f6" },
+          { "label": "Div. Chemicals", "x": 75.8, "y": 2.3, "href": "/sub/4B59004E", "color": "#3b82f6" },
+          { "label": "Internet Services", "x": 73.3, "y": 6.3, "href": "/sub/0FA374B8", "color": "#3b82f6" },
+          { "label": "Leisure Facilities", "x": 73.0, "y": 3.5, "href": "/sub/FD39D067", "color": "#3b82f6" },
+          { "label": "Oil & Gas Refining", "x": 72.8, "y": 1.7, "href": "/sub/DB62D66B", "color": "#f97316" },
+          { "label": "Publishing", "x": 71.9, "y": 4.1, "href": "/sub/63934848", "color": "#3b82f6" },
+          { "label": "Other Spec. REITs", "x": 71.2, "y": -1.5, "href": "/sub/7C3EE8B5", "color": "#3b82f6" }
+        ],
+        "colorLabels": { "#3b82f6": "科技 / 金屬 / 其他", "#f97316": "能源" }
+      }
+    },
+    {
+      "number": 5,
+      "title": "排名變動：IT Consulting Δ+48 登頂（AI 顧問需求井噴），Utilities Δ-36/-31 雙殺",
+      "image": "05_rank_delta.png",
+      "caption": "IT Consulting Δ+48 是本週最大單一攀升。Health Care Technology Δ+40 緊隨。底部由 Multi-Utilities Δ-36、Electric Utilities Δ-31 雙殺領跌，防禦型板塊的資金外流正在加速。",
+      "body": "上期排名攀升榜由 Passenger Airlines Δ+39（油價受益）領漲。本週主題轉為「AI 溢出效應」——**IT Consulting & Other Services Δ+48 登頂**，直接反映 Dell +88% 營收揭示的趨勢：AI 基建需求從晶片和伺服器蔓延到 IT 服務和部署端。Accenture、Cognizant、IBM Consulting 都在 AI 轉型諮詢中看到加速。**Health Care Technology Δ+40** 是第二——GLP-1 藥物的數位化處方平台和 AI 輔助診斷需求推動。Movies & Entertainment Δ+28 反映串流平台的 AI 內容生成題材。**底部的故事是防禦型板塊的系統性資金外流：Multi-Utilities Δ-36、Electric Utilities Δ-31 雙殺。** 這不是因為公用事業基本面變差——是因為 risk-on 環境 + 利率預期偏高（10Y 收益率 ~4.4%）讓高股息防禦型資產相對缺乏吸引力。Consumer Staples Merchandise Retail Δ-29 和 Packaged Foods Δ-25 也在資金外流名單。**Data Center REITs Δ-26 看起來矛盾——AI 不是利好數據中心嗎？** 但 Data Center REITs 的 `mom_score` 仍有 ~68，排名從 17 跌到 43 是因為其他 IT sub 的動能加速得更快，相對排名被擠壓。這是「跑得慢被超車」不是「方向反轉」。",
+      "links": [
+        { "label": "IT Consulting", "href": "/sub/364050B7" },
+        { "label": "HC Technology", "href": "/sub/A8DBD49D" },
+        { "label": "Movies & Ent.", "href": "/sub/6D67D3FA" },
+        { "label": "Multi-Utilities", "href": "/sub/D15D1064" },
+        { "label": "Electric Utilities", "href": "/sub/BCAFA011" },
+        { "label": "Data Center REITs", "href": "/sub/5E2B6876" }
+      ],
+      "chartData": {
+        "type": "hbar",
+        "items": [
+          { "label": "IT Consulting & Other Services", "value": 48, "href": "/sub/364050B7" },
+          { "label": "Health Care Technology", "value": 40, "href": "/sub/A8DBD49D" },
+          { "label": "Movies & Entertainment", "value": 28, "href": "/sub/6D67D3FA" },
+          { "label": "Application Software", "value": 25, "href": "/sub/05F28EE1" },
+          { "label": "Transaction & Payment Processing", "value": 25, "href": "/sub/DB878878" },
+          { "label": "Advertising", "value": 23, "href": "/sub/F60915FE" },
+          { "label": "Casinos & Gaming", "value": 23, "href": "/sub/CFE6AF7B" },
+          { "label": "Health Care Supplies", "value": 23, "href": "/sub/D5E5DD71" },
+          { "label": "Commercial Printing", "value": 22, "href": "/sub/F5204203" },
+          { "label": "Human Resource & Employment Services", "value": 21, "href": "/sub/D4E92F32" },
+          { "label": "Home Furnishings", "value": -18, "href": "/sub/06DE34DE" },
+          { "label": "Housewares & Specialties", "value": -21, "href": "/sub/7123167E" },
+          { "label": "Computer & Electronics Retail", "value": -21, "href": "/sub/37AFA426" },
+          { "label": "Integrated Oil & Gas", "value": -24, "href": "/sub/630FFAD7" },
+          { "label": "Packaged Foods & Meats", "value": -25, "href": "/sub/8B1FBC3D" },
+          { "label": "Data Center REITs", "value": -26, "href": "/sub/5E2B6876" },
+          { "label": "Air Freight & Logistics", "value": -28, "href": "/sub/67278C25" },
+          { "label": "Consumer Staples Merchandise Retail", "value": -29, "href": "/sub/376586F4" },
+          { "label": "Electric Utilities", "value": -31, "href": "/sub/BCAFA011" },
+          { "label": "Multi-Utilities", "value": -36, "href": "/sub/D15D1064" }
+        ],
+        "xLabel": "Delta Rank",
+        "xUnit": ""
+      }
+    },
+    {
+      "number": 6,
+      "title": "原物料分裂加深：金屬全正、化學品翻負——Steel +11.8% 領跑，Industrial Gases -3.8% 墊底",
+      "image": "06_materials_split.png",
+      "caption": "Steel +11.8%（Section 232 關稅 50%）和 Copper +8.1% 領跑金屬端。12/16 子行業正報酬。但 Industrial Gases -3.8% 和 Metal Containers -4.3% 拖累化學品端——上期的「全面開花」已結束，回到金屬 vs 化學品的結構性分裂。",
+      "body": "上期原物料「15/16 正報酬、全面開花」。本週回到 12/16——**金屬端繼續強勢但化學品端翻負**，分裂重新出現。Steel +11.8% 是全場原物料之王，催化劑是 Section 232 關稅——4 月 2 日生效的「全價值 50% 關稅」意味著進口鋼捲直接被加 50% 稅，美國鋼鐵股（Nucor、Steel Dynamics、Cleveland-Cliffs）的國內定價權顯著提升。**5 月美國製造業 PMI 創四年新高、連續五個月擴張，是鋼鐵需求的直接指標。** Copper +8.1% 延續 AI 電網投資的結構性需求——每個 1GW 數據中心需要約 4,000 噸銅。Construction Materials +8.1% 同步（基建 + 關稅保護）。Aluminum +3.9%（上週 +13.0%）回落到正常水準。**化學品端出現裂痕：Industrial Gases -3.8%、Metal Containers -4.3% 翻負**——Linde 和 Air Products 的估值在利率環境下開始受壓，而金屬包裝受到飲料消費疲軟拖累（Brewers -9.6% 全場最弱）。Gold -0.2% 和 Fertilizers -0.9% 也微幅負報酬。**八期以來的原物料框架收斂到這個版本：金屬（Steel + Copper + Aluminum + Div. Metals）是 AI 基建 + 關稅保護的結構性受益者；化學品（Gases、Fertilizers、Containers）是 risk-on 環境下的相對輸家。這比上期的「全面開花」更持久。**",
+      "links": [
+        { "label": "Steel", "href": "/sub/113B2BC3" },
+        { "label": "Copper", "href": "/sub/9D3B3E86" },
+        { "label": "Construction Materials", "href": "/sub/4E53B0B8" },
+        { "label": "Diversified Metals", "href": "/sub/650D58F5" },
+        { "label": "Silver", "href": "/sub/FDF8E7AE" },
+        { "label": "Industrial Gases", "href": "/sub/7D825052" }
+      ],
+      "chartData": {
+        "type": "hbar",
+        "items": [
+          { "label": "Steel", "value": 11.8, "href": "/sub/113B2BC3" },
+          { "label": "Copper", "value": 8.1, "href": "/sub/9D3B3E86" },
+          { "label": "Construction Materials", "value": 8.1, "href": "/sub/4E53B0B8" },
+          { "label": "Forest Products", "value": 5.7, "href": "/sub/AD968F37" },
+          { "label": "Diversified Metals & Mining", "value": 5.6, "href": "/sub/650D58F5" },
+          { "label": "Aluminum", "value": 3.9, "href": "/sub/1D0B4025" },
+          { "label": "Silver", "value": 3.3, "href": "/sub/FDF8E7AE" },
+          { "label": "Paper Products", "value": 2.8, "href": "/sub/7BD0E9D6" },
+          { "label": "Paper & Plastic Packaging", "value": 2.7, "href": "/sub/424682BE" },
+          { "label": "Diversified Chemicals", "value": 2.3, "href": "/sub/4B59004E" },
+          { "label": "Specialty Chemicals", "value": 1.0, "href": "/sub/33054D65" },
+          { "label": "Commodity Chemicals", "value": 0.9, "href": "/sub/7BF90D4B" },
+          { "label": "Gold", "value": -0.2, "href": "/sub/33E5E2A6" },
+          { "label": "Fertilizers & Agri. Chem.", "value": -0.9, "href": "/sub/6A22E83B" },
+          { "label": "Industrial Gases", "value": -3.8, "href": "/sub/7D825052" },
+          { "label": "Metal, Glass & Plastic Cont.", "value": -4.3, "href": "/sub/AE23CF9D" }
+        ]
+      }
+    }
+  ],
+  "actions": [
+    "**上週建議績效回顧** | (1) 能源不參與（歸零）→ Energy -1.5%，Drilling -6.2%、Storage -7.9% ✓✓ | (2) IT 絕對核心四角（Semis + TH + SME + EC）→ Semis +1.9% ✓（溫和但正）、Tech Hardware +22.8% ✓✓✓（超額回報巨大）、SME +0.3% ✓（溫和）、EC +3.0% ✓ | (3) 三金屬（Copper + Aluminum + Steel）→ Steel +11.8% ✓✓✓、Copper +8.1% ✓✓、Aluminum +3.9% ✓ | (4) Consumer Disc 觀察不追 → +2.5% ✓（正報酬但不追是正確的——IT 贏得更多）| **框架 batting average：8/8（首次全數正確）。上期說「不在沒有 edge 的地方下注」——這才是真正的 alpha 來源。**",
+    "**IT 絕對核心維持，但陣形從四角調整為「核心雙塔 + 衛星」。** Tech Hardware（`mom_score` 87.4，1W +22.8%）和 Semiconductors（94.6，+1.9%）是雙塔——TH 有 Dell +88% 的 AI 伺服器 OEM 爆發、Semis 有最高動能分數和最穩定的趨勢。**新增 Systems Software（54.5，+16.1%，Δ-2）為衛星**——雖然 `mom_score` 只有 54，但 1W +16.1% 代表 Microsoft/Oracle/ServiceNow 這些 enterprise software 平台正在享受 AI adoption 的第二波紅利。**SME 和 EC 降為持有**——SME +0.3% 和 EC +3.0% 本週表現溫和、EMS +0.2% 近乎持平，顯示半導體設備和電子零組件的漲幅正在被消化。持有但不加碼。Application Software（34.6，+11.5%，Δ+25）值得觀察——排名攀升 25 位但 `mom_score` 仍低，是 SaaS 反彈而非趨勢建立。",
+    "**三金屬維持、Steel 升格為第一配置。** Section 232 全價值 50% 關稅是結構性利多——進口鋼成本直接加 50%，美國鋼鐵股的國內定價權被制度性保護。5 月 US Manufacturing PMI 創四年新高，鋼鐵需求有基本面支撐。**Steel（`mom_score` 84.5）升格為金屬配置第一位**，Copper（61.3）持續持有（AI 電網需求不減），Aluminum（88.0）持有但注意 Hormuz 排雷後 Gulf 鋁產能重啟可能壓低價格。Gold/Silver 維持中性——Silver +3.3% 受工業需求支撐微幅好於 Gold。",
+    "**能源繼續不參與。** Brent 5 月暴跌 19% 至 $92.05 是 2020 年 3 月以來最慘月份。伊朗協議「基本上同意」，Trump 在白宮戰情室做最終裁決——如果簽署，Brent 可能跌到 $85-88、能源股會再跌一波。即使談判破裂 Brent 反彈，上期已證明「追能源是負期望值遊戲」——六期中追對兩次追錯四次。**Drilling 的 `mom_score` 已從 78.9 跌出 Top 20，動能正在加速衰退。不參與。**",
+    "**下週三大觀察。** (1) **伊朗框架協議簽署與否**——Trump 週五進戰情室，結果可能在下週一（6/1）公布。簽署 → Brent 往 $85 走、全場 risk-on 繼續；破裂 → Brent 反彈 $100+、IT 以外板塊會被拖累但 IT 3M 趨勢不會因此逆轉。(2) **5 月就業報告（6/6 公布）**——如果非農強勁 + 時薪加速，Fed 升息預期升溫、公用事業和 REITs 繼續承壓；如果就業降溫，market 會定價 H2 降息可能。(3) **SOX +65% YTD 的回調風險**——18 天漲 47% 的速率在歷史上只出現在泡沫最後階段或趨勢起點。Dell 的 88% 營收增長和 NVDA 的持續創新說明這次有基本面，但短期獲利了結是 inevitable——如果 Semis 回調 5-8%，是加碼機會不是逃跑訊號。**核心風險：SOX 速度太快觸發程式化賣壓，但只要 3M 趨勢不破，任何回調都是再進入的機會。**"
+  ],
+  "sources": [
+    { "title": "TheStreet — Stock Market Today (May 29, 2026): S&P 500 good for ninth consecutive week of gains", "url": "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-may-29-2026" },
+    { "title": "CNBC — S&P 500 closes at a record to kick off June trading as tech rally overpowers oil spike", "url": "https://www.cnbc.com/2026/05/31/stock-market-today-live-updates.html" },
+    { "title": "CNBC — Brent oil price posts biggest monthly loss in six years as market counts on U.S.-Iran deal", "url": "https://www.cnbc.com/2026/05/29/oil-price-iran-deal-war-ceasefire-trump.html" },
+    { "title": "CNBC — Oil drops 20% from 2026 peak on optimism over U.S.-Iran ceasefire talks", "url": "https://www.cnbc.com/2026/05/29/oil-prices-iran-ceasefire-us-trump-strait-hormuz-energy-costs.html" },
+    { "title": "CNBC — Dell Q1 2027 earnings: Revenue $43.84B (+88% YoY), AI server demand surges", "url": "https://www.cnbc.com/2026/05/28/dell-q1-earnings-report-2027.html" },
+    { "title": "Benzinga — Dell, Snowflake's Earnings Beat, MongoDB's Raised Outlook: This Week in Tech", "url": "https://www.benzinga.com/markets/tech/26/05/52894060/dell-snowflakes-earnings-beat-mongodbs-raised-outlook-and-more-this-week-in-tech" },
+    { "title": "24/7 Wall St. — The Semiconductor Rally Is Going Strong, but History Suggests the Cycle Still Matters", "url": "https://247wallst.com/investing/2026/05/26/the-semiconductor-rally-is-going-strong-but-history-suggests-the-cycle-still-matters/" },
+    { "title": "Howard CM — Global Market Update May 29, 2026: AI-driven rally persists despite macro risks", "url": "https://howardcm.com/global-market-update-may-29-2026-ai-driven-rally-persists-despite-macro-risks-geopolitical-easing-supports-sentiment/" },
+    { "title": "White House — Fact Sheet: President Trump Updates Tariffs on Steel, Aluminum, and Copper Imports (Section 232)", "url": "https://www.whitehouse.gov/fact-sheets/2026/06/fact-sheet-president-donald-j-trump-updates-tariffs-on-steel-aluminum-and-copper-imports/" },
+    { "title": "Customs Intel — Section 232 Steel Aluminum Copper Tariffs 2026: New 10% to 50% Rules Explained", "url": "https://customsintel.com/section-232-steel-aluminum-copper-tariffs-2026/" },
+    { "title": "Motley Fool — 2 Stocks I Would Buy Even After This Massive Semiconductor Rally", "url": "https://www.fool.com/investing/2026/05/27/2-stocks-i-would-buy-even-after-this-massive-semic/" },
+    { "title": "CNBC — Oil jumps more than 3% after Iran vows to retaliate for U.S. strikes", "url": "https://www.cnbc.com/2026/05/26/oil-prices-today-brent-wti-iran-trump-hormuz.html" }
+  ]
+}
