@@ -1,0 +1,163 @@
+{
+  "slug": "doubler-autopsy",
+  "issue": 2,
+  "date": "2026-06-03",
+  "snapshotDate": "2026-05-29",
+  "title": "翻倍股解剖報告：100 支 S&P 1500 翻倍股的共同特徵",
+  "subtitle": "事後描述性研究——翻倍時伴隨什麼，而非預測什麼",
+  "imageDir": "/research/sector/doubler-autopsy",
+  "coverImage": "summary_01_sector.png",
+  "intro": [
+    "過去 2.5 年（2023-10 至 2026-05），S&P 1500 成分股中有 **100 支在 60 個交易日內翻倍**。這份報告是一份事後解剖——不是選股模型，而是回答一個描述性問題：**當一支股票翻倍時，它的價格行為、量能結構、板塊背景和催化劑長什麼樣？**",
+    "方法論：以 `prices.parquet`（1,504 支 × 659 日 OHLCV）為基礎，配合 Supabase 板塊動能資料、yfinance 財報日期、SEC EDGAR 8-K 申報日、以及 Google News 回溯搜尋，對每個翻倍事件進行量化特徵計算 + 質化催化劑比對。",
+    "**重要聲明**：本報告全部結論均為事後觀察。發動區間內看到的特徵是「跟漲勢同時發生」的伴隨現象，不能直接當作預測訊號。若要做事前預測，需要另外設計「起漲點之前」的研究（我們在先前的 DTW 形態研究中已嘗試過，結論是形態的預測力非常有限）。"
+  ],
+  "exhibits": [
+    {
+      "number": 1,
+      "title": "板塊集中度：IT 佔 43%，是 universe 的 3.4 倍",
+      "image": "summary_01_sector.png",
+      "caption": "灰色=universe 佔比，紅色=翻倍股佔比。IT 的超額比達 3.4x，金融和不動產幾乎不產生翻倍股。",
+      "body": "100 個翻倍事件中，**43 個來自 IT（半導體 + 半導體設備就佔 22 個）**，IT 在 universe 只佔 12.6%——超額 3.4 倍。Health Care（15%）主要是 biotech 新藥驅動。反面同樣關鍵：**金融佔 universe 17% 但只貢獻 4% 翻倍、不動產 7% → 0%、必需消費 5% → 1%**。翻倍是高 beta 板塊的遊戲——防禦性板塊幾乎不參與。**68% 的翻倍股是 SP600 小型股**，SP400 中型股竟然零個。",
+      "links": []
+    },
+    {
+      "number": 2,
+      "title": "年份 × 板塊熱力圖：2025 IT 獨佔 19 個翻倍",
+      "image": "summary_04_heatmap.png",
+      "caption": "顏色越深 = 翻倍事件越多。翻倍股在特定板塊的特定時間窗口集中爆發。",
+      "body": "兩個爆發時間點：**2023 Q4**（Bitcoin + AI server 初期，7 個 Crypto/IT）和 **2025 全年**（AI 基建 + 半導體庫存循環，IT 19 個事件）。Health Care 均勻分布（每年 4-7 個），能源和原物料集中在 2025 年（鋰價 V 型反彈、鋁關稅）。**翻倍不是隨時都有，而是在板塊風口的時間窗口內集中出現**——這跟「61% 是板塊行情」的發現完全一致。"
+    },
+    {
+      "number": 3,
+      "title": "漲法結構：92% 靠跳空，Top-5 天貢獻 69% 漲幅",
+      "image": "summary_03_stats.png",
+      "caption": "六張分布圖：跳空佔 68%、爆量日 5x、回撤 -13%、連漲 6 天、年化波動 70%。",
+      "body": "最反直覺的發現：漲幅**極度集中在少數交易日**。中位數 68% 的漲幅來自隔夜跳空，Top-5 天貢獻 69% 總報酬。日均量能只放大 1.3 倍，但**峰值爆量日達 5.1 倍**。翻倍途中承受 -13% 回撤、39% 交易日下跌。**錯過最關鍵 5 天就幾乎拿不到翻倍報酬**——事後看「拿住就好」，事前做到極其困難。"
+    },
+    {
+      "number": 4,
+      "title": "催化劑 vs 動能：起動靠催化劑，追價靠動能",
+      "image": "summary_05_explained.png",
+      "caption": "左：601 個爆發日中 37% 對應正式事件。右：最大漲幅日 61% 有事件。",
+      "body": "把每個翻倍事件的「爆發日」（gap ≥5% / ret ≥10% / vol ≥3x）比對 yfinance 財報日 + SEC 8-K。**601 個爆發日只有 224 個（37%）對應正式事件**。但每個事件的「最大漲幅日」匹配率 61%。清楚的模式：**催化劑點火（多半是 EPS surprise +28% 的超預期財報），後續 2/3 追價靠動能和情緒，沒有新事件**。只有 7% 完全找不到催化劑。"
+    },
+    {
+      "number": 5,
+      "title": "催化劑類型 + 板塊同步性分布",
+      "image": "summary_02_catalysts.png",
+      "caption": "左：財報 40% / 題材 30% / M&A 8% / 無催化劑 7%。右：61% 是板塊行情。",
+      "body": "30 個代表性案例深入研究的結果：**財報驅動（~40%）** 最大類——一次超預期財報引爆跳空。**產業題材（~30%）** 第二大——BTC ETF、AI 電力、鋰價反彈等宏觀催化劑推動整個板塊。**M&A/事件（~8%）** 最具戲劇性——HE 的 $4B 和解 13 天翻倍。**真正無催化劑（~7%）** 極罕見——CC 和 ADNT 靠估值修復緩步磨漲。板塊同步性方面，61% 在板塊集體上漲時發生，只有 13% 個股獨走。"
+    },
+    {
+      "number": 6,
+      "title": "A 類・財報驅動｜8 個案例",
+      "image": "case_01_SMCI.png",
+      "caption": "SMCI 3.5x — 2024-01-18 上修 AI server 營收指引 $2.9B→$3.65B，單日 +35% 貢獻翻倍漲幅的 40%。",
+      "body": "**SMCI**（3.5x）是教科書案例：財報上修 +26% 引爆跳空，但之前已因 AI server 敘事緩漲 33%。同期 VRT +108%、DELL +40%，說明不只 SMCI 在漲，而是整個 AI 基建板塊被推。**MXL**（3.1x）和 **SATS**（2.9x）類似——庫存觸底 + 財報 beat 啟動翻倍。**MARA**（2.7x）是「財報 × Bitcoin」的雙重催化劑。**CORT**（2.3x）是 HC 的代表——新藥進展 + 營收 beat。**AAP**（2.0x）最特別——汽車零件通路商靠「營運改善」翻倍，跟科技完全無關。財報驅動的共同特徵：**EPS surprise 中位數 +28%**，遠超市場平均 +3-5%。",
+      "links": []
+    },
+    {
+      "number": 7,
+      "title": "A 類・財報驅動｜更多案例",
+      "image": "case_04_MXL.png",
+      "caption": "MXL 3.1x — 半導體庫存觸底反彈，財報 beat 確認需求回升。",
+      "body": "**MXL（MaxLinear）** 3.1x 是半導體庫存循環的縮影——2025 年底庫存觸底，2026 年初財報確認需求回升，從 $13 漲到 $41。同期 Semicon 設備股（ICHR 2.1x、FORM 2.1x）也在翻倍，板塊同步性非常高。**ACHC（Acadia Healthcare）** 2.1x 是 HC 板塊的另一個案例——精神醫療需求成長 + 財報 beat。**SATS（EchoStar）** 2.9x 則是通訊板塊的異類——衛星寬頻需求突然爆發。這些案例共同說明：**財報驅動的翻倍股，通常是板塊整體復甦中的「最高 beta 個股」**。",
+      "links": []
+    },
+    {
+      "number": 8,
+      "title": "B 類・產業題材｜7 個案例",
+      "image": "case_09_COIN.png",
+      "caption": "COIN 2.1x — 2024-01-11 SEC 批准 11 檔 BTC ETF，Coinbase 為 8 檔提供託管服務。",
+      "body": "**COIN**（2.1x）是「政策催化劑」的典型——SEC 批准 BTC ETF 不是 Coinbase 的公司事件，但 Coinbase 做了 8/11 檔的託管，BTC 市場份額從 47% 拉到 60%。同時期 **CLSK**（3.2x）和 **MARA**（2.7x）作為 crypto miners 一起翻倍。**VRT**（2.2x）和 **POWL**（2.1x）是 AI 資料中心電力需求的直接受益者——不是因為單一財報，而是整個電力基建板塊在 2025 年被重估。**FSLR**（2.0x）靠 IRA 稅額抵免 + UBS「AI 推升再生能源需求」報告。**CENX**（2.1x）靠鋁關稅 + 原物料板塊輪動。**AMD**（2.1x）身為半導體 AI 需求最直接受益者，搭上 2026 年的庫存循環 + AI inference 需求。**這類翻倍的共同特徵：沒有單一公司催化劑，而是宏觀政策或產業結構變化推動整個板塊。**",
+      "links": []
+    },
+    {
+      "number": 9,
+      "title": "B 類・產業題材｜AI 基建 + 原物料",
+      "image": "case_11_VRT.png",
+      "caption": "VRT 2.2x — AI 資料中心電力需求爆發，營收 +35% YoY，有機訂單 +60%。",
+      "body": "**VRT（Vertiv）** 的翻倍是 AI 基建行情的核心受益者——不像 NVDA 賣 GPU，Vertiv 賣的是資料中心的電力管理和散熱系統。2025 年營收連續季 +24-35% YoY，有機訂單增 60%。同期 **POWL（Powell Industries）** 2.1x 賣的是電力配電設備，也搭上同一波。**AMD** 2.1x 在 2026 年初的翻倍則是半導體 AI 需求的第二波——庫存循環觸底 + AI inference 需求爆發。**FSLR** 2.0x 是「AI 間接受益者」——Big Tech 為了碳中和承諾大量採購太陽能，加上 IRA 稅額抵免和中國關稅保護。**這批案例揭示一個模式：AI 不只讓 GPU 公司翻倍，整條電力/散熱/再生能源供應鏈都在受益。**",
+      "links": []
+    },
+    {
+      "number": 10,
+      "title": "C 類・重大事件｜3 個案例",
+      "image": "case_16_HE.png",
+      "caption": "HE 2.1x — Maui $4B 和解報導後 13 天翻倍，我們資料裡最快的案例。",
+      "body": "**HE（Hawaiian Electric）** 是最極端的案例：2023 年 Maui 野火後面臨破產，股價從 $35 跌到 $8。2024-07-18 Bloomberg 報導 $4B 和解方案，盤後 +45%、隔日再 +25%，**13 天翻倍**。但翻倍後又回吐 30%——和解金額高達 $2B，資產負債表仍然脆弱。**WBD（Warner Bros Discovery）** 2.1x 靠的是 2025-09 Paramount/Comcast/Netflix 傳出收購意向，單月 +67%，是「併購溢價」的典型。**DAN（Dana Inc）** 2.2x 靠出售 Off-Highway 事業部給 Allison Transmission——strategic divestiture 讓市場重估殘餘事業的價值。**這三個案例的共同特徵：單一重大事件（和解/收購/分拆），通常盤後/盤前消息，隔日跳空 20-45%。無法事前預測，也無法在跳空後拿到好價位。**",
+      "links": []
+    },
+    {
+      "number": 11,
+      "title": "D 類・混合（財報 + 板塊同時作用）｜5 個案例",
+      "image": "case_19_CVNA.png",
+      "caption": "CVNA 2.2x — 債務重組 + Q3 EBITDA 首度轉正，turnaround 故事的經典。",
+      "body": "**CVNA（Carvana）** 是 turnaround 的教科書——2022 年跌 98% 瀕臨破產，2023 年完成債務重組（年省利息 $450M），2023-11 Q3 EBITDA 首度轉正後股價從 $30 漲到 $67。**SEZL（Sezzle）** 5.0x 是我們最強翻倍——BNPL 小型股從 $1.2 漲到 $6，靠的是獲利轉正 + 小型股動能。**VITL（Vital Farms）** 2.5x 是罕見的必需消費翻倍——有機蛋需求爆發 + 連續季度 beat。**FORM（FormFactor）** 2.1x 和 **AOSL** 2.2x 都是半導體板塊行情中的「夾帶」翻倍——公司本身有 beat，但翻倍主要靠板塊風口加乘。**Mixed 的特徵：公司有正面催化劑（財報 beat / 營運改善），但不足以獨立翻倍，需要板塊行情的加持。**",
+      "links": []
+    },
+    {
+      "number": 12,
+      "title": "D 類・混合｜更多案例",
+      "image": "case_20_SEZL.png",
+      "caption": "SEZL 5.0x — 我們資料裡漲幅最大的翻倍，從 $1.2 到 $6。BNPL 小型股的獲利轉正。",
+      "body": "**SEZL** 是 100 個翻倍事件中 ratio 最高的（5.0x）。2023-10 全球最低價 $1.19，到 2023-12 漲到 $6。催化劑是 BNPL 獲利轉正 + 小型股/micro-cap 的低流動性放大效應。**VITL（Vital Farms）** 2.5x 是防禦性板塊裡的異數——有機雞蛋在禽流感期間需求爆發，結合連續 beat 的財報。**AOSL（Alpha & Omega Semi）** 2.2x 是車用功率半導體的 beat，搭上 2024 年半導體板塊復甦。這些案例說明：**Mixed 類的翻倍股通常是「好故事 × 好時機 × 低基期」的三重共振。**",
+      "links": []
+    },
+    {
+      "number": 13,
+      "title": "E 類・無明確催化劑｜2 個案例 + 反思",
+      "image": "case_24_ADNT.png",
+      "caption": "ADNT 2.0x — 汽車板塊緩步輪動，找不到單一爆炸性事件。",
+      "body": "在 100 個翻倍事件中，只有 **7 個（7%）在自動化比對中找不到任何正式事件**。深入搜尋後，其中 5 個仍能追溯到合理催化劑（只是不在 8-K 裡）。**真正「純動能翻倍」的只有 2 個**：**CC（Chemours）** 靠 TiO2 漲價 + PFAS 和解底定的估值修復，和 **ADNT（Adient）** 靠汽車板塊輪動。兩者的共同特徵：沒有單日大跳、緩步磨漲、全程沒有任何一天漲幅超過 10%。**ALB（Albemarle）** 看似無事件，但其實是鋰價 V 型反彈（H2 2025 +56%）驅動的板塊行情。**結論：「無催化劑翻倍」在 S&P 1500 中極為罕見（~2%），翻倍幾乎總是有故事的。**",
+      "links": []
+    },
+    {
+      "number": 14,
+      "title": "全部 25 個案例一覽表",
+      "image": "",
+      "caption": "",
+      "body": "**A 類・財報驅動（8 個）**：SMCI 3.5x（AI server 上修）、MXL 3.1x（半導體觸底）、SATS 2.9x（衛星寬頻）、MARA 2.7x（BTC + 財報）、CORT 2.3x（新藥）、WDC 2.2x（AI 儲存）、ACHC 2.1x（精神醫療）、AAP 2.0x（汽車零件改善）\n\n**B 類・產業題材（7 個）**：CLSK 3.2x（Crypto miner）、VRT 2.2x（AI 電力）、AMD 2.1x（半導體 AI）、COIN 2.1x（BTC ETF）、POWL 2.1x（電力設備）、CENX 2.1x（鋁關稅）、FSLR 2.0x（IRA + 太陽能）\n\n**C 類・重大事件（3 個）**：HE 2.1x（Maui 和解）、DAN 2.2x（事業部出售）、WBD 2.1x（收購傳聞）\n\n**D 類・混合（5 個）**：SEZL 5.0x（BNPL 轉正）、VITL 2.5x（有機蛋）、CVNA 2.2x（turnaround）、AOSL 2.2x（車用半導體）、FORM 2.1x（半導體測試）\n\n**E 類・無催化劑（2 個）**：ADNT 2.0x（汽車輪動）、ALB 2.0x（鋰價反彈）"
+    },
+    {
+      "number": 15,
+      "title": "資料與方法限制",
+      "image": "",
+      "caption": "",
+      "body": "**存活者偏差**：universe 是 2026 年的 S&P 1500 快照，過去 2.5 年約 8-12% 成員已輪換。翻倍後被踢出指數的看不到後續崩盤。**新聞倖存偏誤**：搜 2024 年以前的新聞時，「解釋了大漲的新聞」比「靜默日」更容易被搜到，可能高估「有催化劑」比例。**質化覆蓋不均**：大型股新聞覆蓋遠比小型股完整，小型股的「無催化劑」可能只是「催化劑沒有新聞報導」。**SPY 基準缺失**：parquet 中沒有 SPY（ETF 不在 S&P 1500），相對大盤超額暫無法計算。**此為事後描述，不可直接當預測訊號。若要預測，需另設「起漲點之前」的研究——我們的 DTW 形態研究顯示形態預測力有限（lift 1.35x），數值特徵略好（lift 3.0x），但翻倍本質上是小概率事件（命中率 1.2%）。**"
+    }
+  ],
+  "actions": [
+    "**此為描述性報告，不構成投資建議。** 以下觀察供未來策略研究參考。",
+    "**翻倍的事後必要條件**：(1) 高 beta 板塊 IT/HC/CD，(2) 板塊正在風口（61%），(3) 至少一個強催化劑（93%），(4) 小型股為主（68% SP600）。",
+    "**漲幅集中度是核心特徵**：Top-5 天貢獻 69%、gap 佔 68%。Timing 和持有紀律比選股更關鍵——波動 70%、回撤 -13% 的環境下不願持倉，就算選對也拿不到翻倍報酬。",
+    "**催化劑比例**：40% 財報 / 30% 產業題材 / 8% M&A / 7% 無催化劑。「無催化劑翻倍」極為罕見。",
+    "**翻倍股的本質**：催化劑不可預測，板塊風口可觀察，動能可追蹤，但翻倍本身是小概率事件。",
+    "**觀察名單（2026-06-03 快照，不構成投資建議）**：以下 10 檔目前最符合翻倍股事後觀察到的量化條件。篩選邏輯：IT/HC/CD/通訊板塊 + SP600 小型股 + 板塊動能 top 40% + 個股 mom_score ≥ 60 + 1M 報酬 > 5% + 3M < 80%（尚未翻倍）。84 檔通過篩選，以下是綜合評分前 10。",
+    "① **ACMR**（ACM Research，半導體設備，SP600）mom 99, 1M +73%。2026 WFE 產業支出預估 $140-145B（+18-20% YoY）。ACMR 專注中國晶圓清洗設備，Q1 營收 $231M（+34% YoY），全年指引 $1.08-1.18B（+21-30%）。**催化劑**：中國半導體自主化加速、NAND/DRAM 產能擴張、正在拓展新加坡等非中國客戶（年底前 20+ 工具安裝）。**風險**：中美科技出口管制可能收緊。",
+    "② **UCTT**（Ultra Clean Holdings，半導體設備，SP600）mom 96, 1M +27%。同屬 WFE 供應鏈，專做晶圓廠污染控制零組件和清洗服務。Q1 營收 $534M（beat），**上修 Q2 指引至 $565-605M**。管理層宣布從「等待復甦」轉向「AI 驅動的結構性擴張」。**催化劑**：亞洲產能佔比從 50% 拉到 60%、長期目標 $4B 營收、AI + HBM 帶動的記憶體需求。",
+    "③ **KLIC**（Kulicke & Soffa，半導體設備，SP600）mom 96, 1M +23%。先進封裝設備龍頭，專做 wire bonding 和 thermo-compression bonding（TCB）。TCB 業務 FY2026 預估 **+70% 季環比成長**。2026-03 推出 ProMEM 記憶體封裝產品線（HBM/HBF 專用，吞吐量 +20%）。**催化劑**：HBM4 量產帶動 TCB 需求爆發、NVIDIA Blackwell/Rubin 世代的封裝複雜度持續提升。",
+    "④ **PLXS**（Plexus，電子代工，SP600）mom 86, rvol 1.8x（10 檔中最高）。高度多元化 EMS 廠，服務航太國防 + 醫療 + 半導體設備。**連續兩季創紀錄**：Q2 營收 $1.16B，製造新案贏得 $355M 年化營收。**催化劑**：美國國防支出持續成長、AI 資料中心電源解決方案新業務、航太/醫療法規壁壘高。rvol 1.8x 代表機構資金正在進場。",
+    "⑤ **CRSR**（Corsair Gaming，科技硬體，SP600）mom 94, 1M +52%。不只是電競周邊——**2026-05-22 宣布 CORSAIR PRO 產品線**，正式跨入 AI 工作站和 NVIDIA Grace Blackwell 伺服器市場。Q1 毛利率創紀錄 32.7%，利潤 +58% YoY。**催化劑**：AI 工作站是全新業務線、Stream Deck AI 整合（MCP 支援）、PC 換機週期開始。**風險**：消費性電子需求波動大。",
+    "⑥ **VSAT**（Viasat，通訊設備，SP600）mom 87, rvol 1.5x。衛星寬頻龍頭，ViaSat-3 三顆衛星中兩顆已上天（F2 2025 發射、**F3 2026-04-29 成功發射**），全球覆蓋即將完成。與 ESA 簽約開發 LEO 直連手機（Direct-to-Device）系統。**催化劑**：F3 服務開通（亞太區，2026 下半年）、D2D 是熱門題材（對標 AST SpaceMobile）、航空 WiFi 市場寡佔。",
+    "⑦ **DIOD**（Diodes Inc，半導體，SP600）mom 90, 3M +76%，所屬板塊排名 **#1**（mom 99）。類比/離散半導體，核心市場：車用 + 工業 + AI 伺服器電源管理。Q1 營收 $406M（**+22% YoY，連續第五季雙位數成長**），獲利翻倍。**催化劑**：車用 800V 平台 SiC MOSFET 新品、AI 資料中心電源管理需求、半導體庫存循環進入擴張期。板塊是目前全市場動能最強的 sub-industry。",
+    "⑧ **NTCT**（NETSCOUT Systems，通訊設備，SP600）mom 84, rvol 1.4x。網路監控和 DDoS 防護龍頭，獲 Frost & Sullivan 2025 年全球網路監控公司大獎。FY2026 營收和獲利雙成長。**催化劑**：5G 網路切片監控需求（nGenius 產品線）、DDoS 攻擊量持續創新高推動資安支出、電信商 5G 商轉加速。相對冷門但防禦性強。",
+    "⑨ **CLSK**（CleanSpark，Crypto Mining，SP600）mom 84, 1M +37%。曾在 2023 翻過 3.2 倍。BTC 礦工，算力 47.3 EH/s（+18% YoY），ERCOT 核准 585MW 容量。**催化劑**：Bitcoin 價格走勢（BTC > $100K 時礦工利潤率大幅擴張）、BTC 減半後低效礦機退出提升市佔、德州電網擴張。**風險**：高度依賴 BTC 價格，波動極大。",
+    "⑩ **LUMN**（Lumen Technologies，替代電信，SP600）mom 70, ΔRank +6（改善最快）。從瀕死電信商轉型為 **AI 光纖基礎設施供應商**。與 hyperscaler 簽署 Private Connectivity Fabric 長約（專為 AI 資料中心建造的低延遲光纖），宣布收購 Alkira（可程式化網路）。策略收入首度超越傳統收入（51% vs 49%）。新建 NorthLine 低延遲路線（Seattle→Minneapolis），年底升級到 800G+。**催化劑**：更多 hyperscaler 長約、AI 訓練集群對低延遲光纖的剛性需求、曾在 2024 翻過 8 倍（N=250）。**風險**：傳統電信業務持續萎縮、高槓桿。"
+  ],
+  "sources": [
+    { "title": "S&P 1500 OHLCV data via yfinance (2023-10 to 2026-05)", "url": "" },
+    { "title": "Supabase daily_sub_returns / daily_stock_returns / gics_universe", "url": "" },
+    { "title": "SEC EDGAR 8-K filing dates (data.sec.gov)", "url": "https://data.sec.gov" },
+    { "title": "yfinance earnings_dates API", "url": "" },
+    { "title": "Hawaiian Electric Maui fire settlement — Bloomberg", "url": "https://www.bloomberg.com/news/articles/2024-07-10/hawaiian-electric-soars-on-report-of-maui-fire-settlement-plan" },
+    { "title": "SMCI Q2 FY2024 preliminary results — SEC filing", "url": "https://www.sec.gov/Archives/edgar/data/0001375365/000137536524000002/exhibit991_20231231preanno.htm" },
+    { "title": "Bitcoin ETF approval impact on Coinbase — CNBC", "url": "https://www.cnbc.com/2024/01/11/what-major-analysts-say-bitcoin-etf-approval-means-for-coinbase-shares.html" },
+    { "title": "First Solar AI demand forecast — CNBC/UBS", "url": "https://www.cnbc.com/2024/05/21/fslr-earnings-could-surge-as-big-tech-hunts-for-renewables-to-power-ai-ubs-says-.html" },
+    { "title": "Albemarle lithium recovery — Yahoo Finance", "url": "https://finance.yahoo.com/news/albemarle-surges-121-6-months-124200007.html" },
+    { "title": "Warner Bros Discovery acquisition interest — Trefis", "url": "https://www.trefis.com/stock/wbd/articles2/582833/why-warner-bros-discovery-stock-jumped-90/2025-11-17" },
+    { "title": "Carvana turnaround — CNBC", "url": "https://www.cnbc.com/2024/02/02/carvana-leaner-and-ready-for-wall-street-redemption.html" },
+    { "title": "Vertiv Q2 2025 earnings — SEC 8-K", "url": "https://www.sec.gov/Archives/edgar/data/0001674101/000167410125000006/q22025exhibit991vrt7302025.htm" }
+  ]
+}
