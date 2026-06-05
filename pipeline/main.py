@@ -229,8 +229,8 @@ def run_pipeline_for_date(
     success, failed = upsert_daily_sub_returns(supabase, records)
 
     # ── 個股指標 ──────────────────────────────────────────────
-    from pipeline.calculator import calc_returns, calc_stock_momentum_score
-    from pipeline.volume import calc_rvol
+    from pipeline.calculator import calc_returns, calc_stock_momentum_score, calc_price_vs_ma
+    from pipeline.volume import calc_rvol, calc_vol_momentum, calc_chaikin_money_flow
 
     stock_records = []
     for sub_industry, tickers in sub_mapping.items():
@@ -260,6 +260,30 @@ def run_pipeline_for_date(
             else:
                 rvol = None
 
+            # Re-fetch close_s for the current ticker (the outer-loop variable is stale)
+            close_s = close_to_date[t].dropna()
+
+            # Technical indicators: price vs moving averages
+            price_vs_ma20 = calc_price_vs_ma(close_s, 20) if len(close_s) >= 21 else None
+            price_vs_ma50 = calc_price_vs_ma(close_s, 50) if len(close_s) >= 51 else None
+            price_vs_ma200 = calc_price_vs_ma(close_s, 200) if len(close_s) >= 201 else None
+
+            # Volume momentum
+            vol_mom_val = None
+            if volume_to_date is not None and t in volume_to_date.columns:
+                vol_s_full = volume_to_date[t].dropna()
+                vol_mom_val = calc_vol_momentum(vol_s_full) if len(vol_s_full) >= 40 else None
+
+            # Chaikin Money Flow
+            cmf_val = None
+            if (high_to_date is not None and low_to_date is not None
+                    and t in high_to_date.columns and t in low_to_date.columns):
+                high_s = high_to_date[t].dropna()
+                low_s = low_to_date[t].dropna()
+                if volume_to_date is not None and t in volume_to_date.columns:
+                    vol_s_cmf = volume_to_date[t].dropna()
+                    cmf_val = calc_chaikin_money_flow(high_s, low_s, close_s, vol_s_cmf)
+
             stock_records.append({
                 "date":        str(target_date),
                 "ticker":      t,
@@ -274,6 +298,11 @@ def run_pipeline_for_date(
                 "rvol":        rvol,
                 "mom_score":   None,   # filled in cross-sectionally below
                 "obv_trend":   None,
+                "price_vs_ma20":  price_vs_ma20,
+                "price_vs_ma50":  price_vs_ma50,
+                "price_vs_ma200": price_vs_ma200,
+                "vol_mom":        vol_mom_val,
+                "cmf":            cmf_val,
             })
 
     if stock_records:

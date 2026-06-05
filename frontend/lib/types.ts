@@ -64,6 +64,11 @@ export interface StockReturn {
   rank_in_sub: number | null
   rvol: number | null
   obv_trend: number | null
+  price_vs_ma20: number | null
+  price_vs_ma50: number | null
+  price_vs_ma200: number | null
+  vol_mom: number | null
+  cmf: number | null
 }
 
 export interface StockInfo {

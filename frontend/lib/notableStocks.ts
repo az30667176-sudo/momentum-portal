@@ -38,6 +38,26 @@ export interface ReversalStock {
   rvol: number | null
 }
 
+export interface TechnicalSignal {
+  ticker: string
+  company: string
+  sector: string
+  sub_industry: string
+  gics_code: string
+  index_member: string | null
+  signal_type: string
+  signal_direction: 'bullish' | 'bearish'
+  return_pct: number
+  price_vs_ma20: number | null
+  price_vs_ma50: number | null
+  price_vs_ma200: number | null
+  rvol: number | null
+  vol_mom: number | null
+  cmf: number | null
+  mom_score: number | null
+  signal_strength: number
+}
+
 export interface NotableStocksResult {
   date: string
   mode: 'daily' | 'weekly'
@@ -47,6 +67,7 @@ export interface NotableStocksResult {
   top_losers: NotableStock[]
   industry_outliers: NotableStock[]
   reversals: ReversalStock[]
+  technical_signals: TechnicalSignal[]
   summary: {
     total_flagged: number
     overlap_count: number
@@ -193,6 +214,116 @@ function detectReversals(stocks: StockReturn[], mode: 'daily' | 'weekly'): Rever
     })
   }
   results.sort((a, b) => b.reversal_score - a.reversal_score)
+  return results
+}
+
+// ── Technical Signal Detection ─────────────────────────────────
+
+const MA_BREAKOUT_THRESHOLD = 3.0
+const MA_BREAKDOWN_THRESHOLD = -3.0
+const RVOL_CONFIRM = 1.5
+const VOL_MOM_EXPAND = 1.3
+const CMF_POSITIVE = 0.05
+const CMF_NEGATIVE = -0.05
+
+interface MaCheck {
+  label: string
+  value: number | null
+  upperThreshold: number
+}
+
+function detectTechnicalSignals(stocks: StockReturn[], mode: 'daily' | 'weekly'): TechnicalSignal[] {
+  const results: TechnicalSignal[] = []
+
+  for (const s of stocks) {
+    const ret = safeNum(mode === 'weekly' ? s.ret_1w : s.ret_1d)
+    if (ret == null) continue
+    const ma20 = safeNum(s.price_vs_ma20)
+    const ma50 = safeNum(s.price_vs_ma50)
+    const ma200 = safeNum(s.price_vs_ma200)
+    const rvol = safeNum(s.rvol)
+    const volMom = safeNum(s.vol_mom)
+    const cmf = safeNum(s.cmf)
+    const mom = safeNum(s.mom_score)
+
+    if (ma20 == null && ma50 == null && ma200 == null) continue
+
+    const signals: { type: string; dir: 'bullish' | 'bearish'; strength: number }[] = []
+
+    const maChecks: MaCheck[] = [
+      { label: 'MA200', value: ma200, upperThreshold: 5.0 },
+      { label: 'MA50', value: ma50, upperThreshold: 4.0 },
+      { label: 'MA20', value: ma20, upperThreshold: MA_BREAKOUT_THRESHOLD },
+    ]
+
+    for (const { label, value, upperThreshold } of maChecks) {
+      if (value == null) continue
+      const hasVol = rvol != null && rvol >= RVOL_CONFIRM
+
+      // Bullish breakout: price just crossed above MA with volume
+      if (value > 0 && value < upperThreshold && hasVol && ret > 0) {
+        const str = Math.min((rvol! / 2) * 40 + (1 - value / upperThreshold) * 30 + Math.min(ret / 5, 1) * 30, 100)
+        signals.push({ type: `放量突破${label}`, dir: 'bullish', strength: str })
+      }
+      // Bearish breakdown: price just crossed below MA with volume
+      if (value < 0 && value > -upperThreshold && hasVol && ret < 0) {
+        const str = Math.min((rvol! / 2) * 40 + (1 - Math.abs(value) / upperThreshold) * 30 + Math.min(Math.abs(ret) / 5, 1) * 30, 100)
+        signals.push({ type: `放量跌破${label}`, dir: 'bearish', strength: str })
+      }
+    }
+
+    // Volume expansion + price rise: bullish confirmation
+    if (volMom != null && volMom >= VOL_MOM_EXPAND && rvol != null && rvol >= RVOL_CONFIRM
+      && ret > 1.5 && cmf != null && cmf > CMF_POSITIVE) {
+      const str = Math.min(
+        Math.min(volMom / 2, 1) * 30 + Math.min(rvol / 3, 1) * 25 + Math.min(ret / 8, 1) * 25 + Math.min(cmf / 0.2, 1) * 20,
+        100,
+      )
+      signals.push({ type: '量增價漲', dir: 'bullish', strength: str })
+    }
+
+    // Volume-price divergence: price up but money flowing out
+    if (ret > 2 && cmf != null && cmf < CMF_NEGATIVE && volMom != null && volMom < 0.9) {
+      const str = Math.min(
+        Math.min(Math.abs(cmf) / 0.15, 1) * 40 + Math.min(ret / 8, 1) * 30 + (1 - Math.min(volMom, 1)) * 30,
+        100,
+      )
+      signals.push({ type: '量價背離', dir: 'bearish', strength: str })
+    }
+
+    // Extreme volume surge with big move
+    if (rvol != null && rvol >= 2.5 && Math.abs(ret) >= 3) {
+      const dir = ret > 0 ? 'bullish' as const : 'bearish' as const
+      const str = Math.min(Math.min(rvol / 4, 1) * 50 + Math.min(Math.abs(ret) / 10, 1) * 50, 100)
+      signals.push({ type: '爆量異動', dir, strength: str })
+    }
+
+    if (signals.length === 0) continue
+
+    const best = signals.sort((a, b) => b.strength - a.strength)[0]
+
+    results.push({
+      ticker: s.ticker,
+      company: getCompany(s),
+      sector: getSector(s),
+      sub_industry: getSubIndustry(s),
+      gics_code: s.gics_code,
+      index_member: getIndexMember(s),
+      signal_type: best.type,
+      signal_direction: best.dir,
+      return_pct: Math.round(ret * 100) / 100,
+      price_vs_ma20: ma20 != null ? Math.round(ma20 * 100) / 100 : null,
+      price_vs_ma50: ma50 != null ? Math.round(ma50 * 100) / 100 : null,
+      price_vs_ma200: ma200 != null ? Math.round(ma200 * 100) / 100 : null,
+      rvol: rvol != null ? Math.round(rvol * 100) / 100 : null,
+      vol_mom: volMom != null ? Math.round(volMom * 100) / 100 : null,
+      cmf: cmf != null ? Math.round(cmf * 10000) / 10000 : null,
+      mom_score: mom,
+      signal_strength: Math.round(best.strength * 10) / 10,
+    })
+  }
+
+  results.sort((a, b) => b.signal_strength - a.signal_strength)
   return results
 }
 
@@ -363,6 +494,7 @@ export async function getNotableStocks(mode: 'daily' | 'weekly'): Promise<Notabl
     ? Math.round(allReturns.filter(r => r > 0).length / allReturns.length * 1000) / 10 : 0
 
   const reversals = detectReversals(stocks, mode)
+  const technicalSignals = detectTechnicalSignals(stocks, mode)
 
   return {
     date, mode, total_stocks: stocks.length,
@@ -375,6 +507,7 @@ export async function getNotableStocks(mode: 'daily' | 'weekly'): Promise<Notabl
     top_losers: topLosers,
     industry_outliers: industryOutliers,
     reversals,
+    technical_signals: technicalSignals,
     summary: { total_flagged: allOutliers.length, overlap_count: overlapCount, sectors_with_most_outliers: sectorsWithMost },
   }
 }

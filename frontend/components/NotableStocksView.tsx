@@ -2,7 +2,7 @@
 
 import React, { useState, useMemo } from 'react'
 import Link from 'next/link'
-import { NotableStocksResult, NotableStock, ReversalStock } from '@/lib/notableStocks'
+import { NotableStocksResult, NotableStock, ReversalStock, TechnicalSignal } from '@/lib/notableStocks'
 
 type SortCol = 'return' | 'diff' | 'z' | 'mom' | 'rvol' | 'notability'
 type SortDir = 'asc' | 'desc'
@@ -272,6 +272,122 @@ function ReversalTable({ stocks }: { stocks: ReversalStock[] }) {
   )
 }
 
+const SIGNAL_BADGE: Record<string, { cls: string }> = {
+  '放量突破MA200': { cls: 'bg-green-100 text-green-800 border-green-300' },
+  '放量突破MA50': { cls: 'bg-green-50 text-green-700 border-green-400' },
+  '放量突破MA20': { cls: 'bg-emerald-50 text-emerald-700 border-emerald-300' },
+  '放量跌破MA200': { cls: 'bg-red-100 text-red-800 border-red-300' },
+  '放量跌破MA50': { cls: 'bg-red-50 text-red-700 border-red-400' },
+  '放量跌破MA20': { cls: 'bg-orange-50 text-orange-700 border-orange-300' },
+  '量增價漲': { cls: 'bg-blue-100 text-blue-800 border-blue-300' },
+  '量價背離': { cls: 'bg-amber-100 text-amber-800 border-amber-300' },
+  '爆量異動': { cls: 'bg-purple-100 text-purple-800 border-purple-300' },
+}
+
+function TechnicalSignalTable({ signals }: { signals: TechnicalSignal[] }) {
+  type TCol = 'strength' | 'return' | 'rvol' | 'mom' | 'cmf'
+  const [sortCol, setSortCol] = useState<TCol>('strength')
+  const [sortDir, setSortDir] = useState<SortDir>('desc')
+
+  const handleSort = (col: TCol) => {
+    if (sortCol === col) setSortDir(d => d === 'desc' ? 'asc' : 'desc')
+    else { setSortCol(col); setSortDir('desc') }
+  }
+
+  const sorted = useMemo(() => {
+    return [...signals].sort((a, b) => {
+      let av: number, bv: number
+      switch (sortCol) {
+        case 'strength': av = a.signal_strength; bv = b.signal_strength; break
+        case 'return': av = Math.abs(a.return_pct); bv = Math.abs(b.return_pct); break
+        case 'rvol': av = a.rvol ?? -999; bv = b.rvol ?? -999; break
+        case 'mom': av = a.mom_score ?? -999; bv = b.mom_score ?? -999; break
+        case 'cmf': av = a.cmf ?? -999; bv = b.cmf ?? -999; break
+      }
+      return sortDir === 'desc' ? bv - av : av - bv
+    })
+  }, [signals, sortCol, sortDir])
+
+  const ColHeader = ({ col, label }: { col: TCol; label: string }) => (
+    <th
+      className="px-2 py-2 text-left text-xs font-medium text-gray-600 cursor-pointer select-none hover:text-emerald-600 whitespace-nowrap"
+      onClick={() => handleSort(col)}
+    >
+      {label}{' '}
+      <span className="text-gray-400">
+        {sortCol === col ? (sortDir === 'desc' ? '↓' : '↑') : '↕'}
+      </span>
+    </th>
+  )
+
+  if (signals.length === 0) {
+    return (
+      <div className="mt-6">
+        <h3 className="text-base font-bold text-black mb-2">技術訊號</h3>
+        <p className="text-sm text-gray-500">今日無符合條件的技術訊號（均線突破需要 pipeline 新增欄位後才會產生）</p>
+      </div>
+    )
+  }
+
+  return (
+    <div className="mt-6">
+      <h3 className="text-base font-bold text-black mb-1">技術訊號</h3>
+      <p className="text-xs text-gray-500 mb-2">均線突破、成交量型態、量價背離偵測</p>
+      <div className="overflow-x-auto -mx-4 px-4">
+        <table className="min-w-full text-sm">
+          <thead>
+            <tr className="border-b border-gray-200">
+              <th className="px-2 py-2 text-left text-xs font-medium text-gray-600 whitespace-nowrap">Ticker</th>
+              <th className="px-2 py-2 text-left text-xs font-medium text-gray-600 whitespace-nowrap hidden sm:table-cell">公司</th>
+              <th className="px-2 py-2 text-left text-xs font-medium text-gray-600 whitespace-nowrap">訊號</th>
+              <ColHeader col="return" label="報酬" />
+              <th className="px-2 py-2 text-left text-xs font-medium text-gray-600 whitespace-nowrap hidden md:table-cell">vs MA20</th>
+              <th className="px-2 py-2 text-left text-xs font-medium text-gray-600 whitespace-nowrap hidden md:table-cell">vs MA50</th>
+              <th className="px-2 py-2 text-left text-xs font-medium text-gray-600 whitespace-nowrap hidden lg:table-cell">vs MA200</th>
+              <ColHeader col="rvol" label="RVol" />
+              <ColHeader col="cmf" label="CMF" />
+              <ColHeader col="mom" label="Mom" />
+              <ColHeader col="strength" label="強度" />
+            </tr>
+          </thead>
+          <tbody>
+            {sorted.map(s => {
+              const badge = SIGNAL_BADGE[s.signal_type] ?? { cls: 'bg-gray-100 text-gray-700 border-gray-300' }
+              const dirIcon = s.signal_direction === 'bullish' ? '▲' : '▼'
+              const dirColor = s.signal_direction === 'bullish' ? 'text-green-600' : 'text-red-500'
+              return (
+                <tr key={s.ticker} className="border-b border-gray-100 hover:bg-gray-50">
+                  <td className="px-2 py-2 whitespace-nowrap">
+                    <Link href={`/stock/${s.ticker}`} className="font-semibold text-emerald-700 hover:text-emerald-500">
+                      {s.ticker}
+                    </Link>
+                  </td>
+                  <td className="px-2 py-2 text-gray-700 whitespace-nowrap hidden sm:table-cell max-w-[140px] truncate" title={s.company}>
+                    {s.company}
+                  </td>
+                  <td className="px-2 py-2 whitespace-nowrap">
+                    <span className={`inline-block px-1.5 py-0.5 text-[10px] font-medium border rounded ${badge.cls}`}>
+                      <span className={dirColor}>{dirIcon}</span> {s.signal_type}
+                    </span>
+                  </td>
+                  <td className="px-2 py-2 whitespace-nowrap font-medium">{fmtPct(s.return_pct)}</td>
+                  <td className="px-2 py-2 whitespace-nowrap text-gray-700 hidden md:table-cell">{fmtPct(s.price_vs_ma20)}</td>
+                  <td className="px-2 py-2 whitespace-nowrap text-gray-700 hidden md:table-cell">{fmtPct(s.price_vs_ma50)}</td>
+                  <td className="px-2 py-2 whitespace-nowrap text-gray-700 hidden lg:table-cell">{fmtPct(s.price_vs_ma200)}</td>
+                  <td className="px-2 py-2 whitespace-nowrap text-gray-700">{fmtNum(s.rvol, 2)}</td>
+                  <td className="px-2 py-2 whitespace-nowrap text-gray-700">{fmtNum(s.cmf, 3)}</td>
+                  <td className="px-2 py-2 whitespace-nowrap text-gray-700">{fmtNum(s.mom_score)}</td>
+                  <td className="px-2 py-2 whitespace-nowrap font-semibold">{s.signal_strength.toFixed(1)}</td>
+                </tr>
+              )
+            })}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  )
+}
+
 export function NotableStocksView({ dailyData, weeklyData }: Props) {
   const [mode, setMode] = useState<'daily' | 'weekly'>('daily')
   const data = mode === 'daily' ? dailyData : weeklyData
@@ -314,6 +430,9 @@ export function NotableStocksView({ dailyData, weeklyData }: Props) {
 
       {/* Reversals */}
       <ReversalTable stocks={data.reversals} />
+
+      {/* Technical Signals */}
+      <TechnicalSignalTable signals={data.technical_signals} />
 
       {/* Sector summary */}
       {data.summary.sectors_with_most_outliers.length > 0 && (
