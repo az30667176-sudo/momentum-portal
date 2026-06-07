@@ -1,0 +1,186 @@
+{
+  "slug": "2026-06-05",
+  "issue": 10,
+  "date": "2026-06-05",
+  "snapshotDate": "2026-06-05",
+  "title": "重力回歸——Broadcom 不升指引 + 非農超預期，IT 從 40% 高空拉回",
+  "subtitle": "Nasdaq 單日暴跌 4% 為 2025 年 4 月以來最大跌幅，Silver -17%、Gold -8.7% 崩盤。資金輪向 Real Estate/Energy/Health Care，市場正在從「IT 獨走」轉向「價值輪動」",
+  "imageDir": "/research/weekly/2026-06-05",
+  "coverImage": "01_sector_1w.png",
+  "intro": [
+    "上期核心判斷是「IT 脫離地心引力——3M +40% 是追蹤以來最極端的單一板塊位置」。操作建議維持 IT 為絕對核心（四角）、能源不參與、三金屬持有。本週結果：**IT 四角集體重挫——Semiconductors -6.4%、Semicon Equipment -5.8%、Tech Hardware -5.7%，IT 整體 -2.9%。三金屬更慘——Silver -16.8%（！）、Gold -8.7%、Aluminum -6.4%。能源不參與——結果 Energy +1.5% 本週反而正報酬 ✓。** 唯一正確的操作是「能源不碰」。IT 和三金屬全線被打臉——不是框架錯了，是上期沒有充分認識到「+40% 3M 本身就是回調的催化劑」。",
+    "S&P 500 本週五暴跌 2.64%（收 7,383.74），**結束了連續九週的上漲紀錄**。Nasdaq 週五單日 -4%，是 2025 年 4 月關稅恐慌以來最大跌幅。道指 -695 點。**觸發因素是兩顆炸彈在同一天引爆**：第一，Broadcom 週三盤後公布 Q3 AI 晶片營收指引 $16B（市場預期 $17.2B），**沒有上修全年 AI 營收預測**——上期說「AI 基建週期在加速不是減速」，Broadcom 說的是「速度跟我預期的差不多，沒有再加速」。這足以讓 AVGO -14%、Micron -17%、AMD -12.6%、整個 SOX 被屠殺。第二，週五 5 月非農就業 +27.2 萬（預期 +18.5 萬），大幅超預期——好消息是壞消息，就業太強代表 Fed 不會降息，10 年期殖利率飆到 4.8%。**Gold 直接抹去 2026 年全部漲幅**，Silver 單週 -17% 是我們追蹤以來最劇烈的單一次產業跌幅。",
+    "本期核心判斷：**重力回歸了。** 上期我用「脫離地心引力」形容 IT 的 3M +40% 位置——本週 IT -2.9% 就是地心引力在拉它回來。但這不是「IT 趨勢結束」——Broadcom 不升指引不代表 AI capex 見頂，只代表「加速的斜率變平了」。真正該關注的是 **資金去了哪裡**：Real Estate +1.6%、Energy +1.5%、Health Care +1.3% 接住了從 IT 和 Materials 流出的錢——這三個板塊過去九期一直在零線附近爬，本週第一次同時正報酬且領漲全場。從 Investing.com 的分析來看，這是 **rotation not breakdown**——錢沒有離開市場，而是從 growth 搬到 domestic cyclicals、regional banks、industrials。如果這個輪動持續兩週以上，我們會第一次看到 IT 以外的板塊建立趨勢。"
+  ],
+  "exhibits": [
+    {
+      "number": 1,
+      "title": "板塊一週報酬：IT -2.9% 從冠軍變倒數第二，Real Estate +1.6% 領漲",
+      "image": "01_sector_1w.png",
+      "caption": "Real Estate +1.6%、Energy +1.5%、Health Care +1.3% 三個防禦/價值型板塊領漲。IT -2.9%、Materials -4.1% 墊底。11 板塊中 7 個正報酬。",
+      "body": "上期是「IT +7.0% 獨走全場、6/11 正報酬」。本週完全翻轉——**IT 從 +7.0% 掉到 -2.9%，從冠軍變倒數第二**。但市場寬度反而更好：7/11 板塊正報酬 vs 上期 6/11。差別在於「誰在贏」——上期只有 IT 在拉，其他 5 個正報酬板塊平均 +2.1%。本週 Real Estate +1.6%、Energy +1.5%、Health Care +1.3%、Financials +0.7% 四個「價值/防禦型」板塊同時正報酬，是九期以來第一次。**Materials -4.1% 是第二大輸家**——Silver -16.8%、Gold -8.7% 的崩盤拖垮了整個板塊。上期說「三金屬（Copper + Aluminum + Steel）持有」——本週 Aluminum -6.4%、Steel 只有上週 +11.8% 的回吐（數據待確認），Copper 相對持平。**結論：市場從「IT 獨奏」過渡到「管弦樂團」——但指揮棒剛從 IT 手上交出去，誰接還不確定。**",
+      "links": [
+        { "label": "Managed Health Care", "href": "/sub/3E2ACB37" },
+        { "label": "Hotel & Resort REITs", "href": "/sub/E721F75E" },
+        { "label": "Semiconductors", "href": "/sub/3DFD4B15" },
+        { "label": "Silver", "href": "/sub/FDF8E7AE" },
+        { "label": "Gold", "href": "/sub/33E5E2A6" }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "輪動地圖：IT 從右上極端滑向右下——第一次從「趨勢領跑」進入「趨勢回吐」",
+      "image": "02_rotation_map.png",
+      "caption": "IT（3M ~40%, 1W -3%）從右上極端滑到右下——3M 仍然最強但 1W 開始回吐。Real Estate/Energy/Health Care 擠在中上區域。Materials 摔到中下。",
+      "body": "上期 IT 的位置是「3M ~40%、1W +7%——離其他板塊差了半張圖」。本週 IT 仍然在最右邊（3M ~40% 幾乎沒變），但 Y 軸從 +7% 掉到 -3%——**從右上「趨勢領跑 still bid」滑入右下「趨勢領跑 unwinding」象限**。這是追蹤十期以來 IT 第二次進入右下象限（第一次是第 7 期 CPI 3.8% 當週）。上次它只待了一週就彈回右上——這次呢？關鍵看下週 NVDA 和其他半導體股能不能穩住。Materials 的位移更劇烈——從中上（3M +6%、1W -4%）滑到中下，Silver -17% 把整個板塊往下拽。**新現象：Real Estate、Energy、Health Care 三個板塊第一次同時出現在中上區域**——它們的 3M 報酬不高（+5-7%），但 1W 正報酬代表資金正在流入。如果下週還在這裡，就能確認「輪動目的地」。",
+      "links": [
+        { "label": "Semiconductors", "href": "/sub/3DFD4B15" },
+        { "label": "Tech Hardware", "href": "/sub/D10047AB" },
+        { "label": "Silver", "href": "/sub/FDF8E7AE" },
+        { "label": "Hotel REITs", "href": "/sub/E721F75E" },
+        { "label": "Managed HC", "href": "/sub/3E2ACB37" }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "最強/最弱次產業：Silver -16.8% 是追蹤以來最猛單週跌幅",
+      "image": "03_top_bottom_subs.png",
+      "caption": "Top: Housewares +9.4%、Managed HC +6.8%、Hotel REITs +6.7%——全是非 IT 板塊。Bottom: Silver -16.8%、Cable -9.0%、Gold -8.7%。",
+      "body": "上期 Top 12 由 IT 包辦 7 席。本週 **IT 在 Top 12 中歸零**——取而代之的是一群過去九期從未進入 Top 12 的名字：Housewares +9.4%、Managed Health Care +6.8%、Hotel REITs +6.7%、Insurance Brokers +5.7%。這些不是動能股——它們是「被遺忘的板塊」突然被資金找到。Bottom 12 則是一場雙線屠殺：**貴金屬線** Silver -16.8%（史上最猛單週跌幅）、Gold -8.7%、Forest Products -7.6%；**科技線** Semiconductors -6.4%、Semicon Equipment -5.8%、Tech Hardware -5.7%、Alternative Carriers -7.2%。上期 Tech Hardware +22.8% 是 Top 1，本週 -5.7% 進入 Bottom 12——**一週之內從冠軍到墊底，Dell 效應完全回吐。** Silver -16.8% 需要特別注意——催化劑是非農超預期 → 殖利率飆升 → 強美元 → 貴金屬崩盤。Silver 的波動一向比 Gold 大，但 -17% 仍然驚人。",
+      "links": [
+        { "label": "Silver", "href": "/sub/FDF8E7AE" },
+        { "label": "Gold", "href": "/sub/33E5E2A6" },
+        { "label": "Managed HC", "href": "/sub/3E2ACB37" },
+        { "label": "Hotel REITs", "href": "/sub/E721F75E" },
+        { "label": "Semiconductors", "href": "/sub/3DFD4B15" }
+      ],
+      "chartData": {
+        "type": "hbar",
+        "items": [
+          { "label": "Housewares & Specialties", "value": 9.41, "href": "/sub/7123167E" },
+          { "label": "Managed Health Care", "value": 6.77, "href": "/sub/3E2ACB37" },
+          { "label": "Hotel & Resort REITs", "value": 6.66, "href": "/sub/E721F75E" },
+          { "label": "Insurance Brokers", "value": 5.68, "href": "/sub/95BF86A5" },
+          { "label": "Multi-Sector Holdings", "value": 5.08, "href": "/sub/87FCAE9A" },
+          { "label": "Cargo Ground Transport", "value": 4.86, "href": "/sub/AE21267B" },
+          { "label": "Semiconductors", "value": -6.37, "href": "/sub/3DFD4B15" },
+          { "label": "Specialty Stores", "value": -7.06, "href": "/sub/3EFA9656" },
+          { "label": "Alternative Carriers", "value": -7.15, "href": "/sub/E1C7925A" },
+          { "label": "Automobile Mfrs", "value": -8.23, "href": "/sub/B84643C8" },
+          { "label": "Gold", "value": -8.70, "href": "/sub/33E5E2A6" },
+          { "label": "Cable & Satellite", "value": -8.99, "href": "/sub/6F9A951B" },
+          { "label": "Silver", "value": -16.83, "href": "/sub/FDF8E7AE" }
+        ]
+      }
+    },
+    {
+      "number": 4,
+      "title": "動能 Top-20：IT 四角仍佔前 5 名，但 1W 全部負報酬",
+      "image": "04_energy_unwind.png",
+      "caption": "Tech Hardware mom 95.3 排第 1、Semiconductors 95.2 第 2——但兩者本週分別 -5.7% 和 -6.4%。動能最強的板塊正在被賣。",
+      "body": "動能排名（`mom_score`）和週報酬出現了十期以來最大的背離。**Tech Hardware 95.3 排第 1 但 1W -5.7%、Semiconductors 95.2 排第 2 但 1W -6.4%**——動能最強的兩個次產業本週被賣得最兇。這在動能研究裡是經典的「動能翻轉訊號」：當 3M 動能最強的資產開始被拋售，代表市場從「追趨勢」轉向「獲利了結」。但請注意：**動能翻轉不等於趨勢結束**。上一次 IT 出現類似的回調是第 7 期（CPI 3.8%），結果一週後就彈回。需要連續 2-3 週的負報酬才能確認趨勢反轉。目前 IT 的 `mom_score` 仍在 95+——這是追蹤以來的最高值——直到 mom_score 開始往下掉（例如跌破 85），IT 的趨勢才算真的鬆動。",
+      "links": [
+        { "label": "Tech Hardware", "href": "/sub/D10047AB" },
+        { "label": "Semiconductors", "href": "/sub/3DFD4B15" },
+        { "label": "Electronic Components", "href": "/sub/3A71D4E6" },
+        { "label": "Cargo Ground", "href": "/sub/AE21267B" },
+        { "label": "EMS", "href": "/sub/95B13044" }
+      ],
+      "chartData": {
+        "type": "scatter",
+        "xLabel": "mom_score",
+        "yLabel": "1W return (%)",
+        "items": [
+          { "label": "Tech Hardware", "x": 95.3, "y": -5.73, "href": "/sub/D10047AB", "color": "#e74c3c" },
+          { "label": "Semiconductors", "x": 95.2, "y": -6.37, "href": "/sub/3DFD4B15", "color": "#e74c3c" },
+          { "label": "Electronic Comp", "x": 94.8, "y": -3.52, "href": "/sub/3A71D4E6", "color": "#e74c3c" },
+          { "label": "Cargo Ground", "x": 93.8, "y": 4.86, "href": "/sub/AE21267B", "color": "#3498db" },
+          { "label": "EMS", "x": 90.7, "y": -4.30, "href": "/sub/95B13044", "color": "#e74c3c" },
+          { "label": "Aluminum", "x": 86.0, "y": -6.37, "href": "/sub/1D0B4025", "color": "#f39c12" },
+          { "label": "Steel", "x": 85.4, "y": -3.71, "href": "/sub/113B2BC3", "color": "#f39c12" },
+          { "label": "Comms Equip", "x": 83.8, "y": -4.49, "href": "/sub/A4D7803A", "color": "#e74c3c" },
+          { "label": "Managed HC", "x": 83.7, "y": 6.77, "href": "/sub/3E2ACB37", "color": "#27ae60" },
+          { "label": "Diversified Metals", "x": 83.0, "y": -2.50, "href": "/sub/650D58F5", "color": "#f39c12" },
+          { "label": "Semi Equipment", "x": 82.2, "y": -5.81, "href": "/sub/7F8BA218", "color": "#e74c3c" },
+          { "label": "Alt Carriers", "x": 80.6, "y": -7.15, "href": "/sub/E1C7925A", "color": "#e74c3c" }
+        ],
+        "colorLabels": { "#e74c3c": "IT/Comms（被賣）", "#f39c12": "Materials", "#27ae60": "HC/其他（在買）", "#3498db": "Industrials" }
+      }
+    },
+    {
+      "number": 5,
+      "title": "排名變化 Top/Bottom：Reinsurance +37 名、Advertising -34 名",
+      "image": "05_rank_delta.png",
+      "caption": "排名改善最大：Reinsurance +37、Distillers +36、Construction Materials +31。排名惡化最大：Advertising -34、Home Improvement -26、Agricultural -25。",
+      "body": "**delta_rank 揭示資金正在往哪裡搬家。** Reinsurance +37 名是本週改善最大的——再保險受益於殖利率上升（投資收益增加）+ 災損預期穩定。Diversified Banks +18 也是同樣邏輯——利率不降 = 銀行淨利差維持。**這些都是「Fed 不降息」的受益者。** 排名惡化方面，Advertising -34 名反映廣告預算在景氣不確定時被砍、Home Improvement -26 反映房市降溫（高利率 = 高房貸 = 少裝修）。**上期改善最大的是 IT 相關（IT Consulting +33），本週改善最大的是金融和防禦型板塊——輪動的方向從 growth 轉向 value 很明確。**",
+      "links": [
+        { "label": "Reinsurance", "href": "/sub/1B318BE5" },
+        { "label": "Diversified Banks", "href": "/sub/742E449F" },
+        { "label": "Health Care Supplies", "href": "/sub/D5E5DD71" },
+        { "label": "Advertising", "href": "/sub/F60915FE" },
+        { "label": "Home Improvement", "href": "/sub/94A22E14" }
+      ],
+      "chartData": {
+        "type": "hbar",
+        "xLabel": "排名變化（正=改善）",
+        "xUnit": "",
+        "items": [
+          { "label": "Reinsurance", "value": 37, "href": "/sub/1B318BE5" },
+          { "label": "Distillers & Vintners", "value": 36, "href": "/sub/3E115254" },
+          { "label": "Construction Materials", "value": 31, "href": "/sub/4E53B0B8" },
+          { "label": "Health Care Supplies", "value": 28, "href": "/sub/D5E5DD71" },
+          { "label": "IT Consulting", "value": 26, "href": "/sub/364050B7" },
+          { "label": "Diversified Banks", "value": 18, "href": "/sub/742E449F" },
+          { "label": "Interactive Home Ent.", "value": -24, "href": "/sub/951C6D9C" },
+          { "label": "Leisure Products", "value": -24, "href": "/sub/033B35A3" },
+          { "label": "Agricultural Products", "value": -25, "href": "/sub/52404E82" },
+          { "label": "Home Improvement", "value": -26, "href": "/sub/94A22E14" },
+          { "label": "Advertising", "value": -34, "href": "/sub/F60915FE" }
+        ]
+      }
+    },
+    {
+      "number": 6,
+      "title": "Materials 內部分裂：貴金屬崩盤 vs 工業金屬分歧",
+      "image": "06_materials_split.png",
+      "caption": "Silver -16.8%（史上最猛）、Gold -8.7% 領跌。Steel/Aluminum/Diversified Chemicals 也負但跌幅溫和。Copper 相對持平。",
+      "body": "Materials -4.1% 是本週第二大輸家，但內部分裂極為劇烈。**貴金屬（Silver -16.8%、Gold -8.7%）是崩盤級別**——催化劑是 5 月非農 +27.2 萬大超預期，市場定價 Fed 今年不降息 → 10Y 殖利率飆到 4.8% → 美元走強 → 貴金屬作為零利率資產被拋售。Gold 直接抹去 2026 年全部漲幅。**工業金屬的邏輯不同**——Aluminum -6.4% 和 Steel -3.7% 的回調更像是上期 +11.8%/+3.9% 的正常回吐，不是趨勢反轉。Diversified Chemicals -5.6% 受中國需求疲弱影響（中國原油進口創十年新低）。**上期說「三金屬持有」——本週的教訓是不要把貴金屬和工業金屬混為一談。Gold/Silver 跟利率反向，Steel/Aluminum 跟製造業 PMI 正向——它們不是同一種東西。**",
+      "links": [
+        { "label": "Silver", "href": "/sub/FDF8E7AE" },
+        { "label": "Gold", "href": "/sub/33E5E2A6" },
+        { "label": "Aluminum", "href": "/sub/1D0B4025" },
+        { "label": "Steel", "href": "/sub/113B2BC3" },
+        { "label": "Diversified Chemicals", "href": "/sub/15D8EEA8" }
+      ],
+      "chartData": {
+        "type": "hbar",
+        "items": [
+          { "label": "Silver", "value": -16.83, "href": "/sub/FDF8E7AE" },
+          { "label": "Gold", "value": -8.70, "href": "/sub/33E5E2A6" },
+          { "label": "Forest Products", "value": -7.57, "href": "/sub/AD968F37" },
+          { "label": "Aluminum", "value": -6.37, "href": "/sub/1D0B4025" },
+          { "label": "Diversified Chemicals", "value": -5.61, "href": "/sub/15D8EEA8" },
+          { "label": "Steel", "value": -3.71, "href": "/sub/113B2BC3" },
+          { "label": "Construction Materials", "value": -2.84, "href": "/sub/4E53B0B8" },
+          { "label": "Copper", "value": -1.84, "href": "/sub/9D3B3E86" },
+          { "label": "Diversified Metals & Mining", "value": -2.50, "href": "/sub/650D58F5" }
+        ]
+      }
+    }
+  ],
+  "actions": [
+    "**✓/✗ 上期操作績效回顧**：IT 絕對核心 ✗（IT -2.9%，Semis -6.4%）。能源不參與 ✓（Energy +1.5%）。三金屬持有 ✗✗（Silver -16.8%、Aluminum -6.4%）。Consumer Disc 觀察不追 ✓（-1.5%，不追是對的）。**總結：2/4 正確，被三金屬重傷。**",
+    "**IT 配置：從「絕對核心」降格為「趨勢持有、減碼觀察」**。理由：Broadcom 不升指引代表 AI capex 加速斜率變平、非農超預期代表利率不會下來。IT 的 `mom_score` 仍在 95+ 所以趨勢沒斷——但右下象限（3M 強、1W 弱）不適合加碼。等 IT 1W 回正再恢復核心地位。如果下週 IT 連續第二週 1W 負報酬且 mom_score 跌破 90，需要進一步減碼。",
+    "**輪動目的地觀察：Real Estate / Health Care / Financials**。本週三者同時正報酬且 delta_rank 改善，是九期以來第一次。Managed Health Care（mom 83.7, rank #9, 1W +6.8%）和 Hotel REITs（1W +6.7%）是最有動能基礎的候選。但一週不構成趨勢——需要下週確認。",
+    "**Materials 拆分操作：貴金屬全部清倉、工業金屬觀察**。Gold/Silver 跟利率反向、在「Fed 不降息」環境下沒有邏輯支撐。Steel/Aluminum 跟製造業正向，但本週回調，等 1W 回正再進場。",
+    "**能源維持不參與**。Brent $94 附近橫盤，伊朗談判持續。油價方向仍不可預測，不下注。"
+  ],
+  "sources": [
+    { "title": "Nasdaq falls 4% as semiconductor slide wipes $1T — TheStreet", "url": "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-june-05-2026" },
+    { "title": "Broadcom AI chip guidance disappoints, triggers SOX selloff — CNBC", "url": "https://www.cnbc.com/2026/06/04/chipmaker-equities-micron-marvell-broadcom-intel.html" },
+    { "title": "S&P 500 selloff looks more like rotation than breakdown — Investing.com", "url": "https://www.investing.com/analysis/sp-500-selloff-looks-more-like-rotation-than-market-breakdown-200681625" },
+    { "title": "Gold erases 2026 gains as Fed rate bets soar on jobs shock — BullionVault", "url": "https://www.bullionvault.com/gold-news/gold-price-news/gold-fed-rates-jobs-060520261" },
+    { "title": "Oil drops 20% from 2026 peak on Iran ceasefire optimism — CNBC", "url": "https://www.cnbc.com/2026/05/29/oil-prices-iran-ceasefire-us-trump-strait-hormuz-energy-costs.html" },
+    { "title": "Chipmakers drive S&P 500 to record close June 2 — Motley Fool", "url": "https://www.fool.com/coverage/stock-market-today/2026/06/02/stock-market-today-june-2-chipmakers-drive-s-and-p-500-to-another-record-close/" }
+  ]
+}
