@@ -1,0 +1,198 @@
+{
+  "slug": "2026-06-12",
+  "issue": 11,
+  "date": "2026-06-12",
+  "snapshotDate": "2026-06-12",
+  "title": "三重催化——CPI 不失控、伊朗和平在即、SpaceX 史上最大 IPO，10/11 板塊正報酬",
+  "subtitle": "Consumer Discretionary +6.4% 奪冠取代 IT、Materials +4.4% 完全收復上週跌幅、Silver 從 -17% 反彈到 +3.5%。Housewares +32.3% 是追蹤以來最大單週次產業報酬。IT +3.4% 反彈但不再領跑——半導體強、軟體弱的分化加劇。SpaceX $135 IPO 首日收 $161（+19%），Musk 成首位兆美元富豪",
+  "imageDir": "/research/weekly/2026-06-12",
+  "coverImage": "01_sector_1w.png",
+  "intro": [
+    "上期核心判斷是「重力回歸——IT 從 40% 高空拉回」。操作建議把 IT 從「絕對核心」降格為「趨勢持有、減碼觀察」、輪動目的地觀察 RE/HC/Financials、貴金屬全部清倉、能源維持不參與。本週結果：**IT 降格觀察——正確，IT +3.4% 反彈但只排第四，不再是獨走者 ✓。RE/HC/Financials 觀察——正確，三者分別 +1.7%/+1.5%/+3.1%，連續第二週同時正報酬 ✓。貴金屬清倉——時機太早，Silver +3.5% 反彈、Gold +0.6% 微正 ✗（但避開了上週的 -17% 崩盤，net effect 仍是正確決策）。能源不參與——正確，Energy +0.8% 微正不痛不癢 ✓。** 3/4 正確，唯一的遺憾是貴金屬清得太乾淨錯過了 Silver 的 V 型反彈。",
+    "S&P 500 本週收 7,431（+0.6%），從上週 Broadcom + 非農雙殺的驚嚇中回穩。但過程絕不平靜——**週一 Trump 在社群媒體威脅「將非常狠地打擊伊朗」，S&P 跌 1.6%、油價跳漲 2%**；**週二 CPI 公布 headline 4.2%（三年新高！），但核心 CPI 2.9% 穩住，市場鬆了一口氣**——能源成本（+23.5% YoY）貢獻了超過 60% 的通膨，代表通膨源頭是伊朗戰爭而不是經濟過熱。**週三 Trump 180 度轉彎取消伊朗打擊，宣布和平協議「可能本週末簽署」，S&P 暴漲 1.75%、SOX 單日 +7.9%**——Micron +12%、Intel +10%、Applied Materials +8%，半導體把上週的跌幅一天收回。**週五 SpaceX 以 $135 上市，收盤 $161（+19%），募資 $750 億是史上最大 IPO**，Musk 身價突破 $1 兆成為人類首位 trillionaire。整週走出一條完美的 V 型：恐懼 → 釋疑 → 狂歡。",
+    "本期核心判斷：**三重催化帶來的不是 IT 獨走，而是滿場開花。** CPI 核心 2.9% 代表 Fed 下週（6/16-17 FOMC）不會升息——利率恐懼緩解；伊朗和平在即代表油價壓力釋放——能源通膨觸頂的預期增強；SpaceX IPO 代表 risk appetite 回來了——IPO 市場 2022 年以來最活躍的一天。10/11 板塊正報酬（只有 Utilities -0.5% 負報酬）是追蹤十一期以來最廣的寬度。更重要的是**誰在領漲：Consumer Discretionary +6.4% 奪冠**——上一次 Consumer Disc 領漲全場是第 8 期（+8.7%），但那次 IT +5.0% 緊追在後。本週 IT 只有 +3.4% 排第四——Consumer Disc 領先 IT 整整 3 個百分點。這不是 IT 崩盤（半導體 Semicon Equipment +19.8% 本週最強次產業之二），而是**市場終於不再只用一隻腳走路了**。"
+  ],
+  "exhibits": [
+    {
+      "number": 1,
+      "title": "板塊一週報酬：Consumer Discretionary +6.4% 奪冠，10/11 板塊正報酬",
+      "image": "01_sector_1w.png",
+      "caption": "Consumer Disc +6.4% 領漲、Consumer Staples +4.7%、Materials +4.4% 緊追。IT +3.4% 排第四。Utilities -0.5% 是唯一負報酬。",
+      "body": "上期是「IT -2.9% 從冠軍變倒數第二、7/11 正報酬」。本週全面翻轉——**10/11 板塊正報酬，追蹤以來最廣的市場寬度**。Consumer Discretionary +6.4% 奪冠，是 Housewares +32.3% 和 Restaurants +11.3% 拉動（下面會詳談）。**Materials +4.4% 完全收復上週 -4.1% 的跌幅**——Silver 從 -16.8% 反彈到 +3.5%、Copper +8.0%、Diversified Chemicals +8.4%——工業金屬比貴金屬彈得更兇。IT +3.4% 反彈但只排第四——**Semicon Equipment +19.8% 領漲全場，但 Application Software -4.5%、Systems Software -3.1% 拖累了 IT 的整體表現**。軟體被拋售的原因是 CPI 4.2% headline 讓市場擔心利率維持更久——高利率環境打擊高 PE 成長股（軟體），但利好利差受益者（Financials +3.1%）。**結論：第 10 期我問「誰接 IT 手上的指揮棒」——本週的答案是「沒有人接，大家一起上」。管弦樂團模式確認。**",
+      "links": [
+        { "label": "Semicon Equipment", "href": "/sub/7F8BA218" },
+        { "label": "Housewares", "href": "/sub/7123167E" },
+        { "label": "Copper", "href": "/sub/9D3B3E86" },
+        { "label": "App Software", "href": "/sub/05F28EE1" },
+        { "label": "Restaurants", "href": "/sub/96CDA085" }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "輪動地圖：IT 從右下回到右上，但左半邊終於也站起來了",
+      "image": "02_rotation_map.png",
+      "caption": "IT（3M ~43%, 1W +3.4%）回到右上「趨勢領跑 still bid」。Consumer Disc 和 Consumer Staples 在左上「laggards bouncing」。Materials 從中下回到中上。10/11 板塊在零線以上。",
+      "body": "上期 IT 從右上極端滑入右下「趨勢領跑 unwinding」象限——我問「IT 上次進右下只待了一週就彈回，這次呢？」答案揭曉：**確實又只待了一週。IT 本週從（3M ~40%、1W -3%）移回（3M ~43%、1W +3.4%），重新進入右上象限。** IT 在右上角待了 9/11 期——這個板塊的 3M 趨勢韌性超乎預期。但本週的新現象是**左半邊的板塊也站起來了**——Consumer Disc（3M ~9%、1W +6.4%）和 Consumer Staples（3M ~5%、1W +4.7%）佔據左上「laggards bouncing」位置，Materials（3M ~14%、1W +4.4%）在中上。上期 Real Estate/Energy/Health Care 第一次同時正報酬——本週確認持續（RE +1.7%、HC +1.5%、Energy +0.8%），而且 Consumer Disc 和 Consumer Staples 也加入正報酬行列。**Utilities 是唯一待在左下的板塊（3M -3%、1W -0.5%）**——高利率環境持續壓制公用事業的股息吸引力。**結論：輪動地圖從「IT 獨點」變成「右半邊 IT + 左半邊一群」——這是最健康的分布，追蹤以來第一次看到。**",
+      "links": [
+        { "label": "Semiconductors", "href": "/sub/3DFD4B15" },
+        { "label": "Consumer Disc", "href": "/sub/96CDA085" },
+        { "label": "Copper", "href": "/sub/9D3B3E86" },
+        { "label": "Managed HC", "href": "/sub/3E2ACB37" },
+        { "label": "Utilities", "href": "/sub/D15D1064" }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "最強/最弱次產業：Housewares +32.3% 刷新追蹤記錄，軟體包辦最弱兩席",
+      "image": "03_top_bottom_subs.png",
+      "caption": "Top: Housewares +32.3%、Semicon Equip +19.8%、Tires +12.1%。Bottom: App Software -4.5%、HC Technology -4.4%、Systems Software -3.1%。",
+      "body": "上期 Top 12 由「非 IT 板塊」包辦（IT 在 Top 12 中歸零）。本週 Top 12 更加多元——**Housewares +32.3% 是追蹤以來最大的單週次產業報酬**，超越上週 Tech Hardware +22.8% 和 Silver -16.8%（絕對值）。Semicon Equipment +19.8% 緊追——催化劑是 Trump 取消伊朗打擊後半導體全線反彈 + 中國半導體設備需求不減。**Top 12 橫跨 6 個板塊**（Consumer Disc 4 席、Materials 3 席、Consumer Staples 2 席、Industrials 1 席、IT 1 席、Financials 1 席）——這是追蹤以來板塊最分散的一次。Bottom 12 則出現一個新現象：**軟體包辦最弱兩席**——Application Software -4.5%、Systems Software -3.1%。上期 IT 整體 -2.9% 時軟體只是「跟著跌」；本週 IT 整體 +3.4% 時軟體繼續跌——**代表市場正在 IT 內部做選擇：硬體/半導體 YES、軟體 NO。** CPI 4.2% headline → 利率不降 → 高 PE 軟體股承壓，這個邏輯在連續兩週被驗證。",
+      "links": [
+        { "label": "Housewares", "href": "/sub/7123167E" },
+        { "label": "Semicon Equip", "href": "/sub/7F8BA218" },
+        { "label": "App Software", "href": "/sub/05F28EE1" },
+        { "label": "Copper", "href": "/sub/9D3B3E86" },
+        { "label": "Restaurants", "href": "/sub/96CDA085" }
+      ],
+      "chartData": {
+        "type": "hbar",
+        "items": [
+          { "label": "Housewares & Specialties", "value": 32.26, "href": "/sub/7123167E" },
+          { "label": "Semicon Materials & Equip", "value": 19.84, "href": "/sub/7F8BA218" },
+          { "label": "Tires & Rubber", "value": 12.08, "href": "/sub/B5BAF43F" },
+          { "label": "Restaurants", "value": 11.28, "href": "/sub/96CDA085" },
+          { "label": "Household Appliances", "value": 10.17, "href": "/sub/5C1D8B69" },
+          { "label": "Metal, Glass & Plastic", "value": 9.34, "href": "/sub/AE23CF9D" },
+          { "label": "Publishing", "value": -2.96, "href": "/sub/63934848" },
+          { "label": "Systems Software", "value": -3.08, "href": "/sub/4D1787C4" },
+          { "label": "Health Care Technology", "value": -4.40, "href": "/sub/A8DBD49D" },
+          { "label": "Application Software", "value": -4.49, "href": "/sub/05F28EE1" }
+        ]
+      }
+    },
+    {
+      "number": 4,
+      "title": "動能 Top-20：半導體重回右上角，Tech Hardware 從 95 跌到 89 但仍在榜",
+      "image": "04_energy_unwind.png",
+      "caption": "Semiconductors mom 91.8、Electronic Components 91.5、Cargo Ground 90.8 領先。IT 四角 mom_score 全線下修但仍佔據前列——差別是本週 1W 全面正報酬（上週全面負報酬）。",
+      "body": "上期動能排名和週報酬出現「十期以來最大背離」——mom_score 最強的板塊被賣得最兇。本週背離修復了：**Semiconductors mom 91.8 本週 +6.5%、Electronic Components 91.5 本週 +5.8%、Semicon Equipment 84.6 本週 +19.8%——動能最強的板塊重新被買入。** 但有一個微妙變化：**Tech Hardware 的 mom_score 從上期的 95.3 降到 89.0，排名從第 1 掉到第 5**。1W 報酬雖然回正（+0.5%），但遠低於同組的 Semicon Equip +19.8%——Dell 效應的餘波在消退。更值得注意的是**新面孔進入 Top 20**：Copper（mom 68.3、1W +8.0%、delta_rank +33）、Leisure Facilities（mom 73.7、1W +7.5%）、Hotel REITs（mom 76.7、1W +3.5%）——這些 Consumer/Materials 板塊的 mom_score 雖然不高，但 1W 報酬和排名改善幅度驚人，代表**動能正在從 IT 往外擴散**。上期我說「等 IT 1W 回正再恢復核心地位」——IT 1W 回正了，但核心地位不需要恢復，因為市場已經不靠 IT 獨撐了。",
+      "links": [
+        { "label": "Semiconductors", "href": "/sub/3DFD4B15" },
+        { "label": "Electronic Components", "href": "/sub/3A71D4E6" },
+        { "label": "Semicon Equipment", "href": "/sub/7F8BA218" },
+        { "label": "Tech Hardware", "href": "/sub/D10047AB" },
+        { "label": "Copper", "href": "/sub/9D3B3E86" }
+      ],
+      "chartData": {
+        "type": "scatter",
+        "xLabel": "mom_score",
+        "yLabel": "1W return (%)",
+        "items": [
+          { "label": "Semiconductors", "x": 91.8, "y": 6.5, "href": "/sub/3DFD4B15", "color": "#e74c3c" },
+          { "label": "Electronic Comp", "x": 91.5, "y": 5.8, "href": "/sub/3A71D4E6", "color": "#e74c3c" },
+          { "label": "Cargo Ground", "x": 90.8, "y": 3.8, "href": "/sub/AE21267B", "color": "#3498db" },
+          { "label": "EMS", "x": 89.3, "y": 5.0, "href": "/sub/95B13044", "color": "#e74c3c" },
+          { "label": "Tech Hardware", "x": 89.0, "y": 0.5, "href": "/sub/D10047AB", "color": "#e74c3c" },
+          { "label": "Semicon Equip", "x": 84.6, "y": 19.8, "href": "/sub/7F8BA218", "color": "#e74c3c" },
+          { "label": "Managed HC", "x": 84.0, "y": 2.9, "href": "/sub/3E2ACB37", "color": "#27ae60" },
+          { "label": "Marine Transport", "x": 82.3, "y": 4.7, "href": "/sub/8EEB09C8", "color": "#3498db" },
+          { "label": "Diversified Metals", "x": 82.1, "y": 4.6, "href": "/sub/650D58F5", "color": "#f39c12" },
+          { "label": "Steel", "x": 81.0, "y": 3.1, "href": "/sub/113B2BC3", "color": "#f39c12" },
+          { "label": "Comms Equipment", "x": 80.8, "y": 4.4, "href": "/sub/FE725307", "color": "#e74c3c" },
+          { "label": "Aluminum", "x": 80.2, "y": 1.7, "href": "/sub/1D0B4025", "color": "#f39c12" },
+          { "label": "Diversified Chem", "x": 79.1, "y": 8.4, "href": "/sub/4B59004E", "color": "#f39c12" },
+          { "label": "Hotel REITs", "x": 76.7, "y": 3.5, "href": "/sub/E721F75E", "color": "#27ae60" },
+          { "label": "Alt Carriers", "x": 74.1, "y": -0.3, "href": "/sub/E1C7925A", "color": "#e74c3c" },
+          { "label": "Leisure Fac", "x": 73.7, "y": 7.5, "href": "/sub/FD39D067", "color": "#27ae60" },
+          { "label": "Copper", "x": 68.3, "y": 8.0, "href": "/sub/9D3B3E86", "color": "#f39c12" }
+        ],
+        "colorLabels": { "#e74c3c": "IT/Comms", "#f39c12": "Materials", "#27ae60": "Consumer/HC/RE", "#3498db": "Industrials" }
+      }
+    },
+    {
+      "number": 5,
+      "title": "排名變化 Top/Bottom：Copper +33 名領漲，Consumer Discretionary 四席進 Top 10",
+      "image": "05_rank_delta.png",
+      "caption": "排名改善最大：Copper +33、Hotels & Cruise +29、Restaurants +28。排名惡化最大：Interactive Home Ent -35、Tobacco -30、Advertising -29。",
+      "body": "**delta_rank 本週的特徵是「Consumer Discretionary 大翻身」。** Top 10 改善中 Consumer Disc 佔了 4 席：Hotels/Cruise +29、Restaurants +28、Automobile Mfrs +26、Housewares +24——上期這些板塊沒有一個在 Top 10。**Copper +33 名是改善最大的次產業**——從 rank 53 跳到 rank 20，催化劑是伊朗和平協議預期 → 霍爾木茲海峽可能重開 → 全球銅供應鏈壓力緩解 → 銅礦股被重新定價。Heavy Electrical Equipment +25 也值得注意——這是第 9 期以來 Heavy Electrical 第一次進入改善前 10——GE Vernova 和電網升級題材在上期的回調後重新獲得買盤。排名惡化方面，**Interactive Home Entertainment -35 名是跌幅最大的**——遊戲板塊上期排名還算穩定，本週被抽走的資金流向了 Restaurants 和 Hotels。Tobacco -30 和 Advertising -29 反映了兩個不同的邏輯：Tobacco 是利率不降的受害者（防禦型股票吸引力下降），Advertising 是品牌主在通膨 4.2% 環境下削減預算。",
+      "links": [
+        { "label": "Copper", "href": "/sub/9D3B3E86" },
+        { "label": "Hotels & Cruise", "href": "/sub/7BC83F5D" },
+        { "label": "Heavy Electrical", "href": "/sub/8D0D1D2F" },
+        { "label": "Restaurants", "href": "/sub/96CDA085" },
+        { "label": "Interactive Home Ent", "href": "/sub/951C6D9C" }
+      ],
+      "chartData": {
+        "type": "hbar",
+        "xLabel": "排名變化（正=改善）",
+        "xUnit": "",
+        "items": [
+          { "label": "Copper", "value": 33, "href": "/sub/9D3B3E86" },
+          { "label": "Hotels & Cruise Lines", "value": 29, "href": "/sub/7BC83F5D" },
+          { "label": "Restaurants", "value": 28, "href": "/sub/96CDA085" },
+          { "label": "Industrial Conglom.", "value": 27, "href": "/sub/1BE528D2" },
+          { "label": "Automobile Mfrs", "value": 26, "href": "/sub/B84643C8" },
+          { "label": "Heavy Electrical", "value": 25, "href": "/sub/8D0D1D2F" },
+          { "label": "Multi-Utilities", "value": -22, "href": "/sub/D15D1064" },
+          { "label": "Telecom Tower REITs", "value": -23, "href": "/sub/249286FE" },
+          { "label": "Ag Products", "value": -23, "href": "/sub/52404E82" },
+          { "label": "Advertising", "value": -29, "href": "/sub/F60915FE" },
+          { "label": "Tobacco", "value": -30, "href": "/sub/6912B116" },
+          { "label": "Interactive Home Ent", "value": -35, "href": "/sub/951C6D9C" }
+        ]
+      }
+    },
+    {
+      "number": 6,
+      "title": "Materials 全線正報酬：上週的崩盤完全反轉，金屬領漲、化學品跟上",
+      "image": "06_materials_split.png",
+      "caption": "全部 16 個 Materials 次產業正報酬。Metal/Glass +9.3%、Diversified Chemicals +8.4%、Copper +8.0% 領漲。Gold +0.6% 最弱但也正報酬。",
+      "body": "上期 Materials -4.1% 是第二大輸家，Silver -16.8% 崩盤、Gold -8.7% 抹去全年漲幅。本週**完全反轉——Materials 全部 16 個次產業正報酬**，是追蹤以來 Materials 唯一一次「全員正報酬」。但反彈的結構不對稱：**工業金屬反彈猛烈**——Copper +8.0%、Diversified Metals +4.6%、Steel +3.1%——催化劑是伊朗和平預期 + 中國銅需求不弱（中國廢銅鋁價格上漲）。**貴金屬反彈溫和**——Silver +3.5%（vs 上週 -16.8%，只收回 20%）、Gold +0.6%（vs -8.7%，幾乎沒彈）——非農 +27.2 萬後「Fed 不降息」的預期沒有改變，貴金屬的利率壓力仍在。**化學品意外搶眼**——Diversified Chemicals +8.4%、Specialty Chemicals +5.3%、Commodity Chemicals +2.7%——上期中國需求疲弱的擔憂暫時被和平協議利好蓋過。**上期教訓「不要把貴金屬和工業金屬混為一談」——本週的反彈結構再次驗證：工業金屬跟製造業 PMI 正向（和平 → 供應鏈恢復 → 利好），貴金屬跟利率反向（Fed 不降息 → 壓制）。持續分開看待。**",
+      "links": [
+        { "label": "Copper", "href": "/sub/9D3B3E86" },
+        { "label": "Diversified Chemicals", "href": "/sub/4B59004E" },
+        { "label": "Silver", "href": "/sub/FDF8E7AE" },
+        { "label": "Gold", "href": "/sub/33E5E2A6" },
+        { "label": "Steel", "href": "/sub/113B2BC3" }
+      ],
+      "chartData": {
+        "type": "hbar",
+        "items": [
+          { "label": "Metal, Glass & Plastic", "value": 9.34, "href": "/sub/AE23CF9D" },
+          { "label": "Diversified Chemicals", "value": 8.43, "href": "/sub/4B59004E" },
+          { "label": "Copper", "value": 7.95, "href": "/sub/9D3B3E86" },
+          { "label": "Paper Products", "value": 7.69, "href": "/sub/7BD0E9D6" },
+          { "label": "Forest Products", "value": 6.30, "href": "/sub/AD968F37" },
+          { "label": "Specialty Chemicals", "value": 5.30, "href": "/sub/33054D65" },
+          { "label": "Diversified Metals & Mining", "value": 4.60, "href": "/sub/650D58F5" },
+          { "label": "Silver", "value": 3.50, "href": "/sub/FDF8E7AE" },
+          { "label": "Steel", "value": 3.10, "href": "/sub/113B2BC3" },
+          { "label": "Commodity Chemicals", "value": 2.70, "href": "/sub/7BF90D4B" },
+          { "label": "Aluminum", "value": 1.70, "href": "/sub/1D0B4025" },
+          { "label": "Construction Materials", "value": 1.67, "href": "/sub/4E53B0B8" },
+          { "label": "Industrial Gases", "value": 1.40, "href": "/sub/7D825052" },
+          { "label": "Fertilizers & Ag Chem", "value": 1.20, "href": "/sub/6A22E83B" },
+          { "label": "Gold", "value": 0.60, "href": "/sub/33E5E2A6" }
+        ]
+      }
+    }
+  ],
+  "actions": [
+    "**✓/✗ 上期操作績效回顧**：IT 降格觀察 ✓（+3.4%，沒大漲不適合 all-in）。RE/HC/Financials 觀察 ✓（連續第二週同時正報酬）。貴金屬清倉 ✗（Silver +3.5% 反彈，但 net 避開 -17% 仍是正確決策）。能源不參與 ✓（+0.8%）。**總結：3/4 正確，整體框架有效。**",
+    "**IT 配置：恢復為「核心持有」但不追加，硬體/半導體優先、軟體迴避**。理由：IT 1W 回正（+3.4%）、mom_score 91.8 仍在高位，趨勢沒斷。但內部分化劇烈——Semicon Equip +19.8% vs App Software -4.5%，差距 24 個百分點。配置上集中在 Semiconductors / Semicon Equip / Electronic Components，避開 Application Software 和 Systems Software 直到利率預期改變。",
+    "**Consumer Discretionary 升格「觀察性配置」**。本週 +6.4% 奪冠、delta_rank 前 10 佔 4 席——不是雜訊。Hotels/Cruise +29 名、Restaurants +28 名的改善幅度代表旅遊和餐飲消費在回溫。但 3M 報酬只有 +9%，跟 IT 的 +43% 比還很淺——等 3M 突破 15% 再升格核心。",
+    "**Materials 工業金屬恢復「持有」——Copper 優先**。Copper delta_rank +33 是本週改善最大的次產業，伊朗和平 + 供應鏈恢復是結構性利好。Steel 和 Diversified Metals 也持有。**貴金屬維持清倉**——Gold +0.6% 的反彈力道太弱，在 Fed 不降息預期下沒有邏輯支撐。",
+    "**下週 FOMC（6/16-17）是決定性事件**。CPI 核心 2.9% 給了 Fed 維持利率的空間——市場共識是「不降不升」。如果 Powell 的語氣偏鴿（暗示下半年可能降息），軟體股會迅速反彈、Real Estate 會加速。如果偏鷹（暗示可能升息），目前的「滿場開花」格局會收窄回「只剩半導體」。**FOMC 前不宜大幅調整配置。**"
+  ],
+  "sources": [
+    { "title": "Nasdaq, S&P 500 plummet after Trump teases new Iran strikes — TheStreet", "url": "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-june-09-2026" },
+    { "title": "CPI inflation report May 2026: Prices rose 4.2% annually — CNBC", "url": "https://www.cnbc.com/2026/06/10/cpi-inflation-report-may-2026.html" },
+    { "title": "Nasdaq, S&P 500 rise after Trump, Iran signal deal is close — TheStreet", "url": "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-june-11-2026" },
+    { "title": "SpaceX IPO closes up 19% and delivers the world's first trillionaire — TechCrunch", "url": "https://techcrunch.com/2026/06/12/spacex-ipo-closes-up-19-and-delivers-the-worlds-first-trillionaire/" },
+    { "title": "Chip Stocks Rebound: Semiconductor Investment Strategy for June 2026 — Intellectia", "url": "https://intellectia.ai/blog/chip-stocks-rebound-investment-strategy-june-2026" },
+    { "title": "Wall Street indexes jump, Trump says strikes against Iran canceled — Reuters/Investing.com", "url": "https://www.investing.com/news/economy-news/wall-st-ticks-up-as-chips-rebound-middle-east-in-focus-4737702" },
+    { "title": "Stocks on Track for Positive Week Amid Peace Hopes — Schwab", "url": "https://www.schwab.com/learn/story/stock-market-update-open" },
+    { "title": "SpaceX stock jumps nearly 20% following largest IPO ever — Yahoo Finance", "url": "https://finance.yahoo.com/markets/stocks/article/spacex-sets-135-ipo-price-ahead-of-friday-nasdaq-debut-101955774.html" },
+    { "title": "May 2026 CPI Forecast Hits 3-Year High: What the Fed Cannot Fix — TechTimes", "url": "https://www.techtimes.com/articles/318135/20260610/may-2026-cpi-forecast-hits-3-year-high-what-fed-cannot-fix-before-june-meeting.htm" }
+  ]
+}
