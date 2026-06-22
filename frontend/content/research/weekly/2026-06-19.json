@@ -1,0 +1,229 @@
+{
+  "slug": "2026-06-19",
+  "issue": 12,
+  "date": "2026-06-19",
+  "snapshotDate": "2026-06-18",
+  "title": "Warsh 鷹派首秀 × 伊朗和平——兩股力量撕裂市場，AI 電力基建成為唯一共識",
+  "subtitle": "Heavy Electrical +13.6% 領漲、IPPs +11.8%、Semicon Equip +11.2%——AI 電力超級週期不怕升息也不怕和平。Energy -6.2% 是伊朗和平的代價，Communication -2.9% 是鷹派的犧牲品。上期預測「偏鷹就收窄回半導體」，結果鷹了，但市場不是收窄——而是擴張到整條 AI 電力供應鏈。",
+  "imageDir": "/research/weekly/2026-06-19",
+  "coverImage": "01_sector_1w.png",
+  "intro": [
+    "上期核心判斷是「三重催化帶來的不是 IT 獨走，而是滿場開花」，操作建議是 IT 恢復核心持有但只碰硬體/半導體、Consumer Disc 升格觀察性配置、Materials 工業金屬恢復持有（貴金屬維持清倉）、FOMC 前不宜大幅調整。**績效回顧：IT 硬體/半導體優先 ✓（Semicon Equip +11.2%、Tech Hardware +7.8%，同時 IT Consulting -8.7% 驗證了「避開軟體」的判斷）。Consumer Disc 觀察性配置 ✓（+0.1%，沒賠但也沒賺，不急不躁）。Materials 工業金屬持有 ✓（Diversified Metals +9.1%、Construction Materials +7.8%，但 Aluminum -10.6% 暴跌——中國減產令反轉是意外）。貴金屬清倉 ✗（Gold +5.7%、Silver +6.5%，連續第二週錯過反彈，需要重新評估）。FOMC 前不大幅調整 ✓（事後證明是對的——週三 Fed 放鷹，S&P -1.2%，不冒險是正確策略）。** 4/5 正確，但貴金屬連續兩週錯過反彈，這次不能再用「net effect 仍正確」搪塞——框架需要修正。",
+    "本週是追蹤十二期以來劇情最密集的一週。**週一（6/15）美國與伊朗宣布框架和平協議，荷姆茲海峽將在 30 天內重新開放商業航運**——油價單日暴跌 4.8%、WTI 跌破 $81 創三個月新低，航空股和旅遊股集體狂歡（Delta +3.2%、Royal Caribbean 領漲）。**週二到週三 FOMC——Warsh 上任後首次會議，利率維持 3.5%-3.75% 不變（12:0 一致），但 dot plot 鷹派翻轉**：9/18 委員預測今年至少升息一次、6 人預測升兩次，2026 年底中位數從 3.4% 上修到 3.8%——從「今年可能降息」翻成「今年可能升息」。PCE 通膨預測從 2.7% 大幅上調至 3.6%。S&P 週三單日 -1.21%、Nasdaq -1.34%、二年期殖利率暴漲 16 bps 到 4.21%。**週四市場又彈回來**——Trump 和伊朗總統 Pezeshkian 在凡爾賽宮正式簽署 14 點 MOU，Nasdaq 單日 +2%。整週走勢：和平漲 → 鷹派跌 → 簽約漲，最後 S&P 收漲約 1%。",
+    "本期核心判斷：**上期說「偏鷹就收窄回只剩半導體」——結果鷹了，但市場沒收窄，反而擴張了主線。** 真正在漲的不只是半導體晶片本身，而是整條 AI 電力供應鏈：Heavy Electrical Equipment +13.6%（GEV 近千元、訂單積壓 $1,500 億、分析師喊 $1,206 目標價）、Independent Power Producers +11.8%（Vistra、Constellation 是 AI 資料中心供電商）、Semicon Equipment +11.2%。三者的共同點：**都不怕升息，因為需求是結構性的**——Meta/Microsoft/Amazon/Alphabet 今年 AI 基建支出預計 $7,000 億，就算利率升一碼也不會停蓋資料中心。同時 Energy -6.2% 是和平的代價（Goldman 已下修 Brent 預測到 $80、最快年底到 $60），Communication -2.9% 是鷹派的犧牲品（Wireless -8.9%、Broadcasting -10.8%——利率敏感、缺乏成長引擎）。兩股力量撕裂市場，但 AI 電力基建是唯一同時不怕和平（和平降低能源成本 → 資料中心電費更便宜）又不怕升息（需求是十年級別 supercycle）的交集。這不是輪動，這是新共識。"
+  ],
+  "exhibits": [
+    {
+      "number": 1,
+      "title": "板塊一週報酬：IT +2.1% 三連正、Energy -6.2% 單週最大跌幅",
+      "image": "01_sector_1w.png",
+      "caption": "IT +2.1% 維持正報酬，Utilities +1.7% 受惠 AI 電力需求意外走強。Energy -6.2% 是伊朗和平的直接代價——追蹤十二期以來 Energy 最大單週跌幅。",
+      "body": "上期是「10/11 板塊正報酬，追蹤以來最廣的市場寬度」。本週收窄到 **6/11 正報酬**——和平 + 鷹派的雙重衝擊讓寬度縮水。但縮水的方式很有意思：**Energy -6.2% 是因為伊朗和平導致油價暴跌——這是「好的」壓力**，代表地緣風險釋放、運輸成本下降。**Communication -2.9% 是因為 Fed 鷹派——這是「壞的」壓力**，Wireless -8.9%、Broadcasting -10.8% 顯示利率敏感的低成長行業在升息預期下沒有避風港。**真正值得注意的是 Utilities +1.7%**——正常邏輯下，升息預期應該壓制公用事業（高股息、利率反向）。但 Utilities 今天不只是「穩定收息」的老面孔了——Independent Power Producers +11.8% 是 AI 資料中心的電力供應商（Vistra、Constellation），這條新邏輯強到足以抵消利率壓力。IT +2.1% 三連正但從上期的第四名升到本期的第一名——不是因為 IT 更強了，而是因為其他板塊被兩股力量打弱了。",
+      "links": [
+        { "label": "Heavy Electrical", "href": "/sub/8D0D1D2F" },
+        { "label": "IPPs", "href": "/sub/7BA77648" },
+        { "label": "Semicon Equip", "href": "/sub/7F8BA218" },
+        { "label": "Oil & Gas Drilling", "href": "/sub/738405E7" },
+        { "label": "Wireless Telecom", "href": "/sub/8EDDEA9F" }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "輪動地圖：AI 電力基建集中在右上角，Energy 消失、Communication 沉底",
+      "image": "02_rotation_map.png",
+      "caption": "IT 和 Materials 維持在右上象限（動能 + 正報酬），Utilities 意外跳進正報酬區。Energy 掉到左下角（弱動能 + 負報酬），Communication 加速沉底。",
+      "body": "上期散點圖的關鍵訊息是「Consumer Disc 跳到右上角取代 IT 領跑」。本週 Consumer Disc 回落到零線附近（+0.1%），**IT 重回右上角的王座**。但更重要的結構性變化是：**Utilities 出現在正報酬區——這在過去十一期從未發生過**。公用事業不是因為避險需求而漲，而是因為 AI 電力需求的結構性敘事。反觀 **Energy 直接從象限圖消失到左下角**——和平降低了油價，也降低了 Energy 板塊的整個投資邏輯。Goldman 已把 2027 年 Brent 均價下修到 $80，最快年底到 $60——如果油價真的到 $60，現在還持有能源股的人會很痛。**Communication 連續兩週在負報酬區**——上期還有 Interactive Home Entertainment 撐場，本週連遊戲都跌了（-16 名 delta_rank）。鷹派 Fed + 缺乏 AI 敘事 = 沒有資金願意停留。",
+      "links": [
+        { "label": "Semiconductors", "href": "/sub/3DFD4B15" },
+        { "label": "Diversified Metals", "href": "/sub/650D58F5" },
+        { "label": "IPPs", "href": "/sub/7BA77648" },
+        { "label": "Energy", "href": "/sub/630FFAD7" }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Top/Bottom 12：AI 電力鏈包辦前三、Energy 包辦後四席中的三席",
+      "image": "03_top_bottom_subs.png",
+      "caption": "Heavy Electrical +13.6%、IPPs +11.8%、Semicon Equip +11.2% 包辦前三。Oil & Gas Drilling -11.4%、Broadcasting -10.8%、Aluminum -10.6% 墊底。",
+      "body": "上期最強次產業是 Housewares +32.3%（一次性事件）和 Semicon Equip +19.8%。本週 **Heavy Electrical Equipment +13.6% 奪冠**——GEV（GE Vernova）訂單積壓 $1,500 億、全年營收預估 $445 億、自由現金流 $65-75 億，Bernstein 新覆蓋給 Outperform、目標價 $1,206。這不是短炒——管理層用「multi-decade investment supercycle」來形容現在的電網升級需求。**IPPs +11.8% 排第二**——AI 資料中心要蓋在有電的地方，Vistra 和 Constellation 這類獨立發電商就是「電」的供應商。**Semicon Equipment +11.2% 排第三**——半導體設備延續第 11 期的強勢（上期 +19.8%，連兩週雙位數漲幅）。底部 12 席中 **Oil & Gas Drilling -11.4% 最慘**——伊朗和平意味著更多供應、更低油價、更少鑽探需求。**Cargo Ground Transportation -9.5% 意外出現在底部**——這是 mom_score 第 6 名（85.6）卻單週暴跌的「動能陷阱」，可能是獲利了結。",
+      "links": [
+        { "label": "Heavy Electrical", "href": "/sub/8D0D1D2F" },
+        { "label": "IPPs", "href": "/sub/7BA77648" },
+        { "label": "Semicon Equip", "href": "/sub/7F8BA218" },
+        { "label": "Cargo Ground", "href": "/sub/AE21267B" },
+        { "label": "Airlines", "href": "/sub/7C6F8CF0" }
+      ],
+      "chartData": {
+        "type": "hbar",
+        "items": [
+          { "label": "Heavy Electrical Equipment", "value": 13.6, "href": "/sub/8D0D1D2F" },
+          { "label": "Independent Power Producers", "value": 11.8, "href": "/sub/7BA77648" },
+          { "label": "Semicon Materials & Equip", "value": 11.2, "href": "/sub/7F8BA218" },
+          { "label": "Diversified Metals & Mining", "value": 9.1, "href": "/sub/650D58F5" },
+          { "label": "Electronic Components", "value": 8.2, "href": "/sub/3A71D4E6" },
+          { "label": "Passenger Airlines", "value": 8.2, "href": "/sub/7C6F8CF0" },
+          { "label": "Construction Materials", "value": 7.8, "href": "/sub/4E53B0B8" },
+          { "label": "Tech Hardware & Storage", "value": 7.8, "href": "/sub/D10047AB" },
+          { "label": "Housewares & Specialties", "value": 6.5, "href": "/sub/7123167E" },
+          { "label": "Silver", "value": 6.5, "href": "/sub/FDF8E7AE" },
+          { "label": "Hotels & Cruise Lines", "value": 6.2, "href": "/sub/7BC83F5D" },
+          { "label": "Interactive Home Entertain", "value": 6.2, "href": "/sub/951C6D9C" },
+          { "label": "Integrated Oil & Gas", "value": -6.3, "href": "/sub/630FFAD7" },
+          { "label": "Alternative Carriers", "value": -6.5, "href": "/sub/E1C7925A" },
+          { "label": "Coal & Consumable Fuels", "value": -6.5, "href": "/sub/7B1B1651" },
+          { "label": "Data Processing & Outsourced", "value": -6.8, "href": "/sub/8CC1BC08" },
+          { "label": "Oil & Gas Equipment", "value": -7.4, "href": "/sub/8B53278B" },
+          { "label": "Telecom Tower REITs", "value": -8.1, "href": "/sub/249286FE" },
+          { "label": "IT Consulting", "value": -8.7, "href": "/sub/364050B7" },
+          { "label": "Wireless Telecom", "value": -8.9, "href": "/sub/8EDDEA9F" },
+          { "label": "Cargo Ground Transport", "value": -9.5, "href": "/sub/AE21267B" },
+          { "label": "Aluminum", "value": -10.6, "href": "/sub/1D0B4025" },
+          { "label": "Broadcasting", "value": -10.8, "href": "/sub/B2F8F5B4" },
+          { "label": "Oil & Gas Drilling", "value": -11.4, "href": "/sub/738405E7" }
+        ]
+      }
+    },
+    {
+      "number": 4,
+      "title": "Top-20 動能散點：半導體 96.4 蟬聯王座，但 AI 電力鏈正在組隊入榜",
+      "image": "04_energy_unwind.png",
+      "caption": "Semiconductors mom_score 96.4 + 1W +6.0% 穩坐右上角。注意 Heavy Electrical（69.5）和 IPPs（32.2）尚未進入 Top-20，但本週漲幅最大——這是「動能正在建立」的早期訊號。",
+      "body": "上期散點圖的敘事是「能源退場、IT 獨大」。本週的結構更乾淨了——**Top-20 裡已經沒有任何 Energy 次產業**（上期也沒有，連續兩週 Energy 被排除在動能前 20 之外）。Semiconductors 以 96.4 蟬聯第一，3M +104% 是追蹤以來唯一突破三位數的次產業。**但更值得注意的是散點圖上的「異常值」**：Cargo Ground Transportation（mom_score 85.6 但 1W -9.5%）和 Aluminum（75.6 但 -10.6%）都是高動能但本週暴跌——前者可能是獲利了結，後者是中國政策反轉。反過來看，**Heavy Electrical（+13.6%）和 IPPs（+11.8%）的 mom_score 分別只有 69.5 和 32.2，還沒進 Top-20**——這代表它們的動能正在快速建立中，如果下週繼續漲，mom_score 會跳升、排名會大幅改善。這是「追趨勢」vs「抓轉折」的經典分歧：追 Semiconductors 是追已確認的趨勢；買 Heavy Electrical 是賭動能正在建立。",
+      "links": [
+        { "label": "Semiconductors", "href": "/sub/3DFD4B15" },
+        { "label": "Electronic Components", "href": "/sub/3A71D4E6" },
+        { "label": "Diversified Metals", "href": "/sub/650D58F5" },
+        { "label": "Cargo Ground", "href": "/sub/AE21267B" },
+        { "label": "Steel", "href": "/sub/113B2BC3" }
+      ],
+      "chartData": {
+        "type": "scatter",
+        "xLabel": "Mom Score (0-100)",
+        "yLabel": "1W return (%)",
+        "items": [
+          { "label": "Semiconductors", "x": 96.4, "y": 6.0, "href": "/sub/3DFD4B15", "color": "#4A90D9" },
+          { "label": "Electronic Components", "x": 88.7, "y": 8.2, "href": "/sub/3A71D4E6", "color": "#4A90D9" },
+          { "label": "Tech Hardware", "x": 88.5, "y": 7.8, "href": "/sub/D10047AB", "color": "#4A90D9" },
+          { "label": "Diversified Metals & Mining", "x": 86.6, "y": 9.1, "href": "/sub/650D58F5", "color": "#4A90D9" },
+          { "label": "Semicon Materials & Equip", "x": 86.4, "y": 11.2, "href": "/sub/7F8BA218", "color": "#4A90D9" },
+          { "label": "Cargo Ground Transport", "x": 85.6, "y": -9.5, "href": "/sub/AE21267B", "color": "#4A90D9" },
+          { "label": "Hotel & Resort REITs", "x": 83.4, "y": 2.5, "href": "/sub/E721F75E", "color": "#4A90D9" },
+          { "label": "Electronic Mfg Services", "x": 81.3, "y": 2.5, "href": "/sub/95B13044", "color": "#4A90D9" },
+          { "label": "Marine Transportation", "x": 80.2, "y": -2.0, "href": "/sub/8EEB09C8", "color": "#4A90D9" },
+          { "label": "Managed Health Care", "x": 78.8, "y": -2.0, "href": "/sub/3E2ACB37", "color": "#4A90D9" },
+          { "label": "Communications Equipment", "x": 76.3, "y": -1.0, "href": "/sub/FE725307", "color": "#4A90D9" },
+          { "label": "Diversified Chemicals", "x": 75.9, "y": 0.8, "href": "/sub/4B59004E", "color": "#4A90D9" },
+          { "label": "Aluminum", "x": 75.6, "y": -10.6, "href": "/sub/1D0B4025", "color": "#4A90D9" },
+          { "label": "Copper", "x": 74.9, "y": 3.5, "href": "/sub/9D3B3E86", "color": "#4A90D9" },
+          { "label": "Electrical Components", "x": 74.6, "y": 5.8, "href": "/sub/EC96173F", "color": "#4A90D9" },
+          { "label": "Construction & Engineering", "x": 74.6, "y": 4.4, "href": "/sub/787C9D0B", "color": "#4A90D9" },
+          { "label": "Leisure Facilities", "x": 73.7, "y": 4.4, "href": "/sub/FD39D067", "color": "#4A90D9" },
+          { "label": "Steel", "x": 71.1, "y": -6.2, "href": "/sub/113B2BC3", "color": "#4A90D9" },
+          { "label": "Food Distributors", "x": 70.5, "y": 1.4, "href": "/sub/D05C635E", "color": "#4A90D9" },
+          { "label": "Health Care Services", "x": 70.2, "y": 1.9, "href": "/sub/CE2456A9", "color": "#4A90D9" }
+        ],
+        "colorLabels": { "#4A90D9": "Top-20 Mom Score" }
+      }
+    },
+    {
+      "number": 5,
+      "title": "排名異動：Utilities 集體爬升（AI 電力需求）、Communication 集體墜落（鷹派壓制）",
+      "image": "05_rank_delta.png",
+      "caption": "Multi-Sector Holdings +30、Electric Utilities +27、Passenger Airlines +25 領漲。Wireless Telecom -33、Advertising -28、HC Technology -28 領跌。",
+      "body": "上期排名改善最大的是 Copper +33——本週 Copper 不在前 10 了（只有 +8 名），因為它已經站穩高位（rank 14），後續改善空間有限。**本週的排名異動揭示了一個重要趨勢：Utilities 相關次產業集體爬升**——Multi-Utilities +21、Electric Utilities +27、IPPs +18——三個 Utilities 次產業同時出現在前 10。這在過去十一期從未發生過。原因不是避險（鷹派 Fed 環境不利傳統公用事業），而是 **AI 資料中心的電力需求敘事**——EIA 預測美國資料中心用電量到 2030 年將翻三倍，佔全國總用電量 10%。**Passenger Airlines +25 也很有意思**——油價暴跌對航空股來說是直接的成本紅利，Delta +3.2%、American +3.5%。反觀 **Wireless Telecom -33 是本週最大單一排名暴跌**——升息預期壓制高負債的電信業，加上缺乏成長催化劑。**Advertising -28 和 Movies & Entertainment -20 也在下沉**——Communication 板塊正在經歷結構性的資金外流。",
+      "links": [
+        { "label": "Multi-Sector Holdings", "href": "/sub/87FCAE9A" },
+        { "label": "Electric Utilities", "href": "/sub/BCAFA011" },
+        { "label": "Airlines", "href": "/sub/7C6F8CF0" },
+        { "label": "Wireless Telecom", "href": "/sub/8EDDEA9F" },
+        { "label": "Advertising", "href": "/sub/F60915FE" }
+      ],
+      "chartData": {
+        "type": "hbar",
+        "xLabel": "Δ rank vs prior week",
+        "xUnit": "",
+        "items": [
+          { "label": "Multi-Sector Holdings", "value": 30, "href": "/sub/87FCAE9A" },
+          { "label": "Electric Utilities", "value": 27, "href": "/sub/BCAFA011" },
+          { "label": "Passenger Airlines", "value": 25, "href": "/sub/7C6F8CF0" },
+          { "label": "Industrial Gases", "value": 22, "href": "/sub/7D825052" },
+          { "label": "Household Products", "value": 22, "href": "/sub/12D686D0" },
+          { "label": "Commercial & Res Mortgage", "value": 21, "href": "/sub/65665600" },
+          { "label": "Multi-Utilities", "value": 21, "href": "/sub/D15D1064" },
+          { "label": "Health Care Services", "value": 20, "href": "/sub/CE2456A9" },
+          { "label": "IPPs & Energy Traders", "value": 18, "href": "/sub/7BA77648" },
+          { "label": "Leisure Products", "value": 18, "href": "/sub/033B35A3" },
+          { "label": "Wireless Telecom", "value": -33, "href": "/sub/8EDDEA9F" },
+          { "label": "Advertising", "value": -28, "href": "/sub/F60915FE" },
+          { "label": "Health Care Technology", "value": -28, "href": "/sub/A8DBD49D" },
+          { "label": "Automobile Manufacturers", "value": -26, "href": "/sub/B84643C8" },
+          { "label": "Human Resource & Employment", "value": -26, "href": "/sub/D4E92F32" },
+          { "label": "Home Improvement Retail", "value": -24, "href": "/sub/94A22E14" },
+          { "label": "Diversified Support Services", "value": -23, "href": "/sub/F9AE97F0" },
+          { "label": "Diversified REITs", "value": -20, "href": "/sub/1104ABC2" },
+          { "label": "Life Sciences Tools", "value": -20, "href": "/sub/19BD4D4B" },
+          { "label": "Movies & Entertainment", "value": -20, "href": "/sub/6D67D3FA" }
+        ]
+      }
+    },
+    {
+      "number": 6,
+      "title": "Materials 內部：貴金屬意外反彈 vs 工業金屬分化（Aluminum -10.6% 是例外）",
+      "image": "06_materials_split.png",
+      "caption": "Diversified Metals +9.1% 領漲、Construction Materials +7.8%、Silver +6.5%、Gold +5.7%。Aluminum -10.6% 和 Steel -6.2% 是唯二大跌——中國政策和產能過剩是個別因素。",
+      "body": "上期 Materials 的故事是「全員正報酬但工業金屬彈得比貴金屬猛」。本週結構翻轉了——**貴金屬（Gold +5.7%、Silver +6.5%）反彈力道首次超過上期的工業金屬**。連續兩期看錯貴金屬的我們需要誠實面對：**貴金屬清倉的邏輯（Fed 不降息 → 壓制）在 Warsh 鷹派首秀後應該更成立，但市場卻反其道而行**——Gold 和 Silver 在升息預期加強的一週裡雙雙漲超 5%。這說明什麼？**避險需求和地緣敘事正在壓過利率邏輯**——伊朗和平帶來的不是「風險解除所以黃金跌」，而是「中東秩序重構的不確定性 + 美元資產信心動搖」。**Aluminum -10.6% 是本週 Materials 最大意外**——中國減產令反轉和全球鋁供應過剩是個別因素，不代表工業金屬整體轉弱（Diversified Metals +9.1%、Copper +3.5% 仍然強勁）。**Construction Materials +7.8% 延續上期的強勢（上期 +1.7%）**——美國基建法案資金持續到位是支撐。整體看：Materials +1.6% 板塊表現平穩，但內部分化加劇——要逐個次產業看，不能一籃子買。",
+      "links": [
+        { "label": "Diversified Metals", "href": "/sub/650D58F5" },
+        { "label": "Gold", "href": "/sub/33E5E2A6" },
+        { "label": "Silver", "href": "/sub/FDF8E7AE" },
+        { "label": "Aluminum", "href": "/sub/1D0B4025" },
+        { "label": "Construction Materials", "href": "/sub/4E53B0B8" }
+      ],
+      "chartData": {
+        "type": "hbar",
+        "items": [
+          { "label": "Diversified Metals & Mining", "value": 9.1, "href": "/sub/650D58F5" },
+          { "label": "Construction Materials", "value": 7.8, "href": "/sub/4E53B0B8" },
+          { "label": "Silver", "value": 6.5, "href": "/sub/FDF8E7AE" },
+          { "label": "Gold", "value": 5.7, "href": "/sub/33E5E2A6" },
+          { "label": "Forest Products", "value": 3.7, "href": "/sub/AD968F37" },
+          { "label": "Copper", "value": 3.5, "href": "/sub/9D3B3E86" },
+          { "label": "Fertilizers & Ag Chem", "value": 3.4, "href": "/sub/6A22E83B" },
+          { "label": "Metal, Glass & Plastic", "value": 3.0, "href": "/sub/AE23CF9D" },
+          { "label": "Paper & Plastic Packaging", "value": 2.6, "href": "/sub/424682BE" },
+          { "label": "Commodity Chemicals", "value": 0.9, "href": "/sub/7BF90D4B" },
+          { "label": "Diversified Chemicals", "value": 0.8, "href": "/sub/4B59004E" },
+          { "label": "Specialty Chemicals", "value": 0.3, "href": "/sub/33054D65" },
+          { "label": "Industrial Gases", "value": 0.1, "href": "/sub/7D825052" },
+          { "label": "Paper Products", "value": -4.7, "href": "/sub/7BD0E9D6" },
+          { "label": "Steel", "value": -6.2, "href": "/sub/113B2BC3" },
+          { "label": "Aluminum", "value": -10.6, "href": "/sub/1D0B4025" }
+        ]
+      }
+    }
+  ],
+  "actions": [
+    "**✓/✗ 上期操作績效回顧**：IT 硬體/半導體核心持有、軟體迴避 ✓（Semicon Equip +11.2%、IT Consulting -8.7%，分化驗證判斷）。Consumer Disc 觀察性配置 ✓（+0.1%，平穩觀察中）。Materials 工業金屬持有 ✓（Diversified Metals +9.1%）。貴金屬清倉 ✗（Gold +5.7%、Silver +6.5%，連兩週錯過）。FOMC 前不大幅調整 ✓（週三 -1.2% 證明保守正確）。**4/5 正確，貴金屬框架需修正。**",
+    "**IT 配置維持「核心持有」，進一步聚焦 AI 電力供應鏈**。Semiconductors（mom_score 96.4）和 Semicon Equipment（+11.2%、連兩週雙位數）是確認趨勢，繼續持有。新增觀察：**Electrical Components（+5.8%、mom_score 74.6）是半導體之外的 AI 電力基建受益者**——變壓器、配電設備、電力電子都在升級。軟體類繼續迴避——Warsh 鷹派 dot plot 意味著升息預期不會短期消退，高 PE 軟體股承壓。",
+    "**新增「AI 電力基建」觀察性配置**：Heavy Electrical Equipment（+13.6%、GEV 訂單積壓 $1,500 億）和 Independent Power Producers（+11.8%）的 mom_score 還低（69.5 / 32.2），但趨勢正在快速建立。本週 Utilities 板塊三個次產業同時進入排名改善 Top 10，是從未出現過的訊號。定位為「觀察性配置」——等 mom_score 突破 75 再升格核心。如果下週繼續正報酬，Heavy Electrical 有機會在 2-3 週內進入 Top-20。",
+    "**貴金屬配置修正：從「清倉」調整為「小倉位觀察」**。連續兩週看錯不能繼續用同一個框架。原邏輯「Fed 不降息 → 壓制貴金屬」在 Warsh 鷹派首秀後反而 Gold +5.7%、Silver +6.5%——避險需求和中東秩序重構的不確定性正在壓過利率邏輯。小倉位恢復 Gold/Silver 觀察，但不追高——等 mom_score 回到 50 以上再加碼。",
+    "**Energy 維持「不參與」——和平帶來的供應增加是結構性利空**。伊朗原油即將自由銷售、荷姆茲海峽 30 天內重新開放——Goldman 已下修 Brent 到 $80（年底可能 $60）。Oil & Gas Drilling -11.4% 本週最慘，整個 Energy 板塊 -6.2% 是追蹤以來最大單週跌幅。除非 MOU 破裂（60 天談判期內有風險），否則 Energy 的投資邏輯已從「地緣溢價」轉為「供應過剩壓價」。",
+    "**下週觀察重點**：(1) 伊朗 MOU 後續——60 天談判期是否順利，荷姆茲海峽實際復航進度；(2) Heavy Electrical / IPPs 的 mom_score 是否繼續上升——這是「AI 電力基建」從觀察升格核心的關鍵條件；(3) 二年期殖利率（4.21%）是否穩定——如果繼續上升，軟體和 REITs 會進一步受壓。"
+  ],
+  "sources": [
+    { "title": "Fed interest rate decision June 2026: Fed holds rates steady — CNBC", "url": "https://www.cnbc.com/2026/06/17/fed-interest-rate-decision-june-2026.html" },
+    { "title": "Fed meeting recap: Warsh announces task forces to overhaul major Federal Reserve operations — CNBC", "url": "https://www.cnbc.com/2026/06/17/fed-meeting-today-live-updates.html" },
+    { "title": "Fed Holds Rates June 2026; Dot Plot Flips to a Hike — StockTitan", "url": "https://www.stocktitan.net/articles/fed-rate-decision-june-17-2026" },
+    { "title": "Fed dot plot: Almost half of FOMC members project at least one rate hike — Yahoo Finance", "url": "https://finance.yahoo.com/economy/policy/article/fed-dot-plot-almost-half-of-fomc-members-project-at-least-one-interest-rate-hike-this-year-183645064.html" },
+    { "title": "Trump and Iran's president sign initial deal to end war, open Strait of Hormuz — NBC News", "url": "https://www.nbcnews.com/world/iran/strait-hormuz-reopen-us-lift-iran-sanctions-14-point-deal-seeking-end-rcna350513" },
+    { "title": "Oil prices fall, stocks rally as US, Iran sign framework to end war — Al Jazeera", "url": "https://www.aljazeera.com/economy/2026/6/18/oil-prices-fall-stocks-rally-as-us-iran-sign-framework-to-end-war" },
+    { "title": "Oil prices fall on Iran peace deal, but may not go much lower — NBC News", "url": "https://www.nbcnews.com/business/markets/oil-prices-iran-deal-hormuz-doubts-rcna350087" },
+    { "title": "Stocks market today: Dow, S&P 500, Nasdaq rally amid Iran deal optimism — Yahoo Finance", "url": "https://finance.yahoo.com/markets/live/stocks-market-today-dow-sp-500-nasdaq-rally-amid-iran-deal-optimism-as-ai-chip-trade-reignites-230530576.html" },
+    { "title": "S&P 500, Nasdaq plummet as Fed meeting points to rate hike in late 2026 — TheStreet", "url": "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-june-17-2026" },
+    { "title": "Russell 2000, Nasdaq rise after Fed surprise, U.S. ends Iran blockade — TheStreet", "url": "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-june-18-2026" },
+    { "title": "GE Vernova (GEV) Stock Forecast 2026: AI Power Demand Ignites Backlog — Top1Markets", "url": "https://www.top1markets.com/news/ge-vernova-gev-stock-forecast-ai-power-demand-2026" },
+    { "title": "GE Vernova Is Up 18.0% After Analysts Highlight AI-Driven Power Demand — Simply Wall St", "url": "https://simplywall.st/stocks/us/capital-goods/nyse-gev/ge-vernova/news/ge-vernova-gev-is-up-180-after-analysts-highlight-ai-driven" },
+    { "title": "Airline Stocks Soar: Oil Dip & Travel Boom — DataInsightsMarket", "url": "https://www.datainsightsmarket.com/news/article/airline-stocks-soar-oil-dip-travel-boom-sustainable-62494" },
+    { "title": "Fed Signals Rate Hike in 2026: What Investors Need to Know — Intellectia", "url": "https://intellectia.ai/blog/fed-rate-hike-expectations-june-19-2026" }
+  ]
+}
