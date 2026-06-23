@@ -44,6 +44,20 @@ def is_market_open_today() -> bool:
     return True
 
 
+def _dedupe_cols(df: pd.DataFrame) -> pd.DataFrame:
+    """移除重複的 ticker 欄（保留最後 = 最新補抓的那欄）。
+
+    補抓（補回）某檔時偶爾會把一個已經在表內的 ticker 再加一欄，或 yfinance
+    批次回傳重疊，造成同一 ticker 兩欄。下游 reindex(columns=...) 會因此丟出
+    'Reindexing only valid with uniquely valued Index objects' 而整條 pipeline
+    失敗（2026-06-23 的 CI 失敗就是這個）。在組裝點先去重即可根治。"""
+    if df is None or df.empty or not df.columns.duplicated().any():
+        return df
+    dups = df.columns[df.columns.duplicated()].unique().tolist()
+    logger.warning(f"[dedupe] 移除 {len(dups)} 個重複欄：{dups[:10]}")
+    return df.loc[:, ~df.columns.duplicated(keep="last")]
+
+
 # ── 快取讀寫 ──────────────────────────────────────────────────
 
 def load_price_cache(cache_file: Path = CACHE_FILE) -> dict | None:
@@ -203,6 +217,10 @@ def _download_ohlcv(
             low_df    = pd.concat([low_df,    pd.concat(rec_l, axis=1)], axis=1)
             open_df   = pd.concat([open_df,   pd.concat(rec_o, axis=1)], axis=1)
 
+    # 補抓 / 批次重疊可能讓同一 ticker 出現兩欄 → 去重，否則下游 reindex 會炸
+    close_df, volume_df = _dedupe_cols(close_df), _dedupe_cols(volume_df)
+    high_df, low_df, open_df = _dedupe_cols(high_df), _dedupe_cols(low_df), _dedupe_cols(open_df)
+
     if failed_tickers:
         logger.warning(f"永久失敗 {len(failed_tickers)} 檔：{failed_tickers[:20]}")
     logger.info(f"下載完成：{close_df.shape[1]} 檔，{close_df.shape[0]} 天")
@@ -243,10 +261,11 @@ def fetch_prices_cached(
 
         def _merge(old: pd.DataFrame, new: pd.DataFrame) -> pd.DataFrame:
             if old is None or old.empty:
-                return new
+                return _dedupe_cols(new)
             merged = pd.concat([old, new], axis=0)
             # 同一天以新資料為準（處理後來的除權調整）
-            return merged[~merged.index.duplicated(keep='last')].sort_index()
+            merged = merged[~merged.index.duplicated(keep='last')].sort_index()
+            return _dedupe_cols(merged)
 
         close_df  = _merge(cache['close'],  close_n)
         volume_df = _merge(cache['volume'], vol_n)
