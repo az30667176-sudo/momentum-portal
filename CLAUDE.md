@@ -702,6 +702,11 @@ git push
 - **原因**：盤後 GitHub Actions 跑 pipeline 時，yfinance 偶爾還沒提供當日收盤價（特別是美東 17:30 排程剛好卡邊界），但 pipeline 仍會把舊一日的價格當「今日」寫入
 - **修正**：`pipeline/main.py` 在抓完價格後比對 `close_to_date.index.max().date() < target_date`，若 yfinance 還沒到位就直接 return 不寫入，等下次排程重試
 
+### 18. 個股重複欄導致 reindex 崩潰（pipeline 連續失敗）— 2026-06-23
+- **症狀**：2026-06-22 ~ 06-23 daily pipeline 連續 3 次失敗，`Failed to load price data: Reindexing only valid with uniquely valued Index objects`（新版 pandas 措辭：`cannot reindex on an axis with duplicate labels`），緊接在 log 的 `ZWS：補回（13 天）` 之後
+- **原因**：`fetcher.py` 的補抓（補回）loop 重新抓某檔（這次是 **ZWS**）時，yfinance 偶爾把它回成重複/MultiIndex 欄 `('ZWS','ZWS')`，與批次下載那欄相撞 → DataFrame 出現**重複 ticker 欄** → 下一個 `reindex(columns=...)` 拋錯，整條 load 中止（`main.py:422`）。**非登入/secret 問題**：前數週皆成功，是同一壞資料每日重演才連續失敗（登入若壞會「每次都失敗」）。快取 parquet 本身乾淨，重複欄是執行期下載+補抓+merge 才產生
+- **修正**：`fetcher.py` 加 `_dedupe_cols()`（`df.loc[:, ~df.columns.duplicated(keep='last')]`，保留最新補抓那欄並 log 警告），套在 `_download_ohlcv` 補抓後 + `_merge` 合併後。無重複時 no-op，正常路徑零影響。任何「某檔變重複欄」的未來變形都一併擋掉。commit `ca73370`
+
 ---
 
 ## 常見問題
