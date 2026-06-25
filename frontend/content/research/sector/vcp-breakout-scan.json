@@ -1,75 +1,97 @@
 {
   "slug": "vcp-breakout-scan",
-  "issue": 2,
+  "issue": 3,
   "date": "2026-06-25",
   "snapshotDate": "2026-06-24",
-  "title": "VCP / 杯柄 / 突破掃描 v2：從強勢族群裡找「還沒漲飛的緊密底」",
-  "subtitle": "由上而下——先鎖定平台動能 mom≥70 的強勢族群，再在裡面找貼近高點、未延伸、緊密橫盤（或剛突破）的形態股。每檔可點進看 K 線。",
+  "title": "VCP / 杯柄 / 突破掃描 v3：未漲飛的緊密底 ＋ 強勢產業領導股，兩組並陳",
+  "subtitle": "由上而下鎖定平台動能強勢族群，分兩組：A=還沒漲飛的緊密底/剛突破；B=熱門族群（mom≥80）裡符合形態、但可能已稍延伸的領導股。每檔可點進看 K 線。",
   "imageDir": "/research/sector/vcp-breakout-scan",
   "coverImage": "01_setups.png",
   "intro": [
-    "這是 v2 重做。v1 的清單很怪——塞了一堆公用事業、銀行、房貸 REIT，因為舊演算法只篩「夠緊」，而**低波動的慢牛天生就緊**，根本不是真 VCP。v2 改用兩個正確的支柱：**① 動能用平台自己的 mom_score**（不自己亂算）；**② 由上而下——先鎖定 mom≥70 的強勢『族群』，再在裡面找形態股**（你要的「從動能高的產業找」）。",
-    "**而且只留『還沒漲飛』的**：價格必須貼近 52 週高（8% 內）、站上 50/150/200 均線、但**離 50 日均線不超過 9%**（還在底部、沒延伸），且近 25 日是**緊密橫盤**（區間 <13%）——這條專門排除「漲一波後回落到均線」的回檔（那不是底）。形態判斷用**帶狀漸進收縮**（T1>T2>T3，Minervini 的 VCP 靈魂）+ 杯柄 U 型偵測。另外也收**剛突破 1-3 天**、還沒跑遠的領導股。最後一關由 **AI 看圖**確認像不像教科書範例、濾掉雜訊。",
-    "**一個你該知道的市場真相（不是演算法的問題）**：嚴格「mom≥80 族群 + 未漲飛緊密底」現在**幾乎是空的，只有 2 檔**——因為熱門族群（AI、半導體、光通訊）裡的股票**多半已經漲上去了**，這正是它們讓族群變熱的原因。「還沒漲飛」的，反而是強勢但**偏防禦/景氣循環**族群（特殊 REIT、工業、運輸）裡的潛伏股。放寬到 mom≥70 才湊出下面這 8 檔。**現在那種『AI 成長 + 緊密底 + 還沒突破』像範例的標的，市場上很稀少——強的都噴了。**",
-    "**AI 看圖後的分層**：🟢 最像範例——**IRM**（特殊 REIT，VCP 帶狀收縮 [13.9→6.9→5.6]，最乾淨的 coil）、**ROK**（工業，杯柄）、**OUT**（特殊 REIT，緊密橫盤底）、**OSW**（休閒，剛帶量突破）；🟡 邊緣——JBHT（貨運，偏回檔）；⚪ 較弱——MATX/MRTN/NTCT（中段震盪、不夠乾淨）。",
-    "**這不是買入清單。** 緊密底要等**帶量突破樞紐**才算啟動；剛突破的（OSW）則看回測不破。每檔點「看線圖」進個股 K 線頁自己確認。流動性/部位自行把關。"
+    "v3 把清單拆成**兩組**，回應「除了未漲飛的，強勢產業符合形態的也要看」：",
+    "**🅰 未漲飛緊密底 / 剛突破**（族群 mom≥70、離 50 日均線 <9%）——還在底部、沒延伸的 coiler，或剛帶量突破 1-3 天的。這是「進場點最早」的一組。**🅱 強勢產業領導股**（族群 mom≥**80** 的熱門群組、符合 VCP/杯柄/突破、但**允許已延伸到離均線 30% 內**）——這些是已經漲一波的真領導股，你要求「強勢產業符合 filter 的也加進來」，就在這組。",
+    "**方法**：動能用平台 mom_score（個股 + sub-industry），由上而下先篩強勢族群；形態用**帶狀漸進收縮**（T1>T2>T3）+ 杯型 U 偵測；最後 AI 看圖確認像不像範例、濾雜訊。",
+    "**AI 看圖後的精選**：🅰 組——**IRM**（特殊 REIT，VCP 帶狀 [13.9→6.9→5.6]，最乾淨 coil）、**OSW**（休閒，剛突破）、**ROK**（工業，杯柄）、**ELV**（健保，杯後近高）、**OUT**（特殊 REIT，緊密底）。🅱 組——**BHE**（EMS 族群 82，+107% 領導股 VCP [35.6→9.5→11.2]）、**PLXS**（EMS 82，VCP）最乾淨；CNC 是深 V 反轉（剔）、WERN 邊緣。",
+    "**仍非買入清單**：🅰 等帶量突破樞紐；🅱 已延伸，追高風險較大，看回測支撐。每檔點「看線圖」自行確認。流動性/部位自負。"
   ],
   "exhibits": [
     {
       "number": 1,
-      "title": "信念分排名（點任一檔看 K 線）",
+      "title": "全部候選 · 信念分排名（點任一檔看 K 線）",
       "image": "",
-      "caption": "score = 形態品質(收縮/杯柄/突破) + 族群動能 + 貼樞紐 + 未延伸 + 量縮的綜合分。點任一列跳該股 K 線頁。secMom = 該股所屬 sub-industry 的平台動能。",
-      "body": "**全部來自 mom≥70 的強勢族群、且未漲飛（離 50 日均線 <9%）。** 分數高 = 形態越乾淨、越貼樞紐、族群越強。但**請對照下方 AI 視覺分層**：IRM/ROK/OUT/OSW 視覺最像範例；MATX/MRTN/NTCT 分數雖有但中段較雜，打折看。",
+      "caption": "13 檔（A 緊密底 9 + B 強勢領導 4）。score = 形態 + 族群動能 + 貼樞紐 + 未延伸 + 量縮。點任一列跳 K 線頁。secMom = 該股 sub-industry 平台動能。",
+      "body": "🅰 = IRM/OSW/ROK/ELV/JBHT/OUT/MRTN/MATX/NTCT（未漲飛，離均線 <9%）。🅱 = BHE/PLXS/CNC/WERN（強勢族群 mom≥80，可能已延伸 8-14%）。**對照下方 AI 分層**：IRM/BHE/PLXS/ROK/ELV/OSW/OUT 視覺最乾淨；CNC(深V) 與 MRTN/MATX/NTCT(中段雜) 打折。",
       "chartData": {
         "type": "hbar",
         "xLabel": "形態信念分（0-100）",
         "xUnit": "",
         "items": [
-          { "label": "IRM", "value": 55.5, "href": "/stock/IRM" },
-          { "label": "OSW", "value": 47.6, "href": "/stock/OSW" },
-          { "label": "ROK", "value": 34.3, "href": "/stock/ROK" },
-          { "label": "OUT", "value": 29.3, "href": "/stock/OUT" },
-          { "label": "JBHT", "value": 25.0, "href": "/stock/JBHT" },
-          { "label": "MATX", "value": 21.2, "href": "/stock/MATX" },
-          { "label": "MRTN", "value": 14.6, "href": "/stock/MRTN" },
-          { "label": "NTCT", "value": 7.2, "href": "/stock/NTCT" }
+          { "label": "IRM", "value": 63.5, "href": "/stock/IRM" },
+          { "label": "OSW", "value": 56.2, "href": "/stock/OSW" },
+          { "label": "BHE", "value": 55.9, "href": "/stock/BHE" },
+          { "label": "ROK", "value": 50.1, "href": "/stock/ROK" },
+          { "label": "ELV", "value": 49.5, "href": "/stock/ELV" },
+          { "label": "PLXS", "value": 47.4, "href": "/stock/PLXS" },
+          { "label": "CNC", "value": 46.8, "href": "/stock/CNC" },
+          { "label": "JBHT", "value": 45.9, "href": "/stock/JBHT" },
+          { "label": "OUT", "value": 44.3, "href": "/stock/OUT" },
+          { "label": "WERN", "value": 43.9, "href": "/stock/WERN" },
+          { "label": "MRTN", "value": 35.5, "href": "/stock/MRTN" },
+          { "label": "MATX", "value": 35.2, "href": "/stock/MATX" },
+          { "label": "NTCT", "value": 25.3, "href": "/stock/NTCT" }
         ]
       },
       "links": [
         { "label": "IRM", "href": "/stock/IRM" },
+        { "label": "BHE", "href": "/stock/BHE" },
+        { "label": "PLXS", "href": "/stock/PLXS" },
         { "label": "ROK", "href": "/stock/ROK" },
-        { "label": "OUT", "href": "/stock/OUT" },
+        { "label": "ELV", "href": "/stock/ELV" },
         { "label": "OSW", "href": "/stock/OSW" }
       ]
     },
     {
       "number": 2,
-      "title": "🟢 最像範例的 4 檔 + 全部候選 K 線",
+      "title": "🅰 未漲飛緊密底 / 剛突破（離均線 <9%）",
       "image": "01_setups.png",
-      "caption": "8 檔候選的 K 線（含 50/150/200 MA + 量）。標題附 score / mom / 形態 flag / 收縮序列。點下方標籤進個股 K 線頁確認形態。",
-      "body": "**🟢 IRM**（Iron Mountain，特殊 REIT，族群 mom 75）— 強漲後高檔**帶狀收縮 [13.9→6.9→5.6]**，一波比一波窄，最乾淨的 VCP coil，貼樞紐未延伸。\n\n**🟢 ROK**（Rockwell，工業自動化，族群 75）— 杯後近高緊密整理，杯柄型。\n\n**🟢 OUT**（Outfront，特殊 REIT，族群 75）— 高檔緊密橫盤底 [9.1→9→6.4]。\n\n**🟢 OSW**（OneSpaWorld，休閒，族群 80）— **剛帶量突破**（option 3 那型），離均線 12.6% 是突破彈高、仍算新鮮；看回測不破。\n\n**🟡 JBHT**（貨運，族群 82）— 偏「回落到均線」的回檔多於緊密底，邊緣。\n\n**⚪ MATX / MRTN / NTCT** — 中段震盪、收縮序列不乾淨（如 NTCT [8.4→18.6→10.7] 中間反而變寬），視覺較雜，列出但不優先。",
+      "caption": "K 線一覽（含 50/150/200 MA + 量），標題附 score/mom/形態/收縮序列。上排為 🅰 組。",
+      "body": "**IRM**（特殊 REIT，族群 74）— 強漲後高檔**帶狀收縮 [13.9→6.9→5.6]**，一波比一波窄，最乾淨 VCP coil，貼樞紐未延伸。\n\n**OSW**（休閒，族群 80）— **剛帶量突破**，離均線 12.6% 是突破彈高、仍新鮮，看回測不破。\n\n**ROK**（工業自動化，族群 75）— 杯後近高緊密整理，杯柄型。\n\n**ELV**（Elevance，健保，族群 82）— 杯型修復回近高後收斂 [21→8.6→9.1]，離均線僅 1.4% 最不延伸。\n\n**OUT**（Outfront，特殊 REIT）— 高檔緊密橫盤底。\n\n**⚪ JBHT/MRTN/MATX/NTCT** — 偏回檔或中段震盪，列出但不優先。",
       "links": [
         { "label": "IRM", "href": "/stock/IRM" },
-        { "label": "ROK", "href": "/stock/ROK" },
-        { "label": "OUT", "href": "/stock/OUT" },
         { "label": "OSW", "href": "/stock/OSW" },
+        { "label": "ROK", "href": "/stock/ROK" },
+        { "label": "ELV", "href": "/stock/ELV" },
+        { "label": "OUT", "href": "/stock/OUT" },
         { "label": "JBHT", "href": "/stock/JBHT" },
-        { "label": "MATX", "href": "/stock/MATX" },
         { "label": "MRTN", "href": "/stock/MRTN" },
+        { "label": "MATX", "href": "/stock/MATX" },
         { "label": "NTCT", "href": "/stock/NTCT" }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "🅱 強勢產業領導股 · 符合形態但可能已延伸（族群 mom≥80）",
+      "image": "",
+      "caption": "下排為 🅱 組（見上圖後四張）。這些在 mom≥80 熱門族群、有 VCP 形態，但已漲一波、離均線 8-14%——追高風險較大，看回測支撐。",
+      "body": "**🟢 BHE**（Benchmark，EMS 族群 82，+107%）— 真領導股 VCP **[35.6→9.5→11.2]**，強漲後高檔收縮，離均線 12% 算溫和延伸。\n\n**🟢 PLXS**（Plexus，EMS 82，+87%）— 穩定領導股 VCP [20→9.2→12]，離均線僅 8%，是 🅱 裡最不延伸的。\n\n**🔴 CNC**（Centene，健保 82）— 收縮數字漂亮但**形態是深 V 反轉**（中段大跌再拉回），是困境反轉非乾淨領導 VCP，**剔除**。\n\n**🟡 WERN**（Werner，貨運 82）— VCP 但偏「漲完回落」，邊緣。\n\n（為什麼沒有 KLIC 那種 AI 名？它們多半離均線 >30% = 漲太遠被排除，或其 sub-industry mom 未達 80。強勢族群裡『還沒延伸太遠』的領導股，就是 BHE/PLXS 這幾檔。）",
+      "links": [
+        { "label": "BHE", "href": "/stock/BHE" },
+        { "label": "PLXS", "href": "/stock/PLXS" },
+        { "label": "CNC", "href": "/stock/CNC" },
+        { "label": "WERN", "href": "/stock/WERN" }
       ]
     }
   ],
   "actions": [
-    "**不是買入清單。** 緊密底（IRM/ROK/OUT）要等**帶量突破樞紐**才算啟動；剛突破的（OSW）看回測不破再考慮。",
-    "**優先 AI 視覺分層**：IRM/ROK/OUT/OSW > JBHT > MATX/MRTN/NTCT。視覺乾淨度優先於分數。",
-    "**市場狀態提醒**：現在強勢的緊密底多在**防禦/景氣循環**族群（REIT/工業/運輸），不是 AI 成長名——因為 AI 強名都已漲飛。若要 AI 名，得接受『剛突破』而非『純底部』。",
-    "**進場紀律**：每檔點「看線圖」進 /stock/ 頁確認形態與量能；流動性/部位自行把關。掃描範圍為 S&P1500，小型股不在內。"
+    "**不是買入清單。** 🅰 組等帶量突破樞紐才啟動；🅱 組已延伸、追高風險大，看回測支撐再考慮。",
+    "**AI 視覺精選優先**：IRM/BHE/PLXS/ROK/ELV/OSW/OUT 最乾淨；CNC(深V)、MRTN/MATX/NTCT(雜) 打折。",
+    "**兩組定位不同**：🅰 = 進場最早（底部未飛）；🅱 = 已是領導股、形態確認但價格較高。依你風險偏好選。",
+    "**市場狀態**：嚴格 mom≥80 族群 + 完全未漲飛幾乎沒有（強名都飛了），故 🅱 放寬到『延伸 <30%』才看得到領導股；真正 AI 成長名多半已 >30% 延伸，不在此列。",
+    "**每檔點「看線圖」進 /stock/ 確認形態與量能；流動性/部位自負。掃描範圍 S&P1500，小型股不在內。**"
   ],
   "sources": [
-    { "title": "pattern-scanner v2 — 由上而下熱門族群 + 未漲飛緊密底（平台 mom_score + 帶狀收縮 + AI 視覺確認）", "url": "https://momentum-portal-tau.vercel.app/research/sector" },
-    { "title": "動能來源：momentum-portal 平台 mom_score（sub-industry ≥70 強勢族群，2026-06-24 快照）", "url": "https://momentum-portal-tau.vercel.app/" },
+    { "title": "pattern-scanner v3 — 兩組(未漲飛緊密底 + 強勢產業領導股) · 平台 mom_score + 帶狀收縮 + AI 視覺確認", "url": "https://momentum-portal-tau.vercel.app/research/sector" },
+    { "title": "動能來源：momentum-portal 平台 mom_score（個股 + sub-industry，2026-06-24 快照）", "url": "https://momentum-portal-tau.vercel.app/" },
     { "title": "方法論：Mark Minervini 趨勢模板 + VCP 帶狀波動收縮", "url": "https://www.minervini.com/" }
   ]
 }
