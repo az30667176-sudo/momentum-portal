@@ -1,0 +1,107 @@
+{
+  "slug": "vcp-breakout-scan",
+  "issue": 1,
+  "date": "2026-06-24",
+  "snapshotDate": "2026-06-23",
+  "title": "VCP / 杯柄 / 區間突破掃描：1,500 檔裡正在收斂的 setup",
+  "subtitle": "演算法掃全 universe + AI 視覺確認形態品質——哪些股票正在底部收斂、量縮、貼近突破樞紐？每檔可點進看 K 線。",
+  "imageDir": "/research/sector/vcp-breakout-scan",
+  "coverImage": "01_top12.png",
+  "intro": [
+    "這份掃描在問一個很具體的問題：**1,504 檔 S&P 1500 裡，哪些正在形成「盤整 → 帶量突破」的經典 setup？** 三種形態都屬同一家族——**VCP（波動收縮）**：一段越縮越緊的整理、量縮到底、貼近樞紐；**杯柄**：圓弧底回升到接近左緣後、再一個小回檔；**區間突破**：價格剛帶量站上整理區高點。它們都是動能股在「爆發前」最值得盯的姿態。",
+    "**方法用混合架構（hybrid），不是純丟給 AI 看圖。** 第一關用**演算法**掃全 universe 的 OHLCV——這是 1,500 檔主篩的正確工具，快、準、可重現：先過 Minervini 趨勢模板閘（價站上 50/150/200 日均線、200 日上彎、距 52 週高 ≤25%、距 52 週低 ≥30%，確保是「上升趨勢中的整理」而非接刀），再量化**波動收縮（ATR 今 vs 6 週前）＋ 量縮（近 10 日 vs 前 40 日）＋ 貼近樞紐**，合成 0–100 信念分。第二關才用 **AI 視覺確認**：把演算法篩出的名單渲染成 K 線圖，用 vision 逐張判形態品質、濾掉假陽性。純 LLM 掃 1,500 檔當主篩是錯的工具（貴、慢、測不準收縮%），它的價值在第二關的「人眼級確認」。",
+    "**視覺確認後的分層（這是這份報告的真正價值——濾掉演算法的假陽性）：** 🟢 **Tier A 最乾淨**——CPRX（極緊 VCP 線圈、貼 52 週高，全場最佳）、WST（漂亮圓弧底/杯）、CWEN-A（高檔緊旗）、SCHL、EBAY；🟡 **Tier B 紮實**——CZR、RAMP（跳空後築底）、AIZ、OPLN、MNST、LQDT、PBI、ETR、WAB；🟠 **Tier C 偏底部反轉**（非高位 VCP，信念較低）——AES、EIX、MGM、CRI、PGNY。",
+    "**一個誠實的紀錄**：下方信念分排名是**演算法的原始輸出**。其中 TWO、SEM 分數很高，但視覺檢查後它們其實是房貸 REIT／醫療復健股，形態有效但**性格溫吞**（不像會爆發）——我一度在小圖把它們誤判成除權假象，是演算法的精確數據（單日最大跳動僅 13.7%／11.1%，無大棒）把我糾正回來。這正是混合架構雙向把關的意義：AI 濾演算法的假形態，演算法也校 AI 的看走眼。",
+    "**這不是買入清單。** 多數標的還在「收斂」階段、尚未突破——要等帶量站上樞紐才算啟動。每檔下方都有「看線圖」連結，點進去看實際 K 線自己判斷。流動性與部位請自行把關（掃描不含流動性深度過濾）。"
+  ],
+  "exhibits": [
+    {
+      "number": 1,
+      "title": "形態信念分排名（點任一檔看 K 線）",
+      "image": "",
+      "caption": "演算法 0–100 分 = 緊密度(28) + 量縮(24) + ATR 收縮(20) + 貼樞紐/突破(28)。分數高 = 整理越緊、量越縮、越貼近突破點。點任一列跳到該股 K 線頁。",
+      "body": "信念分排名是**演算法的客觀輸出**，反映「形態有多緊、多接近突破」，不代表基本面或必漲。**請對照上方的視覺分層使用**——分數高但視覺偏弱的（如 TWO/SEM 性格溫吞、HZO/CUBI 整理偏寬）要打折；視覺乾淨的（CPRX/WST/SCHL）即使分數不是最高也值得優先看。**真正的進場訊號是帶量突破樞紐，不是高信念分本身。**",
+      "chartData": {
+        "type": "hbar",
+        "xLabel": "形態信念分（0-100）",
+        "xUnit": "",
+        "items": [
+          { "label": "CWEN-A", "value": 95.4, "href": "/stock/CWEN-A" },
+          { "label": "CPRX", "value": 92.0, "href": "/stock/CPRX" },
+          { "label": "CZR", "value": 90.8, "href": "/stock/CZR" },
+          { "label": "RAMP", "value": 87.5, "href": "/stock/RAMP" },
+          { "label": "TWO", "value": 83.2, "href": "/stock/TWO" },
+          { "label": "AES", "value": 80.6, "href": "/stock/AES" },
+          { "label": "SEM", "value": 70.5, "href": "/stock/SEM" },
+          { "label": "WST", "value": 65.3, "href": "/stock/WST" },
+          { "label": "HZO", "value": 64.5, "href": "/stock/HZO" },
+          { "label": "CUBI", "value": 63.0, "href": "/stock/CUBI" },
+          { "label": "SCHL", "value": 62.3, "href": "/stock/SCHL" },
+          { "label": "CRI", "value": 59.8, "href": "/stock/CRI" },
+          { "label": "AIZ", "value": 58.1, "href": "/stock/AIZ" },
+          { "label": "MNST", "value": 58.0, "href": "/stock/MNST" },
+          { "label": "OPLN", "value": 56.9, "href": "/stock/OPLN" },
+          { "label": "MGM", "value": 56.7, "href": "/stock/MGM" },
+          { "label": "EBAY", "value": 56.4, "href": "/stock/EBAY" },
+          { "label": "EIX", "value": 54.8, "href": "/stock/EIX" }
+        ]
+      },
+      "links": [
+        { "label": "CPRX", "href": "/stock/CPRX" },
+        { "label": "WST", "href": "/stock/WST" },
+        { "label": "CWEN-A", "href": "/stock/CWEN-A" },
+        { "label": "SCHL", "href": "/stock/SCHL" },
+        { "label": "EBAY", "href": "/stock/EBAY" }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "🟢 Tier A — 最乾淨的高位 VCP / 底（K 線一覽）",
+      "image": "01_top12.png",
+      "caption": "信念分前 12 檔的 K 線（含 50/150/200 MA + 量）。每張標題附 score / 形態 flag / 緊密度 / 量縮 / 距 52 週高。點下方標籤進個股 K 線頁。",
+      "body": "**CPRX（92，VCP）** — 全場最乾淨：強勢上升後在 52 週高極緊密線圈、右側幾乎水平、量縮，教科書級「樞紐處的 coil」。\n\n**WST（65，VCP+杯柄）** — 漂亮的圓弧底/杯，回升到接近高點後緊縮，最像杯柄的一檔。\n\n**CWEN-A（95，VCP+杯柄）** — 沿 50 日均線穩漲後高檔緊密旗形整理，整理偏短但乾淨。\n\n**SCHL（62）／EBAY（56）** — 兩檔都是近高處的緊密收斂，量縮、貼樞紐，是穩健的續勢 setup。\n\n進場紀律：**等帶量站上各自的整理區高點**再動，別在收斂中段追。",
+      "links": [
+        { "label": "CPRX", "href": "/stock/CPRX" },
+        { "label": "WST", "href": "/stock/WST" },
+        { "label": "CWEN-A", "href": "/stock/CWEN-A" },
+        { "label": "SCHL", "href": "/stock/SCHL" },
+        { "label": "EBAY", "href": "/stock/EBAY" }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "🟡 Tier B 紮實 / 🟠 Tier C 底部反轉（K 線一覽）",
+      "image": "02_rank13-30.png",
+      "caption": "信念分 13–30 名的 K 線。Tier B 是紮實的底部/突破 setup；Tier C 偏「長空後的底部反轉」，趨勢模板過得勉強、信念較低。點標籤進個股 K 線頁。",
+      "body": "**🟡 Tier B（紮實）**：CZR、RAMP（財報跳空後築底的高緊旗）、AIZ、OPLN、MNST（杯）、LQDT、PBI、ETR（低波動公用事業型 VCP）、WAB——這些都是上升趨勢中的合理整理，量縮、貼近樞紐，但緊密度或位置略遜 Tier A。\n\n**🟠 Tier C（底部反轉，信念較低）**：AES、EIX、MGM、CRI、PGNY——這些比較像「長空後剛轉底」而非「既有上升趨勢中的高位 VCP」，200 日均線多半還在下彎或剛轉平。形態成立，但屬於「轉機」而非「續勢」，風報比與 Tier A 不同，需要更明確的突破確認。\n\n**STEL、IIPR 等量在放大**（非量縮），VCP 條件打折，列為候選但不優先。",
+      "links": [
+        { "label": "CZR", "href": "/stock/CZR" },
+        { "label": "RAMP", "href": "/stock/RAMP" },
+        { "label": "AIZ", "href": "/stock/AIZ" },
+        { "label": "OPLN", "href": "/stock/OPLN" },
+        { "label": "MNST", "href": "/stock/MNST" },
+        { "label": "LQDT", "href": "/stock/LQDT" },
+        { "label": "PBI", "href": "/stock/PBI" },
+        { "label": "ETR", "href": "/stock/ETR" },
+        { "label": "WAB", "href": "/stock/WAB" },
+        { "label": "AES", "href": "/stock/AES" },
+        { "label": "EIX", "href": "/stock/EIX" },
+        { "label": "MGM", "href": "/stock/MGM" },
+        { "label": "CRI", "href": "/stock/CRI" },
+        { "label": "PGNY", "href": "/stock/PGNY" }
+      ]
+    }
+  ],
+  "actions": [
+    "**這是觀察池，不是買入清單。** 多數標的還在收斂、尚未突破——進場訊號是「帶量站上整理區高點」，不是高信念分本身。",
+    "**優先順序**：Tier A（CPRX 最緊）> Tier B > Tier C。視覺乾淨度優先於演算法分數（分數高但視覺弱的 TWO/SEM/HZO 要打折）。",
+    "**進場紀律**：等回檔到樞紐下緣或帶量突破時才動，別在收斂中段追高。每檔點「看線圖」進 /stock/ 頁自行確認形態與量能。",
+    "**風險控管**：掃描不含流動性深度過濾，部位/流動性自行把關。已過濾單日 >40% 的除權/分割假象，但仍可能有性格溫吞股（房貸 REIT/醫療復健形態有效卻不易爆發）。",
+    "**Tier C 是轉機不是續勢**：AES/EIX/MGM 這類長空後剛轉底，風報比與高位 VCP 不同，需要更明確的突破 + 量能確認。"
+  ],
+  "sources": [
+    { "title": "pattern-scanner — 混合形態掃描（演算法 Stage-1 + AI vision Stage-2）", "url": "https://momentum-portal-tau.vercel.app/research/sector" },
+    { "title": "資料來源：momentum-portal prices.parquet（1,504 檔 S&P 1500 OHLCV，快照 2026-06-23）", "url": "https://momentum-portal-tau.vercel.app/" },
+    { "title": "方法論：Mark Minervini 趨勢模板 + VCP（波動收縮型態）", "url": "https://www.minervini.com/" }
+  ]
+}
