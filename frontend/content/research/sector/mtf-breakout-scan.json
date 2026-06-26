@@ -1,0 +1,100 @@
+{
+  "slug": "mtf-breakout-scan",
+  "issue": 4,
+  "date": "2026-06-25",
+  "snapshotDate": "2026-06-24",
+  "title": "月線＋日線雙確認突破掃描：題材熱 ＋ 多月大底突破 ＋ 帶量上抽（未漲飛）",
+  "subtitle": "新模型：要求月線（突破多月整理／前高、stage-2 在 10 月均線之上）與日線（剛帶量突破）兩個時間框架同時成立，再加題材熱度閘。掃出來的不是半導體——而是資金正在輪進的基建／旅遊／消費，因為半導體領導股都已漲飛。每檔可點進看 K 線。",
+  "imageDir": "/research/sector/mtf-breakout-scan",
+  "coverImage": "01_setups.png",
+  "intro": [
+    "這期回應一個更嚴格的要求：**找「突破區間整理／前高、然後帶量上抽」的股票，而且月線、日線型態都要符合，再符合可能的題材。** 前幾期的掃描只看日線；這期升級成**雙時間框架確認（mtf）**——月線負責確認大結構、日線負責確認上抽時機，兩個都過才算數。",
+    "**方法（S&P1500）**：① **月線**——把日線重採樣成月 K，要求站上**10 月均線（≈200 日，Weinstein stage-2 線）且均線走平翻揚**，且最新月 K **突破前 ~12 個月整理區的高點**（突破前高）。② **日線**——近 ~6 日內**帶量突破**底部高點（量 > 50 日均量 ×1.4）。③ **題材閘**——個股所屬 sub-industry 平台動能 `mom_score ≥ 70`（熱門族群）。④ **未漲飛**——離 50 日均線 < 30%。最後 AI 看 16 個月 K 線圖確認「多月大底 → 帶量突破」的型態乾不乾淨。",
+    "**最重要的發現**：現在平台動能最熱的三個族群是**半導體（90）、Tech Hardware／儲存（89）、半導體設備（88）**——但它們**一檔都沒進這份清單**。為什麼？因為這些 AI／記憶體領導股**早在幾個月前就突破了、現在離均線 >30% 已經漲飛**，被「未漲飛」這道閘擋掉。雙時間框架的『**新鮮**突破』天生會避開追高——這正是你自己的鐵律。",
+    "**所以掃出來的 11 檔，是資金正在輪進、剛從多月大底帶量突破、還沒漲飛的另一批題材**：🏗 **基建／實體建置**（GVA Granite、ACA Arcosa）—— 對應資料中心與電網的實體蓋設、製造業回流；🏨 **旅遊休閒復甦**（Hotel REITs：APLE／XHR／RHP，族群動能 86 最熱；加 OSW 郵輪 spa、LTH 健身、GOLF Titleist）；🛒 **消費韌性／服務**（WSM 威廉斯索諾瑪、CHEF 餐飲配銷、CON Concentra 職業醫療）。",
+    "**這不是買入清單。** 這些都已經突破、正在上抽，追高點要看回測樞紐不破再進；越往清單下方（CHEF／LTH）離大底越遠、越延伸。每檔點「看線圖」進 `/stock/` 自行確認量能與型態。流動性／部位自負。"
+  ],
+  "exhibits": [
+    {
+      "number": 1,
+      "title": "全部 11 檔 · 形態信念分排名（點任一檔看 K 線）",
+      "image": "",
+      "caption": "score = 形態品質 + 族群動能 + 貼樞紐 + 未延伸 + 量縮的綜合分。全部都已通過『月線突破多月底/前高 + 日線帶量突破 + 族群 mom≥70 + 未漲飛 <30%』四道閘。點任一列跳該股 K 線頁。",
+      "body": "信念分高的是**剛突破、最貼樞紐、最不延伸**的：**OSW**（剛帶量突破、離均線僅 12.6%，最新鮮）、**GVA**（乾淨的多月底→帶量突破）、**APLE**（族群動能 86 最熱）。越往下越延伸：**CHEF**（離大底 +23%、離 10 月線 +40%）、**LTH**（離均線 22.7%）已經抽離大底較遠，追高風險較大。",
+      "chartData": {
+        "type": "hbar",
+        "xLabel": "形態信念分（0-100）",
+        "xUnit": "",
+        "items": [
+          { "label": "OSW", "value": 52.9, "href": "/stock/OSW" },
+          { "label": "GVA", "value": 41.3, "href": "/stock/GVA" },
+          { "label": "APLE", "value": 41.1, "href": "/stock/APLE" },
+          { "label": "XHR", "value": 34.6, "href": "/stock/XHR" },
+          { "label": "RHP", "value": 33.1, "href": "/stock/RHP" },
+          { "label": "ACA", "value": 27.1, "href": "/stock/ACA" },
+          { "label": "CON", "value": 27.1, "href": "/stock/CON" },
+          { "label": "WSM", "value": 25.2, "href": "/stock/WSM" },
+          { "label": "GOLF", "value": 24.6, "href": "/stock/GOLF" },
+          { "label": "CHEF", "value": 24.2, "href": "/stock/CHEF" },
+          { "label": "LTH", "value": 18.2, "href": "/stock/LTH" }
+        ]
+      },
+      "links": [
+        { "label": "OSW", "href": "/stock/OSW" },
+        { "label": "GVA", "href": "/stock/GVA" },
+        { "label": "APLE", "href": "/stock/APLE" },
+        { "label": "XHR", "href": "/stock/XHR" },
+        { "label": "RHP", "href": "/stock/RHP" },
+        { "label": "GOLF", "href": "/stock/GOLF" }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "16 個月 K 線一覽 · 月線大底 → 帶量突破（AI 看圖確認）",
+      "image": "01_setups.png",
+      "caption": "每張為 16 個月日 K（含 50/150/200 日均線 + 量），視窗特意拉長到看得見『多月大底』。標題附 score/mom/形態。AI 看圖：多數是真實的『多月整理 → 近期帶量上抽』，少數偏 V 型反轉。",
+      "body": "🏗 **基建／實體建置**\n\n**GVA**（Granite Construction，營建工程，族群 73）— 乾淨的多月底→**帶量突破前高**（+10.8% over 基高），離均線 11.8% 溫和。公路、基建、資料中心場地工程。\n\n**ACA**（Arcosa，基建材料，族群 73）— 骨材／鋼構／風塔／駁船，深底後強力反彈突破。對應基建與電網實體蓋設。\n\n🏨 **旅遊休閒復甦**（族群動能最熱一組）\n\n**APLE／XHR／RHP**（Apple Hospitality／Xenia／Ryman，Hotel REITs，**族群 86**）— 三檔同題材，月線同步從多月底翻揚、站上 10 月線 +30%，旅遊現金流復甦。\n\n**OSW**（OneSpaWorld，郵輪 spa，族群 75）— **剛帶量突破**、最新鮮的一檔。**GOLF**（Acushnet／Titleist，族群 71）— **最貼樞紐**（離基高僅 +7.3%），剛要離開大底。**LTH**（Life Time 健身，族群 75）— 已較延伸。\n\n🛒 **消費韌性／服務**\n\n**WSM**（Williams-Sonoma，家居零售，族群 72）、**CHEF**（Chefs' Warehouse，餐飲配銷，族群 71、mom 84 最高但離大底 +23% 最延伸）、**CON**（Concentra，職業醫療診所，族群 76）。",
+      "links": [
+        { "label": "GVA", "href": "/stock/GVA" },
+        { "label": "ACA", "href": "/stock/ACA" },
+        { "label": "APLE", "href": "/stock/APLE" },
+        { "label": "XHR", "href": "/stock/XHR" },
+        { "label": "RHP", "href": "/stock/RHP" },
+        { "label": "OSW", "href": "/stock/OSW" },
+        { "label": "GOLF", "href": "/stock/GOLF" },
+        { "label": "LTH", "href": "/stock/LTH" },
+        { "label": "WSM", "href": "/stock/WSM" },
+        { "label": "CHEF", "href": "/stock/CHEF" },
+        { "label": "CON", "href": "/stock/CON" }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "為什麼沒有半導體？這是一個輪動訊號",
+      "image": "",
+      "caption": "平台動能 top-3 族群（半導體 90、儲存 89、半導體設備 88）一檔都沒進清單——不是漏掉，是它們已漲飛、被『未漲飛 <30%』閘擋掉。",
+      "body": "這份清單**最有價值的訊號，是它沒掃到什麼**：當所有人都在 AI／半導體／記憶體裡（而那些領導股離均線都 >30% 漲飛了），**真正剛從多月大底帶量突破、還沒漲飛的，是資金正在輪進的另一批題材**——基建（GVA/ACA）、旅遊（Hotel REITs）、消費韌性（WSM/CHEF）。\n\n**怎麼用**：🟢 **最早進場、最不延伸**——OSW（剛突破）、GVA（乾淨底突破）、GOLF（最貼樞紐）；🟡 **同題材成籃**——三檔 Hotel REITs（APLE/XHR/RHP）是同一個旅遊復甦故事，可當一籃子看；🔴 **已延伸、追高風險**——CHEF、LTH 離大底較遠，等回測。\n\n**想要半導體那種強勢題材股？** 那要看的是『已突破、強勢、可能已稍延伸』的領導股——那是前一期 **VCP/杯柄突破掃描 v3**（issue 3）的 🅱 組（BHE/PLXS 那批），不是這份『未漲飛新鮮突破』清單。兩份定位不同：這期 = 進場最早的輪動新星；上期 🅱 = 已確認的強勢領導股。",
+      "links": [
+        { "label": "OSW", "href": "/stock/OSW" },
+        { "label": "GVA", "href": "/stock/GVA" },
+        { "label": "GOLF", "href": "/stock/GOLF" },
+        { "label": "APLE", "href": "/stock/APLE" },
+        { "label": "XHR", "href": "/stock/XHR" },
+        { "label": "RHP", "href": "/stock/RHP" }
+      ]
+    }
+  ],
+  "actions": [
+    "**不是買入清單。** 11 檔都已突破、正在上抽；追高點看回測樞紐（前高／突破點）不破再考慮。",
+    "**最早進場、最不延伸的**：OSW（剛帶量突破）、GVA（乾淨多月底突破）、GOLF（離基高僅 +7%、最貼樞紐）。",
+    "**同題材一籃子**：APLE／XHR／RHP 三檔 Hotel REITs（族群動能 86 最熱）是同一個旅遊復甦故事，可一起看。",
+    "**已延伸、收斂部位**：CHEF（離大底 +23%、離 10 月線 +40%）、LTH（離均線 22.7%）漲離大底較遠，追高風險大。",
+    "**市場狀態 = 輪動**：最熱的半導體／儲存／半導體設備領導股都已漲飛（>30% 延伸），不在此列；想看那批強勢領導股請看 issue 3（VCP/杯柄突破 v3）的 🅱 組。",
+    "**每檔點「看線圖」進 /stock/ 確認月線結構與日線量能；掃描範圍 S&P1500，小型股不在內；流動性／部位自負。**"
+  ],
+  "sources": [
+    { "title": "pattern-scanner mtf 模式 — 月線突破多月底/前高(stage-2 在 10 月均線上) + 日線帶量突破 + 族群 mom≥70 題材閘 + 未漲飛 <30%", "url": "https://momentum-portal-tau.vercel.app/research/sector" },
+    { "title": "動能來源：momentum-portal 平台 mom_score（個股 + sub-industry，2026-06-24 快照）", "url": "https://momentum-portal-tau.vercel.app/" },
+    { "title": "方法論：Mark Minervini 趨勢模板 + Stan Weinstein Stage-2（10 月均線）多時間框架確認", "url": "https://www.minervini.com/" }
+  ]
+}
