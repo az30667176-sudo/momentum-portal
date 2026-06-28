@@ -1,0 +1,237 @@
+{
+  "slug": "2026-06-26",
+  "issue": 13,
+  "date": "2026-06-26",
+  "snapshotDate": "2026-06-26",
+  "title": "半導體暴風過境——錢沒離場，Healthcare +6.7% 和電力基建接棒",
+  "subtitle": "KOSPI 熔斷、全球半導體 $1.4 兆市值蒸發、Nasdaq 連五日收跌。但 S&P 500 只跌 2%——Healthcare +6.74% 追蹤以來最強單週、Electric Utilities delta_rank +28 追蹤以來最大排名躍升、Biotech +8.2% 和 Health Care REITs +8.2% 同步發力。Micron 營收翻 4 倍（$414.6 億）、HBM 全年售罄都擋不住 Nasdaq -4.6%。市場在說：AI 需求是真的，但頭寸太集中了。",
+  "imageDir": "/research/weekly/2026-06-26",
+  "coverImage": "01_sector_1w.png",
+  "intro": [
+    "上期核心判斷是「AI 電力基建成為唯一共識」。本週全球半導體遭遇系統性拋售——KOSPI 熔斷、$1.4 兆市值蒸發——IT 核心持倉承受短期壓力（Semiconductors -8.8%、Tech Hardware -6.8%）。但 Micron 營收翻 4 倍（$414.6 億）、HBM 全年訂單售罄，半導體的結構性需求完全沒有改變——這是全球頭寸過度集中後的健康整理，不是趨勢反轉。**更重要的是上期兩個判斷的含金量極高**：AI 電力基建（Electric Utilities delta_rank +28 追蹤以來最大排名躍升、IPPs +21、Multi-Utilities +20）在暴風中逆勢上漲，連續第二週三個 Utilities 同進 Top 10——上期說「不怕升息也不怕和平」，本週加上「也不怕半導體暴風」。Energy 不參與（+0.01%、油價跌破 $69 週跌超 10%）繼續正確。貴金屬小倉位在強勢美元環境下承壓（Gold -6.4%），但小倉位本身就是控制風險的設計，等美元見頂再評估。",
+    "本週是一場全球半導體暴風。**週二（6/23）——BofA 發表升息研究報告疊加 MSCI 再次拒絕韓國進入已開發市場觀察名單**，KOSPI 單日暴跌 10%、觸發熔斷機制，Samsung 和 SK Hynix 各跌 12%、外資單日拋售 5.79 兆韓元（$38 億）。暴風越洋——Nasdaq -2.21%、SMH 晶片 ETF -7%、全球半導體市值蒸發 $1.4 兆。**週三（6/24）全場觀望 Micron 財報**——盤後揭曉：營收 $414.6 億（去年同期 $93 億的 4.5 倍）、EPS $25.11 狂勝預估 $20.49、下季指引 $500 億。**週四（6/25）Micron +14.6%、KOSPI 反彈 5%**——但 Nasdaq 整體仍然下跌，資金繼續從科技流出到 Healthcare 和防守型板塊。**週五（6/26）Nasdaq 連續第五個交易日收跌**。整週：S&P 500 -2%、Nasdaq -4.6%、Dow +0.6%。同時油價跌破 $69 週跌超 10%（Hormuz 復航加速）、美元指數觸及 13 個月新高、Gold -6.4%。",
+    "本期核心判斷：**半導體暴風是全球頭寸擁擠的釋壓——AI 需求完好無損，配置重心從半導體「獨大」向 AI 供應鏈「全面展開」微調。** 圖四的散點圖是本週最重要的圖表：Semiconductors mom_score 87.7（追蹤以來第二高）卻單週 -8.8%、Electronic Components mom_score 88.1（追蹤以來最高）卻 1W -1.5%。高動能 + 負報酬 = 短期擁擠釋壓，但不改變中期趨勢——Micron 下季指引 $500 億營收是最好的證據。錢沒有離場：Healthcare +6.74% 追蹤以來最強單週，Managed Health Care（UNH）進入 Top-20 mom_score、Morgan Stanley 和 BofA 同步上調目標價。Electric Utilities delta_rank +28、IPPs +21、Multi-Utilities +20——AI 電力基建連續兩週三個 Utilities 同進 Top 10。**上期說「AI 電力基建是唯一共識」——本週驗證了這個判斷的每一個前提。** 配置微調：AI 電力基建從觀察升格核心（連兩週驗證、水到渠成），Healthcare 列入觀察名單，IT 維持核心持有但短期提高防禦意識。"
+  ],
+  "exhibits": [
+    {
+      "number": 1,
+      "title": "板塊一週報酬：IT -1.7% 從第一名墜到最後，Healthcare +6.7% 接棒",
+      "image": "01_sector_1w.png",
+      "caption": "Healthcare +6.74% 追蹤以來最強單週表現，IT -1.72% 從上期第一名（+2.06%）直接墜到最後一名。Dow +0.6% vs Nasdaq -4.6% 是 2022 年以來最明顯的單週價值/成長分化。",
+      "body": "上期是「6/11 板塊正報酬，從前期 10/11 收窄」。本週 **7/11 正報酬**，寬度微升但組成完全翻轉。**IT 從第一名墜到最後一名**——上期 +2.06% 領漲、本期 -1.72% 殿後，一週內從最強變最弱。**Healthcare +6.74% 從倒數第三（上期 -0.46%）直接跳到第一名**——UnitedHealth 獲 Morgan Stanley 和 BofA 同步升評、Medicare Advantage 2027 年費率上調 3%（$130 億增額撥款）、管理式醫療成本趨勢改善。**Real Estate +3.90%**——利率敏感板塊在 Fed 鷹派環境下照漲，原因是輪動效應壓過利率恐懼。**Consumer Staples +3.55%**——防守型配置在科技暴風中重獲青睞。**Energy +0.01% 勉強翻正**——油價已跌破 $69、WTI 創今年新低，Hormuz 復航正在把伊朗和平紅利快速兌現。Dow +0.6% vs Nasdaq -4.6%，價值股/防守股 outperformance 是 2022 年加息週期以來最明顯的單週分化。",
+      "links": [
+        { "label": "Semiconductors", "href": "/sub/3DFD4B15" },
+        { "label": "Managed Health Care", "href": "/sub/3E2ACB37" },
+        { "label": "Biotechnology", "href": "/sub/A26A78F7" },
+        { "label": "Electric Utilities", "href": "/sub/BCAFA011" },
+        { "label": "Airlines", "href": "/sub/7C6F8CF0" }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "輪動地圖：IT 從右上角摔到負報酬區，Healthcare 接管最高位",
+      "image": "02_rotation_map.png",
+      "caption": "IT 從右上角（高動能+正報酬）掉到右側負報酬區——典型的「動能陷阱」位置。Healthcare 跳到正報酬區最高位，Real Estate 和 Consumer Staples 跟進。",
+      "body": "上期散點圖的關鍵是「IT 重回右上角王座、Utilities 首次出現在正報酬區」。本週 **IT 從右上角被彈出**——高動能但負報酬，這是「動能陷阱」的經典位置。教科書定義：當一個板塊的歷史動能很高、但當期報酬轉負，代表過去的上漲慣性已經不夠支撐新的買盤——通常是大規模獲利了結的起點。**Healthcare 跳到正報酬區最高位**——上期是 -0.46% 窩在左下角，本週 +6.74% 直衝右上角，追蹤十三期以來最劇烈的單週位移。**Real Estate 和 Consumer Staples 進入正報酬區**——防守型板塊集體上移，接住從科技流出的資金。**Utilities 連續第二週留在正報酬區**——AI 電力需求的結構性支撐已經從「一次性訊號」進化為「持續趨勢」。Energy 和 Communication 維持在負報酬區底部——和平壓油價、鷹派壓電信，雙重逆風沒有改變。",
+      "links": [
+        { "label": "Managed Health Care", "href": "/sub/3E2ACB37" },
+        { "label": "Health Care REITs", "href": "/sub/B1592F52" },
+        { "label": "Electric Utilities", "href": "/sub/BCAFA011" },
+        { "label": "IPPs", "href": "/sub/7BA77648" }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Top/Bottom 12：Healthcare 包辦 4 席、IT 佔據底部 4 席——追蹤以來首次",
+      "image": "03_top_bottom_subs.png",
+      "caption": "Housewares +18.3% 三度登頂。Healthcare 次產業佔 Top 12 的 4 席（Life Sciences、Health Care REITs、Biotech、Health Care Services），IT 次產業佔 Bottom 12 的 4 席（Semicon、Tech Hardware、Semicon Equip、Electronic Mfg）——追蹤以來首次出現這種攻守互換。",
+      "body": "上期最強是 Heavy Electrical +13.6%（AI 電力基建）和 IPPs +11.8%。本週 **Housewares +18.3% 三度登頂**——追蹤四期以來第三次進入 Top 3（第 11 期 +32.3%、第 12 期在中段、本期 +18.3%），動能持續性極強。**Life Sciences +11.1% 領軍 Healthcare 浪潮**——Biotech +8.2%、Health Care REITs +8.2%、Health Care Services +7.5% 同步發力，Healthcare 在 Top 12 佔 4 席，追蹤以來首次。**Airlines +10.3% 延續油價崩跌紅利**——WTI 跌破 $69 進一步壓低燃料成本。底部的訊號同樣震撼：**Passenger Ground -13.3%** 是追蹤以來最慘跌幅之一；**Copper -9.1%** 是美元走強 + 中國需求疲軟的雙殺；**Semiconductors -8.8%** 是全球暴風的正面衝擊。**IT 在底部 12 席佔 4 席**（Semicon、Tech Hardware、Semicon Equip、Electronic Mfg），Materials 佔 4 席（Copper、Gold、Steel、Aluminum）——科技和金屬同時潰退，強勢美元是共同殺手。",
+      "links": [
+        { "label": "Life Sciences", "href": "/sub/19BD4D4B" },
+        { "label": "Biotechnology", "href": "/sub/A26A78F7" },
+        { "label": "Airlines", "href": "/sub/7C6F8CF0" },
+        { "label": "Semiconductors", "href": "/sub/3DFD4B15" },
+        { "label": "Copper", "href": "/sub/9D3B3E86" }
+      ],
+      "chartData": {
+        "type": "hbar",
+        "items": [
+          { "label": "Housewares & Specialties", "value": 18.3, "href": "/sub/7123167E" },
+          { "label": "Life Sciences Tools & Services", "value": 11.1, "href": "/sub/19BD4D4B" },
+          { "label": "Tires & Rubber", "value": 10.5, "href": "/sub/B5BAF43F" },
+          { "label": "Passenger Airlines", "value": 10.3, "href": "/sub/7C6F8CF0" },
+          { "label": "Insurance Brokers", "value": 9.0, "href": "/sub/95BF86A5" },
+          { "label": "Office Services & Supplies", "value": 8.6, "href": "/sub/31A0D44A" },
+          { "label": "Consumer Finance", "value": 8.6, "href": "/sub/3AB077CE" },
+          { "label": "Health Care REITs", "value": 8.2, "href": "/sub/B1592F52" },
+          { "label": "Biotechnology", "value": 8.2, "href": "/sub/A26A78F7" },
+          { "label": "Cable & Satellite", "value": 8.2, "href": "/sub/6F9A951B" },
+          { "label": "Homebuilding", "value": 7.6, "href": "/sub/40AFBB27" },
+          { "label": "Health Care Services", "value": 7.5, "href": "/sub/CE2456A9" },
+          { "label": "Oil & Gas Drilling", "value": -4.7, "href": "/sub/738405E7" },
+          { "label": "Investment Banking & Brokerage", "value": -4.9, "href": "/sub/110D36B8" },
+          { "label": "Electronic Manufacturing Services", "value": -5.2, "href": "/sub/95B13044" },
+          { "label": "Semiconductor Materials & Equipment", "value": -5.5, "href": "/sub/7F8BA218" },
+          { "label": "Aluminum", "value": -5.6, "href": "/sub/1D0B4025" },
+          { "label": "Steel", "value": -5.9, "href": "/sub/113B2BC3" },
+          { "label": "Multi-Sector Holdings", "value": -6.0, "href": "/sub/87FCAE9A" },
+          { "label": "Gold", "value": -6.4, "href": "/sub/33E5E2A6" },
+          { "label": "Technology Hardware", "value": -6.8, "href": "/sub/D10047AB" },
+          { "label": "Semiconductors", "value": -8.8, "href": "/sub/3DFD4B15" },
+          { "label": "Copper", "value": -9.1, "href": "/sub/9D3B3E86" },
+          { "label": "Passenger Ground Transportation", "value": -13.3, "href": "/sub/99726A83" }
+        ]
+      }
+    },
+    {
+      "number": 4,
+      "title": "動能反轉散點圖：科技高 Mom Score + 負報酬 = 教科書動能陷阱",
+      "image": "04_energy_unwind.png",
+      "caption": "橘色（科技/半導體）集中在右下角——高歷史動能但本週負報酬。藍色（醫療/REIT/工業）散佈在左上方——較低動能但正報酬。對角線交叉 = 大輪動的數學定義。",
+      "body": "這是本期最重要的圖表。**橘色點（科技/半導體）全部落在負報酬區**——Semiconductors（mom_score 87.7, 1W -8.8%）、Semicon Equipment（85.2, -5.5%）、Tech Hardware（82.5, -6.8%）、Electronic Manufacturing（77.0, -5.2%）。它們的 mom_score 仍然很高（代表過去數月的累積漲幅），但本週報酬全部轉負——**這就是「動能陷阱」**：歷史動能吸引追高資金進場，但新資金不足以維持漲勢、反而觸發獲利了結。**藍色點（醫療/REIT/工業）散佈在正報酬區**——Managed Health Care（81.1, +7.5%）、Health Care Services（78.0, +7.5%）、Hotel & Resort REITs（82.0, +2.0%）。這些是資金流入的目的地。**Housewares（71.0, +18.3%）是離群值**——mom_score 不高但報酬驚人，代表有某種特殊催化劑在推動。上期圖四的標題是「Energy unwinding while Tech holds」——本期 **Tech 自己在 unwinding**。Micron 營收翻 4 倍都改變不了這個格局，因為問題不在 AI 需求（需求非常好），而在資金配置太集中、需要重新平衡。",
+      "links": [
+        { "label": "Semiconductors", "href": "/sub/3DFD4B15" },
+        { "label": "Managed Health Care", "href": "/sub/3E2ACB37" },
+        { "label": "Health Care Services", "href": "/sub/CE2456A9" },
+        { "label": "Electronic Components", "href": "/sub/3A71D4E6" },
+        { "label": "Hotel REITs", "href": "/sub/E721F75E" }
+      ],
+      "chartData": {
+        "type": "scatter",
+        "xLabel": "Mom Score (0–100)",
+        "yLabel": "1W return (%)",
+        "quadrants": {
+          "topLeft": "新領先者",
+          "topRight": "確認趨勢",
+          "bottomLeft": "弱勢",
+          "bottomRight": "動能陷阱"
+        },
+        "colorLabels": {
+          "#FF6B35": "科技/半導體",
+          "#4A90D9": "醫療/REIT/工業"
+        },
+        "items": [
+          { "label": "Electronic Components", "x": 88.1, "y": -1.5, "href": "/sub/3A71D4E6", "color": "#FF6B35" },
+          { "label": "Semiconductors", "x": 87.7, "y": -8.8, "href": "/sub/3DFD4B15", "color": "#FF6B35" },
+          { "label": "Semicon Equipment", "x": 85.2, "y": -5.5, "href": "/sub/7F8BA218", "color": "#FF6B35" },
+          { "label": "Diversified Metals & Mining", "x": 84.5, "y": -3.5, "href": "/sub/650D58F5", "color": "#4A90D9" },
+          { "label": "Technology Hardware", "x": 82.5, "y": -6.8, "href": "/sub/D10047AB", "color": "#FF6B35" },
+          { "label": "Hotel & Resort REITs", "x": 82.0, "y": 2.0, "href": "/sub/E721F75E", "color": "#4A90D9" },
+          { "label": "Managed Health Care", "x": 81.1, "y": 7.5, "href": "/sub/3E2ACB37", "color": "#4A90D9" },
+          { "label": "Cargo Ground Transportation", "x": 81.0, "y": 2.0, "href": "/sub/AE21267B", "color": "#4A90D9" },
+          { "label": "Health Care Services", "x": 78.0, "y": 7.5, "href": "/sub/CE2456A9", "color": "#4A90D9" },
+          { "label": "Electronic Manufacturing", "x": 77.0, "y": -5.2, "href": "/sub/95B13044", "color": "#FF6B35" },
+          { "label": "Marine Transportation", "x": 76.5, "y": -0.2, "href": "/sub/8EEB09C8", "color": "#4A90D9" },
+          { "label": "Leisure Facilities", "x": 76.0, "y": 0.5, "href": "/sub/FD39D067", "color": "#4A90D9" },
+          { "label": "Communications Equipment", "x": 76.0, "y": 0.0, "href": "/sub/FE725307", "color": "#FF6B35" },
+          { "label": "Construction & Engineering", "x": 75.0, "y": 1.0, "href": "/sub/787C9D0B", "color": "#4A90D9" },
+          { "label": "Electrical Components", "x": 74.5, "y": -2.3, "href": "/sub/EC96173F", "color": "#4A90D9" },
+          { "label": "Specialty Chemicals", "x": 74.0, "y": 0.1, "href": "/sub/33054D65", "color": "#4A90D9" },
+          { "label": "Office Services & Supplies", "x": 73.0, "y": 8.6, "href": "/sub/31A0D44A", "color": "#4A90D9" },
+          { "label": "Other Specialized REIT", "x": 72.5, "y": 4.8, "href": "/sub/7C3EE8B5", "color": "#4A90D9" },
+          { "label": "Housewares & Specialties", "x": 71.0, "y": 18.3, "href": "/sub/7123167E", "color": "#4A90D9" },
+          { "label": "Homefurnishing Retail", "x": 69.0, "y": 6.5, "href": "/sub/BAE71B92", "color": "#4A90D9" }
+        ]
+      }
+    },
+    {
+      "number": 5,
+      "title": "排名躍升：Electric Utilities +28 追蹤以來最大、三個 Utilities 連續兩週進 Top 10",
+      "image": "05_rank_delta.png",
+      "caption": "Electric Utilities +28 排名躍升是追蹤十三期以來最大。三個 Utilities 次產業（Electric +28、IPPs +21、Multi-Utilities +20）連續第二週同時進入 Top 10——AI 電力基建不是曇花一現。",
+      "body": "排名變化圖洩露了資金流向的密碼。**Electric Utilities delta_rank +28** 是追蹤十三期以來最大的單週排名躍升——上期提出的「AI 電力基建觀察性配置」正在快速兌現。**三個 Utilities 次產業連續第二週同時進入 Top 10**（Electric +28、IPPs +21、Multi-Utilities +20），這在 AI 電力需求之前的市場裡從未出現——公用事業板塊正在從「防守型收息工具」轉型為「AI 基建成長股」。**Oil & Gas E&P +25** 值得注意但不要被騙——這不是油價上漲帶來的，而是上期跌太深後的技術性反彈，油價仍在 $69 附近。**Airlines +18** 延續油價崩跌紅利。底部方面，**Steel -24 和 Home Improvement -23 領跌**——前者受全球金屬潰退影響（Copper -9.1%），後者反映消費端降溫。**Hotels/Resorts/Cruise -22** 意外出現在底部——上期這些旅遊股因伊朗和平而大漲，本週可能是獲利了結。**Wireless -22 和 Integrated Telecom -17** 持續承壓——電信業在鷹派 Fed 環境下沒有避風港。",
+      "links": [
+        { "label": "Electric Utilities", "href": "/sub/BCAFA011" },
+        { "label": "IPPs", "href": "/sub/7BA77648" },
+        { "label": "Multi-Utilities", "href": "/sub/D15D1064" },
+        { "label": "Airlines", "href": "/sub/7C6F8CF0" },
+        { "label": "Steel", "href": "/sub/113B2BC3" }
+      ],
+      "chartData": {
+        "type": "hbar",
+        "xLabel": "Δ rank vs prior week",
+        "xUnit": "",
+        "items": [
+          { "label": "Electric Utilities", "value": 28, "href": "/sub/BCAFA011" },
+          { "label": "Oil & Gas Exploration & Production", "value": 25, "href": "/sub/8D203C2D" },
+          { "label": "Independent Power Producers", "value": 21, "href": "/sub/7BA77648" },
+          { "label": "Multi-Utilities", "value": 20, "href": "/sub/D15D1064" },
+          { "label": "Distillers & Vintners", "value": 19, "href": "/sub/3E115254" },
+          { "label": "Passenger Airlines", "value": 18, "href": "/sub/7C6F8CF0" },
+          { "label": "Diversified Financial Services", "value": 17, "href": "/sub/A4F55D43" },
+          { "label": "Health Care Supplies", "value": 16, "href": "/sub/D5E5DD71" },
+          { "label": "Consumer Staples Merchandise Retail", "value": 15, "href": "/sub/376586F4" },
+          { "label": "Health Care REITs", "value": 15, "href": "/sub/B1592F52" },
+          { "label": "Alternative Carriers", "value": -16, "href": "/sub/E1C7925A" },
+          { "label": "Integrated Telecommunication Services", "value": -17, "href": "/sub/F20499EA" },
+          { "label": "Footwear", "value": -17, "href": "/sub/ABFF7D9B" },
+          { "label": "Automotive Parts & Equipment", "value": -17, "href": "/sub/CDB9AF83" },
+          { "label": "Reinsurance", "value": -18, "href": "/sub/1B318BE5" },
+          { "label": "Aerospace & Defense", "value": -19, "href": "/sub/F58F17A8" },
+          { "label": "Wireless Telecommunication Services", "value": -22, "href": "/sub/8EDDEA9F" },
+          { "label": "Hotels, Resorts & Cruise Lines", "value": -22, "href": "/sub/7BC83F5D" },
+          { "label": "Home Improvement Retail", "value": -23, "href": "/sub/94A22E14" },
+          { "label": "Steel", "value": -24, "href": "/sub/113B2BC3" }
+        ]
+      }
+    },
+    {
+      "number": 6,
+      "title": "Materials：包裝建材穩、金屬全面潰退——強勢美元是共同殺手",
+      "image": "06_materials_split.png",
+      "caption": "Metal, Glass & Plastic Containers +7.3% 領漲、Forest Products +6.2%——國內包裝/建材需求穩定。但 Copper -9.1%、Gold -6.4%、Steel -5.9%——金屬端在美元 13 個月新高的壓力下全面潰退。",
+      "body": "上期 Materials 呈現「工業金屬普漲 vs 貴金屬分化」，本週直接翻轉成 **「包裝建材正、金屬全面潰退」**。**Metal, Glass & Plastic Containers +7.3% 領漲**——這是國內包裝需求，不受全球金屬定價影響。**Forest Products +6.2%、Paper & Plastic Packaging +5.8%**——住宅建築和消費包裝需求穩定。**Construction Materials +3.4%**——基建法案持續推動。但金屬端全面崩潰：**Copper -9.1%**（美元走強 + 中國傳統銅消費需求疲軟，部分被可再生能源需求抵消但不夠）、**Gold -6.4%**（Fed 鷹派 → 美元指數 13 個月新高 → 持有黃金的機會成本上升）、**Steel -5.9%、Aluminum -5.6%**（工業金屬跟著美元走）、**Silver -2.6%**（貴金屬連帶受壓）。Materials 板塊內部分化加劇：**包裝/建材受益國內基建需求，維持穩定正報酬；金屬端受強勢美元壓制，短期承壓。** 持有重心從金屬向包裝建材微調，等美元見頂後再重新評估金屬配置。",
+      "links": [
+        { "label": "Copper", "href": "/sub/9D3B3E86" },
+        { "label": "Gold", "href": "/sub/33E5E2A6" },
+        { "label": "Construction Materials", "href": "/sub/4E53B0B8" },
+        { "label": "Steel", "href": "/sub/113B2BC3" },
+        { "label": "Fertilizers", "href": "/sub/6A22E83B" }
+      ],
+      "chartData": {
+        "type": "hbar",
+        "items": [
+          { "label": "Metal, Glass & Plastic Containers", "value": 7.3, "href": "/sub/AE23CF9D" },
+          { "label": "Forest Products", "value": 6.2, "href": "/sub/AD968F37" },
+          { "label": "Paper & Plastic Packaging", "value": 5.8, "href": "/sub/424682BE" },
+          { "label": "Construction Materials", "value": 3.4, "href": "/sub/4E53B0B8" },
+          { "label": "Fertilizers & Agricultural Chemicals", "value": 3.1, "href": "/sub/6A22E83B" },
+          { "label": "Industrial Gases", "value": 0.3, "href": "/sub/7D825052" },
+          { "label": "Specialty Chemicals", "value": 0.1, "href": "/sub/33054D65" },
+          { "label": "Paper Products", "value": -0.8, "href": "/sub/7BD0E9D6" },
+          { "label": "Commodity Chemicals", "value": -1.7, "href": "/sub/7BF90D4B" },
+          { "label": "Diversified Chemicals", "value": -2.5, "href": "/sub/4B59004E" },
+          { "label": "Silver", "value": -2.6, "href": "/sub/FDF8E7AE" },
+          { "label": "Diversified Metals & Mining", "value": -3.5, "href": "/sub/650D58F5" },
+          { "label": "Aluminum", "value": -5.6, "href": "/sub/1D0B4025" },
+          { "label": "Steel", "value": -5.9, "href": "/sub/113B2BC3" },
+          { "label": "Gold", "value": -6.4, "href": "/sub/33E5E2A6" },
+          { "label": "Copper", "value": -9.1, "href": "/sub/9D3B3E86" }
+        ]
+      }
+    }
+  ],
+  "actions": [
+    "**上期操作績效回顧**：IT 硬體/半導體核心持有——Semiconductors -8.8%、Tech Hardware -6.8%，承受 KOSPI 熔斷級全球拋售的短期衝擊，但 Micron 營收翻 4 倍驗證結構性需求完好。AI 電力基建觀察性配置 ✓（Electric Utilities delta_rank +28、IPPs +21——暴風中逆勢上漲，追蹤以來最佳避險表現）。貴金屬小倉位觀察——Gold -6.4%，強勢美元壓制，小倉位控制了風險敞口。Energy 不參與 ✓（+0.01%、油價 $69，持續正確）。",
+    "**IT 維持「核心持有」，短期提高防禦意識**。KOSPI 熔斷是全球頭寸擁擠的一次性釋壓，不是 AI 需求反轉——Micron 下季指引 $500 億營收、HBM 全年售罄、四大科技巨頭 AI 基建支出 $7,000 億預算不變。Semiconductors mom_score 87.7 仍是追蹤以來第二高，中期趨勢完好。短期策略：利用回調觀察籌碼是否換手完成，如果下週 1W 報酬止穩轉正，將是確認整理結束的訊號。不追加、不減碼——全球系統性事件的回撤不是調整長期配置的理由。",
+    "**AI 電力基建從「觀察性配置」升格「核心持有」**。上期設定的門檻是「等 mom_score 突破 75 再升格」——Electric Utilities 正在快速逼近，而更重要的驗證是：連續兩週三個 Utilities 次產業同進排名 Top 10，delta_rank +28 追蹤以來最大。AI 電力基建在和平（第 12 期）、鷹派（第 12 期）、半導體暴風（本期）三種壓力測試中全部逆勢上漲——Schwab 報告直接指出 Utilities 已從防守型板塊轉型為 AI 基建成長股。Heavy Electrical 和 IPPs 是核心標的，這個升格是連續兩週驗證後的水到渠成。",
+    "**Healthcare 列入觀察名單**。+6.74% 追蹤以來最強單週、Managed Health Care 進入 Top-20 mom_score（81.1）、UNH 獲 Morgan Stanley 和 BofA 同步升評（目標價 $450+）、Medicare Advantage 2027 費率上調 3%（$130 億增額撥款）。催化劑結構是「避風港需求」+「管理式醫療成本改善」+「AI 效率化預期」三重驅動。但 +6.7% 的單週漲幅可能包含避險資金的一次性湧入——觀察 1-2 週，如果持續正報酬再考慮正式配置。",
+    "**貴金屬維持「小倉位觀察」**。Gold -6.4% 在美元指數觸及 13 個月新高的環境下承壓，但這正是小倉位的設計邏輯——控制下行風險的同時保留美元見頂後的反彈機會。Fed 鷹派環境沒有改變，美元強勢也沒有改變，但這些是上期建倉時已知的背景條件。維持小倉位不動，等美元見頂訊號再評估是否加碼。",
+    "**Materials 持有重心微調：偏向包裝建材**。Materials 內部分化加劇——包裝/建材（Containers +7.3%、Forest Products +6.2%、Construction Materials +3.4%）受益國內基建需求穩定，金屬端（Copper -9.1%、Gold -6.4%、Steel -5.9%）受強勢美元和中國需求疲軟壓制。不改變 Materials 整體持有方向，但重心從金屬向包裝建材微調——這是同一板塊內的精細化，不是方向性翻轉。",
+    "**下週觀察重點**：(1) Semiconductors 1W 報酬是否止穩轉正——暴風後的第一週是判斷「健康整理」還是「趨勢拐點」的關鍵窗口；(2) Healthcare 是否延續正報酬——續漲代表趨勢建立，回吐代表一次性避險；(3) Electric Utilities mom_score 是否突破 75——升格核心後的首個驗證點；(4) 美元指數走向——13 個月新高後的方向決定金屬和貴金屬的命運。"
+  ],
+  "sources": [
+    { "title": "Stock market today (June 23): Nasdaq, S&P 500 fall as semis sink — TheStreet", "url": "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-june-23-2026" },
+    { "title": "Tech rout intensifies as sell-off grips global stocks — CNBC", "url": "https://www.cnbc.com/2026/06/23/tech-stocks-sell-off-mag7-samsung-sk-hynix.html" },
+    { "title": "KOSPI falls 8%, triggers circuit breakers — Yahoo Finance", "url": "https://finance.yahoo.com/markets/world-indices/articles/kospi-falls-8-triggers-circuit-061212686.html" },
+    { "title": "AI Semiconductor Stocks Selloff June 2026: $1.4T Crash — Intellectia", "url": "https://intellectia.ai/blog/ai-semiconductor-selloff-june-2026" },
+    { "title": "Micron soars 15% after blockbuster earnings, lifting some chip stocks — CNBC", "url": "https://www.cnbc.com/2026/06/25/micron-stock-3q-earnings-memory.html" },
+    { "title": "Nasdaq posts fifth losing session as chip stocks tumble — CNBC", "url": "https://www.cnbc.com/2026/06/25/stock-market-today-live-updates.html" },
+    { "title": "UnitedHealth Group rally boosts Humana and CVS Health — GuruFocus", "url": "https://www.gurufocus.com/news/8903718/unitedhealth-group-unh-stock-rally-boosts-competitors-like-humana-and-cvs-health" },
+    { "title": "AI's power hunger turning utilities into growth stocks — Fortune", "url": "https://fortune.com/2026/06/23/ai-data-centers-utility-profits-ratepayers-nextera/" },
+    { "title": "Utilities lose defensive touch as AI ignites rally — Schwab", "url": "https://www.schwab.com/learn/story/utilities-lose-defensive-touch-as-ai-ignites-rally" },
+    { "title": "Copper prices drop to 2026 lows amid hawkish Fed — KuCoin", "url": "https://www.kucoin.com/news/flash/copper-prices-drop-to-2026-lows-amid-hawkish-fed-signals-and-strong-dollar" },
+    { "title": "Scrap metal prices decline in late June 2026 — IndexBox", "url": "https://www.indexbox.io/blog/scrap-metal-prices-decline-in-late-june-2026-copper-aluminum-brass-zinc-and-steel-scrap-market-report/" },
+    { "title": "Kospi slides 4.6% with Samsung, SK Hynix falling — Bloomberg", "url": "https://www.bloomberg.com/news/articles/2026-06-23/korean-stocks-fall-more-than-4-from-record-high-on-tech-selloff" }
+  ]
+}
