@@ -69,6 +69,20 @@
         { "label": "ACHC", "href": "/stock/ACHC" },
         { "label": "FTRE", "href": "/stock/FTRE" }
       ]
+    },
+    {
+      "number": 4,
+      "title": "完整 filter 輸出 · 更多反轉候選(尚未做 ER)＋ 醫療反轉觀察",
+      "image": "",
+      "caption": "放寬版 filter 全部輸出 ~23 檔;上方深入分析的是基本面已驗證子集,這裡是其餘候選(僅 filter 訊號、未做基本面),供延伸。點任一檔看 K 線。",
+      "body": "**🅱 落難反轉 — 新候選(有題材/故事)**：**UNH**(聯合健康,大型管理式醫療從高 −30% 落難反轉,DOJ/MLR 風暴後翻轉)⭐、**IART**(Integra 醫材轉機)、**AMN**(醫療人力派遣)、**PGNY**(生育福利)、**OMCL**(Omnicell 醫療自動化,🅰 回測 250MA)。\n\n**🅱 偏非題材轉機股**：SAFE(地租 REIT)、VSTS(制服租賃)、WSC(模組空間)、LEG(家具)、CRI(童裝)、IIPR(大麻 REIT);**🅰**:RNG(通訊軟體)、PARR/PSX(煉油)、DLX(印刷)。\n\n**💡 meta 觀察(重要)**：**🅱 落難反轉這組壓倒性是『醫療』** —— NEO/MRNA/ACHC/FTRE/IART/AMN/PGNY/UNH/VSTS 一大票。**整個醫療類股 2025 被政策/MLR/估值殺過頭,2026 正集體反轉** —— 值得注意的板塊輪動訊號。**最值得補 ER 的新標的 = UNH**(大型藍籌落難反轉,比小型轉機股投資級得多)。",
+      "links": [
+        { "label": "UNH", "href": "/stock/UNH" },
+        { "label": "OMCL", "href": "/stock/OMCL" },
+        { "label": "IART", "href": "/stock/IART" },
+        { "label": "AMN", "href": "/stock/AMN" },
+        { "label": "PGNY", "href": "/stock/PGNY" }
+      ]
     }
   ],
   "actions": [
