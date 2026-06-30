@@ -1,0 +1,87 @@
+{
+  "slug": "reversal-launch-scan",
+  "issue": 5,
+  "date": "2026-06-29",
+  "snapshotDate": "2026-06-27",
+  "title": "反轉啟動掃描：兩種「這幾天開始漲」的型態 ＋ 基本面驗證(ASTS / MRNA 式)",
+  "subtitle": "用 ASTS 與 MRNA 當校準範本,找深跌後剛轉強的題材股。兩種不同邏輯:🅰 回檔反彈(長多頭深回檔到上升長均線爆量彈回)/ 🅱 落難反轉(落難股創新 52 週高、200 日翻多)。每檔附基本面驗證(撐不撐得起反轉)+ Kronos 30D + 超連結看 K 線。",
+  "imageDir": "/research/sector/reversal-launch-scan",
+  "coverImage": "",
+  "intro": [
+    "前幾期掃「買點/突破」,這期換角度:**找深跌之後『這幾天剛開始漲』的題材股** —— 用兩檔近期實際發動的股票當校準範本:**ASTS(太空)與 MRNA(生技)**。關鍵是它們**技術邏輯不同,是兩種型態**:",
+    "**🅰 回檔反彈(ASTS 式)**:本來是**長期多頭**(200/250 日均線上升),深回檔到那條上升長均線、**這幾天爆量彈回**(ASTS 近5d +18.6%、站回均線),**還在 52 週高之下**(有空間)。**🅱 落難反轉(MRNA 式)**:**多年大跌的落難股**(距歷史高 −50~70%),打底翻轉、**創新 52 週高**(突破多年壓力)、200 日翻多、近月強勢(MRNA 近20d +41%)。",
+    "**方法**:掃全 S&P1500 + 題材小型股(yfinance),兩個偵測器各自抓 A/B 型態,要求**深跌離高 + 近期確認轉強(近5d/20d 放量上漲)**。再對每檔做**基本面驗證**:這個反轉是『真有基本面撐』、『催化劑/事件驅動』、還是『純技術超賣反彈』? —— 這是最重要的分層。",
+    "**最重要的發現**:技術反轉看起來都一樣,**但基本面差很多**。**🟢 CIEN 是唯一『反轉有真基本面撐』** —— Q2 營收 +40%、**有獲利**、guidance 上調到 $6.3B、backlog $7.7B、hyperscaler 占 1/3(AI 光通 interconnect);它的回檔其實是『財報 beat 卻跌 14%』的情緒錯殺,現在修正。**🔴 ASTS/PL/MRNA/FTRE 數字還很差**(pre-profit 或虧損),反轉靠的是里程碑/催化劑/超賣,不是基本面。",
+    "**⚠️ Kronos 30D 全部 Strong Bearish(但低信心)** —— 合理:這些**都剛噴上來**,模型在說『短線追高風險高、等回檔』。R5 鐵律:Kronos 只用在 30D/進場時機,不碰 12M 評價。**所以結論一致:反轉是真的、但別追噴出的那根,等回測再進。** 這不是買入清單,每檔點「看線圖」自行確認。"
+  ],
+  "exhibits": [
+    {
+      "number": 1,
+      "title": "反轉啟動候選 · 近期動能排名(點任一檔看 K 線)",
+      "image": "",
+      "caption": "近期轉強強度(近5d × 量比的綜合分)。🅰=回檔反彈、🅱=落難反轉。點任一列跳該股 K 線頁,自己看『深跌→轉強』的型態。",
+      "body": "**分數高 = 轉強最猛**:NEO(癌診,Natera 專利被判無效解鎖 RaDaR)、CIEN(光通,財報 beat)、MRNA(生技,流感 PDUFA)、OUST(光達)。但**分數高 ≠ 基本面好** —— 見下方驗證表。",
+      "chartData": {
+        "type": "hbar",
+        "xLabel": "近期轉強強度(0-100)",
+        "xUnit": "",
+        "items": [
+          { "label": "NEO", "value": 63.0, "href": "/stock/NEO" },
+          { "label": "MRNA", "value": 50.0, "href": "/stock/MRNA" },
+          { "label": "CIEN", "value": 44.0, "href": "/stock/CIEN" },
+          { "label": "ASTS", "value": 37.0, "href": "/stock/ASTS" },
+          { "label": "ACHC", "value": 33.0, "href": "/stock/ACHC" },
+          { "label": "PL", "value": 32.0, "href": "/stock/PL" },
+          { "label": "FTRE", "value": 31.0, "href": "/stock/FTRE" },
+          { "label": "OUST", "value": 24.0, "href": "/stock/OUST" }
+        ]
+      },
+      "links": [
+        { "label": "CIEN", "href": "/stock/CIEN" },
+        { "label": "NEO", "href": "/stock/NEO" },
+        { "label": "MRNA", "href": "/stock/MRNA" },
+        { "label": "ASTS", "href": "/stock/ASTS" },
+        { "label": "OUST", "href": "/stock/OUST" }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "🅰 回檔反彈(ASTS 式:長多頭深回檔 → 爆量彈回上升長均線)",
+      "image": "",
+      "caption": "本來多頭、深回檔到上升的 100/200/250 日均線、近5d 放量彈回、仍在 52 週高之下(有空間)。",
+      "body": "**🟢 CIEN $479**(光通,撐 100MA,近5d +12%,距52wH −24%)— **這組唯一真基本面撐**:Q2'26 營收 **+40% 到 $15.7億**、adj EPS $1.64(近 4 倍)、**OM 翻倍**、guidance 上調 $6.3B、**backlog $7.7B**、hyperscaler 占 1/3 + 直接雲端 +70%。回檔是『**beat 卻跌 14%**』情緒錯殺(預期太高),AI 光通 interconnect secular 沒變。**反轉有底氣。**\n\n**🔴 ASTS $87**(太空,撐 200MA,近5d +18.6%)— Q1 營收僅 $15M(pre-commercial)、虧 $250M。**衛星直連手機的里程碑賭注,無當期基本面**,純故事/技術反彈。\n\n**🔴 PL $31**(太空 Planet,撐 100MA,近5d +8.7%)— 營收 +42% 但虧損(OM −37%),國防/政府影像合約題材,故事股。",
+      "links": [
+        { "label": "CIEN", "href": "/stock/CIEN" },
+        { "label": "ASTS", "href": "/stock/ASTS" },
+        { "label": "PL", "href": "/stock/PL" }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "🅱 落難反轉(MRNA 式:落難股創新 52 週高 → 反轉啟動)",
+      "image": "",
+      "caption": "距歷史高 −50~70% 的落難股,打底後創新 52 週高、200 日翻多、近月強勢放量。",
+      "body": "**🟢 NEO $14**(癌症基因診斷,近5d +27%、近20d +39%,距歷史高 −32%)— **催化劑強**:聯邦法院判 **Natera 專利無效 → 解鎖 RaDaR ST 癌症檢測商業化**;Q1 營收 +11%、NGS +26%、guidance 上調。診斷題材 + 真催化劑。\n\n**🟢 OUST $54**(光達,近5d +13%,距歷史高 −67%)— **改善型轉機**:Q1 營收 **+49%**、毛利 42.9%(改善)、虧損收窄。光達在車用/工業/機器人採用。反轉有部分基本面撐。\n\n**🔴 MRNA $67**(生技,近20d +41%,距歷史高 −60%)— **事件驅動,非基本面**:當期虧 **$13.4 億**、毛利為負。漲是因 **流感疫苗 FDA panel 9-0、8/5 PDUFA** + Science Day pipeline reset。**已有專文 ER(Hold lean Sell FV $45,現價已 +49% 超過目標)** —— 8/5 是 binary,部位控制 > 追價。\n\n**🟡 ACHC $27**(行為健康機構,距歷史高 −69%)— 超賣反彈,薄利低成長,穩定型轉機。**🔴 FTRE $18**(CRO,距歷史高 −56%)— **最弱:營收還在跌 −2.3%**、虧損,純深度價值反彈,基本面未確認。",
+      "links": [
+        { "label": "NEO", "href": "/stock/NEO" },
+        { "label": "OUST", "href": "/stock/OUST" },
+        { "label": "MRNA", "href": "/stock/MRNA" },
+        { "label": "ACHC", "href": "/stock/ACHC" },
+        { "label": "FTRE", "href": "/stock/FTRE" }
+      ]
+    }
+  ],
+  "actions": [
+    "**不是買入清單。** Kronos 全 Strong Bearish(低信心)= 這些都剛噴、**短線別追那根**,等回測上升長均線(🅰)或回測突破點(🅱)再進。",
+    "**基本面分層(最重要)**:🟢 反轉有真基本面撐 = **CIEN**(獲利+guide↑+backlog,AI 光通)、**NEO**(專利解鎖+成長)、**OUST**(成長+毛利改善);🔴 事件/故事/超賣驅動 = **MRNA**(流感 PDUFA 事件)、**ASTS/PL**(pre-profit 故事)、**FTRE**(營收還在跌)。",
+    "**兩種型態定位不同**:🅰 回檔反彈 = 買強勢股的回檔(風險較低,如 CIEN);🅱 落難反轉 = 落難股翻身(賠率高但風險高,催化劑/事件主導)。依風險偏好選。",
+    "**MRNA 專屬**:已有完整事件驅動 ER(Hold lean Sell FV $45);現價 $67 已 +49% 超過共識目標,8/5 PDUFA 前**部位控制 > 方向**,別把流感樂觀當管線必成。",
+    "**每檔點「看線圖」進 /stock/ 確認型態與量能;掃描含 S&P1500 + 題材小型股;流動性/部位自負。**"
+  ],
+  "sources": [
+    { "title": "pattern-scanner reversal_scan — 兩型偵測器(A 回檔反彈/B 落難反轉),校準範本 ASTS + MRNA;全 S&P1500 + 題材小型股", "url": "https://momentum-portal-tau.vercel.app/research/sector" },
+    { "title": "基本面:fundamental-platform(stockanalysis 最新季)+ Kronos 30D(seed42,全 Strong Bearish 低信心=剛噴別追)", "url": "https://fundamental-platform.vercel.app/" },
+    { "title": "CIEN Q2'26:營收 +40% $15.7億、guide↑$6.3B、backlog $7.7B、hyperscaler 1/3(beat 卻跌 14%)", "url": "https://www.stocktitan.net/sec-filings/CIEN/8-k-ciena-corp-reports-material-event-26f71311f5b9.html" },
+    { "title": "MRNA:FDA panel 9-0 力挺 mRNA 流感疫苗、8/5 PDUFA、Science Day pipeline reset(6 月 +43%)", "url": "https://www.fxleaders.com/news/2026/06/29/moderna-stock-jumps-12-as-pipeline-reset-puts-aug-5-fda-catalyst-in-focus/" }
+  ]
+}
