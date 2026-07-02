@@ -1,0 +1,133 @@
+{
+  "slug": "sector-breakout-scan",
+  "issue": 6,
+  "date": "2026-07-01",
+  "snapshotDate": "2026-07-01",
+  "title": "產業指數突破掃描：24 個產業創新高，資金全面『去科技化』輪進金融／醫療／房地產",
+  "subtitle": "全新掃描器：不掃個股，掃『產業指數』本身。把平台 155 個 GICS 次產業的日報酬連乘成 BASE=100 指數（就是 /sub/ 頁那張圖），找指數帶量創新高的產業，分 3M／6M／1Y 三層。掃出來的 24 檔——金融 8、醫療 5、房地產 3、工業 2——半導體／AI 硬體／記憶體一檔都沒有。這是一張『去科技化』的輪動地圖。每檔可點進看該產業指數。",
+  "imageDir": "/research/sector/sector-breakout-scan",
+  "coverImage": "",
+  "intro": [
+    "前幾期掃的是**個股**（VCP 突破、雙時間框架突破、落難反轉）。這期換一個維度：**直接掃『產業指數』本身**。你平台上每個次產業（sub-industry）都有一條 `BASE=100` 的產業指數（就是點進 `/sub/` 頁看到的那張圖），這期做的就是一個掃描器，去找**哪些產業指數正在帶量突破創新高**。",
+    "**方法（155 個 GICS 次產業）**：把每個次產業的 `daily_sub_returns.ret_1d` 逐日連乘成 `BASE=100` 指數，然後判斷突破——① **創新高**：指數今日 ≥ 過去 60 日（3 個月）高點；分層 **1Y 新高 > 6M 新高 > 3M 新高**（破的時間框架越長越強）。② **突破年齡**：連續創新高的天數，越小＝越新鮮（大多數是 `age=1`，昨天才剛突破）。③ **底部乾淨度**：突破前整理區間的寬度，越窄＝底部越扎實。④ **量能／排名確認**：`obv_trend`（累積量能）、`rvol`（相對量）、`mom_score`（族群動能）、`delta_rank`（排名進步＝資金流入）。綜合成一個 0–100 的**突破信念分**。",
+    "**最重要的發現，是這 24 檔『長什麼樣』**：**金融 8 檔、醫療 5 檔、房地產 3 檔、非必需消費 3 檔、工業 2 檔**，通訊／IT／必需消費各 1——而**半導體、AI 硬體、記憶體，一檔都沒有**。連 sector 層級的彙總指數都直接告訴你：**Financials 與 Health Care 兩個大板塊雙雙站上一年新高**。這不是巧合，是一張清清楚楚的**『去科技化』輪動地圖**。",
+    "**資金沒有離開美股，只是從最擁擠的 AI 主線，輪進了過去半年沒人看、估值便宜、又有防禦性的金融／醫療／房地產／工業。** 這跟近期市場敘事完全吻合：AI 硬體進入修正整理、機構季末再平衡把利潤結進防禦板塊、利率維持高檔利好銀行淨利差與保險浮存金。**但請記住這是輪動的『當下動能』，不是主線反轉**——半導體長線仍是王，一旦 AI 回補（費半重新站上短均線），這批防禦突破很可能先跑輸。**這不是買入清單，是一張『錢正流去哪裡』的地圖。**"
+  ],
+  "exhibits": [
+    {
+      "number": 1,
+      "title": "全部 24 檔突破產業 · 信念分排名（點任一檔看該產業指數）",
+      "image": "",
+      "caption": "全數已通過『產業指數 ≥ 過去 60 日高點（創 3M＋新高）』。信念分 = 突破層級（1Y/6M/3M）＋ 新鮮度（突破年齡）＋ 量能（obv/rvol）＋ 動能排名（mom/ΔRank）＋ 底部乾淨度的綜合分。點任一列跳該次產業的 /sub/ 指數頁。",
+      "body": "信念分最高的是**剛破一年新高、底部又乾淨**的：**Rail Transportation 鐵路運輸**（1Y 新高、底部僅 12.7%、mom 62.7、排名 +6）、**Regional Banks 區域銀行**（1Y 新高、排名 +14，利率高檔＋淨利差題材）、**Publishing 出版**（1Y 新高、底部最窄 9.3%）。往下是 **Multi-Family／Health Care REITs**（房地產對利率見頂的反應）、**Managed Health Care 管理式醫療**（族群動能 86 全場最高，但底部 56.6% 寬＝是深跌後的大反轉而非窄底突破）。整體看下來，這張圖的每一根綠條，都不是半導體。",
+      "chartData": {
+        "type": "hbar",
+        "xLabel": "突破信念分（0-100）",
+        "xUnit": "",
+        "items": [
+          { "label": "Rail Transportation", "value": 79.0, "href": "/sub/AA6314B8" },
+          { "label": "Regional Banks", "value": 76.7, "href": "/sub/6525BF6D" },
+          { "label": "Publishing", "value": 76.3, "href": "/sub/63934848" },
+          { "label": "Multi-Family REITs", "value": 74.3, "href": "/sub/521CB7FE" },
+          { "label": "Health Care REITs", "value": 72.0, "href": "/sub/B1592F52" },
+          { "label": "Managed Health Care", "value": 68.0, "href": "/sub/3E2ACB37" },
+          { "label": "Property & Casualty Insurance", "value": 62.0, "href": "/sub/A7E86F59" },
+          { "label": "Health Care Services", "value": 61.0, "href": "/sub/CE2456A9" },
+          { "label": "Payment Processing", "value": 59.3, "href": "/sub/DB878878" },
+          { "label": "Consumer Finance", "value": 59.0, "href": "/sub/3AB077CE" },
+          { "label": "Health Care Supplies", "value": 57.7, "href": "/sub/D5E5DD71" },
+          { "label": "Systems Software", "value": 57.0, "href": "/sub/4D1787C4" },
+          { "label": "Office REITs", "value": 52.0, "href": "/sub/1F9B0776" },
+          { "label": "Multi-line Insurance", "value": 52.0, "href": "/sub/80622FA2" },
+          { "label": "HR & Employment Svc", "value": 52.0, "href": "/sub/D4E92F32" },
+          { "label": "Specialized Consumer Svc", "value": 51.7, "href": "/sub/B89D3302" },
+          { "label": "Restaurants", "value": 47.7, "href": "/sub/96CDA085" },
+          { "label": "Life & Health Insurance", "value": 45.0, "href": "/sub/5256995C" },
+          { "label": "Diversified Banks", "value": 45.0, "href": "/sub/742E449F" },
+          { "label": "Health Care Technology", "value": 43.7, "href": "/sub/A8DBD49D" },
+          { "label": "Life Sciences Tools", "value": 42.0, "href": "/sub/19BD4D4B" },
+          { "label": "Personal Care Products", "value": 40.0, "href": "/sub/208584AE" },
+          { "label": "Computer & Elec Retail", "value": 37.3, "href": "/sub/37AFA426" },
+          { "label": "Insurance Brokers", "value": 37.0, "href": "/sub/95BF86A5" }
+        ]
+      },
+      "links": [
+        { "label": "Rail Transportation", "href": "/sub/AA6314B8" },
+        { "label": "Regional Banks", "href": "/sub/6525BF6D" },
+        { "label": "Publishing", "href": "/sub/63934848" },
+        { "label": "Multi-Family REITs", "href": "/sub/521CB7FE" },
+        { "label": "Managed Health Care", "href": "/sub/3E2ACB37" }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "9 檔破『一年新高』· 最強一組（突破越久的框架越有份量）",
+      "image": "",
+      "caption": "分層挑出 tier = 1Y-HIGH 的 9 檔——指數不只破 3 個月高，是破整整一年的高點。這是資金輪動最堅定的地方。金融（Regional Banks／Consumer Finance）＋ 房地產（Multi-Family／Health Care REITs）＋ 醫療（Managed Health Care／HC Services／HC Supplies）＋ 工業（Rail）＋ 出版，五條主線。",
+      "body": "**破一年新高＝這條指數把過去 12 個月所有套牢賣壓全部收復並再創高**，含金量最高。這 9 檔裡：\n\n💰 **金融**（利率高檔最大受益）：**Regional Banks**（排名 +14 進步最猛）、**Consumer Finance**（消費信貸，age=9 已續攻）。\n\n🏢 **房地產**（押注利率見頂）：**Multi-Family REITs**（住宅出租）、**Health Care REITs**（醫療地產，obv 0.74 量能最扎實）。\n\n🏥 **醫療**（估值殺過頭後的集體反轉）：**Managed Health Care**（族群動能 86 最高）、**Health Care Services**、**Health Care Supplies**。\n\n🚂 **工業**：**Rail Transportation**（信念分 79 全場最高，乾淨窄底＋帶量）。📰 **通訊**：**Publishing**（底部最窄）。",
+      "chartData": {
+        "type": "hbar",
+        "xLabel": "突破信念分（0-100）",
+        "xUnit": "",
+        "items": [
+          { "label": "Rail Transportation", "value": 79.0, "href": "/sub/AA6314B8" },
+          { "label": "Regional Banks", "value": 76.7, "href": "/sub/6525BF6D" },
+          { "label": "Publishing", "value": 76.3, "href": "/sub/63934848" },
+          { "label": "Multi-Family REITs", "value": 74.3, "href": "/sub/521CB7FE" },
+          { "label": "Health Care REITs", "value": 72.0, "href": "/sub/B1592F52" },
+          { "label": "Managed Health Care", "value": 68.0, "href": "/sub/3E2ACB37" },
+          { "label": "Health Care Services", "value": 61.0, "href": "/sub/CE2456A9" },
+          { "label": "Consumer Finance", "value": 59.0, "href": "/sub/3AB077CE" },
+          { "label": "Health Care Supplies", "value": 57.7, "href": "/sub/D5E5DD71" }
+        ]
+      },
+      "links": [
+        { "label": "Regional Banks", "href": "/sub/6525BF6D" },
+        { "label": "Multi-Family REITs", "href": "/sub/521CB7FE" },
+        { "label": "Health Care REITs", "href": "/sub/B1592F52" },
+        { "label": "Managed Health Care", "href": "/sub/3E2ACB37" },
+        { "label": "Rail Transportation", "href": "/sub/AA6314B8" }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "🧱 蓄勢名單（新高下方、底部窄）＋ 為什麼一檔半導體都沒有",
+      "image": "",
+      "caption": "Coiling = 指數在 60 日新高下方 <2.5%、且底部窄，隨時可能突破的觀察名單。Health Care Facilities（rvol 1.52 全場最高量）最值得盯。而突破清單裡零半導體——這本身就是最大的訊號。",
+      "body": "**🧱 蓄勢待突破（下一批候選）**：**Health Care Facilities 醫療機構**（rvol 1.52 全場最大量、貼新高）、**Water Utilities 水務**、**Aerospace & Defense 航太國防**、**Environmental Services 環保服務**、**Reinsurance 再保**——注意又是醫療／公用／國防這些防禦板塊在排隊。\n\n**🚫 為什麼零半導體？這才是重點。** 平台上動能最熱的族群仍是半導體／記憶體／AI 硬體，但它們**一個都沒進突破清單**——因為這波是資金**輪出**科技、**輪進**防禦與價值。當『產業指數突破』這張圖上一根綠條科技股都沒有時，它告訴你的不是『科技完了』，而是『**此刻的錢在防禦板塊，不在科技**』。\n\n**怎麼用這張輪動地圖**：🟢 想順著當下資金流——看金融／醫療／REIT 的 1Y 新高組；🟡 想搶下一個突破——看 Coiling 蓄勢名單（Health Care Facilities 量最大）；🔴 **想抄底科技——這張圖告訴你『還沒輪到』**，等半導體重新出現在突破清單上，才是 AI 回補的訊號。",
+      "chartData": {
+        "type": "hbar",
+        "xLabel": "蓄勢信念分（0-100）",
+        "xUnit": "",
+        "items": [
+          { "label": "Health Care Facilities", "value": 54.3, "href": "/sub/B9A0F1EE" },
+          { "label": "Environmental Services", "value": 46.0, "href": "/sub/5A3615BB" },
+          { "label": "Education Services", "value": 44.0, "href": "/sub/A845743C" },
+          { "label": "Water Utilities", "value": 42.0, "href": "/sub/F1A64EE7" },
+          { "label": "Reinsurance", "value": 42.0, "href": "/sub/1B318BE5" },
+          { "label": "Single-Family REITs", "value": 42.0, "href": "/sub/AA6376A4" },
+          { "label": "Aerospace & Defense", "value": 35.0, "href": "/sub/F58F17A8" },
+          { "label": "Electronic Equipment", "value": 30.7, "href": "/sub/A74998C2" }
+        ]
+      },
+      "links": [
+        { "label": "Health Care Facilities", "href": "/sub/B9A0F1EE" },
+        { "label": "Water Utilities", "href": "/sub/F1A64EE7" },
+        { "label": "Aerospace & Defense", "href": "/sub/F58F17A8" }
+      ]
+    }
+  ],
+  "actions": [
+    "**這不是買入清單，是輪動地圖。** 24 個產業指數都已創新高、正在上抽；追價要看回測突破點不破再考慮，別無腦追。",
+    "**順當下資金流**：金融（Regional Banks 排名 +14、Consumer Finance）＋ 房地產（Multi-Family／Health Care REITs）＋ 醫療（Managed Health Care 動能 86）＋ 工業（Rail 信念分 79 最高）——這批破一年新高，是資金最堅定的地方。",
+    "**搶下一個突破**：看 🧱 Coiling 蓄勢名單，Health Care Facilities（rvol 1.52 全場最大量、貼新高）最值得盯。",
+    "**注意底部性質差異**：Rail／Publishing／Regional Banks 是**窄底乾淨突破**（<15%）；Managed Health Care／Systems Software／Health Care Services 底部寬（>33%）是**深跌後的大反轉**，性質不同、波動更大。",
+    "**市場狀態 = 去科技化輪動**：突破清單零半導體＝此刻錢在防禦板塊。**想抄底科技，這圖告訴你『還沒輪到』**——等半導體重新出現在突破清單，才是 AI 回補訊號。這是輪動的當下動能，非主線反轉；AI 一回補，防禦突破可能先跑輸。",
+    "**每檔點進 /sub/ 看該產業指數的實際走勢與排名歷史確認；掃描範圍 = 平台 155 個 GICS 次產業；部位／風險自負。**"
+  ],
+  "sources": [
+    { "title": "pattern-scanner sector_breakout 模式 — 產業 BASE=100 指數（連乘 daily_sub_returns.ret_1d）創 60/120/250 日新高 + 突破年齡 + 底部寬度 + obv/rvol/mom/ΔRank 確認", "url": "https://momentum-portal-tau.vercel.app/research/sector" },
+    { "title": "資料來源：momentum-portal 平台 daily_sub_returns（155 個 GICS 次產業，2026-07-01 快照）", "url": "https://momentum-portal-tau.vercel.app/" },
+    { "title": "輪動背景對照：AI 修正期資金『去大科技股化』輪進醫療／金融／工業（MimiVsJames 機構策略）", "url": "https://vocus.cc/article/6a41a14afd89780001d368b3" }
+  ]
+}
