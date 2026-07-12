@@ -1,0 +1,282 @@
+{
+  "slug": "sector-breakout-jul10",
+  "issue": 7,
+  "date": "2026-07-11",
+  "snapshotDate": "2026-07-10",
+  "title": "產業突破掃描・第二跑:去科技化從 24 → 9『收斂』,鐵路續霸、能源(煉油)入列、半導體仍缺席",
+  "subtitle": "同一支掃描器(155 個 GICS 產業指數、BASE=100、找帶量創新高),距上期(issue 6, 7/01)相隔 9 天再跑一次。突破清單從 24 檔『收斂』到 9 檔——去科技化輪動還在、但明顯變窄。鐵路仍是信念分 #1(唯一橫跨兩期的持續領跑),能源(煉油)是本週新面孔,而半導體/AI 硬體『第二次』一檔都沒進。⚠️ 但這 9 檔的突破量能偏弱(rvol 多 <0.7),值得留意輪動是否在成熟。",
+  "imageDir": "/research/sector/sector-breakout-jul10",
+  "coverImage": "",
+  "intro": [
+    "這是**同一支『產業指數突破掃描器』的第二次跑**(第一次是 issue 6, 7/01)。方法不變:把 155 個 GICS 次產業的 `daily_sub_returns.ret_1d` 逐日連乘成 `BASE=100` 指數(就是 `/sub/` 頁那張圖),找**指數帶量創新高**的產業,分 **1Y > 6M > 3M** 三層,配 `obv_trend`/`rvol`/`mom_score`/`delta_rank` 綜合成 0–100 突破信念分。距上期只隔 9 天,重點在**看輪動有沒有變、往哪變**。",
+    "**最大的變化:突破清單從 24 檔『收斂』到 9 檔。** 上期(7/01)是金融 8／醫療 5／房地產 3 的全面開花;這期(7/10)只剩 9 檔創新高——**去科技化的方向沒變,但廣度明顯變窄**。這種『同一批防禦板塊、參與家數縮水』通常代表輪動**從擴散期進入成熟/消化期**:領先的還在領先,後排的掉出榜。",
+    "**誰在、誰新、誰還是缺席:** 🚂 **Rail Transportation 鐵路(信念分 79,1Y 新高)是唯一橫跨兩期的持續領跑**——底部乾淨、排名還在進步(+6)。🛢️ **Oil & Gas Refining 煉油(74.3,1Y 新高)是本週新面孔**,能源第一次擠進榜(mom 75 全場最高)。📰 Publishing 出版、🏢 Industrial REITs 工業地產、🏦 Life & Health Insurance 壽險續在。而 **半導體／記憶體／AI 硬體『連續第二期』一檔都沒有**——連唯一的『IT』名額都是 Technology Distributors(通路商,不是晶片)。",
+    "**⚠️ 一個要老實講的雜訊:這 9 檔的突破量能都偏弱。** 前四強 rvol 只有 0.44–0.67(低於平均量),等於『指數靜悄悄地創新高、沒有放量推力』。帶量不足的突破,續航力要打折——**這可能是防禦輪動開始『成熟/缺乏新買盤』的早期訊號**。**怎麼用這張圖:** 🟢 順當下資金→鐵路/煉油/壽險的 1Y 新高組;🟡 搶下一批→看 Coiling 蓄勢(Education Services/Food Retail 排名進步最猛);🔴 **想抄底科技→這張圖第二次告訴你『還沒輪到』**,等半導體重新出現在突破榜,才是 AI 回補訊號。"
+  ],
+  "exhibits": [
+    {
+      "number": 1,
+      "title": "全部 9 檔突破產業・信念分排名(點任一檔看該產業指數)",
+      "image": "",
+      "caption": "全數已通過『產業指數 ≥ 過去 60 日高點』。相較 issue 6 的 24 檔,本期收斂到 9 檔=輪動變窄。信念分 = 突破層級(1Y/6M/3M)＋新鮮度＋量能(obv/rvol)＋動能排名(mom/ΔRank)＋底部乾淨度。點任一列跳該次產業 /sub/ 指數頁。",
+      "body": "信念分前段:**🚂 Rail Transportation 鐵路(79,1Y 新高、底部 12.3%、排名 +6)**——跨兩期持續領跑,最扎實。**📰 Publishing 出版(76.3,1Y 新高)**、**🛢️ Oil & Gas Refining 煉油(74.3,1Y 新高、mom 75 全場最高、排名 +7)**=本週能源新血、**🏢 Industrial REITs 工業地產(72.0,1Y 新高、底部最窄 7.3%、obv 0.47 量能最扎實)**。中段 **🏦 Life & Health Insurance 壽險(64.7,排名 +8)**、**Technology Distributors 通路(60.0——注意:是通路不是晶片)**、**Asset Management 資產管理(55.3,排名 +10)**。這張圖的每一根綠條,第二期依然沒有半導體。",
+      "chartData": {
+        "type": "hbar",
+        "xLabel": "突破信念分(0-100)",
+        "xUnit": "",
+        "items": [
+          {
+            "label": "Rail Transportation",
+            "value": 79.0,
+            "href": "/sub/AA6314B8"
+          },
+          {
+            "label": "Publishing",
+            "value": 76.3,
+            "href": "/sub/63934848"
+          },
+          {
+            "label": "Oil & Gas Refining & Marketing",
+            "value": 74.3,
+            "href": "/sub/DB62D66B"
+          },
+          {
+            "label": "Industrial REITs",
+            "value": 72.0,
+            "href": "/sub/E7585E26"
+          },
+          {
+            "label": "Life & Health Insurance",
+            "value": 64.7,
+            "href": "/sub/5256995C"
+          },
+          {
+            "label": "Technology Distributors",
+            "value": 60.0,
+            "href": "/sub/7F980CFF"
+          },
+          {
+            "label": "Asset Management & Custody Banks",
+            "value": 55.3,
+            "href": "/sub/7A22752C"
+          },
+          {
+            "label": "Computer & Electronics Retail",
+            "value": 45.3,
+            "href": "/sub/37AFA426"
+          },
+          {
+            "label": "Automotive Retail",
+            "value": 45.0,
+            "href": "/sub/8AD509DF"
+          }
+        ]
+      },
+      "links": [
+        {
+          "label": "Rail Transportation",
+          "href": "/sub/AA6314B8"
+        },
+        {
+          "label": "Publishing",
+          "href": "/sub/63934848"
+        },
+        {
+          "label": "Oil & Gas Refining & Marketing",
+          "href": "/sub/DB62D66B"
+        },
+        {
+          "label": "Industrial REITs",
+          "href": "/sub/E7585E26"
+        },
+        {
+          "label": "Life & Health Insurance",
+          "href": "/sub/5256995C"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "5 檔破『一年新高』・最堅定的一組",
+      "image": "",
+      "caption": "tier = 1Y-HIGH 的 5 檔:指數不只破 3 個月高,是破整整一年高點=把過去 12 個月套牢賣壓全收復再創高,含金量最高。鐵路＋出版＋煉油＋工業地產＋通路,五條主線——工業/能源/地產味濃,防禦中帶點景氣循環復甦。",
+      "body": "**破一年新高的 5 檔:** 🚂 **Rail Transportation**(信念 79 全場最高,乾淨窄底＋排名進步)。📰 **Publishing**(出版,1Y 新高)。🛢️ **Oil & Gas Refining**(煉油——本週唯一能源、mom 75 最高,煉油利差題材)。🏢 **Industrial REITs**(工業地產,底部最窄 7.3%、obv 0.47 量最扎實,押注利率見頂＋物流地產)。📦 **Technology Distributors**(科技通路商,非晶片)。\n\n**解讀:** 這 5 條主線從上期的『純防禦(金融/醫療/REIT)』,微妙地往**工業(鐵路)＋能源(煉油)＋物流地產**傾斜——這是防禦裡帶一點『景氣循環復甦』的味道,不再是單純的避險。⚠️ 但全組 rvol 都 <0.7,帶量不足,續航打折。",
+      "chartData": {
+        "type": "hbar",
+        "xLabel": "突破信念分(0-100)",
+        "xUnit": "",
+        "items": [
+          {
+            "label": "Rail Transportation",
+            "value": 79.0,
+            "href": "/sub/AA6314B8"
+          },
+          {
+            "label": "Publishing",
+            "value": 76.3,
+            "href": "/sub/63934848"
+          },
+          {
+            "label": "Oil & Gas Refining & Marketing",
+            "value": 74.3,
+            "href": "/sub/DB62D66B"
+          },
+          {
+            "label": "Industrial REITs",
+            "value": 72.0,
+            "href": "/sub/E7585E26"
+          },
+          {
+            "label": "Technology Distributors",
+            "value": 60.0,
+            "href": "/sub/7F980CFF"
+          }
+        ]
+      },
+      "links": [
+        {
+          "label": "Rail Transportation",
+          "href": "/sub/AA6314B8"
+        },
+        {
+          "label": "Publishing",
+          "href": "/sub/63934848"
+        },
+        {
+          "label": "Oil & Gas Refining & Marketing",
+          "href": "/sub/DB62D66B"
+        },
+        {
+          "label": "Industrial REITs",
+          "href": "/sub/E7585E26"
+        },
+        {
+          "label": "Technology Distributors",
+          "href": "/sub/7F980CFF"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "🧱 蓄勢名單(新高下方、底部窄)＋ 為什麼半導體『連兩期』缺席",
+      "image": "",
+      "caption": "Coiling = 指數在 60 日新高下方、底部窄、隨時可能突破的觀察名單(14 檔)。排名進步最猛的是 Education Services(+18)、Food Retail(+14)、Interactive Home Entertainment(+16)。而突破榜連兩期零半導體——這本身就是最大訊號。",
+      "body": "**🧱 蓄勢待突破(下一批候選):** 排名動能在改善的:**Education Services 教育服務(信念 48、排名 +18 最猛)**、**Food Retail 食品零售(+14)**、**Interactive Home Entertainment 互動娛樂(+16)**——又是消費/防禦味。其餘 Water Utilities 水務、Health Care REITs 醫療地產、Diversified REITs 也在排隊。\n\n**🚫 半導體連兩期缺席=最大的訊號。** 平台上動能最熱的仍是半導體/AI 硬體,但它們**連續第二期一檔都沒進突破榜**——資金還在『輪出科技、輪進防禦/景氣循環』。**但這期要加一句:突破廣度從 24→9 收斂＋量能偏弱(rvol<0.7),暗示防禦輪動本身可能在『成熟』。** 兩種可能:(a) 資金開始猶豫、等下一個方向;(b) 準備輪回科技。**觀察訊號不變:等半導體重新出現在突破榜,才是 AI 回補的確認。**\n\n**怎麼用:** 🟢 順勢→鐵路/煉油/工業地產 1Y 新高組(但等放量);🟡 搶先→Coiling 裡排名進步組;🔴 抄底科技→還沒輪到,盯半導體何時回榜。",
+      "chartData": {
+        "type": "hbar",
+        "xLabel": "蓄勢信念分(0-100)",
+        "xUnit": "",
+        "items": [
+          {
+            "label": "Environmental & Facilities Services",
+            "value": 30.0,
+            "href": "/sub/5A3615BB"
+          },
+          {
+            "label": "Diversified REITs",
+            "value": 35.0,
+            "href": "/sub/1104ABC2"
+          },
+          {
+            "label": "Food Retail",
+            "value": 34.7,
+            "href": "/sub/E9C739A4"
+          },
+          {
+            "label": "Consumer Staples Merchandise Retail",
+            "value": 30.0,
+            "href": "/sub/376586F4"
+          },
+          {
+            "label": "Education Services",
+            "value": 48.0,
+            "href": "/sub/A845743C"
+          },
+          {
+            "label": "Diversified Support Services",
+            "value": 35.0,
+            "href": "/sub/F9AE97F0"
+          },
+          {
+            "label": "Electric Utilities",
+            "value": 33.7,
+            "href": "/sub/BCAFA011"
+          },
+          {
+            "label": "Interactive Home Entertainment",
+            "value": 35.3,
+            "href": "/sub/951C6D9C"
+          },
+          {
+            "label": "Multi-Utilities",
+            "value": 30.0,
+            "href": "/sub/D15D1064"
+          },
+          {
+            "label": "Health Care Equipment",
+            "value": 30.0,
+            "href": "/sub/60CF7D84"
+          },
+          {
+            "label": "Electronic Equipment & Instruments",
+            "value": 30.0,
+            "href": "/sub/A74998C2"
+          },
+          {
+            "label": "Health Care REITs",
+            "value": 35.0,
+            "href": "/sub/B1592F52"
+          },
+          {
+            "label": "Retail REITs",
+            "value": 35.0,
+            "href": "/sub/079EEFFD"
+          },
+          {
+            "label": "Water Utilities",
+            "value": 35.0,
+            "href": "/sub/F1A64EE7"
+          }
+        ]
+      },
+      "links": [
+        {
+          "label": "Environmental & Facilities Services",
+          "href": "/sub/5A3615BB"
+        },
+        {
+          "label": "Diversified REITs",
+          "href": "/sub/1104ABC2"
+        },
+        {
+          "label": "Food Retail",
+          "href": "/sub/E9C739A4"
+        },
+        {
+          "label": "Consumer Staples Merchandise Retail",
+          "href": "/sub/376586F4"
+        }
+      ]
+    }
+  ],
+  "actions": [
+    "🚂 **想順當下資金流**:看破『一年新高』的 5 檔——Rail Transportation(鐵路,信念 79 續霸)、Oil & Gas Refining(煉油,本週能源新血)、Industrial REITs(工業地產,底部最窄)。但⚠️ 全組 rvol<0.7,**等放量再確認**,別追靜悄悄的突破。",
+    "🟡 **想搶下一個突破**:看 Coiling 蓄勢名單裡排名進步最猛的——Education Services(+18)、Food Retail(+14)、Interactive Home Entertainment(+16)。",
+    "🔴 **想抄底半導體/AI 硬體**:這張圖『連續第二期』告訴你還沒輪到。等半導體重新出現在突破榜,才是 AI 回補的訊號。",
+    "📉 **留意輪動成熟訊號**:突破廣度從 24(7/01)→9(7/10)收斂＋量能偏弱,防禦輪動可能在消化。這是『錢正流去哪』的地圖,不是買入清單——用來確認方向,不是直接下單。"
+  ],
+  "sources": [
+    {
+      "title": "pattern-scanner / sector_breakout_scan.py(自建產業指數突破掃描器)",
+      "url": ""
+    },
+    {
+      "title": "momentum-portal /sub/ 產業指數(BASE=100,daily_sub_returns 連乘)",
+      "url": "/research/sector"
+    },
+    {
+      "title": "上一期:issue 6 產業突破掃描(2026-07-01, 24 檔)",
+      "url": "/research/sector/sector-breakout-scan"
+    }
+  ]
+}
