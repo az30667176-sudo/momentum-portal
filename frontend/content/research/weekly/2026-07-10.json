@@ -1,0 +1,242 @@
+{
+  "slug": "2026-07-10",
+  "issue": 15,
+  "date": "2026-07-10",
+  "snapshotDate": "2026-07-10",
+  "title": "動能冠軍易主——Healthcare 87.9 取代半導體登頂，IT 軟硬收斂確認週期切換",
+  "subtitle": "Health Care Services mom_score 87.9 首度超車 Semiconductors 86.7——追蹤十五期以來首次非 IT 板塊奪得動能冠軍。Tech Hardware +9.2% 從上期 -7.7% 暴力反彈、Data Center REITs +4.5% 從 -8.9% 同步回穩，IT 軟硬分化收斂確認 AI 週期切換初步完成。Trump 在 NATO 峰會宣布伊朗停火「結束了」，推 WTI 從 $68 回升至 $71（+4% 週漲），但這是地緣供給衝擊、不是需求改善。Gold -4.3%、Silver -3.1% 吐回非農漲幅。Agricultural Products delta_rank +94 追蹤以來最大排名躍升——中國降關稅 + 美國乾旱推動穀物全面上漲。S&P 500 週漲逾 1% 收 7,575。",
+  "imageDir": "/research/weekly/2026-07-10",
+  "coverImage": "01_sector_1w.png",
+  "intro": [
+    "上期核心判斷是「AI 投資週期從買硬體進入賣服務——軟體接棒硬體成為新領漲引擎」。本週市場的回應是：**均值回歸**。Tech Hardware +9.2% 從上期 -7.7% 暴力反彈，Data Center REITs +4.5% 從 -8.9% 同步回穩，Semiconductors +3.0% 從 -10.1% 翻正——上期觀察重點 #1「軟硬分化是否收斂」得到肯定回答。IT 整體 +1.48%，連續兩週負報酬後首度翻正。但比硬體反彈更重要的是：**Health Care Services mom_score 87.9 悄悄超車 Semiconductors 86.7 登頂全場**——追蹤十五期以來首次非 IT 板塊奪得動能冠軍。上期其他操作：Healthcare 觀察性配置（-0.75%，一週整理但 mom_score 反升=結構確認）、AI 電力基建核心持有（Heavy Electrical -3.8% 短期壓力，結構性邏輯不變）、貴金屬小倉位（Gold -4.3% 吐回非農漲幅，美元重新走強——上期的「非農催化劑」一週即消退）、Energy 不參與（+4.13%，但驅動力是伊朗停火破裂的地緣衝擊而非需求改善，不追）。",
+    "本週地緣政治搶了所有頭條。**週一（7/7）**三星 Q2 財報不及部分分析師預期，半導體延續上週頹勢、Nasdaq 開盤跌 1%。**週二（7/8）**Trump 在土耳其 NATO 峰會宣布伊朗停火「結束了」（「I think it's over. I don't want to deal with them any more」），美伊雙方交換攻擊——Dow 暴跌 576 點（-1.09%），油價跳升、霍爾木茲海峽航運風險驟增。**週三（7/9）**戲劇性反轉——Trump 改口「不會重啟」，半導體全面反彈（AMD +7.2%、SOXX ETF +5.2%），S&P 500 漲 0.81%。**週四（7/10）**NVIDIA +4%、Meta +6% 帶動科技續攻，S&P 500 收 7,575（+0.42%），全週漲逾 1%。穀物市場是本週隱藏主線——美國中西部持續乾旱威脅玉米大豆產量、歐洲極端熱浪推高小麥（HRW 連漲 7 個交易日）、中國商務部宣布下調美國農產品關稅 10%（含大豆），Agricultural Products +5.2%、delta_rank +94——追蹤以來最大排名躍升。",
+    "本期核心判斷：**動能冠軍正在易主——Health Care Services mom_score 87.9 取代 Semiconductors 86.7 登頂全場，是追蹤以來最重要的板塊輪替里程碑。** IT 軟硬分化收斂確認 AI 週期切換初步完成——不是「硬體不行了」，是「軟硬都在漲、週期回歸正常狀態」。但增量動能正在從 IT 轉向 Healthcare——Managed Health Care 85.7 穩居前四、Health Care Services 87.9 登頂。7/16 是本季最關鍵的單日：**UNH Q2 財報**（分析師預估 EPS $4.84、+18.6% YoY，Morgan Stanley 上調目標價至 $468）和 **TSMC Q2 業績**（預估營收 $400 億、+33% YoY，Citi 預期上調全年營收展望）同日公布。如果兩者都 beat，「IT 核心 + Healthcare 升格核心」的雙引擎格局就確立了。本週是「確認期」而非「轉折期」——既有配置框架全數維持，等待 7/16 的雙重催化劑。"
+  ],
+  "exhibits": [
+    {
+      "number": 1,
+      "title": "板塊一週報酬：Energy +4.1% 地緣衝擊領漲，IT +1.5% 兩週來首度翻正",
+      "image": "01_sector_1w.png",
+      "caption": "Energy +4.13% 因伊朗停火破裂跳升第一——但這是地緣供給溢價。IT +1.48% 連續兩週負報酬後翻正，軟硬收斂效應。Healthcare -0.75% 結束連莊，但 mom_score 87.9 反而登頂全場。Materials -1.67% 連續墊底——Gold -4.3% 吐回非農漲幅。",
+      "body": "上期是「Healthcare +6.0% 連莊、IT -1.9% 連續墊底」。本週格局大翻轉——**6/11 正報酬不變但排名洗牌**。**Energy +4.13% 從 -2.21% 跳到第一**——催化劑是 Trump 在 NATO 峰會宣布伊朗停火「結束了」，WTI 從 $68 回升到 $71、Brent 到 $76，Oil Refining +7.7%、Drilling +5.8%。但 OPEC+ 增產計畫沒改、全球需求前景沒改善——這是地緣供給衝擊，追高風險極高。**IT +1.48% 是最關鍵的訊號**——Tech Hardware +9.2%（上期 -7.7%）和 Data Center REITs +4.5%（上期 -8.9%）暴力反彈、Semiconductors +3.0% 翻正，軟硬分化正式收斂。**Healthcare -0.75% 結束兩週連莊**——但數字具有誤導性：Health Care Services mom_score 87.9 在同一週超車 Semiconductors 86.7 登頂全場，意味著 Healthcare 的結構性動能在整理中反而增強。**Materials -1.67%**——Gold -4.3%、Silver -3.1% 吐回非農漲幅、Industrial Gases -3.9% 從上期 +8.8% 急速獲利了結。**Consumer Discretionary -0.84%**——Housewares -11.3%（兩週前 +18.3%）是追蹤以來最極端的均值回歸。",
+      "links": [
+        { "label": "Tech Hardware", "href": "/sub/D10047AB" },
+        { "label": "Oil Refining", "href": "/sub/DB62D66B" },
+        { "label": "Health Care Services", "href": "/sub/CE2456A9" },
+        { "label": "Data Center REITs", "href": "/sub/5E2B6876" },
+        { "label": "Housewares", "href": "/sub/7123167E" }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "輪動地圖：Energy 因地緣衝擊跳到第一——頭頂寫著「供給溢價」",
+      "image": "02_rotation_map.png",
+      "caption": "Energy 從負報酬區底部跳到正報酬區第一。IT 從連續兩週負報酬翻正到第二。Healthcare 微跌到負報酬區邊緣但 mom_score 87.9 全場最高。Materials 和 Communication Services 在負報酬區底部。",
+      "body": "上期是「Healthcare 連莊最高位、IT 停在動能陷阱、Communication Services 跳到第二」。本週 **Energy 從負報酬區底部跳到正報酬區第一**——追蹤以來最戲劇性的單週位移之一，但 Oil Refining mom_score 只有 75（全場中段），典型的「報酬跑在動能前面」的地緣溢價——追高風險極高。**IT 從負報酬區翻到正報酬區第二**——Tech Hardware +9.2% 是翻正主力，上期的「動能陷阱」故事正在化解。**Healthcare 微跌到負報酬區邊緣**——但 Health Care Services mom_score 87.9 全場最高，趨勢性地位沒有因一週整理而動搖。Utilities +0.15% 持平——Electric Utilities 排名穩定但 IPPs 未反彈。**Materials -1.67% 在負報酬區底部**——上期貴金屬反彈曇花一現。整體格局是均值回歸後的重新排列——上期的極端分化（軟體 +15% vs 硬體 -12%）收斂了、Healthcare 連莊中斷了、Energy 因地緣事件暫時第一——但結構性的板塊配置邏輯沒有改變。表面上「什麼都在翻轉」，底層的動能結構卻更清晰了。",
+      "links": [
+        { "label": "Oil Refining", "href": "/sub/DB62D66B" },
+        { "label": "Tech Hardware", "href": "/sub/D10047AB" },
+        { "label": "Health Care Services", "href": "/sub/CE2456A9" },
+        { "label": "Semiconductors", "href": "/sub/3DFD4B15" },
+        { "label": "Managed Health Care", "href": "/sub/3E2ACB37" }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Top/Bottom 12：硬體暴力反彈佔領 Top 4——軟硬收斂一目了然",
+      "image": "03_top_bottom_subs.png",
+      "caption": "Tech Hardware +9.2%（上期 -7.7%）領漲全場。Oil Refining +7.7%（伊朗效應）和 Tech Distributors +6.2% 分列二三。上期 Bottom 的 Data Center REITs 本週回到 Top 12（+4.5%）。底部 Housewares -11.3%（兩週前 +18.3%）是最極端的均值回歸。",
+      "body": "上期 Top 12 清一色軟體/服務（+10% 到 +16%）、Bottom 12 全部硬體（-6% 到 -12%）。本週 **Top 12 結構完全不同——硬體/能源/原物料佔了 10 個席次**，軟硬分化正式收斂。**Tech Hardware +9.2% 登頂**——AMD +7.2%、NVIDIA +4%、SOXX ETF +5.2%，半導體從超跌反彈、AI 需求面完好。**Oil Refining +7.7%** 排第二——Valero、Marathon Petroleum 受惠伊朗停火破裂推高裂解利差。**Agricultural Products +5.2%** 是隱藏黑馬——中國下調農產品關稅 + 美國乾旱 + 歐洲熱浪推穀物全面上漲。**Data Center REITs +4.5%** 從上期 Bottom 12 暴力反彈（上期 -8.9%）——均值回歸效應。底部方面，**Housewares -11.3%** 是追蹤以來最極端的均值回歸——兩週前 +18.3% 三度登頂、本週完全吐回。**Homebuilding -5.8%、Home Furnishings -6.1%、Home Improvement -4.8%** 三個住房相關板塊集體下滑——NAHB 信心指數跌到 35、首次購房者中位年齡 40 歲歷史新高，住房 affordability 危機正在向更多板塊蔓延。",
+      "links": [
+        { "label": "Tech Hardware", "href": "/sub/D10047AB" },
+        { "label": "Oil Refining", "href": "/sub/DB62D66B" },
+        { "label": "Agricultural Products", "href": "/sub/52404E82" },
+        { "label": "Data Center REITs", "href": "/sub/5E2B6876" },
+        { "label": "Housewares", "href": "/sub/7123167E" }
+      ],
+      "chartData": {
+        "type": "hbar",
+        "items": [
+          { "label": "Technology Hardware", "value": 9.2, "href": "/sub/D10047AB" },
+          { "label": "Oil & Gas Refining & Marketing", "value": 7.7, "href": "/sub/DB62D66B" },
+          { "label": "Technology Distributors", "value": 6.2, "href": "/sub/7F980CFF" },
+          { "label": "Oil & Gas Drilling", "value": 5.8, "href": "/sub/738405E7" },
+          { "label": "Marine Transportation", "value": 5.7, "href": "/sub/8EEB09C8" },
+          { "label": "Agricultural Products & Services", "value": 5.2, "href": "/sub/52404E82" },
+          { "label": "Oil & Gas Equipment & Services", "value": 4.9, "href": "/sub/8B53278B" },
+          { "label": "Footwear", "value": 4.9, "href": "/sub/ABFF7D9B" },
+          { "label": "Data Center REITs", "value": 4.5, "href": "/sub/5E2B6876" },
+          { "label": "Coal & Consumable Fuels", "value": 4.0, "href": "/sub/7B1B1651" },
+          { "label": "Consumer Electronics", "value": 3.9, "href": "/sub/A3C1F86E" },
+          { "label": "Household Appliances", "value": 3.8, "href": "/sub/5C1D8B69" },
+          { "label": "Agricultural & Farm Machinery", "value": -4.1, "href": "/sub/D8F634B1" },
+          { "label": "Cable & Satellite", "value": -4.1, "href": "/sub/6F9A951B" },
+          { "label": "Gold", "value": -4.3, "href": "/sub/33E5E2A6" },
+          { "label": "Office REITs", "value": -4.4, "href": "/sub/1F9B0776" },
+          { "label": "Aerospace & Defense", "value": -4.4, "href": "/sub/F58F17A8" },
+          { "label": "Specialty Chemicals", "value": -4.6, "href": "/sub/33054D65" },
+          { "label": "Movies & Entertainment", "value": -4.7, "href": "/sub/6D67D3FA" },
+          { "label": "Home Improvement Retail", "value": -4.8, "href": "/sub/94A22E14" },
+          { "label": "Real Estate Services", "value": -5.0, "href": "/sub/A6FD952F" },
+          { "label": "Homebuilding", "value": -5.8, "href": "/sub/40AFBB27" },
+          { "label": "Home Furnishings", "value": -6.1, "href": "/sub/06DE34DE" },
+          { "label": "Housewares & Specialties", "value": -11.3, "href": "/sub/7123167E" }
+        ]
+      }
+    },
+    {
+      "number": 4,
+      "title": "動能散點圖：Healthcare（綠色）佔據最高 mom_score——動能冠軍正式易主",
+      "image": "04_energy_unwind.png",
+      "caption": "Health Care Services（88, -2.0%）和 Managed Health Care（87, -0.2%）佔據 x 軸最右側——追蹤以來首次 Healthcare 超越 IT 在散點圖最右端。Tech Hardware（86, +9.2%）暴力反彈到右上角。Housewares（78, -11.3%）極端崩盤在最底部。",
+      "body": "上期散點圖的主題是「動能陷阱——硬體/半導體高 mom_score 但連續負報酬」。本週主題完全不同：**動能冠軍易主**。**Healthcare（綠色）佔據 x 軸最右端**——Health Care Services（88, -2.0%）和 Managed Health Care（87, -0.2%）是全場 mom_score 最高的兩個次產業，即使本週報酬微負，結構性動能位置已經超越科技板塊。Biotechnology（72, -1.5%）也在圖的左側提供 Healthcare 寬度。**Tech Hardware（86, +9.2%）是最耀眼的反彈點**——從上期的右下角「動能陷阱」跳到右上角「確認趨勢」，上期的陷阱故事畫上句號。**Semiconductors（87, +3.0%）也回到正報酬區**——AI 晶片需求完好。**Oil Refining（75, +7.8%）** 是唯一進入 top-20 的能源股——地緣驅動的異常值，mom_score 只有 75 說明這不是趨勢。**Housewares（78, -11.3%）** 極端崩盤、從上期的正報酬區直墜最底部——教科書式的擁擠交易瓦解。**Heavy Electrical（74, -3.8%）** 在左下方——短期壓力但 mom_score 74 仍在高位，等 TSMC 7/16 capex guidance 確認 AI 電力需求。",
+      "links": [
+        { "label": "Health Care Services", "href": "/sub/CE2456A9" },
+        { "label": "Semiconductors", "href": "/sub/3DFD4B15" },
+        { "label": "Tech Hardware", "href": "/sub/D10047AB" },
+        { "label": "Managed Health Care", "href": "/sub/3E2ACB37" },
+        { "label": "Heavy Electrical", "href": "/sub/8D0D1D2F" }
+      ],
+      "chartData": {
+        "type": "scatter",
+        "xLabel": "Mom Score (0–100)",
+        "yLabel": "1W return (%)",
+        "quadrants": {
+          "topLeft": "新領先者",
+          "topRight": "確認趨勢",
+          "bottomLeft": "弱勢",
+          "bottomRight": "動能整理"
+        },
+        "colorLabels": {
+          "#2ECC71": "Healthcare (動能冠軍)",
+          "#4A90D9": "科技/工業/其他"
+        },
+        "items": [
+          { "label": "Health Care Services", "x": 88, "y": -2.0, "href": "/sub/CE2456A9", "color": "#2ECC71" },
+          { "label": "Managed Health Care", "x": 87, "y": -0.2, "href": "/sub/3E2ACB37", "color": "#2ECC71" },
+          { "label": "Semiconductors", "x": 87, "y": 3.0, "href": "/sub/3DFD4B15", "color": "#4A90D9" },
+          { "label": "Technology Hardware", "x": 86, "y": 9.2, "href": "/sub/D10047AB", "color": "#4A90D9" },
+          { "label": "Semicon Equipment", "x": 83, "y": 0.0, "href": "/sub/7F8BA218", "color": "#4A90D9" },
+          { "label": "Hotel & Resort REITs", "x": 82, "y": -1.5, "href": "/sub/E721F75E", "color": "#4A90D9" },
+          { "label": "Marine Transportation", "x": 81, "y": 5.7, "href": "/sub/8EEB09C8", "color": "#4A90D9" },
+          { "label": "Office Services & Supplies", "x": 80, "y": -1.5, "href": "/sub/31A0D44A", "color": "#4A90D9" },
+          { "label": "Communications Equipment", "x": 79, "y": 3.5, "href": "/sub/FE725307", "color": "#4A90D9" },
+          { "label": "Housewares & Specialties", "x": 78, "y": -11.3, "href": "/sub/7123167E", "color": "#4A90D9" },
+          { "label": "Electronic Components", "x": 77, "y": -2.5, "href": "/sub/3A71D4E6", "color": "#4A90D9" },
+          { "label": "Food Distributors", "x": 77, "y": 1.2, "href": "/sub/D05C635E", "color": "#4A90D9" },
+          { "label": "Cargo Ground Transportation", "x": 77, "y": 0.8, "href": "/sub/AE21267B", "color": "#4A90D9" },
+          { "label": "Diversified Metals & Mining", "x": 77, "y": -2.0, "href": "/sub/650D58F5", "color": "#4A90D9" },
+          { "label": "Oil & Gas Refining", "x": 75, "y": 7.8, "href": "/sub/DB62D66B", "color": "#4A90D9" },
+          { "label": "Consumer Finance", "x": 75, "y": -1.5, "href": "/sub/3AB077CE", "color": "#4A90D9" },
+          { "label": "Heavy Electrical Equipment", "x": 74, "y": -3.8, "href": "/sub/8D0D1D2F", "color": "#4A90D9" },
+          { "label": "Home Furnishing Retail", "x": 73, "y": -2.5, "href": "/sub/73E1A385", "color": "#4A90D9" },
+          { "label": "Biotechnology", "x": 72, "y": -1.5, "href": "/sub/A26A78F7", "color": "#2ECC71" },
+          { "label": "Technology Distributors", "x": 71.5, "y": 6.0, "href": "/sub/7F980CFF", "color": "#4A90D9" }
+        ]
+      }
+    },
+    {
+      "number": 5,
+      "title": "排名躍升：Agricultural Products Δrank +94 追蹤以來最大——穀物價格是隱藏主線",
+      "image": "05_rank_delta.png",
+      "caption": "Agricultural Products +94 刷新紀錄（超越上期 HR & Employment +71）。Data Center REITs +45 從上期 Bottom 12 暴力反彈。底部方面 Movies -41 和 Personal Care -35 領跌，住房相關板塊（Homebuilding -27、Home Improvement -24）集體下滑。",
+      "body": "上期最大排名躍升是 HR & Employment +71。本週 **Agricultural Products +94 刷新追蹤以來的單週排名躍升紀錄**——催化劑多重疊加：美國中西部持續乾旱威脅玉米大豆產量、歐洲極端熱浪推高小麥（HRW 連漲 7 個交易日、9 月合約週漲逾 25 美分收 $6.45）、中國商務部宣布下調美國農產品關稅 10%（含大豆）。天氣 + 政策 + 供給三因素共振，推動 ADM、Bunge 等農產品巨頭集體上攻。**Data Center REITs +45** 從上期 Bottom 12 暴力反彈——上期 -8.9% 的超跌修復。**Advertising +37、HR & Employment +37** 延續上期軟體/服務板塊的餘溫。**Transaction Processing +35** 反映金融科技持續受惠 AI 效率化。底部方面，**Movies -41 領跌**——暑期票房不如預期。**Personal Care -35** 反映消費信心疲軟。**住房相關板塊集體下滑**——Homebuilding -27、Home Improvement -24、Single-Family REITs -34——affordability 危機正在從新屋開工向整個住房產業鏈蔓延。**Pharmaceuticals -23** 是 Healthcare 內部分化訊號——Health Care Services 和 Managed Health Care 的動能正在吸走 Pharma 的資金。",
+      "links": [
+        { "label": "Agricultural Products", "href": "/sub/52404E82" },
+        { "label": "Data Center REITs", "href": "/sub/5E2B6876" },
+        { "label": "Homebuilding", "href": "/sub/40AFBB27" },
+        { "label": "Movies & Entertainment", "href": "/sub/6D67D3FA" },
+        { "label": "Pharmaceuticals", "href": "/sub/7BF824C1" }
+      ],
+      "chartData": {
+        "type": "hbar",
+        "xLabel": "Δ rank vs prior week",
+        "xUnit": "",
+        "items": [
+          { "label": "Agricultural Products & Services", "value": 94, "href": "/sub/52404E82" },
+          { "label": "Data Center REITs", "value": 45, "href": "/sub/5E2B6876" },
+          { "label": "Advertising", "value": 37, "href": "/sub/F60915FE" },
+          { "label": "Human Resource & Employment Services", "value": 37, "href": "/sub/D4E92F32" },
+          { "label": "Transaction & Payment Processing", "value": 35, "href": "/sub/C5C265D9" },
+          { "label": "Commodity Chemicals", "value": 30, "href": "/sub/7BF90D4B" },
+          { "label": "Air Freight & Logistics", "value": 25, "href": "/sub/67278C25" },
+          { "label": "Fertilizers & Agricultural Chemicals", "value": 25, "href": "/sub/6A22E83B" },
+          { "label": "Diversified Chemicals", "value": 24, "href": "/sub/4B59004E" },
+          { "label": "Diversified Financial Services", "value": 24, "href": "/sub/A4F55D43" },
+          { "label": "Movies & Entertainment", "value": -41, "href": "/sub/6D67D3FA" },
+          { "label": "Personal Care Products", "value": -35, "href": "/sub/40E45B0C" },
+          { "label": "Single-Family Residential REITs", "value": -34, "href": "/sub/AA6376A4" },
+          { "label": "Multi-Sector Holdings", "value": -28, "href": "/sub/87FCAE9A" },
+          { "label": "Construction & Engineering", "value": -27, "href": "/sub/787C9D0B" },
+          { "label": "Homebuilding", "value": -27, "href": "/sub/40AFBB27" },
+          { "label": "Hotels, Resorts & Cruise Lines", "value": -25, "href": "/sub/7BC83F5D" },
+          { "label": "Home Improvement Retail", "value": -24, "href": "/sub/94A22E14" },
+          { "label": "Household Appliances", "value": -23, "href": "/sub/5C1D8B69" },
+          { "label": "Pharmaceuticals", "value": -23, "href": "/sub/7BF824C1" }
+        ]
+      }
+    },
+    {
+      "number": 6,
+      "title": "Materials 內部：基礎化工微幅回穩，貴金屬吐回非農漲幅——均值回歸效應",
+      "image": "06_materials_split.png",
+      "caption": "Paper Products +2.8% 領漲，Steel +1.0% 和 Copper +0.9% 止穩。Gold -4.3%、Silver -3.1% 吐回上期非農 57K 推動的漲幅。Industrial Gases -3.9% 從上期 +8.8% 急速獲利了結。",
+      "body": "上期「貴金屬反攻 + 工業氣體領漲 + 工業金屬崩潰」三分天下，本週全面均值回歸。**Paper Products +2.8% 領漲**——國內包裝需求穩定、造紙板塊不受地緣風波影響。**Steel +1.0%、Copper +0.9%** 從上期 -10.3% 和 -2.9% 止穩——但只是技術反彈，全球鋼鐵供過於求和中國需求疲軟的根本問題沒有解決。**Gold -4.3%（~$4,076）、Silver -3.1%** 吐回上期非農 57K 推動的漲幅——Fed 維持鷹派（利率 3.50-3.75%、10 年期殖利率逼近 5%），美元重新走強，上期「非農催化劑」一週即消退。**Industrial Gases -3.9%** 從上期 +8.8% 急速獲利了結——但 Linde 和 Air Products 的半導體製程氣體需求不受短期股價波動影響（TSMC 持續擴產）。**Construction Materials -4.0%** 連續兩週走弱——住房 affordability 危機從 Homebuilding 向上游建材蔓延。**Specialty Chemicals -4.6%** 墊底——週期性化工在利率預期惡化下承壓。Materials 配置邏輯不變：偏重包裝/基礎化工，貴金屬維持小倉位，工業金屬和建材觀望。",
+      "links": [
+        { "label": "Paper Products", "href": "/sub/7BD0E9D6" },
+        { "label": "Gold", "href": "/sub/33E5E2A6" },
+        { "label": "Silver", "href": "/sub/FDF8E7AE" },
+        { "label": "Industrial Gases", "href": "/sub/7D825052" },
+        { "label": "Copper", "href": "/sub/9D3B3E86" }
+      ],
+      "chartData": {
+        "type": "hbar",
+        "items": [
+          { "label": "Paper Products", "value": 2.8, "href": "/sub/7BD0E9D6" },
+          { "label": "Commodity Chemicals", "value": 1.4, "href": "/sub/7BF90D4B" },
+          { "label": "Steel", "value": 1.0, "href": "/sub/113B2BC3" },
+          { "label": "Copper", "value": 0.9, "href": "/sub/9D3B3E86" },
+          { "label": "Fertilizers & Agricultural Chemicals", "value": -0.3, "href": "/sub/6A22E83B" },
+          { "label": "Diversified Chemicals", "value": -0.6, "href": "/sub/4B59004E" },
+          { "label": "Metal, Glass & Plastic Containers", "value": -2.0, "href": "/sub/AE23CF9D" },
+          { "label": "Aluminum", "value": -2.4, "href": "/sub/1D0B4025" },
+          { "label": "Diversified Metals & Mining", "value": -2.5, "href": "/sub/650D58F5" },
+          { "label": "Silver", "value": -3.1, "href": "/sub/FDF8E7AE" },
+          { "label": "Paper & Plastic Packaging", "value": -3.4, "href": "/sub/424682BE" },
+          { "label": "Industrial Gases", "value": -3.9, "href": "/sub/7D825052" },
+          { "label": "Construction Materials", "value": -4.0, "href": "/sub/4E53B0B8" },
+          { "label": "Gold", "value": -4.3, "href": "/sub/33E5E2A6" },
+          { "label": "Specialty Chemicals", "value": -4.6, "href": "/sub/33054D65" }
+        ]
+      }
+    }
+  ],
+  "actions": [
+    "**上期操作績效回顧**：IT 核心持有 ✓——IT +1.48% 翻正，Tech Hardware +9.2% 和 Semiconductors +3.0% 從超跌反彈，軟硬收斂確認 AI 週期切換完成。AI 電力基建核心持有 ✗/○——Heavy Electrical -3.8%、Electric Utilities 和 IPPs 均未進 Top/Bottom 12，短期壓力但結構邏輯不變。Healthcare 觀察性配置 ✓——雖然 -0.75% 結束連莊，但 Health Care Services mom_score 87.9 登頂全場 = 結構性確認比單週報酬更重要。貴金屬小倉位 ✗——Gold -4.3%、Silver -3.1%，非農催化劑一週即消退、美元重新走強。Energy 不參與 ✓——+4.13% 是伊朗停火破裂的地緣衝擊，不追地緣溢價的紀律維持正確。Materials 偏重包裝建材 ○——Paper Products +2.8%（穩）、Industrial Gases -3.9%（獲利了結）。",
+    "**IT 核心持有——軟硬收斂確認，等 7/16 TSMC 開啟下一波**。上期觀察重點 #1「軟硬分化是否收斂」——本週答案明確。Tech Hardware +9.2%（上期 -7.7%）、Data Center REITs +4.5%（上期 -8.9%）、Semiconductors +3.0%（上期 -10.1%）全面反彈。AMD +7.2%、SOXX ETF +5.2%——半導體不是「完蛋了」而是「從超跌恢復」。IT 板塊從「軟體獨漲硬體崩潰」回歸「軟硬同漲」——這才是 AI 投資週期的正常狀態。**7/16 TSMC Q2 是下一個催化劑**——分析師預估營收 $400 億（+33% YoY）、毛利率 65.5-67.5%、資本支出向 $520-560 億高端靠攏。Citi 預期 TSMC 上調全年營收展望——如果 beat，半導體可能從均值回歸進入下一波上漲。維持核心持有不動。",
+    "**AI 電力基建維持核心持有——短期壓力不改結構性邏輯**。Heavy Electrical -3.8%——可能與週二伊朗局勢引發的廣泛風險偏好下降有關（Dow -576 時工業股全面承壓）。Electric Utilities 和 IPPs 均未進入 Top/Bottom 12——電力板塊本週「休息狀態」。但結構性邏輯完好：TSMC 7/16 若上調 capex guidance、AI 電力需求的前端訊號就更強；Heavy Electrical mom_score 74 仍在高位。上期說「IPPs 短期整理後能否止穩」——本週 IPPs 未反彈、但也沒有進一步惡化。一週 -3.8% 不改變中期趨勢。維持 Heavy Electrical 和 Electric Utilities 核心持有。",
+    "**Healthcare 觀察性配置——維持，7/16 UNH 財報是升格門檻**。Healthcare -0.75% 結束兩週連莊，但 **Health Care Services mom_score 87.9 在同一週超車 Semiconductors 86.7 登頂全場**——這比單週報酬更重要。Mom_score 衡量的是中期趨勢強度，87.9 登頂代表 Healthcare 的結構性動能正在超越科技板塊。Managed Health Care 85.7 穩居前四。上期升格觀察性配置時設定「等 7/16 財報確認後再考慮升格核心」——**7/16 就是下週**。Morgan Stanley 上調 UNH 目標價至 $468（Strong Buy 共識 19 買/3 持/1 賣），分析師預估 Q2 EPS $4.84（+18.6% YoY）、revenue $1,110 億。如果 beat，Healthcare 正式升格核心持有的條件就具備。本週維持觀察性配置，不因一週整理而降格——降格需要連續 2 週以上的惡化，不是 1 週。",
+    "**貴金屬小倉位——維持，承認非農催化劑已消退**。Gold -4.3%（~$4,076）、Silver -3.1%——上期非農 57K 推動的美元回落、貴金屬反彈曇花一現。Fed 維持鷹派（利率 3.50-3.75%，10 年期殖利率逼近 5%），FOMC 會議紀錄顯示 9:8 分裂（7/14 公布），非農催化劑一週即消退。但貴金屬小倉位的設計就是「等結構性美元轉弱」而非「追逐單次數據」——一次弱就業報告不等於美元見頂。Gold 從 $5,000 高點回落至 ~$4,076 已修正約 20%，估值壓力已大幅釋放。維持小倉位、不加碼、不減碼。等下週 FOMC 會議紀錄的政策訊號再評估。",
+    "**Materials 配置不變：包裝/基礎化工穩定，貴金屬小倉位持續，工業金屬觀望**。本週 Materials 全面均值回歸——上期 +8.8% 的 Industrial Gases 跌 -3.9%、上期 +7.8% 的 Silver 跌 -3.1%、上期 -10.3% 的 Steel 反彈 +1.0%。Paper Products +2.8%、Commodity Chemicals +1.4% 維持穩定——國內包裝和基礎化工需求不受地緣風波影響。唯一新增觀察：**Agricultural Products delta_rank +94 是追蹤以來最大排名躍升**——穀物價格因天氣 + 關稅雙因素全面上漲。如果美國中西部乾旱持續，Fertilizers +25（delta_rank）可能同步受惠，Materials 的配置可能多一個「農業化工」維度。暫時觀察，不納入正式配置。",
+    "**下週觀察重點**：(1) **7/16 雙重催化劑**——TSMC Q2（AI 晶片需求、全年營收展望是否上調、capex guidance）和 UNH Q2（醫療成本率、EPS 是否 beat $4.84）同日公布，這是本季最關鍵的單日。兩者都 beat → IT 核心 + Healthcare 升格核心的雙引擎格局確立。(2) **伊朗局勢追蹤**——Trump 週二說「停火結束」、週三改口，油價回升到 $71。如果局勢惡化（荷姆茲海峽封鎖），油價可能衝破 $75；如果緩和，本週漲幅全數吐回。無論哪種，Energy 維持「不參與」。(3) **FOMC 會議紀錄（7/14）**——9:8 分裂投票的細節可能影響美元和貴金屬方向。如果鴿派論述增加，Gold 可能止穩。(4) **住房板塊加速惡化**——Homebuilding -5.8%、Home Improvement -4.8%、Construction Materials -4.0% 集體下滑，如果 7/16 科技和醫療 beat，住房板塊資金可能進一步流失。(5) **穀物價格是否持續**——中西部乾旱 + 中國關稅是否持續推動 Agricultural Products 和 Fertilizers。"
+  ],
+  "sources": [
+    { "title": "Stock market today (July 10): S&P 500 notches weekly gain, bolstered by Big Tech — CNBC", "url": "https://www.cnbc.com/2026/07/09/stock-market-today-live-updates.html" },
+    { "title": "Stock market today (July 8): Dow falls 576 as Trump says Iran ceasefire 'over' — CNBC", "url": "https://www.cnbc.com/2026/07/07/stock-market-today-live-updates.html" },
+    { "title": "Trump says ceasefire with Iran is 'over' as NATO summit wraps — NPR", "url": "https://www.npr.org/2026/07/08/nx-s1-5883929/trump-nato-iran-strikes-press-conference" },
+    { "title": "Trump downplays Iran's nuclear threat as ceasefire collapses — CNBC", "url": "https://www.cnbc.com/2026/07/08/trump-says-iran-ceasefire-is-over-after-latest-round-of-strikes.html" },
+    { "title": "Nasdaq Composite jumps 0.9% as semiconductors stage a comeback — Motley Fool", "url": "https://www.fool.com/investing/2026/07/09/nasdaq-composite-jumps-09-as-semiconductors-rise/" },
+    { "title": "Semiconductor sector rebounds amid strong AI demand — GuruFocus", "url": "https://www.gurufocus.com/news/8946831/semiconductor-sector-rebounds-amid-strong-ai-demand-and-key-developments" },
+    { "title": "Prediction: TSMC stock is going to soar after July 16 — Motley Fool", "url": "https://www.fool.com/investing/2026/07/09/prediction-tsmc-stock-is-going-to-soar-after-july/" },
+    { "title": "TSMC's Q2 will test whether the AI buildout has a ceiling — Forbes", "url": "https://www.forbes.com/sites/drewbernstein/2026/07/09/tsmcs-second-quarter-will-test-whether-the-ai-buildout-has-a-ceiling/" },
+    { "title": "UnitedHealth (UNH) stock wins price target boost ahead of earnings — TipRanks", "url": "https://www.tipranks.com/news/unitedhealth-unh-stock-wins-a-price-target-boost-ahead-of-earnings" },
+    { "title": "Don't buy UnitedHealth Group stock before reading this — Motley Fool", "url": "https://www.fool.com/investing/2026/07/08/dont-buy-unitedhealth-group-unh-stock-before-readi/" },
+    { "title": "Gold slides to $4,076 as dollar firms and oil jumps — USAGOLD", "url": "https://www.usagold.com/daily-precious-metals-market-report-july-8-2026/" },
+    { "title": "The Fed is split 9 to 8. Gold and silver are paying the price — GoldSilver", "url": "https://goldsilver.com/industry-news/goldsilver-news/gold-silver-fomc-minutes-july-2026-reaction/" },
+    { "title": "Crude oil slips to $71.2 on track for 3.5% weekly gain — Forbes Advisor", "url": "https://www.forbes.com/advisor/investing/oil-prices-today/" },
+    { "title": "Soybeans explode higher with corn and wheat on weather, China dropping tariffs — AgWeb", "url": "https://www.agweb.com/markets/market-analysis/soybeans-explode-higher-corn-and-wheat-weather-china-dropping-tariffs" },
+    { "title": "Weather concerns and global demand spark rally in grain futures — OK Farm Report", "url": "https://www.oklahomafarmreport.com/2026/07/07/weather-concerns-and-global-demand-spark-rally-in-grain-and-oilseed-futures/" },
+    { "title": "Americans still can't afford to buy — homebuilder stocks paying the price — Benzinga", "url": "https://www.benzinga.com/analyst-stock-ratings/analyst-color/26/07/60227792/americans-still-cant-afford-to-buy-and-homebuilder-stocks-are-paying-the-price" },
+    { "title": "Market on edge watching Strait as chip firm debuts — Schwab", "url": "https://www.schwab.com/learn/story/stock-market-update-open" }
+  ]
+}
