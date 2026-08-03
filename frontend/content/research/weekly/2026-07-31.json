@@ -1,0 +1,243 @@
+{
+  "slug": "2026-07-31",
+  "issue": 18,
+  "date": "2026-07-31",
+  "snapshotDate": "2026-07-31",
+  "title": "四家四命——Fed 三票逼宮 × Big Tech 財報差異化定價，S&P 跌穿又拉回",
+  "subtitle": "FOMC 9-3 票維持利率不變——但三票要求升息是 Warsh 時代最鷹派訊號，Dow 單日 -1,100 點（年內最大跌幅）、30 年期殖利率衝至 2007 年以來最高。隔日 Big Tech 財報登場：Microsoft +8%（Azure 辯護 AI capex 成功）、Amazon +15%（AWS +37% 創 18 季最快增速、EPS $5.75 vs $1.81 est）vs Meta -9.6%（EPS miss 14%、FCF -91%、AI 成本 +55%）、Apple -7%（Services + 中國營收 miss）。Marine Transportation mom_score 單週暴跌 28 點（88.9→61.1）——全球運費正常化打破連續稱王紀錄。Systems Software +5.6% V 型反彈——上期 -7% 的 AI 替代恐慌證實為短期恐慌。S&P 500 全週 +1.0% 收 7,490、Nasdaq +1%。",
+  "imageDir": "/research/weekly/2026-07-31",
+  "coverImage": "01_sector_1w.png",
+  "intro": [
+    "上期核心判斷是「AI 投資的蹺蹺板效應正在重塑科技板塊——硬體反彈說明 Moonshot 恐慌正在被消化，但軟體崩潰揭示 AI 替代效應。IT 核心持有重新定義為 AI 價值鏈（半導體、硬體、DC REITs）」。本週的結果：**蹺蹺板又擺了一次，而且這次附帶了年內最大的宏觀衝擊。** 先說績效——上期重新定義 IT 核心為「AI 價值鏈受益端」，把 Systems Software 排除在外。結果 Systems Software +5.56% V 型反彈、Application Software +9.25%，而被列入核心的 Semiconductors -3.99%、Data Center REITs -5.65%。**重新定義的方向一週之內就被翻轉。** 但這不代表分析框架有問題——而是告訴我們「軟體 vs 硬體」的二元分類太粗糙。本週 Big Tech 財報給出了更精確的分類法：**關鍵不在軟硬體，在每家公司能不能用營收增長 justify AI capex 的 ROI**。Microsoft（Azure +37%→+8%）和 Amazon（AWS +37%、EPS beat 218%→+15%）交出了答卷。Meta（EPS miss 14%、FCF -91%→-9.6%）和 Apple（Services miss→-7%）沒有。上期其他操作：Healthcare 核心持有（HC +1.80% ✓ 板塊整體，但 MHC 73.6 跌破上期設定的 75 門檻）、AI 電力基建觀察性配置（全面崩潰——Heavy Electrical -2.76%、IPPs -4.34%、Electric Utilities -4.53%）、貴金屬象徵性水位（Gold -0.73%、Silver -6.74%——上期不追回的決策完全正確）、Materials 中性（-2.77%，正確不押注方向）。",
+    "**週二（7/28）** 市場平靜開盤，S&P +0.21% 收 7,429。**週三（7/29）** 年內最大的單日衝擊——**FOMC 以 9-3 票維持利率 3.50-3.75%，但三位委員投票要求升息一碼**。Warsh 稱之為「a good family fight」，並大幅縮短聲明篇幅、聲稱要給市場更少的前瞻指引。**30 年期殖利率飆至 2007 年以來最高、Dow 暴跌 1,100 點**（年內最大單日跌幅）、S&P -1.52% 墜到 7,316。同日盤後 MSFT 和 META 公布 Q2：**Microsoft +8%**（Azure Q4 capex $410 億、辯護「供給限制」成功）、**Meta -9.64%**（營收 $608 億 beat +28%，但 EPS $6.18 miss $7.17 預估 14%、FCF 暴跌 91%、總成本 +55%——AI 成本吞噬獲利）。**週四（7/30）** 盤後 Apple 和 Amazon 公布：**Amazon** AWS 營收 $422 億（+37%，18 季最快增速）、總營收 $2,006 億（+20%）、EPS $5.75 vs $1.81 est（beat 218%！）→盤後 +9.15%。**Apple** 營收 beat 但 Services 和中國營收 miss→-7%。**週五（7/31）** Amazon +15% 帶動全場——S&P +0.7% 收 7,490。**全週 S&P +1.0%、Nasdaq +1%**——年內最大單日跌幅後兩天內完全收復，MSFT/AMZN 的 AI 故事壓過了 Fed 的鷹派訊號。",
+    "本期核心判斷：**「差異化定價」是 2026 下半年的核心主題。不是「科技好不好」——是「哪家科技公司能用 AI 營收 justify AI 支出」。** MSFT 和 AMZN 證明了 AI 不是「純支出」——Azure 和 AWS 的增速（都是 +37%）直接產生了遠超 capex 的營收增長。Meta 證明了相反——FCF -91%、成本 +55% vs 營收 +28%——AI 支出如果沒有對應的營收增長，市場會殘酷懲罰（-9.6%）。這個「ROI 考試」每季都會重考一次，通過的獲賞、沒通過的受罰。IT 核心持有的邏輯從「AI 價值鏈」進一步聚焦到「AI ROI 兌現者」。同時，宏觀環境出現新變數——FOMC 三票逼宮說明 Fed 內部已經有人認為目前利率不夠高。雖然 Warsh 本人沒有加入升息陣營，但三票分歧是他上任以來最鷹派的訊號，利率敏感板塊（Utilities -3.04%、Silver -6.74%）首當其衝。Healthcare 核心持有進入壓力測試——MHC 連三週惡化跌破 75 門檻（73.6），但 HCS 81.8 仍穩。Marine Transportation mom_score 一週暴跌 28 點（88.9→61.1）——全球貨櫃運費正常化（船隊產能 +28%、前置出貨效應消退）打破了連續數週的動能王座，運輸板塊全面崩潰。"
+  ],
+  "exhibits": [
+    {
+      "number": 1,
+      "title": "板塊一週報酬：CommServ +2.8% 翻正領漲、IT +1.8% 財報帶動、Utilities -3.0% FOMC 鷹派衝擊",
+      "image": "01_sector_1w.png",
+      "caption": "Communication Services +2.79% 從上期 -2.55% 翻正奪冠。IT +1.81% 連續第二週正面（上期 +0.08%）。Healthcare +1.80% 反彈。Utilities -3.04% 墊底——FOMC 三票逼宮升息重創利率敏感板塊。Materials -2.77% 金屬再度回落。Energy +0.38% 四連正但動能衰減。",
+      "body": "上期是「蹺蹺板——Tech Hardware +7% vs Systems Software -7%，IT +0.08% 內部抵消」。本週格局出現重要轉變——**IT +1.81% 整體翻正**，而且這次不是內部抵消，是 Big Tech 財報推動的真實反彈。IT Consulting +13.2%、Consumer Electronics +10.3%、Application Software +9.3%、Broadline Retail +7.7%——MSFT/AMZN 財報的光環效應擴散到整個科技消費生態。**Communication Services +2.79% 從墊底跳到第一**——Interactive Media +5.30%（Google 搜尋業務穩健）、Interactive Home Entertainment +4.58%、Cable & Satellite +8.91%。**Healthcare +1.80% 第二**——板塊整體報酬正面但 Health Care Services -2.01%、Managed Health Care -0.85% 持續微跌。Biotechnology -0.05% 接近持平。Health Care Supplies +6.43% 和 Health Care Equipment +5.44% 撐起板塊報酬。**Utilities -3.04% 墊底**是本週最明確的因果關係——FOMC 三票逼宮升息 → 30 年期殖利率飆至 2007 年新高 → Electric Utilities -4.53%、Multi-Utilities -4.42%、IPPs -4.34%。利率敏感板塊首當其衝。**Materials -2.77%**——上期金屬超跌反彈本週全數回吐：Silver -6.74%、Diversified Metals -6.18%。**Energy +0.38%** 四連正但漲幅從 +3.67%→+2.19%→+0.38% 持續衰減——Brent $89 仍高但邊際動能減弱。**Industrials -1.35%**——運輸板塊崩潰（Marine -7.78%、Cargo -9.87%、Air Freight -7.84%）拖累整體。",
+      "links": [
+        { "label": "Systems Software", "href": "/sub/4D1787C4" },
+        { "label": "Application Software", "href": "/sub/05F28EE1" },
+        { "label": "Broadline Retail", "href": "/sub/BA58F32D" },
+        { "label": "Marine Transportation", "href": "/sub/8EEB09C8" },
+        { "label": "Electric Utilities", "href": "/sub/BCAFA011" }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "輪動地圖：Big Tech 財報把科技+消費+通訊拉回正報酬區——Utilities 和 Materials 墜入深淵",
+      "image": "02_rotation_map.png",
+      "caption": "CommServ 從 -2.55% 跳到 +2.79%——全場最大位移。IT 從 +0.08% 加速到 +1.81%。Healthcare 和 ConsDisc 都在正報酬區。Utilities -3.04% 和 Materials -2.77% 取代 IT 成為最弱雙底。板塊輪動格局完全重塑。",
+      "body": "上期是「IT 爬回零線、但內部蹺蹺板」。本週 **IT 突破零線繼續上行**，同時 **Communication Services 完成追蹤以來最大的一週翻轉**（-2.55%→+2.79%，跨度 5.3 個百分點）。驅動力清楚：MSFT +8%、AMZN +15% 的財報光環不只照在 IT，也照在消費（Amazon 帶動 Broadline Retail +7.7%）和通訊（Google 穩健帶動 Interactive Media +5.3%）。但圖上最引人注目的是 **底部雙峰的替換**——上期底部是 CommServ（-2.55%），本週變成 Utilities（-3.04%）和 Materials（-2.77%）。這個替換的意義很大：**上期底部是「科技恐慌」造成的，本週底部是「利率恐慌」造成的**——FOMC 三票逼宮升息直接衝擊了利率敏感的 Utilities 和依賴全球需求的 Materials。投資者的擔心從「AI 估值泡沫」轉到「利率可能不降反升」。**Industrials -1.35%** 也在負報酬區——運輸板塊崩潰（Marine -7.78%、Cargo -9.87%）是主因。整體格局：板塊報酬從 +2.79% 到 -3.04%（5.8 百分點差距），跟上期的 +2.19% 到 -2.55%（4.7 百分點）相比，分散度在擴大。",
+      "links": [
+        { "label": "IT Consulting", "href": "/sub/364050B7" },
+        { "label": "Interactive Media", "href": "/sub/0D9F6537" },
+        { "label": "Cargo Ground Transportation", "href": "/sub/AE21267B" },
+        { "label": "Electric Utilities", "href": "/sub/BCAFA011" },
+        { "label": "Silver", "href": "/sub/FDF8E7AE" }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Top/Bottom 12：IT 佔據 Top 半壁——MSFT/AMZN 效應輻射全場；Bottom 是運輸 + 金屬 + 半導體",
+      "image": "03_top_bottom_subs.png",
+      "caption": "IT Consulting +13.2% 領漲、Data Processing +11.4%、Consumer Electronics +10.3%、Application Software +9.3%、Systems Software +5.6%。底部完全不同面貌——Cargo Ground -9.9%、Air Freight -7.8%、Marine -7.8% 運輸三殺、Silver -6.7%、Ag Farm Machinery -6.8%、Data Center REITs -5.6% 均值回歸。",
+      "body": "上期 Top 12 是「Data Center REITs +10.4% 登頂、金屬佔 5 席」。本週 **Top 12 被科技和消費全面接管**——IT 相關佔了 5 席（IT Consulting +13.2%、Application Software +9.3%、Systems Software +5.6%，加上 Data Processing +11.4% 和 Consumer Electronics +10.3%）。**Systems Software +5.56% 是最有意義的翻轉**——上期 -6.97% 墊底，本週跳回 Top 12。一週 V 型反彈證明「AI 替代效應」的恐慌是過度的——**MSFT Azure +37% 說明軟體不是被 AI 替代，是被 AI 增強**。Broadline Retail +7.7%（Amazon 效應）、Restaurants +5.7%、Housewares +10.2%——消費板塊也受惠。**Bottom 12 結構告訴了完全不同的故事**——Cargo Ground -9.87% 墊底、Air Freight -7.84%、Marine Transportation -7.78% **運輸三殺**。全球貨櫃運費正常化（Drewry 指數跌 2%、船隊產能 +28%）和前置出貨效應消退是結構性原因。Silver -6.74%、Diversified Metals -6.18%、Agricultural Machinery -6.84% 反映 FOMC 鷹派衝擊。**Data Center REITs -5.65%** 從上期 +10.4% 登頂直接跌到 Bottom 12——典型均值回歸，AI 基建需求不變但一週漲 10% 後需要消化。Semi Equipment -5.22%、Semiconductors -3.99%——硬體板塊繼續承壓。",
+      "links": [
+        { "label": "IT Consulting", "href": "/sub/364050B7" },
+        { "label": "Systems Software", "href": "/sub/4D1787C4" },
+        { "label": "Application Software", "href": "/sub/05F28EE1" },
+        { "label": "Cargo Ground Transportation", "href": "/sub/AE21267B" },
+        { "label": "Marine Transportation", "href": "/sub/8EEB09C8" }
+      ],
+      "chartData": {
+        "type": "hbar",
+        "items": [
+          { "label": "IT Consulting & Other Services", "value": 13.2, "href": "/sub/364050B7" },
+          { "label": "Data Processing & Outsourced Services", "value": 11.4, "href": "/sub/8CC1BC08" },
+          { "label": "Consumer Electronics", "value": 10.3, "href": "/sub/A3C1F86E" },
+          { "label": "Housewares & Specialties", "value": 10.2, "href": "/sub/7123167E" },
+          { "label": "Application Software", "value": 9.3, "href": "/sub/05F28EE1" },
+          { "label": "Cable & Satellite", "value": 8.9, "href": "/sub/6F9A951B" },
+          { "label": "Broadline Retail", "value": 7.7, "href": "/sub/BA58F32D" },
+          { "label": "Health Care Supplies", "value": 6.4, "href": "/sub/D5E5DD71" },
+          { "label": "Human Resource & Employment Services", "value": 5.7, "href": "/sub/D4E92F32" },
+          { "label": "Restaurants", "value": 5.7, "href": "/sub/96CDA085" },
+          { "label": "Systems Software", "value": 5.6, "href": "/sub/4D1787C4" },
+          { "label": "Distillers & Vintners", "value": 5.5, "href": "/sub/3E115254" },
+          { "label": "Fertilizers & Agricultural Chemicals", "value": -4.6, "href": "/sub/6A22E83B" },
+          { "label": "Rail Transportation", "value": -4.9, "href": "/sub/AA6314B8" },
+          { "label": "Construction Machinery & Heavy Transportation", "value": -5.1, "href": "/sub/192175A2" },
+          { "label": "Semiconductor Materials & Equipment", "value": -5.2, "href": "/sub/7F8BA218" },
+          { "label": "Data Center REITs", "value": -5.6, "href": "/sub/5E2B6876" },
+          { "label": "Diversified Metals & Mining", "value": -6.2, "href": "/sub/650D58F5" },
+          { "label": "Agricultural Products & Services", "value": -6.2, "href": "/sub/52404E82" },
+          { "label": "Silver", "value": -6.7, "href": "/sub/FDF8E7AE" },
+          { "label": "Agricultural & Farm Machinery", "value": -6.8, "href": "/sub/D8F634B1" },
+          { "label": "Marine Transportation", "value": -7.8, "href": "/sub/8EEB09C8" },
+          { "label": "Air Freight & Logistics", "value": -7.8, "href": "/sub/67278C25" },
+          { "label": "Cargo Ground Transportation", "value": -9.9, "href": "/sub/AE21267B" }
+        ]
+      }
+    },
+    {
+      "number": 4,
+      "title": "動能散點圖：Oil Refining 88.4 登頂——Marine Transportation 從 89 暴跌到 61 脫離象限",
+      "image": "04_energy_unwind.png",
+      "caption": "Oil & Gas Refining 88.4（#2→#2，穩）、Hotel REITs 88.6（#1 守住）、Health Care Services 81.8（#3 但 -2.0%）。Marine Transportation 從上期（89, -1.1%）暴跌到（61, -7.8%）——追蹤以來最大的單週動能崩塌。Systems Software（73, +5.6%）脫離弱勢區回到右上。",
+      "body": "上期主題是「蹺蹺板——硬體脫困、軟體墜落」。本週主題是 **「Marine Transportation 的動能崩塌 + Big Tech 財報的差異化定價」**。先看最戲劇性的位移——**Marine Transportation 從（89, -1.1%）暴跌到（61, -7.8%）**，在散點圖上從右上角「確認趨勢」象限一路墜到左下角「弱勢」象限。**28 點是追蹤以來任何板塊最大的單週 mom_score 跌幅。** 原因是結構性的：全球貨櫃運費正常化——船隊產能自 2021 年以來擴張 28%、關稅前置出貨效應消退、IMF 預測全球貿易增速僅 2.8%（遠低於十年均值 4.5%）。**Oil Refining（88, +5.3%）本週取代 Marine 穩坐 Top-2**——裂解利差在 Brent $89 支撐下持續擴大。**Hotel & Resort REITs（89, 持平）依然是 mom_score 冠軍**。**Systems Software（73, +5.6%）**是另一個重要位移——從上期的左下「弱勢崩潰」（71, -7.0%）跳回右上。MSFT Azure +37% 證明軟體不是被 AI 取代，是被 AI 增強。**Semiconductors（61, -4.0%）持續向左下漂移**——mom 從兩週前的 71 降到 61。Moonshot 效應在半導體板塊的消化速度比硬體（Tech Hardware 一週就脫困）慢得多。**Healthcare（橙色）在右側微負區**——HCS（82, -2.0%）和 MHC（74, -0.9%）都微跌但 MHC 跌到 73.6 已觸及觀察門檻。",
+      "links": [
+        { "label": "Marine Transportation", "href": "/sub/8EEB09C8" },
+        { "label": "Oil Refining", "href": "/sub/DB62D66B" },
+        { "label": "Systems Software", "href": "/sub/4D1787C4" },
+        { "label": "Semiconductors", "href": "/sub/3DFD4B15" },
+        { "label": "Health Care Services", "href": "/sub/CE2456A9" }
+      ],
+      "chartData": {
+        "type": "scatter",
+        "xLabel": "Mom Score (0–100)",
+        "yLabel": "1W return (%)",
+        "quadrants": {
+          "topLeft": "新領先者",
+          "topRight": "確認趨勢",
+          "bottomLeft": "弱勢",
+          "bottomRight": "動能整理"
+        },
+        "colorLabels": {
+          "#2ECC71": "IT（MSFT/AMZN 效應）",
+          "#E74C3C": "運輸（全面崩潰）",
+          "#E67E22": "Healthcare（壓力測試）",
+          "#4A90D9": "其他"
+        },
+        "items": [
+          { "label": "Hotel & Resort REITs", "x": 89, "y": -0.6, "href": "/sub/E721F75E", "color": "#4A90D9" },
+          { "label": "Oil & Gas Refining & Marketing", "x": 88, "y": 5.3, "href": "/sub/DB62D66B", "color": "#4A90D9" },
+          { "label": "Health Care Services", "x": 82, "y": -2.0, "href": "/sub/CE2456A9", "color": "#E67E22" },
+          { "label": "Rail Transportation", "x": 79, "y": -4.9, "href": "/sub/AA6314B8", "color": "#E74C3C" },
+          { "label": "Food Distributors", "x": 79, "y": -0.6, "href": "/sub/D05C635E", "color": "#4A90D9" },
+          { "label": "Technology Distributors", "x": 78, "y": 1.6, "href": "/sub/7F980CFF", "color": "#2ECC71" },
+          { "label": "Office Services & Supplies", "x": 77, "y": -0.6, "href": "/sub/31A0D44A", "color": "#4A90D9" },
+          { "label": "Technology Hardware", "x": 77, "y": -0.6, "href": "/sub/D10047AB", "color": "#2ECC71" },
+          { "label": "Human Resource & Employment", "x": 74, "y": 5.7, "href": "/sub/D4E92F32", "color": "#4A90D9" },
+          { "label": "Housewares & Specialties", "x": 74, "y": 10.2, "href": "/sub/7123167E", "color": "#4A90D9" },
+          { "label": "Managed Health Care", "x": 74, "y": -0.9, "href": "/sub/3E2ACB37", "color": "#E67E22" },
+          { "label": "Consumer Finance", "x": 73, "y": -3.2, "href": "/sub/3AB077CE", "color": "#4A90D9" },
+          { "label": "Systems Software", "x": 73, "y": 5.6, "href": "/sub/4D1787C4", "color": "#2ECC71" },
+          { "label": "Household Products", "x": 71, "y": -1.2, "href": "/sub/12D686D0", "color": "#4A90D9" },
+          { "label": "Biotechnology", "x": 71, "y": -0.1, "href": "/sub/A26A78F7", "color": "#E67E22" },
+          { "label": "Homefurnishing Retail", "x": 71, "y": -3.2, "href": "/sub/BAE71B92", "color": "#4A90D9" },
+          { "label": "Transaction & Payment Processing", "x": 70, "y": -0.2, "href": "/sub/DB878878", "color": "#4A90D9" },
+          { "label": "Diversified Financial Services", "x": 70, "y": 1.5, "href": "/sub/A4F55D43", "color": "#4A90D9" },
+          { "label": "Leisure Facilities", "x": 70, "y": -2.4, "href": "/sub/FD39D067", "color": "#4A90D9" },
+          { "label": "Tires & Rubber", "x": 69, "y": -2.2, "href": "/sub/B5BAF43F", "color": "#4A90D9" },
+          { "label": "Marine Transportation", "x": 61, "y": -7.8, "href": "/sub/8EEB09C8", "color": "#E74C3C" },
+          { "label": "Semiconductors", "x": 61, "y": -4.0, "href": "/sub/3DFD4B15", "color": "#2ECC71" }
+        ]
+      }
+    },
+    {
+      "number": 5,
+      "title": "排名躍升：Copper +33 穩坐 climber 冠軍、Systems Software +22 V 型反彈確認、Distributors -37 墊底",
+      "image": "05_rank_delta.png",
+      "caption": "Copper +33 連續第二週在 climbers 前列（上期也 +33）。Semi Equipment +32 排名反彈但報酬仍 -5.2%——典型的「數字好看但還沒脫困」。Systems Software +22 確認 V 型反彈。底部 Distributors -37 和 Automotive Retail -36 領跌。",
+      "body": "上期最大排名躍升是 Diversified Capital Markets +56（金融內部輪替）。本週 **Copper +33 連續第二週在 climbers 頂端**——但注意 Copper 1W return 只有 +0.05%（幾乎為零），+33 的排名躍升主要反映其他板塊在 FOMC 衝擊下下跌、相對位置被動上移。**Semi Equipment +32** 看起來令人振奮，但 1W -5.22% 仍在 Bottom 12——排名上升是因為上期已經跌到很低（rank 96），本週跌幅收窄就能排名上升。**Systems Software +22** 是最有意義的 climber——從 rank 35 躍升到 rank 13，而且 1W +5.56% 有實質報酬支撐。這是 V 型反彈的排名確認。**Interactive Home Entertainment +30 和 Household Appliances +29** 反映消費信心局部改善。底部方面，**Distributors -37 和 Automotive Retail -36** 領跌——消費板塊內部也在分化：電商受惠（Broadline Retail +7.7%）、傳統零售受損。**Cargo Ground -23** 延續運輸板塊的崩潰主題。**Gas Utilities -22** 是 FOMC 利率衝擊的直接受害者。**Hotels & Cruise Lines -19** 可能反映旅遊旺季高基期效應消退。",
+      "links": [
+        { "label": "Copper", "href": "/sub/9D3B3E86" },
+        { "label": "Systems Software", "href": "/sub/4D1787C4" },
+        { "label": "Semiconductor Materials & Equipment", "href": "/sub/7F8BA218" },
+        { "label": "Cargo Ground Transportation", "href": "/sub/AE21267B" },
+        { "label": "Gas Utilities", "href": "/sub/EBA48B83" }
+      ],
+      "chartData": {
+        "type": "hbar",
+        "xLabel": "Δ rank vs prior week",
+        "xUnit": "",
+        "items": [
+          { "label": "Copper", "value": 33, "href": "/sub/9D3B3E86" },
+          { "label": "Semiconductor Materials & Equipment", "value": 32, "href": "/sub/7F8BA218" },
+          { "label": "Interactive Home Entertainment", "value": 30, "href": "/sub/951C6D9C" },
+          { "label": "Household Appliances", "value": 29, "href": "/sub/5C1D8B69" },
+          { "label": "Commercial & Residential Mortgage Finance", "value": 27, "href": "/sub/65665600" },
+          { "label": "Diversified Chemicals", "value": 26, "href": "/sub/4B59004E" },
+          { "label": "Data Center REITs", "value": 25, "href": "/sub/5E2B6876" },
+          { "label": "Human Resource & Employment Services", "value": 23, "href": "/sub/D4E92F32" },
+          { "label": "Systems Software", "value": 22, "href": "/sub/4D1787C4" },
+          { "label": "Food Retail", "value": 21, "href": "/sub/E9C739A4" },
+          { "label": "Distributors", "value": -37, "href": "/sub/2F359C60" },
+          { "label": "Automotive Retail", "value": -36, "href": "/sub/2F24E10B" },
+          { "label": "Footwear", "value": -28, "href": "/sub/ABFF7D9B" },
+          { "label": "Construction & Engineering", "value": -27, "href": "/sub/787C9D0B" },
+          { "label": "Cargo Ground Transportation", "value": -23, "href": "/sub/AE21267B" },
+          { "label": "Gas Utilities", "value": -22, "href": "/sub/EBA48B83" },
+          { "label": "Education Services", "value": -20, "href": "/sub/A845743C" },
+          { "label": "Investment Banking & Brokerage", "value": -20, "href": "/sub/110D36B8" },
+          { "label": "Motorcycle Manufacturers", "value": -20, "href": "/sub/3242F391" },
+          { "label": "Hotels, Resorts & Cruise Lines", "value": -19, "href": "/sub/7BC83F5D" }
+        ]
+      }
+    },
+    {
+      "number": 6,
+      "title": "Materials 內部：只有 Specialty Chemicals 正報酬——FOMC 鷹派全面壓制金屬和大宗化工",
+      "image": "06_materials_split.png",
+      "caption": "Specialty Chemicals +1.80% 是唯一正報酬。Copper +0.05% 接近持平。其餘全面為負——Silver -6.74%、Diversified Metals -6.18%、Fertilizers -4.60%、Construction Materials -4.32%、Diversified Chemicals -4.19%。上期金屬反彈本週全數回吐。",
+      "body": "上期是「金屬全面暴力反彈、化工回落」。本週 **Materials 全面負面——15 個子板塊中只有 1 個正報酬**。**Silver -6.74%** 領跌——上期從兩週連跌中暴力反彈 +5.65%，本週全數回吐再跌。FOMC 三票逼宮升息 → 美元走強 → 貴金屬首當其衝。上期我們說「反彈的可持續性存疑」——一週驗證。**Gold -0.73%** 相對溫和（~$4,100 附近持穩）——黃金的避險屬性在升息恐慌中提供了一些支撐，但 Silver 沒有這層保護。**Diversified Metals -6.18%** 連續第三週在 Bottom 區間。**化工板塊也全面回落**——Diversified Chemicals -4.19%、Industrial Gases -3.81%、Commodity Chemicals -2.93%。上期「化工暫時熄火」的判斷被確認加強——不只是暫時，而是整個 Materials 板塊都在 FOMC 鷹派衝擊下承壓。**Copper +0.05%** 是唯一接近持平的金屬——銅的 AI data center 需求邏輯在一定程度上抵消了利率壓力。**Specialty Chemicals +1.80%** 是唯一正報酬——高附加值化學品的定價權保護了它在利率風暴中的地位。**上期判斷「Materials 回歸中性、偏重包裝和中游化工」**——Paper & Plastic Packaging -1.43%、Metal Containers -4.37%，包裝也沒能倖免。Materials 這週只能說「能不碰就不碰」。",
+      "links": [
+        { "label": "Silver", "href": "/sub/FDF8E7AE" },
+        { "label": "Copper", "href": "/sub/9D3B3E86" },
+        { "label": "Specialty Chemicals", "href": "/sub/33054D65" },
+        { "label": "Diversified Metals", "href": "/sub/650D58F5" },
+        { "label": "Gold", "href": "/sub/33E5E2A6" }
+      ],
+      "chartData": {
+        "type": "hbar",
+        "items": [
+          { "label": "Specialty Chemicals", "value": 1.8, "href": "/sub/33054D65" },
+          { "label": "Copper", "value": 0.1, "href": "/sub/9D3B3E86" },
+          { "label": "Gold", "value": -0.7, "href": "/sub/33E5E2A6" },
+          { "label": "Steel", "value": -0.8, "href": "/sub/113B2BC3" },
+          { "label": "Aluminum", "value": -1.0, "href": "/sub/1D0B4025" },
+          { "label": "Paper & Plastic Packaging Products", "value": -1.4, "href": "/sub/424682BE" },
+          { "label": "Paper Products", "value": -2.3, "href": "/sub/7BD0E9D6" },
+          { "label": "Commodity Chemicals", "value": -2.9, "href": "/sub/7BF90D4B" },
+          { "label": "Industrial Gases", "value": -3.8, "href": "/sub/7D825052" },
+          { "label": "Diversified Chemicals", "value": -4.2, "href": "/sub/4B59004E" },
+          { "label": "Construction Materials", "value": -4.3, "href": "/sub/4E53B0B8" },
+          { "label": "Metal, Glass & Plastic Containers", "value": -4.4, "href": "/sub/AE23CF9D" },
+          { "label": "Fertilizers & Agricultural Chemicals", "value": -4.6, "href": "/sub/6A22E83B" },
+          { "label": "Diversified Metals & Mining", "value": -6.2, "href": "/sub/650D58F5" },
+          { "label": "Silver", "value": -6.7, "href": "/sub/FDF8E7AE" }
+        ]
+      }
+    }
+  ],
+  "actions": [
+    "**上期操作績效回顧**：IT 核心持有（重新定義為 AI 價值鏈）○——IT 整體 +1.81% ✓，但上期列入核心的具體板塊表現分化：Tech Hardware -0.58% ○、Semiconductors -3.99% ✗、DC REITs -5.65% ✗。被排除在外的 Systems Software +5.56% ✓、Application Software +9.25% ✓ 反而大漲——重新定義的方向一週內被翻轉，但原因是 MSFT/AMZN 財報效應，不是 AI 替代效應反轉。Healthcare 核心持有 ✓——HC 板塊整體 +1.80%，但 HCS -2.01%、MHC -0.85%（mom 73.6 跌破上期 75 門檻）。AI 電力基建觀察性配置 ✗——全面崩潰：Heavy Electrical -2.76%（mom 52.0）、IPPs -4.34%、Electric Utilities -4.53%——上期 IPPs 的「微光」被 FOMC 鷹派完全撲滅。貴金屬象徵性水位 ✓——Gold -0.73%、**Silver -6.74%**——上期不追回反彈的決策完全正確。Materials 中性 ✓——-2.77%，正確不押注方向。Energy 不參與 ✓——+0.38%，漲幅持續衰減。",
+    "**IT 核心持有——維持，但放棄「軟硬二分法」、改用「AI ROI 兌現者」框架**。本週最重要的教訓不是「軟體好、硬體差」——而是 **「能用 AI 營收 justify AI 支出的公司就是贏家」**。MSFT（Azure +37%）和 AMZN（AWS +37%、EPS beat 218%）的股價各漲 +8% 和 +15%——因為它們的 AI capex 有對應的營收增長。Meta（FCF -91%、成本 +55% vs 營收 +28%）跌 9.6%——因為 AI 支出遠超營收增長。Apple（Services miss）跌 7%——因為沒有展示 AI 營收故事。**IT 板塊內部的蹺蹺板不是「軟體 vs 硬體」——是「AI ROI 兌現者 vs 未兌現者」。** 這個框架比上期的二分法更穩健。Systems Software +5.56% 的 V 型反彈（上期 -6.97%）證明 MSFT 效應能迅速修復「AI 替代恐慌」——軟體不是被 AI 取代，是被 AI 增強。Semiconductors mom 71→61 持續惡化，但這是 Moonshot 估值效應的延續——需求面（ASML、TSMC）確認完好，問題在估值調整尚未結束。",
+    "**Healthcare 核心持有——維持但提高警覺，MHC 跌破 75 門檻進入觀察期**。HC 板塊整體 +1.80%——正面。但 HCS -2.01%（mom 85.5→81.8，三週連降）和 MHC -0.85%（mom 79.2→73.6，跌破上期設定的 75 門檻）都在持續走弱。MHC 連三週惡化——從升格核心那週的 83.7 降到 73.6（累計 -10.1 點）。這已經不能用「一週整理」解釋。但 **HCS 81.8 仍在 #3**——Healthcare 升格核心的主要邏輯（UNH 營運改善 + 老齡化需求）依然成立。Biotechnology 70.9（#15）穩定。Health Care Supplies +6.43%、HC Equipment +5.44% 說明板塊寬度沒有收縮——只是領頭的 HCS/MHC 在 UNH 財報效應消退後回歸均值。**新門檻：HCS < 78 才考慮降格**（上期設 80，本週 81.8 離 80 只剩 3.8 點，太緊）。MHC 已跌破 75 但不單獨觸發降格——HCS 是核心指標。",
+    "**AI 電力基建——正式降格為「暫停關注」，FOMC 鷹派對 Utilities 是結構性利空**。Heavy Electrical mom 52.0（六週前 74，累計 -22 點）、IPPs mom 25.8（-3.1）、Electric Utilities mom 39.2（-3.0）——三個子板塊全面惡化。上期說「IPPs 出現微光」——FOMC 三票逼宮升息直接撲滅了這道微光。**Utilities -3.04% 墊底不是偶然——如果 Fed 內部有人認為利率不夠高，電力/公用事業板塊的估值壓力就是結構性的。** 從「觀察性配置」降級到「暫停關注」——在利率預期明確轉鴿之前，AI 電力基建不在配置考慮範圍。回歸條件：(1) FOMC 轉向鴿派或 (2) Heavy Electrical mom 重回 65+。",
+    "**貴金屬——維持象徵性水位。上期不追反彈的決策被本週完美驗證。** Gold -0.73%（~$4,100）、Silver -6.74%——上期 Gold +5.19%、Silver +5.65% 的超跌反彈本週全數回吐（Silver 甚至跌更多）。我們在上期說「反彈的驅動力是美元短期走弱，不是趨勢反轉」——FOMC 三票逼宮升息 → 美元走強 → 貴金屬再度承壓，完全驗證了不追反彈的判斷。Gold 在 $4,100 附近的韌性值得注意——避險屬性在升息恐慌中提供支撐。但 Silver 沒有這層保護。**象徵性水位不變**——貴金屬的反轉需要 Fed 態度實質轉鴿，三票逼宮說明我們離這個時點越來越遠。",
+    "**Materials——從「中性」降級到「減碼」。FOMC 鷹派對整個板塊是系統性壓力。** 上期「回歸中性、偏重包裝」——本週 15 個子板塊中只有 1 個正報酬（Specialty Chemicals +1.80%），包裝也沒能倖免（Paper & Plastic -1.43%、Metal Containers -4.37%）。**Materials 整體 -2.77% 反映的不只是金屬波動，而是 FOMC 鷹派 + 全球貿易放緩（IMF 預測 +2.8%，遠低於均值 4.5%）的雙重壓力。** 只有 Specialty Chemicals 的高附加值定價權能抗壓。Copper +0.05% 幾乎持平——AI data center 需求邏輯在提供底部支撐，但不足以帶來正報酬。配置降為「減碼」——只保留 Specialty Chemicals 和 Copper 的最小觀察性倉位。",
+    "**下週觀察重點**：(1) **FOMC 鷹派後續——殖利率能否從 2007 年高點回落？** 如果 30 年期持續在高位，Utilities 和 Real Estate 的壓力不會結束。如果回落，可能只是短期恐慌。(2) **Semiconductors mom 能否止穩？** 從 78→71→61，三週連降 17 點。如果下週跌破 55，半導體可能需要從 IT 核心中暫時移除。止穩在 60+ 則 Moonshot 調整進入尾聲。(3) **Healthcare HCS 追蹤**——新門檻 78。目前 81.8，如果下週跌破 78，Healthcare 核心持有需要嚴肅重新評估。(4) **Marine Transportation 是否繼續崩潰？** Mom 89→61 一週暴跌。如果下週穩在 55-60，這是正常的結構性修正（運費正常化）。如果再跌到 50 以下，可能有其他因素在加速惡化。(5) **Apple 財報餘波**——Services miss + 中國疲軟 -7%，Consumer Electronics +10.3% 本週的漲勢主要是 Samsung/其他消費電子帶動。Apple 的負面效應是否會在下週擴散？"
+  ],
+  "sources": [
+    { "title": "Fed rate decision July 2026: Divided Fed holds interest rates steady — CNBC", "url": "https://www.cnbc.com/2026/07/29/fed-rate-decision-july-2026.html" },
+    { "title": "Fed Chairman Warsh gets the 'good family fight' he asked for as 3 officials dissent — Yahoo Finance", "url": "https://finance.yahoo.com/economy/live/fed-meeting-live-federal-reserve-july-interest-rate-decision-141813444.html" },
+    { "title": "Fed decision redline: Here's what changed in the second statement under Warsh — CNBC", "url": "https://www.cnbc.com/2026/07/29/fed-decision-redline-heres-what-changed-in-the-second-statement-under-warsh.html" },
+    { "title": "Microsoft +8%, Amazon +10%, Apple -4%: The Big Tech Earnings Scorecard — TradingKey", "url": "https://www.tradingkey.com/analysis/stocks/us-stocks/262067315-big-tech-earnings-scorecard-microsoft-amazon-apple-july-31-2026-tradingkey" },
+    { "title": "Why Is Meta (META) Crashing After Earnings? EPS Missed 14%, FCF Hit $784M, Capex Raised Again — TradingKey", "url": "https://www.tradingkey.com/analysis/stocks/us-stocks/262063667-meta-stock-crashing-after-q2-2026-earnings-eps-miss-capex-tradingkey" },
+    { "title": "Meta Q2 2026 earnings miss: legal charges, AI costs hurt profit — Quartz", "url": "https://qz.com/meta-q2-2026-earnings-miss-legal-charges-ai-costs-073026" },
+    { "title": "Amazon Q2 2026 earnings: AWS grows 37%, revenue tops $200B — Yahoo Finance", "url": "https://finance.yahoo.com/markets/stocks/articles/amazon-q2-2026-earnings-aws-204411872.html" },
+    { "title": "Amazon (AMZN) Q2 earnings report 2026 — CNBC", "url": "https://www.cnbc.com/2026/07/30/amazon-amzn-q2-earnings-report-2026.html" },
+    { "title": "S&P 500 closes higher Friday as Amazon surges; Dow posts fourth straight winning month — CNBC", "url": "https://www.cnbc.com/2026/07/30/stock-market-today-live-updates.html" },
+    { "title": "Stocks rally as Amazon surges and Apple sinks — The Business Journal", "url": "https://thebusinessjournal.com/stock-market-today-amazon-apple-inflation/" },
+    { "title": "Ocean Freight Market Report July 2026 — Bertling", "url": "https://www.bertling.com/news-pool/market/ocean-freight-market-report-july-2026/" },
+    { "title": "Rates still in decline, but optimistic carriers look for an August spike — The Loadstar", "url": "https://theloadstar.com/rates-still-in-decline-but-optimistic-carriers-look-for-an-august-spike/" },
+    { "title": "Current price of oil as of July 31, 2026 — Yahoo Finance", "url": "https://finance.yahoo.com/energy/articles/current-price-oil-july-31-104510589.html" },
+    { "title": "Stock market today: Dow, S&P 500, Nasdaq rise to cap volatile July — Yahoo Finance", "url": "https://finance.yahoo.com/markets/live/stock-market-today-friday-july-31-dow-sp-500-nasdaq-081227738.html" }
+  ]
+}
