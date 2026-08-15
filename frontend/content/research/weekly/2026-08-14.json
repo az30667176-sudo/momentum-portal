@@ -1,0 +1,232 @@
+{
+  "slug": "2026-08-14",
+  "issue": 20,
+  "date": "2026-08-14",
+  "snapshotDate": "2026-08-14",
+  "title": "油價反撲——荷莫茲談判破裂 × 零售銷售 -0.6%，Energy 從唯一負翻為 +8.4% 領漲、消費者開始退縮",
+  "subtitle": "荷莫茲海峽談判翻盤——伊朗要求終止制裁、結束軍事威脅、提供賠償作為重啟條件，等於推翻上期「協議曙光」前提。Brent 從 ~$72 反彈至 ~$90，Oil Refining 從上期 -9.4% 暴漲至 +13.2%（mom 90.8 重回 rank #2），Energy 從唯一負板塊翻為全場最強 +8.35%——上期「主動迴避」判斷被地緣翻盤否定。Materials -0.02% 完美均值回歸，驗證上期「中性觀望不追高」。七月 CPI 溫和（核心 +0.2% m/m、+2.5% y/y），但零售銷售 -0.6%（預期 +0.1%）、消費者信心 51.0（預期 54.5），Consumer Discretionary -0.49%——Broadline Retail -5.6%、Homefurnishing -5.7%。Semiconductors mom 64→70 大幅改善。S&P 500 週中觸及 7,799 逼近歷史新高、週四因零售數據回落。",
+  "imageDir": "/research/weekly/2026-08-14",
+  "coverImage": "01_sector_1w.png",
+  "intro": [
+    "上期核心判斷有一個堪稱完美的驗證和一個重大失誤。**Materials「中性觀望不追高」✓✓**——從上期 +8.46%（全場最強）跌到本週 -0.02%（近乎零報酬），上期那波 NFP 衝擊推動的暴漲果然是一次性脈衝而非趨勢啟動，不追高的判斷完全正確。**Energy「主動迴避」✗**——本期最大的失誤。上期判斷 Energy 面臨「荷莫茲海峽協議 + OPEC+ 增產 + 需求疑慮」三重結構性利空，結果荷莫茲談判翻盤——伊朗提出新條件（終止制裁、結束軍事威脅、賠償），等於推翻了上期的「協議曙光」前提。Brent 從 ~$72 反彈至 ~$90。Energy 從唯一負板塊（-1.26%）翻為全場最強（+8.35%），Oil Refining 從 -9.38% 暴漲至 +13.17%——上期「裂解利差結構性壓縮」的論述被地緣溢價重新覆蓋。其他操作：IT 核心持有 ✓（+1.58%，減速但正）；HC 核心持有 ✓（HCS 78.9 仍在 78 之上）；AI 電力基建暫停關注 ✓（Heavy Electrical 53.8、IPPs 20.1 微正但仍弱）。上期五個觀察重點回顧——(1) NFP 預告指標：初領失業金仍偏高但未惡化。(2) Materials 均值回歸：-0.02% 完美驗證。(3) HCS 78 門檻：78.9，仍在之上。(4) Oil Refining mom_score：從 82.7 跳到 90.8——跟預期的「持續崩塌」完全相反，+13.17% 的暴漲反而推高了 mom。(5) Industrial Conglomerates：95.4→94.1 微降但依然 rank #1。",
+    "**週一（8/11）** S&P -0.06% 收 7,753。美伊談判僵局惡化——伊朗要求美國終止軍事威脅和制裁並提供賠償作為重啟海峽的條件，市場對荷莫茲海峽重啟預期急速降溫，油價開始反彈。**週二（8/12）** S&P -0.32% 收 7,728——美伊僵局持續加深，Brent 突破 $85。但盤中七月 CPI 數據帶來部分安慰：CPI +0.1% m/m，**核心 CPI +0.2% m/m（+2.5% y/y）**，完全符合預期。「沒有新的通膨驚嚇」本身就是利好，科技股午後反彈。**週三（8/13）** CPI 溫和效應持續發酵——S&P +0.65% 收 7,799 逼近歷史新高。能源股持續飆漲，Oil Refining 和 Oil Drilling 單日各漲超過 3%。Tech Hardware 大幅反彈（上週 Apple 因記憶體成本上升和 Q4 展望保守暴跌 7.35%，本週出現技術回彈）。**週四（8/14）** 零售銷售數據公佈：**七月零售銷售 -0.6%**（預期 +0.1%、前月 +0.2%），為數月來最大跌幅。汽車經銷商 -1.8%、非實體零售商 -2.2%。**消費者信心指數 51.0**（預期 54.5）遠低於預期。S&P 從紀錄高點附近回落。消費板塊受創——Broadline Retail -5.57%、Homefurnishing Retail -5.69%、Home Improvement Retail -4.49%。報告指出汽油價格比荷莫茲危機前高約 $1/gallon，已開始擠壓消費力。",
+    "本期核心判斷：**Energy 的暴漲是地緣事件驅動的供給溢價重建——不是基本面改善，不可追漲。** 上期錯在哪？錯在把「荷莫茲海峽協議曙光」當作既成事實而不是機率事件——談判的三個條件（安全航線座標共識、伊朗補償要求、制裁議題）中只有第一個達成共識，第二和第三個完全沒有進展，「曙光」從第一天就是脆弱的。教訓很清楚：**地緣風險是二元的——不是逐步改善或惡化，而是 on or off。** 上期把荷莫茲從「風險溢價」翻譯為「結構性利空」是過度簡化。但同樣的邏輯也意味著不能追漲——Brent 回到 $90 的前提是「談判破裂」，但談判可以在任何一天重啟。Oil Refining +13.17% 和 Oil Drilling +13.41% 是 $72→$90 的油價跳升帶來的，不是公司基本面改善。本週另一個重要訊號是**消費者正在退縮**——零售銷售 -0.6%、消費者信心 51.0、Consumer Discretionary -0.49%。高油價（汽油比危機前貴 $1/gallon）終於開始擠壓消費力。如果能源價格持續高位，這個壓力會加速——「油價反撲」的受害者不只是能源空頭，更是消費者。配置方向：**IT 核心持有不變**（Semiconductors mom 64→70 大幅改善是好消息）；**HC 核心持有不變**（HCS 78.9 距 78 門檻 0.9 點——比上期更近，緊盯）；**Materials 維持「中性觀望不追高」**（本週完美驗證）；**Energy 從「主動迴避」調回「事件驅動觀望、不追漲」**——承認不確定性，既不做空也不追多。"
+  ],
+  "exhibits": [
+    {
+      "number": 1,
+      "title": "板塊一週報酬：Energy +8.4% 完全翻轉登頂、Materials -0.02% 均值回歸、Consumer Disc -0.5% 墊底",
+      "image": "01_sector_1w.png",
+      "caption": "Energy +8.35% 從上期唯一負板塊（-1.26%）翻為全場最強——荷莫茲談判破裂推動油價從 $72 反彈至 $90。Communication Services +2.13%、Utilities +1.97% 跟進。IT +1.58% 正報酬持續但從 +6.44% 大幅減速。Materials -0.02% 近乎零報酬——從上期 +8.46%（全場最強）完美均值回歸。Consumer Discretionary -0.49% 墊底——零售銷售 -0.6% 衝擊。",
+      "body": "上期是「Materials +8.46% 暴漲翻身、Energy -1.26% 唯一負板塊」。本週的板塊格局是**上期的完美鏡像翻轉**——Energy 和 Materials 的相對位置再次互換。Energy +8.35% 的驅動力完全是地緣——荷莫茲海峽談判破裂（伊朗提出終止制裁+軍事威脅+賠償三項新條件）→ 油價反彈 $72→$90 → 所有能源子板塊全面暴漲。7 個能源子板塊本週**全部正報酬**，從 Oil Drilling +13.41% 到 Coal +4.59%。這跟上期的「Energy 唯一負板塊」形成完全對稱。Materials -0.02% 的「零報酬」是最佳驗證——**上期「中性觀望不追高」的邏輯是：NFP 衝擊推動的金屬暴漲是一次性脈衝，不代表趨勢。本週 Materials 幾乎精準歸零，完美驗證了這個判斷。** 金屬內部出現分化：Silver +9.02%、Diversified Metals +6.27% 仍有餘溫，但 Copper -4.50%、Paper Products -6.53%、Aluminum -3.54% 回吐了上期漲幅。Consumer Discretionary -0.49% 是本週的隱憂——不是因為跌幅大，而是因為驅動力是真實的消費萎縮信號（零售銷售 -0.6%、信心 51.0）。IT +1.58% 是第四週正報酬（+0.08%→+1.81%→+6.44%→+1.58%），但加速度已經從上期的宏觀驅動暴漲回歸到正常節奏。**Utilities +1.97% 值得注意**——上期 +0.32% 微正，本週加速——可能反映 CPI 溫和 + 零售弱化帶來的利率下行預期。",
+      "links": [
+        { "label": "Oil Refining", "href": "/sub/DB62D66B" },
+        { "label": "Diversified Metals", "href": "/sub/650D58F5" },
+        { "label": "Tech Hardware", "href": "/sub/D10047AB" },
+        { "label": "Broadline Retail", "href": "/sub/BA58F32D" },
+        { "label": "Semiconductors", "href": "/sub/3DFD4B15" }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "輪動地圖：Energy × Materials 連續兩週鏡像翻轉——Consumer Disc 新增弱勢",
+      "image": "02_rotation_map.png",
+      "caption": "Energy +8.35% 從左下角（唯一負）飛到右上角（最強）——單板塊跨度 9.6 百分點。Materials +8.46%→-0.02% 從頂端回歸零線。Consumer Discretionary -0.49% 從正報酬區跌入負值。IT +1.58% 持續在正報酬區但減速。",
+      "body": "上期是「Materials 從深淵躍上頂端——跨度 11.2 百分點是追蹤以來最大翻轉」。本週的故事是：**Materials 的那個翻轉被 Energy 完美鏡像了——Energy 從唯一負（-1.26%）翻到最強（+8.35%），跨度 9.6 百分點**。更值得注意的是：這已經是 Energy 和 Materials **連續兩週互換位置**。Issue 18 到 Issue 19：Materials 從底部翻到頂部、Energy 從正翻到唯一負。Issue 19 到 Issue 20：Materials 從頂部回歸零線、Energy 從唯一負翻到頂部。**兩個板塊像蹺蹺板一樣交替——這不是巧合，而是荷莫茲海峽敘事的直接反映。** 當「協議曙光」出現→油跌、美元弱→金屬漲。當「談判破裂」出現→油漲、通膨疑慮→金屬承壓。這個蹺蹺板只要荷莫茲議題不落地，就會持續。本週新增的弱勢象限是 **Consumer Discretionary**——從上期的正報酬區（+3.16%）跌入負值（-0.49%）。驅動力不是市場風險偏好下降，而是真實的消費數據惡化——零售銷售 -0.6% 和消費者信心 51.0 都指向同一個故事：高油價正在擠壓消費者的荷包。**IT 四週連續正報酬但在減速**（+0.08%→+1.81%→+6.44%→+1.58%），上期的宏觀驅動暴漲已經回歸常態。Financials +1.30% 穩健——Consumer Finance mom 76.5 和 Asset Management 71.2 都在高水位。",
+      "links": [
+        { "label": "Oil Drilling", "href": "/sub/738405E7" },
+        { "label": "Silver", "href": "/sub/FDF8E7AE" },
+        { "label": "Broadline Retail", "href": "/sub/BA58F32D" },
+        { "label": "Semiconductors", "href": "/sub/3DFD4B15" },
+        { "label": "Consumer Finance", "href": "/sub/3AB077CE" }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Top/Bottom 12：能源子板塊佔 Top 12 的 6 席霸榜——Bottom 被消費+Materials 包圍",
+      "image": "03_top_bottom_subs.png",
+      "caption": "Tech Hardware +13.4% 和 Oil Drilling +13.4% 並列領漲。Oil Refining +13.2% 從上期墊底翻身 Top 3。能源佔 Top 12 的 6 席。Bottom 被消費（Broadline Retail -5.6%、Homefurnishing -5.7%）和 Materials 回吐（Paper Products -6.5%、Copper -4.5%）主導。",
+      "body": "上期 Top 12 被「金屬霸佔半壁江山」。本週完全不同——**Top 12 被能源子板塊霸榜，6/12 席來自 Energy**。Oil Drilling +13.41% 和 Oil Refining +13.17% 並列前三——上期 Oil Refining -9.38% 是全場最差，本週 +13.17% 是前三名，**單板塊兩週跨度 22.6 百分點是追蹤以來最極端的翻轉**。Oil Equipment +8.58%、E&P +6.49%、Storage & Transport +6.31%、Integrated Oil +5.91% 全部入列。**Tech Hardware +13.43% 登頂**——Apple 上週因記憶體成本和 Q4 展望暴跌 7.35% 後出現技術反彈，但 CEO Tim Cook 確認記憶體成本（DRAM/NAND）受 AI 伺服器需求推動大幅上漲，iPhone 18 Pro 生產成本可能增加 $200-$300。**Silver +9.02%** 仍在 Top 12——雖然遠不如上期 +19.33% 的暴漲，但仍正向，說明「壞消息就是好消息」模式中的美元弱勢支撐還在。Bottom 12 的結構轉變為**消費 + Materials 回吐**的組合——**Broadline Retail -5.57% 和 Homefurnishing Retail -5.69%** 是消費萎縮的直接反映（上期分別是 +3.1% 和 +14.3%）。**Paper Products -6.53% 和 Copper -4.50%** 確認 Materials 上期暴漲的均值回歸——上期 Paper Products +9.78%、Copper +11.16%，本週全數回吐。**Passenger Airlines -5.92%** 有趣——油價上漲直接衝擊航空公司的燃油成本。",
+      "links": [
+        { "label": "Tech Hardware", "href": "/sub/D10047AB" },
+        { "label": "Oil Refining", "href": "/sub/DB62D66B" },
+        { "label": "Broadline Retail", "href": "/sub/BA58F32D" },
+        { "label": "Paper Products", "href": "/sub/7BD0E9D6" },
+        { "label": "Passenger Airlines", "href": "/sub/7C6F8CF0" }
+      ],
+      "chartData": {
+        "type": "hbar",
+        "items": [
+          { "label": "Technology Hardware, Storage & Peripherals", "value": 13.4, "href": "/sub/D10047AB" },
+          { "label": "Oil & Gas Drilling", "value": 13.4, "href": "/sub/738405E7" },
+          { "label": "Oil & Gas Refining & Marketing", "value": 13.2, "href": "/sub/DB62D66B" },
+          { "label": "Silver", "value": 9.0, "href": "/sub/FDF8E7AE" },
+          { "label": "Oil & Gas Equipment & Services", "value": 8.6, "href": "/sub/8B53278B" },
+          { "label": "Motorcycle Manufacturers", "value": 6.8, "href": "/sub/3242F391" },
+          { "label": "Alternative Carriers", "value": 6.8, "href": "/sub/E1C7925A" },
+          { "label": "Oil & Gas Exploration & Production", "value": 6.5, "href": "/sub/8D203C2D" },
+          { "label": "Oil & Gas Storage & Transportation", "value": 6.3, "href": "/sub/0439508E" },
+          { "label": "Diversified Metals & Mining", "value": 6.3, "href": "/sub/650D58F5" },
+          { "label": "Integrated Oil & Gas", "value": 5.9, "href": "/sub/630FFAD7" },
+          { "label": "Agricultural Products & Services", "value": 5.9, "href": "/sub/52404E82" },
+          { "label": "Education Services", "value": -3.6, "href": "/sub/A845743C" },
+          { "label": "Apparel Retail", "value": -4.1, "href": "/sub/457BB093" },
+          { "label": "Apparel, Accessories & Luxury Goods", "value": -4.4, "href": "/sub/1AC64996" },
+          { "label": "Home Improvement Retail", "value": -4.5, "href": "/sub/94A22E14" },
+          { "label": "Copper", "value": -4.5, "href": "/sub/9D3B3E86" },
+          { "label": "Soft Drinks & Non-alcoholic Beverages", "value": -4.8, "href": "/sub/DD15FBF8" },
+          { "label": "Tires & Rubber", "value": -5.1, "href": "/sub/B5BAF43F" },
+          { "label": "Tobacco", "value": -5.1, "href": "/sub/6912B116" },
+          { "label": "Broadline Retail", "value": -5.6, "href": "/sub/BA58F32D" },
+          { "label": "Homefurnishing Retail", "value": -5.7, "href": "/sub/BAE71B92" },
+          { "label": "Passenger Airlines", "value": -5.9, "href": "/sub/7C6F8CF0" },
+          { "label": "Paper Products", "value": -6.5, "href": "/sub/7BD0E9D6" }
+        ]
+      }
+    },
+    {
+      "number": 4,
+      "title": "動能散點圖：Oil Refining（90.8, +13.2%）右上象限爆發——Broadline Retail（70.2, -5.6%）高動能崩跌",
+      "image": "04_energy_unwind.png",
+      "caption": "Industrial Conglomerates（94.1, -1.7%）連續兩週 rank #1 但報酬轉負。Oil Refining（90.8, +13.2%）從上期的右下「動能整理」象限飛到右上「確認趨勢」——兩週跨度 22.6 百分點。Broadline Retail（70.2, -5.6%）高動能但暴跌——零售銷售衝擊。Semiconductors（70.2, -0.1%）mom 大幅改善 64→70 但本週價格持平。",
+      "body": "上期主題是「NFP 衝擊後的全面重新定價——高動能板塊分化加劇」。本週主題是**「地緣翻盤推動 Energy 全面重定位——高動能消費板塊遭遇現實檢驗」**。最戲劇性的位置變化是 **Oil Refining（90.8, +13.17%）**——上期它在右下象限（82.7, -9.38%），是「動能慣性 vs 價格崩塌」的典型。我們說「下週如果繼續下跌，mom 會快速惡化」。結果完全相反：+13.17% 的暴漲不但沒有讓 mom 惡化，反而把它從 82.7 推高到 90.8（rank #2）。**從「墊底板塊」到「rank #2 + Top 3 漲幅」的兩週翻轉是追蹤以來最極端的路徑。** 但這也意味著它的 mom_score 現在包含了兩個方向完全相反的極端週——-9.38% 和 +13.17%——波動性極高，未來任何一週的正常回調都可能讓 mom 大幅波動。**Industrial Conglomerates（94.1, -1.71%）** 連續兩週 rank #1 但本週報酬轉負——高動能板塊的「引力」效應。**Broadline Retail（70.2, -5.57%）** 是本週最值得警惕的位置——mom 仍高但報酬崩跌，零售銷售 -0.6% 是真實的基本面惡化而非噪音。上期 Broadline Retail 在（76, +3.1%）的右上確認象限，本週直接墜入右下。**IT 群組整體穩定但分散**——Systems Software（83.5, -0.17%）mom 從 77→83.5 大幅改善但價格微負。Tech Hardware（82.0, +13.43%）價格暴漲但主要是技術反彈。Semiconductors（70.2, -0.08%）mom 從 64→70 大幅改善，是最積極的信號。**Healthcare 橙色群組穩定**——HCS（78.9, -1.30%）和 MHC（74.1, +2.02%）都在安全區間但 HCS 繼續向 78 門檻逼近。",
+      "links": [
+        { "label": "Oil Refining", "href": "/sub/DB62D66B" },
+        { "label": "Industrial Conglomerates", "href": "/sub/1BE528D2" },
+        { "label": "Broadline Retail", "href": "/sub/BA58F32D" },
+        { "label": "Semiconductors", "href": "/sub/3DFD4B15" },
+        { "label": "Health Care Services", "href": "/sub/CE2456A9" }
+      ],
+      "chartData": {
+        "type": "scatter",
+        "xLabel": "Mom Score (0–100)",
+        "yLabel": "1W return (%)",
+        "quadrants": {
+          "topLeft": "新領先者",
+          "topRight": "確認趨勢",
+          "bottomLeft": "弱勢",
+          "bottomRight": "動能整理"
+        },
+        "colorLabels": {
+          "#2ECC71": "IT（穩健持有）",
+          "#E74C3C": "Energy（地緣逆轉）",
+          "#E67E22": "Healthcare（門檻觀察）",
+          "#4A90D9": "其他"
+        },
+        "items": [
+          { "label": "Industrial Conglomerates", "x": 94, "y": -1.7, "href": "/sub/1BE528D2", "color": "#4A90D9" },
+          { "label": "Oil & Gas Refining & Marketing", "x": 91, "y": 13.2, "href": "/sub/DB62D66B", "color": "#E74C3C" },
+          { "label": "Housewares & Specialties", "x": 85, "y": 3.8, "href": "/sub/7123167E", "color": "#4A90D9" },
+          { "label": "Systems Software", "x": 84, "y": -0.2, "href": "/sub/4D1787C4", "color": "#2ECC71" },
+          { "label": "Technology Hardware", "x": 82, "y": 13.4, "href": "/sub/D10047AB", "color": "#2ECC71" },
+          { "label": "Health Care Services", "x": 79, "y": -1.3, "href": "/sub/CE2456A9", "color": "#E67E22" },
+          { "label": "Technology Distributors", "x": 78, "y": 0.6, "href": "/sub/7F980CFF", "color": "#2ECC71" },
+          { "label": "Consumer Finance", "x": 77, "y": 3.4, "href": "/sub/3AB077CE", "color": "#4A90D9" },
+          { "label": "Managed Health Care", "x": 74, "y": 2.0, "href": "/sub/3E2ACB37", "color": "#E67E22" },
+          { "label": "Biotechnology", "x": 74, "y": 0.7, "href": "/sub/A26A78F7", "color": "#E67E22" },
+          { "label": "Consumer Electronics", "x": 73, "y": 2.0, "href": "/sub/A3C1F86E", "color": "#4A90D9" },
+          { "label": "Broadline Retail", "x": 70, "y": -5.6, "href": "/sub/BA58F32D", "color": "#4A90D9" },
+          { "label": "Semiconductors", "x": 70, "y": -0.1, "href": "/sub/3DFD4B15", "color": "#2ECC71" },
+          { "label": "Diversified Metals & Mining", "x": 69, "y": 6.3, "href": "/sub/650D58F5", "color": "#4A90D9" },
+          { "label": "Application Software", "x": 68, "y": 1.0, "href": "/sub/05F28EE1", "color": "#2ECC71" },
+          { "label": "Oil & Gas Storage & Transportation", "x": 53, "y": 6.3, "href": "/sub/0439508E", "color": "#E74C3C" },
+          { "label": "Oil & Gas Drilling", "x": 50, "y": 13.4, "href": "/sub/738405E7", "color": "#E74C3C" },
+          { "label": "Integrated Oil & Gas", "x": 48, "y": 5.9, "href": "/sub/630FFAD7", "color": "#E74C3C" },
+          { "label": "Oil & Gas Equipment & Services", "x": 47, "y": 8.6, "href": "/sub/8B53278B", "color": "#E74C3C" },
+          { "label": "Oil & Gas Exploration & Production", "x": 46, "y": 6.5, "href": "/sub/8D203C2D", "color": "#E74C3C" }
+        ]
+      }
+    },
+    {
+      "number": 5,
+      "title": "排名躍升：Alternative Carriers +42 登頂 climber——Multi-Sector Holdings -39 最大跌幅",
+      "image": "05_rank_delta.png",
+      "caption": "Alternative Carriers +42（6.79%，地緣不確定性推動防禦性通訊）。Semi Equipment +39、Advertising +39 並列。底部 Multi-Sector Holdings -39、Multi-line Insurance -32——保險和控股板塊大幅回落。",
+      "body": "上期最大 climber 是 Diversified Chemicals +53（被動上升、1W 僅 +0.02%）。本週 **Alternative Carriers +42** 搭配 ret_1w +6.79% 是實質躍升——地緣不確定性（荷莫茲談判破裂）推動市場向防禦性通訊板塊配置。**Semi Equipment +39**（ret_1w +3.22%）是 IT 群組中動能改善最顯著的——mom 從上期的低位回升到 58.9，半導體設備在經歷了連續下修後開始見底。**Advertising +39** 但 ret_1w -0.09% 是被動上升——跟上期 Diversified Chemicals 的模式類似。**Motorcycle Manufacturers +38**（+6.81%）是 Consumer Discretionary 中少數正面的亮點——可能反映哈雷 / 印度機車品牌的特殊催化。底部方面，**Multi-Sector Holdings -39** 從 rank 中段跌至底部——控股公司的分散投資在板塊分化加劇的環境中被重新定價。**Multi-line Insurance -32** 和 **Property & Casualty Insurance -24** 反映保險板塊的整體回調——上期保險板塊受惠於利率上升預期（FOMC 鷹派），本週 CPI 溫和 + 零售弱化帶來的降息預期反而對保險不利。**Apparel Accessories -23**（-4.36%）確認消費端的壓力——高油價+零售弱化雙重衝擊。**Industrial Machinery -25** 令人意外——可能反映製造業 PMI 疑慮。",
+      "links": [
+        { "label": "Alternative Carriers", "href": "/sub/E1C7925A" },
+        { "label": "Semi Equipment", "href": "/sub/7F8BA218" },
+        { "label": "Multi-Sector Holdings", "href": "/sub/87FCAE9A" },
+        { "label": "Multi-line Insurance", "href": "/sub/80622FA2" },
+        { "label": "Apparel Accessories", "href": "/sub/1AC64996" }
+      ],
+      "chartData": {
+        "type": "hbar",
+        "xLabel": "Δ rank vs prior week",
+        "xUnit": "",
+        "items": [
+          { "label": "Alternative Carriers", "value": 42, "href": "/sub/E1C7925A" },
+          { "label": "Interactive Home Entertainment", "value": 39, "href": "/sub/951C6D9C" },
+          { "label": "Semiconductor Materials & Equipment", "value": 39, "href": "/sub/7F8BA218" },
+          { "label": "Advertising", "value": 39, "href": "/sub/F60915FE" },
+          { "label": "Motorcycle Manufacturers", "value": 38, "href": "/sub/3242F391" },
+          { "label": "Interactive Media & Services", "value": 36, "href": "/sub/0D9F6537" },
+          { "label": "IT Consulting & Other Services", "value": 35, "href": "/sub/364050B7" },
+          { "label": "Commodity Chemicals", "value": 32, "href": "/sub/7BF90D4B" },
+          { "label": "Application Software", "value": 31, "href": "/sub/05F28EE1" },
+          { "label": "Internet Services & Infrastructure", "value": 31, "href": "/sub/0FA374B8" },
+          { "label": "Integrated Telecommunication Services", "value": -22, "href": "/sub/F20499EA" },
+          { "label": "Pharmaceuticals", "value": -22, "href": "/sub/7BF824C1" },
+          { "label": "Apparel, Accessories & Luxury Goods", "value": -23, "href": "/sub/1AC64996" },
+          { "label": "Footwear", "value": -23, "href": "/sub/ABFF7D9B" },
+          { "label": "Retail REITs", "value": -24, "href": "/sub/079EEFFD" },
+          { "label": "Property & Casualty Insurance", "value": -24, "href": "/sub/A7E86F59" },
+          { "label": "Industrial Machinery & Supplies & Components", "value": -25, "href": "/sub/8D96C21A" },
+          { "label": "Leisure Facilities", "value": -29, "href": "/sub/FD39D067" },
+          { "label": "Multi-line Insurance", "value": -32, "href": "/sub/80622FA2" },
+          { "label": "Multi-Sector Holdings", "value": -39, "href": "/sub/87FCAE9A" }
+        ]
+      }
+    },
+    {
+      "number": 6,
+      "title": "Energy 內部：7/7 子板塊全部正報酬——Oil Drilling +13.4% 和 Oil Refining +13.2% 並列領漲",
+      "image": "06_materials_split.png",
+      "caption": "Oil Drilling +13.41%（mom 50.0）和 Oil Refining +13.17%（mom 90.8）並列領漲。Oil Equipment +8.58%、E&P +6.49%、Storage & Transport +6.31%、Integrated Oil +5.91%、Coal +4.59% 全部正報酬。上期是「Energy -1.26% 唯一負板塊」——本週 7/7 全正，完美鏡像翻轉。",
+      "body": "上期 Exhibit 6 是 Materials 內部（14/15 正報酬），本週聚焦 **Energy 內部的全面翻轉**。上期 Energy 是唯一負板塊（-1.26%），Oil Refining -9.38% 墊底全場。本週 **7/7 子板塊全部正報酬**，報酬從 +4.59% 到 +13.41%——跟上期的全面潰敗形成完全鏡像。**Oil Drilling +13.41%** 領漲——鑽探板塊對油價最敏感，Brent 從 $72→$90 的 25% 反彈直接推動鑽探股暴漲。但 mom 只有 50.0——這說明暴漲是一次性跳升而非趨勢延續，之前的下跌趨勢還沒有被完全逆轉。**Oil Refining +13.17%（mom 90.8, rank #2）** 是最值得關注的——它的 mom 從 82.7 跳到 90.8，是唯一一個 mom 和價格同時在高位的能源子板塊。邏輯：油價反彈→裂解利差重新擴大→煉油廠利潤回升。但上期的 -9.38%→本期 +13.17% 意味著 **裂解利差的波動性極高**——它完全取決於 Brent 價格，而 Brent 又完全取決於荷莫茲談判。**Oil Equipment +8.58% 和 E&P +6.49%** 是供給鏈的受惠者——油價高位→鑽探和開發活動增加→設備需求上升。**Integrated Oil +5.91%** 漲幅相對溫和——大型石油公司（Exxon、Chevron）有對沖和多元化業務，對油價敏感度較低。**Coal +4.59%** 是「能源替代」效應——油價高企推動對其他能源的需求。**核心判斷：Energy 的全面暴漲是油價跳升帶來的機械性反應，不是基本面的結構改善。** Oil Drilling 和 Oil Equipment 的低 mom（50.0 和 46.5）說明趨勢還沒有建立。如果荷莫茲談判意外恢復進展、或 OPEC+ 再度增產——oil 再次崩跌——Energy 的回撤會跟暴漲一樣劇烈。",
+      "links": [
+        { "label": "Oil Drilling", "href": "/sub/738405E7" },
+        { "label": "Oil Refining", "href": "/sub/DB62D66B" },
+        { "label": "Oil Equipment", "href": "/sub/8B53278B" },
+        { "label": "Oil E&P", "href": "/sub/8D203C2D" },
+        { "label": "Integrated Oil", "href": "/sub/630FFAD7" }
+      ],
+      "chartData": {
+        "type": "hbar",
+        "items": [
+          { "label": "Oil & Gas Drilling", "value": 13.4, "href": "/sub/738405E7" },
+          { "label": "Oil & Gas Refining & Marketing", "value": 13.2, "href": "/sub/DB62D66B" },
+          { "label": "Oil & Gas Equipment & Services", "value": 8.6, "href": "/sub/8B53278B" },
+          { "label": "Oil & Gas Exploration & Production", "value": 6.5, "href": "/sub/8D203C2D" },
+          { "label": "Oil & Gas Storage & Transportation", "value": 6.3, "href": "/sub/0439508E" },
+          { "label": "Integrated Oil & Gas", "value": 5.9, "href": "/sub/630FFAD7" },
+          { "label": "Coal & Consumable Fuels", "value": 4.6, "href": "/sub/7B1B1651" }
+        ]
+      }
+    }
+  ],
+  "actions": [
+    "**上期操作績效回顧**：IT 核心持有 ✓——IT +1.58%（第四週正報酬：+0.08%→+1.81%→+6.44%→+1.58%），Semiconductors mom 64.1→70.2 大幅改善、Systems Software 77.0→83.5 持續攀升。Healthcare 核心持有 ✓——HC +0.77%、HCS 79.4→78.9（繼續微降但仍在 78 之上）、MHC 73.6→74.1 微升。**Materials「中性觀望不追高」✓✓**——本期最佳判斷。Materials 從上期 +8.46% 降到 -0.02%，完美驗證了「NFP 衝擊是一次性脈衝、不追高」的核心邏輯。Diversified Metals 從 +30.56% 降到 +6.27%、Silver 從 +19.33% 降到 +9.02%——暴漲後的均值回歸正在進行。**Energy「主動迴避」✗**——本期最大失誤。Energy +8.35%（從唯一負板塊翻為全場最強），Oil Refining +13.17%（從 -9.38% 翻轉 22.6 百分點）。上期把荷莫茲「協議曙光」視為既成事實→建立三重結構性利空判斷→結果談判翻盤、油價反撲。AI 電力基建暫停關注 ✓——Heavy Electrical 52.9→53.8 微升、IPPs 19.1→20.1 微升，方向微正但幅度不足以改變判斷。",
+    "**IT 核心持有——維持。Semiconductors mom 64→70 是本期最積極的 IT 信號。** IT 連續四週正報酬（+0.08%→+1.81%→+6.44%→+1.58%），但本週 +1.58% 的減速說明上期的宏觀驅動暴漲已經回歸正常節奏。好消息是內部動能在改善而非惡化：**Semiconductors mom 64.1→70.2**，六個百分點的改善是三週來最大的正向變動，從上期的「接近 55 警戒線」區域回升到安全水位。Systems Software mom 77.0→83.5 持續上行——V 型反彈從價格修復轉為動能確認再到 mom 重回 80+。Application Software 67.5（Δrank +31）和 Semi Equipment 58.9（Δrank +39）也在改善。**Tech Hardware +13.43% 是異常值**——Apple 記憶體成本衝擊（DRAM/NAND 價格因 AI 伺服器需求暴漲、iPhone 18 Pro 生產成本估增 $200-$300）導致上週暴跌 7.35%，本週的反彈更多是技術修復而非基本面改善。整體 IT 配置邏輯不變——核心持有、框架維持「AI ROI 兌現者」，但要注意記憶體成本壓力可能成為下半年的新變數。",
+    "**Healthcare 核心持有——維持，但 HCS 78.9 距門檻 78 只剩 0.9 點。** HC +0.77% 本週相對安靜。HCS 79.4→78.9 繼續滑落——五週連降（81.8→81.8→81.8→79.4→78.9），距離 78 門檻只剩 0.9 點。**下週如果 HCS 跌破 78，Healthcare 核心持有需要嚴肅重新評估**——這個門檻不是隨意設定的，78 以下意味著 UNH 的動能已經惡化到可能拖累整個板塊的水位。好消息是 **MHC 73.6→74.1 微升**、**Life Sciences 74.7（Δrank +7）改善**、**Health Care Supplies 66.8（+2.05%）穩定**。Biotechnology 73.7 保持在安全區間。整體來看 HC 板塊寬度仍然可以——但 HCS 的持續下滑是一個需要嚴肅對待的信號。門檻不變：HCS < 78 考慮降格。",
+    "**Materials——維持「中性觀望不追高」。本週 -0.02% 是完美驗證。** 上期的邏輯：「NFP -2.3 萬人推動的金屬暴漲是一次性衝擊，不代表趨勢——如果追高，大概率被均值回歸收割。」本週 Materials -0.02% 證明了這個判斷。更細看：Diversified Metals 從 +30.56% 降到 +6.27%、Silver 從 +19.33% 降到 +9.02%——仍然正面但已大幅減速。另一方面，**Copper -4.50% 和 Paper Products -6.53% 已經開始回吐**。Materials 內部的分化正在擴大：貴金屬（Silver +9.02%、Gold +4.24%）受美元弱勢支撐還有餘溫，但工業金屬和紙類已經進入回調。**配置不變——中性觀望不追高。** 等待八月 NFP 數據確認就業萎縮是趨勢還是一次性事件，然後再決定是否對貴金屬部分升格。",
+    "**Energy——從「主動迴避」調回「事件驅動觀望、不追漲」。** 上期判斷的錯誤很清楚：把「荷莫茲海峽協議曙光」當作既成事實，建立了三重結構性利空的框架（協議→油價崩→裂解利差壓縮→Energy 結構性弱勢）。但「曙光」從第一天就是脆弱的——三個談判條件只完成了一個（安全航線座標），伊朗的補償和制裁要求完全沒有進展。本週伊朗正式提出終止制裁+軍事威脅+賠償三項前提條件→談判陷入僵局→Brent 從 $72 反彈至 $90。**教訓是：地緣風險不能用 momentum 框架的語言做方向性判斷。** Oil Refining 從 -9.38%→+13.17%（兩週跨度 22.6 百分點）說明 Energy 的報酬完全被地緣二元事件主導——不是 gradually improves，是 on/off switch。正確的做法是承認不確定性：**不做空（談判可能持續僵局，油價維持高位）也不追漲（談判可以在任何一天恢復進展，油價再次崩跌）。** 從「主動迴避」調回「事件驅動觀望、不追漲」——保持中立，等待荷莫茲議題的下一步發展。OPEC+ 增產和需求疑慮仍在——如果去除地緣溢價，油價基本面支撐可能在 $65-70 而非 $90。",
+    "**AI 電力基建——維持「暫停關注」。** Heavy Electrical 52.9→53.8（+3.66% 本週）微改善但仍在中性區間。IPPs 19.1→20.1（+3.73%）微升但仍深度弱勢。Electric Utilities 30.0（+1.01%）也在低位。本週 Renewable Electricity mom 51.3（+3.58%）是亮點但不足以改變板塊格局。回歸條件不變：(1) FOMC 明確轉鴿 或 (2) Heavy Electrical mom 重回 65+。CPI 溫和（核心 +0.2%）和零售銷售弱化確實增加了 Fed 暫停升息的可能性，但一份溫和 CPI 不等於 FOMC 轉鴿——需要連續數據支持。",
+    "**下週觀察重點**：(1) **荷莫茲海峽談判進展**——本週的核心驅動力。如果伊朗的三項條件出現任何讓步跡象，油價可能快速回落→Energy 板塊急跌→Materials 的貴金屬可能重新受惠。反之如果僵局持續→油價維持 $85-90→消費端壓力持續累積。(2) **零售業財報季（8/17-21 週）**——Walmart、Target、Home Depot 等將在下週公佈財報。在零售銷售 -0.6% + 消費者信心 51.0 的背景下，零售業財報將直接驗證消費者萎縮的程度。如果零售巨頭也出現業績疲弱→Consumer Discretionary 可能進一步惡化。(3) **HCS 78 門檻——只剩 0.9 點**。HCS 78.9 距離 78 門檻比任何時候都近。下週如果跌破 78，Healthcare 核心持有需要降格討論。(4) **Oil Refining mom 90.8 的可持續性**——在經歷 -9.4%→+13.2% 的極端波動後，下週的正常回調幅度會決定 90.8 的 mom 是真實趨勢還是波動造成的假象。(5) **Semiconductors mom 70.2 回升趨勢**——64→70 的改善非常積極，如果能繼續回升至 75+，將確認半導體已走出六月以來的調整。"
+  ],
+  "sources": [
+    { "title": "Oil prices, stocks surge as Hormuz closure drags on — Al Jazeera", "url": "https://www.aljazeera.com/economy/2026/8/10/oil-prices-stocks-surge-as-hormuz-closure-drags-on" },
+    { "title": "Why Are Oil Prices Rising? — Rigzone", "url": "https://www.rigzone.com/news/why_are_oil_prices_rising-11-aug-2026-184342-article/" },
+    { "title": "Current price of oil as of Aug. 13, 2026 — Fortune", "url": "https://fortune.com/article/price-of-oil-08-13-2026/" },
+    { "title": "S&P 500 closes higher after tame consumer inflation report, tech sector rises — CNBC", "url": "https://www.cnbc.com/2026/08/11/stock-market-today-live-updates.html" },
+    { "title": "Stock market today: Dow, S&P 500, Nasdaq slip amid US-Iran impasse — Yahoo Finance", "url": "https://finance.yahoo.com/markets/live/stock-market-today-tuesday-august-11-dow-sp-500-nasdaq-102827503.html" },
+    { "title": "Consumer Price Index — July 2026 — Bureau of Labor Statistics", "url": "https://www.bls.gov/news.release/pdf/cpi.pdf" },
+    { "title": "Consumer Price Index News Release — 2026 M07 Results — BLS", "url": "https://www.bls.gov/news.release/archives/cpi_08122026.htm" },
+    { "title": "S&P 500 Eases Off Its Record as the Consumer Finally Blinks — Motley Fool", "url": "https://www.fool.com/investing/2026/08/14/sp-500-eases-off-its-record-as-the-consumer-blinks/" },
+    { "title": "Retail sales slump as consumer spending falters — Investing.com", "url": "https://www.investing.com/news/economic-indicators/retail-sales-slump-as-consumer-spending-falters-93CH-4860660" },
+    { "title": "S&P 500 slips from record as US retail sales fall — Eurasia Business News", "url": "https://eurasiabusinessnews.com/2026/08/14/stock-market-today-sp-500-slips-from-record-as-us-retail-sales-fall/" },
+    { "title": "Retail earnings next week could shed light on consumer spending — CNBC", "url": "https://www.cnbc.com/2026/08/14/stock-market-next-week-outlook-for-aug-17-21-2026.html" },
+    { "title": "Apple's Stock Plunge Highlights Rising Memory Costs and Weaker Q4 Outlook — Interactive Crypto", "url": "https://www.interactivecrypto.com/apple-s-stock-plunge-highlights-rising-memory-costs-and-weaker-q4-outlook-aug-2026" },
+    { "title": "S&P 500 Rises As Fed Thinks About Next Move For Interest Rates — Seeking Alpha", "url": "https://seekingalpha.com/article/4814517-sp500-rises-fed-thinks-about-next-move-interest-rates" }
+  ]
+}
