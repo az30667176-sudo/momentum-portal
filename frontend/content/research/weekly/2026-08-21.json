@@ -1,0 +1,239 @@
+{
+  "slug": "2026-08-21",
+  "issue": 21,
+  "date": "2026-08-21",
+  "snapshotDate": "2026-08-21",
+  "title": "三兆暴雷——WSJ 揭 AI 帳外負債 $3 兆、30 年期利率衝上 2007 後新高，IT -5.1% 首度全場墊底",
+  "subtitle": "WSJ 揭露九大科技巨頭（Alphabet $811B、Meta $347B、Nvidia $182B 等）累計 $3 兆 AI 帳外承諾——未啟用資料中心租賃 + 晶片與能源採購，是報表 $6,000 億 capex 的五倍。30 年期國債殖利率同週觸及 5.34% 創 2007 年以來新高，殖利率+隱性槓桿雙殺成長股。IT -5.05% 首度墊底全場，12 個子板塊 9 負 3 正——EMS -13.2%、Electronic Components -10.2%、Semi Equipment -9.1%、Semiconductors -8.0% 集體崩跌，唯三正報酬全是輕資產 IT。Healthcare +1.73% 成防禦避風港——HCS 78.9→82.1 大幅改善遠離 78 門檻。貴金屬全面爆發（Copper +15.3%、Silver +12.8%、Gold +11.8%）。Energy +2.08% 回歸溫和——Oil Refining mom 93.0 穩居 rank #1，「不追漲」再次驗證。",
+  "imageDir": "/research/weekly/2026-08-21",
+  "coverImage": "01_sector_1w.png",
+  "intro": [
+    "上期五個觀察重點本週迎來兩個重大翻轉。**Semiconductors mom 70.2 回升趨勢——逆轉。** 上期說「六個百分點的改善是三週來最正向的變動」，本週完全反轉：mom 70.2→66.6 掉頭朝下，Semiconductors -8.03% 是 IT 板塊中第四慘的子產業。WSJ 揭露 $3 兆 AI 帳外承諾 + 30 年期殖利率衝上 5.34%（2007 年以來新高）的雙殺是直接觸發因素。**HCS 78 門檻——遠離。** 上期警告「只剩 0.9 點、下週跌破需嚴肅重新評估」——結果完全相反：HCS 78.9→82.1 大幅反彈 3.2 點，是追蹤以來最大單週正向變動，門檻危機解除。其他三個觀察重點：**荷莫茲海峽**——本週不再是主要驅動力，油價維持 ~$85-87 高位但注意力完全被殖利率風暴和 $3 兆報導搶走，Energy +2.08% 比上期 +8.35% 大幅降溫。**零售業財報季**——Broadline Retail -1.77%（上期 -5.57% 後持續疲弱），消費端壓力延續但衝擊力度已從「資料衝擊」轉為「慣性拖累」。**Oil Refining mom 90.8**——不但可持續、還進一步攀升至 93.0 穩居 rank #1，+2.76% 的溫和報酬比上期 +13.17% 暴漲更健康。上期操作判斷：**IT 核心持有 ✗✗**（IT -5.05% 首度墊底、Semiconductors mom 逆轉）；**HC 核心持有 ✓✓**（HCS 大幅改善、Biotechnology +8.58% 爆發）；**Materials 中性觀望 ✓**（+1.54% 但內部劇烈分化——貴金屬暴漲 vs 工業金屬崩跌）；**Energy 不追漲 ✓**（+2.08% 溫和回歸）；**AI 電力基建暫停關注 ✓✓**（Heavy Electrical -7.58%、IPPs -7.81% 全面崩跌）。",
+    "**週一（8/18）** WSJ 發布震撼分析：九大科技巨頭——Alphabet、Amazon、Meta、Microsoft、Oracle、Nvidia、Broadcom、SpaceX、AMD——累計約 $3 兆 AI 相關帳外承諾，包括約 $1 兆未啟用資料中心租賃和約 $1.7 兆晶片/建設/能源採購合約。Alphabet 單家 $811B、Meta $347B、Nvidia $182B。這些承諾是報表 capex（$6,000 億）的五倍——市場突然意識到科技業的 AI 實質槓桿遠超表面數字。同日 30 年期國債殖利率衝上 5.31%，美國國債逼近 $40 兆、關稅和油價推動的持續通膨、新任聯準會主席 Kevin Warsh 的政策不確定性——三重壓力推動長端利率飆升。**週二（8/19）** 30 年期殖利率觸及 5.34% 確認 19 年新高（2007 年 7 月以來最高）。記憶體和半導體股持續重挫——$3 兆帳外負債報導的餘震發酵。科技股成為利率敏感度最高的靶心：高估值 × 高久期 × 高隱性槓桿。**週三（8/20）** 避險需求推動貴金屬全面爆發——Copper、Silver、Gold 集體飆漲，資金從成長股大幅輪動至大宗商品和防禦板塊。Healthcare 逐步走強，Biotechnology 和 Life Sciences 動能加速。**週四（8/21）** IT 跌勢收斂但傷害已成：12 個 IT 子板塊中 9 個負報酬，EMS -13.19% 領跌。唯三正報酬——App Software +1.43%、IT Consulting +1.16%、Internet Services +0.09%——全是輕資產軟體與服務，硬體和製造端無一倖免。",
+    "本期核心判斷：**IT 的崩跌是殖利率衝擊 × 帳外槓桿重定價的雙殺——不是 AI 基本面惡化。配置需要調整，但不放棄。** 為什麼不是基本面問題？因為 $3 兆帳外承諾不是「新增支出」——這些租賃和採購合約早已存在於各公司 10-K 的附註裡，WSJ 只是把它們加總並推上頭版。精明的機構投資人早已知道這些數字，本週崩跌更像是散戶和動量資金的「追趕式重定價」。但殖利率環境是真實的結構性壓力：30 年期 5.34% 的折現率對任何長久期資產都是毒藥，而 AI 投資的回收期往往是 5-10 年——正好是最受長端利率影響的久期範圍。更具體的信號是 IT 內部的**軟硬分化**：唯三正報酬全是輕資產（App Software、IT Consulting、Internet Services），所有硬體和製造子板塊都崩跌。這說明市場正在區分「AI 的使用者」（受惠於 AI 生產力、資本支出低）和「AI 的建設者」（承擔 $3 兆帳外承諾的公司）。配置方向：**IT 核心持有維持但加入殖利率條件**——如果 30 年期殖利率連續三週維持 5.25% 以上，需考慮降格。Semiconductors mom 66.6 是更急迫的監控指標——如果跌破 60 則不等殖利率條件。**HC 核心持有信心提升**——HCS 82.1 遠離門檻、Biotech 82.2 和 Life Sciences 82.6 的動能爆發提供了寬厚的安全墊。**Materials 首度分級處理**——貴金屬（Copper、Silver、Gold）升格為「戰術性關注」（避險需求驅動），工業金屬（Aluminum -5.8%、Diversified Metals -7.9%）維持「中性觀望」。**Energy 維持「事件驅動觀望、不追漲」**——+2.08% 的溫和報酬和 Oil Refining 93.0 的頂級 mom 確認上期判斷。"
+  ],
+  "exhibits": [
+    {
+      "number": 1,
+      "title": "板塊一週報酬：IT -5.1% 首度墊底——Energy +2.1% 與 Healthcare +1.7% 成避風港",
+      "image": "01_sector_1w.png",
+      "caption": "IT -5.05% 首度在追蹤期間墊底全場——從上期 +1.58%（連續四週正報酬）直接崩跌至最後一名，跨度 6.6 百分點。Utilities -3.22% 倒數第二——利率飆升直接衝擊公用事業。Energy +2.08% 從上期 +8.35% 大幅降溫但仍正。Healthcare +1.73% 穩健防禦。Materials +1.54%。7 個板塊負報酬、4 個正報酬——本週是追蹤以來最廣泛的下跌。",
+      "body": "上期是「Energy 從唯一負翻為全場最強 +8.35%」的戲劇性反轉。本週的故事完全不同——**不是某個板塊的異常暴漲或暴跌，而是「殖利率+帳外槓桿」雙殺帶來的全面重定價。** IT -5.05% 不只是墊底——它是連續五週正報酬（+0.08%→+1.81%→+6.44%→+1.58%）後的**斷裂式崩跌**。上期我們說「IT +1.58% 的減速是宏觀驅動暴漲回歸正常節奏」——結果不是「回歸正常」而是「節奏完全反轉」。30 年期殖利率衝上 5.34%（19 年新高）+ WSJ 揭露 $3 兆 AI 帳外承諾——雙重利空同時引爆。**Utilities -3.22% 倒數第二是利率衝擊的直接反映**——全 6 個 Utilities 子板塊本週皆負報酬（IPPs -7.81% 最慘），高殖利率讓所有利率敏感板塊承壓。**Healthcare +1.73% 的穩健表現**值得特別注意——上期 HC 只有 +0.77%（相對安靜），本週在全市場下跌環境中逆勢正報酬，HCS 78.9→82.1 的大幅改善是核心驅動力。**Energy +2.08% 的「溫和正報酬」**是最佳結果——足以確認上期「不追漲」的判斷正確（沒有追漲就沒有被回調打臉），但也沒有崩跌（油價仍高位）。**Materials +1.54% 的整體溫和**掩蓋了內部劇烈分化——貴金屬暴漲（Copper +15.3%、Silver +12.8%、Gold +11.8%）被工業金屬崩跌（Aluminum -5.8%、Diversified Metals -7.9%）部分抵消。",
+      "links": [
+        { "label": "Semiconductors", "href": "/sub/3DFD4B15" },
+        { "label": "Oil Refining", "href": "/sub/DB62D66B" },
+        { "label": "Health Care Services", "href": "/sub/CE2456A9" },
+        { "label": "Copper", "href": "/sub/9D3B3E86" },
+        { "label": "Heavy Electrical", "href": "/sub/8D0D1D2F" }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "輪動地圖：IT 從正報酬區墜入深度負值——Healthcare × 貴金屬逆勢崛起",
+      "image": "02_rotation_map.png",
+      "caption": "IT 從上期 +1.58%（正報酬區）直接墜入 -5.05%（深度負值區），跨度 6.6 百分點。Healthcare +1.73% 穩守正報酬區。Materials +1.54% 但 3M 報酬 +5.53% 相對溫和。Energy +2.08% 回歸中間位置。Utilities -3.22% 拖入負值區。",
+      "body": "上期是「Energy × Materials 連續兩週鏡像翻轉」的蹺蹺板故事。本週蹺蹺板停了——**取而代之的是殖利率主導的「成長 vs 防禦」大分裂。** IT 從上期的 +1.58% 直接墜到 -5.05%——不是漸進惡化而是斷裂式崩跌。上期我們注意到「IT 四週連續正報酬但在減速（+0.08%→+1.81%→+6.44%→+1.58%）」，認為是「宏觀驅動暴漲回歸正常節奏」。本週的數據否定了這個溫和的解讀——這不是減速，而是**趨勢反轉**。加速度的方向已經從正轉負，而且幅度遠超「正常節奏」。**Healthcare 的穩健對比最為鮮明**——在 IT 崩跌的同時，HC +1.73% 逆勢正報酬。上期 HC +0.77% 相對安靜，本週反而在全市場下跌環境中加速表現，**從「平穩持有」升級為「主動防禦」的配置角色**。Biotech +8.58% 和 Life Sciences +6.31% 是 HC 板塊的雙引擎。**Materials +1.54% 的表面溫和掩蓋了追蹤以來最極端的內部分化**——貴金屬三兄弟（Copper +15.3%、Silver +12.8%、Gold +11.8%）和工業金屬（Aluminum -5.8%、Diversified Metals -7.9%）之間的差距超過 23 百分點。**Financials -1.57% 值得注意**——上期 +1.30% 穩健，本週轉負主要因為殖利率飆升對利率敏感的非銀行金融股衝擊——Diversified Financial Services -7.89% 是最明顯的受害者。Consumer Finance 77.1 的高 mom 仍在但報酬 -1.71% 已經開始承壓。",
+      "links": [
+        { "label": "Biotechnology", "href": "/sub/A26A78F7" },
+        { "label": "Life Sciences", "href": "/sub/19BD4D4B" },
+        { "label": "Silver", "href": "/sub/FDF8E7AE" },
+        { "label": "Diversified Financial Services", "href": "/sub/A4F55D43" },
+        { "label": "Consumer Finance", "href": "/sub/3AB077CE" }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Top/Bottom 12：貴金屬霸佔 Top 3（Copper +15.3%）——IT 佔 Bottom 的 5 席",
+      "image": "03_top_bottom_subs.png",
+      "caption": "Copper +15.30% 登頂——Silver +12.79%、Gold +11.83% 緊隨，貴金屬包攬 Top 3。Biotechnology +8.58%、Fertilizers +7.57% 跟進。Bottom 12 被 IT 霸佔 5 席：EMS -13.19%、Electronic Components -10.16%、Semi Equipment -9.14%、Semiconductors -8.03%、Tech Hardware -7.44%。",
+      "body": "上期 Top 12 被「能源子板塊霸佔六席」。本週完全不同——**Top 3 全部是貴金屬，Bottom 被 IT 硬體製造群佔據五席**。這是追蹤以來最純粹的「避險 vs 成長」排列。**Copper +15.30%** 登頂全場——上期 Copper -4.50% 在 Bottom 12，本週從底部飛到頂端，跨度 19.8 百分點。驅動力不是工業需求（工業金屬整體弱勢），而是**避險需求 + 美元壓力**——30 年期殖利率飆升引發的「實質資產避險」邏輯。**Silver +12.79% 和 Gold +11.83%** 的聯袂暴漲確認了這是系統性的貴金屬配置轉移——不是某個金屬的特殊催化。**Biotechnology +8.58%** 是非金屬中的最強者——HC 板塊在利率風暴中扮演「科技替代品」的角色（高 beta、成長潛力，但沒有 $3 兆帳外負債問題）。**Fertilizers +7.57% 和 Life Sciences +6.31%** 分別代表農業和醫療的結構性需求——與科技殖利率衝擊無關。Bottom 12 的結構最有說明力：**EMS -13.19%** 是全場最慘——電子代工直接承受 AI 帳外承諾的「供應鏈端衝擊」。**Electronic Components -10.16%、Semi Equipment -9.14%、Semiconductors -8.03%、Tech Hardware -7.44%** 全是 IT 硬體與製造子板塊——市場正在懲罰「AI 基建供應鏈」的每一個環節。**Passenger Airlines -8.65%** 的出現則是油價高位+利率衝擊的雙殺——航空公司同時受燃油成本和債務成本壓力。**Homefurnishing Retail -8.68%** 延續上期消費端壓力的故事。",
+      "links": [
+        { "label": "Copper", "href": "/sub/9D3B3E86" },
+        { "label": "Biotechnology", "href": "/sub/A26A78F7" },
+        { "label": "EMS", "href": "/sub/95B13044" },
+        { "label": "Semiconductors", "href": "/sub/3DFD4B15" },
+        { "label": "Passenger Airlines", "href": "/sub/7C6F8CF0" }
+      ],
+      "chartData": {
+        "type": "hbar",
+        "items": [
+          { "label": "Copper", "value": 15.3, "href": "/sub/9D3B3E86" },
+          { "label": "Silver", "value": 12.8, "href": "/sub/FDF8E7AE" },
+          { "label": "Gold", "value": 11.8, "href": "/sub/33E5E2A6" },
+          { "label": "Biotechnology", "value": 8.6, "href": "/sub/A26A78F7" },
+          { "label": "Fertilizers & Agricultural Chemicals", "value": 7.6, "href": "/sub/6A22E83B" },
+          { "label": "Life Sciences Tools & Services", "value": 6.3, "href": "/sub/19BD4D4B" },
+          { "label": "Oil & Gas Exploration & Production", "value": 6.1, "href": "/sub/8D203C2D" },
+          { "label": "Agricultural & Farm Machinery", "value": 5.6, "href": "/sub/D8F634B1" },
+          { "label": "Personal Care Products", "value": 5.1, "href": "/sub/208584AE" },
+          { "label": "Financial Exchanges & Data", "value": 4.8, "href": "/sub/F5FCC1AA" },
+          { "label": "Rail Transportation", "value": 4.2, "href": "/sub/AA6314B8" },
+          { "label": "Data Processing & Outsourced Services", "value": 3.9, "href": "/sub/8CC1BC08" },
+          { "label": "Home Furnishings", "value": -6.7, "href": "/sub/06DE34DE" },
+          { "label": "Aerospace & Defense", "value": -6.8, "href": "/sub/F58F17A8" },
+          { "label": "Technology Hardware, Storage & Peripherals", "value": -7.4, "href": "/sub/D10047AB" },
+          { "label": "Heavy Electrical Equipment", "value": -7.6, "href": "/sub/8D0D1D2F" },
+          { "label": "Independent Power Producers & Energy Traders", "value": -7.8, "href": "/sub/7BA77648" },
+          { "label": "Diversified Financial Services", "value": -7.9, "href": "/sub/A4F55D43" },
+          { "label": "Diversified Metals & Mining", "value": -7.9, "href": "/sub/650D58F5" },
+          { "label": "Semiconductors", "value": -8.0, "href": "/sub/3DFD4B15" },
+          { "label": "Electrical Components & Equipment", "value": -8.2, "href": "/sub/EC96173F" },
+          { "label": "Alternative Carriers", "value": -8.3, "href": "/sub/E1C7925A" },
+          { "label": "Passenger Airlines", "value": -8.7, "href": "/sub/7C6F8CF0" },
+          { "label": "Homefurnishing Retail", "value": -8.7, "href": "/sub/BAE71B92" },
+          { "label": "Semiconductor Materials & Equipment", "value": -9.1, "href": "/sub/7F8BA218" },
+          { "label": "Electronic Components", "value": -10.2, "href": "/sub/3A71D4E6" },
+          { "label": "Electronic Manufacturing Services", "value": -13.2, "href": "/sub/95B13044" }
+        ]
+      }
+    },
+    {
+      "number": 4,
+      "title": "動能散點圖：IT 群組右下象限集體崩塌——Healthcare 右上確認趨勢、貴金屬左上新領先",
+      "image": "04_energy_unwind.png",
+      "caption": "Oil Refining（93.0, +2.8%）穩居右上頂端 rank #1。Healthcare 四子板塊密集分布在右上確認趨勢象限——Life Sciences（82.6, +6.3%）、Biotech（82.2, +8.6%）、HCS（82.1, +1.9%）、HC Tech（81.0, +0.9%）。IT 群組在右下分散崩塌——Systems Software（80.3, -2.1%）、Tech Hardware（78.0, -7.4%）高動能但暴跌。貴金屬在左上「新領先者」象限——Copper（55.2, +15.3%）價格爆發但動能尚未跟上。",
+      "body": "上期主題是「地緣翻盤推動 Energy 全面重定位」。本週主題是**「殖利率風暴撕裂 IT 群組——Healthcare 與貴金屬成為新的避風港」**。散點圖上最戲劇性的變化是 **IT 群組（綠色）的集體右移下沉**——上期 IT 子板塊大多在右上「確認趨勢」象限（Systems Software 83.5/+0.2、Tech Hardware 82.0/+13.4、Semiconductors 70.2/-0.1），本週全面墜入右下「動能整理」象限。**Systems Software（80.3, -2.09%）** mom 從 83.5 降到 80.3——雖然仍在 80 以上，但方向從「持續攀升」轉為「開始回落」。**Tech Hardware（78.0, -7.44%）** 上期 +13.43% 暴漲的技術反彈被完全否定，mom 82.0→78.0 回吐了反彈帶來的動能提升。**Semiconductors（66.6, -8.03%）** 是最令人擔憂的——mom 從 70.2 逆轉到 66.6，上期「64→70 大幅改善」的正面信號被一週否定。**Healthcare（橘色）是本週最穩定的群組**——四個核心子板塊密集分布在右上象限：Life Sciences（82.6, +6.3%）、Biotech（82.2, +8.6%）、HCS（82.1, +1.9%）、HC Tech（81.0, +0.9%）。上期 HC 群組散布較分散，本週明顯收斂並整體上移——HCS 的 78.9→82.1 大幅改善把整個 HC 群組的重心拉高。**貴金屬（紅色）在左上「新領先者」象限**是本週最搶眼的新進駐者——Copper（55.2, +15.3%）、Silver（58.0, +12.8%）、Gold（46.1, +11.8%）。它們的共同特徵是：**價格爆發但 mom_score 仍低**——這意味著暴漲尚未轉化為穩定的動能趨勢。上期 Materials 的金屬也有類似的「低動能高報酬」模式，但那次被均值回歸收割。這次的關鍵差異是驅動力——上期是 NFP 數據衝擊，本週是殖利率環境推動的避險需求，後者有更強的持續性。**Oil Refining（93.0, +2.76%）** 繼續穩坐右上頂端——上期 90.8→本週 93.0 持續攀升，但報酬從 +13.17% 降到 +2.76%，這是健康的「高動能溫和收益」模式。**Industrial Conglomerates（88.8, -3.96%）** 上期在 94.1 穩居 rank #1，本週 mom 大幅回落到 88.8、rank 跌到 #3——高動能板塊的「引力效應」終於生效。",
+      "links": [
+        { "label": "Oil Refining", "href": "/sub/DB62D66B" },
+        { "label": "Biotechnology", "href": "/sub/A26A78F7" },
+        { "label": "HCS", "href": "/sub/CE2456A9" },
+        { "label": "Semiconductors", "href": "/sub/3DFD4B15" },
+        { "label": "Copper", "href": "/sub/9D3B3E86" }
+      ],
+      "chartData": {
+        "type": "scatter",
+        "xLabel": "Mom Score (0–100)",
+        "yLabel": "1W return (%)",
+        "quadrants": {
+          "topLeft": "新領先者",
+          "topRight": "確認趨勢",
+          "bottomLeft": "弱勢",
+          "bottomRight": "動能整理"
+        },
+        "colorLabels": {
+          "#2ECC71": "IT（殖利率衝擊）",
+          "#E74C3C": "貴金屬（避險需求）",
+          "#E67E22": "Healthcare（防禦轉強）",
+          "#4A90D9": "其他"
+        },
+        "items": [
+          { "label": "Oil & Gas Refining & Marketing", "x": 93, "y": 2.8, "href": "/sub/DB62D66B", "color": "#4A90D9" },
+          { "label": "Human Resource & Employment Services", "x": 92, "y": 2.3, "href": "/sub/D4E92F32", "color": "#4A90D9" },
+          { "label": "Industrial Conglomerates", "x": 89, "y": -4.0, "href": "/sub/1BE528D2", "color": "#4A90D9" },
+          { "label": "Housewares & Specialties", "x": 83, "y": -2.4, "href": "/sub/7123167E", "color": "#4A90D9" },
+          { "label": "Life Sciences Tools & Services", "x": 83, "y": 6.3, "href": "/sub/19BD4D4B", "color": "#E67E22" },
+          { "label": "Biotechnology", "x": 82, "y": 8.6, "href": "/sub/A26A78F7", "color": "#E67E22" },
+          { "label": "Health Care Services", "x": 82, "y": 1.9, "href": "/sub/CE2456A9", "color": "#E67E22" },
+          { "label": "Health Care Technology", "x": 81, "y": 0.9, "href": "/sub/A8DBD49D", "color": "#E67E22" },
+          { "label": "Systems Software", "x": 80, "y": -2.1, "href": "/sub/4D1787C4", "color": "#2ECC71" },
+          { "label": "Technology Hardware", "x": 78, "y": -7.4, "href": "/sub/D10047AB", "color": "#2ECC71" },
+          { "label": "Consumer Finance", "x": 77, "y": -1.7, "href": "/sub/3AB077CE", "color": "#4A90D9" },
+          { "label": "Technology Distributors", "x": 76, "y": -2.7, "href": "/sub/7F980CFF", "color": "#2ECC71" },
+          { "label": "Managed Health Care", "x": 74, "y": -2.4, "href": "/sub/3E2ACB37", "color": "#E67E22" },
+          { "label": "Application Software", "x": 67, "y": 1.4, "href": "/sub/05F28EE1", "color": "#2ECC71" },
+          { "label": "Semiconductors", "x": 67, "y": -8.0, "href": "/sub/3DFD4B15", "color": "#2ECC71" },
+          { "label": "Electronic Components", "x": 59, "y": -10.2, "href": "/sub/3A71D4E6", "color": "#2ECC71" },
+          { "label": "Silver", "x": 58, "y": 12.8, "href": "/sub/FDF8E7AE", "color": "#E74C3C" },
+          { "label": "Copper", "x": 55, "y": 15.3, "href": "/sub/9D3B3E86", "color": "#E74C3C" },
+          { "label": "Semiconductor Materials & Equipment", "x": 53, "y": -9.1, "href": "/sub/7F8BA218", "color": "#2ECC71" },
+          { "label": "Gold", "x": 46, "y": 11.8, "href": "/sub/33E5E2A6", "color": "#E74C3C" }
+        ]
+      }
+    },
+    {
+      "number": 5,
+      "title": "排名躍升：Financial Exchanges +47 登頂 climber——Footwear -48 最大跌幅",
+      "image": "05_rank_delta.png",
+      "caption": "Financial Exchanges +47（+4.77%）搭配實質報酬的最大躍升。Advertising +43 和 Soft Drinks +43 並列。底部 Footwear -48 領跌，Aerospace & Defense -41 緊隨。Consumer Discretionary 佔 Bottom 10 的 5 席——消費端壓力延續。",
+      "body": "上期最大 climber 是 Alternative Carriers +42（搭配 +6.79% 實質躍升）。本週 **Financial Exchanges +47** 搭配 ret_1w +4.77% 是本週最值得注意的躍升——金融交易所在殖利率飆升環境中受惠（更高利率 → 更多固收交易量 → 交易所收入上升），mom 從 41.9 跳到 59.8。這是一個「殖利率受惠者」的典型案例——跟 IT 板塊的「殖利率受害者」形成完美對比。**Advertising +43** 但 ret_1w -1.69% 是被動上升——排名改善但價格下跌，跟上期 Diversified Chemicals 的模式類似。**Soft Drinks +43** 搭配 +3.12% 是消費防禦板塊的受惠——風險偏好下降時必需消費品受資金流入。**Food Retail +41** 搭配 +0.60% 同樣是防禦性配置。**E&P +23** 搭配 +6.10% 是能源板塊的穩健表現。底部方面，**Footwear -48**（ret_1w -2.85%）是全場最大跌幅——消費弱勢 + 品牌溢價承壓。**Aerospace & Defense -41**（-6.80%）令人意外地大幅崩落——可能反映政府支出削減的預期或國防合約受利率環境影響（長期合約的折現值下降）。Consumer Discretionary 佔 Bottom 10 的 5 席：Footwear -48、Home Improvement Retail -36、Homebuilding -33、Automotive Retail -30、Apparel Retail -30——**消費端壓力不只是零售，而是全面擴散到所有可選消費品類**。上期 Consumer Discretionary 的壓力來自零售銷售 -0.6%，本週的擴散說明消費者的退縮不是一次性數據衝擊，而是正在形成趨勢。**Passenger Airlines -31** 在兩個壓力的交叉口——高油價（燃油成本）× 高利率（消費者旅遊支出承壓 + 航空公司債務成本上升）。",
+      "links": [
+        { "label": "Financial Exchanges", "href": "/sub/F5FCC1AA" },
+        { "label": "Soft Drinks", "href": "/sub/DD15FBF8" },
+        { "label": "Footwear", "href": "/sub/ABFF7D9B" },
+        { "label": "Aerospace & Defense", "href": "/sub/F58F17A8" },
+        { "label": "Passenger Airlines", "href": "/sub/7C6F8CF0" }
+      ],
+      "chartData": {
+        "type": "hbar",
+        "xLabel": "Δ rank vs prior week",
+        "xUnit": "",
+        "items": [
+          { "label": "Financial Exchanges & Data", "value": 47, "href": "/sub/F5FCC1AA" },
+          { "label": "Advertising", "value": 43, "href": "/sub/F60915FE" },
+          { "label": "Soft Drinks & Non-alcoholic Beverages", "value": 43, "href": "/sub/DD15FBF8" },
+          { "label": "Food Retail", "value": 41, "href": "/sub/E9C739A4" },
+          { "label": "Broadcasting", "value": 30, "href": "/sub/B2F8F5B4" },
+          { "label": "Diversified Chemicals", "value": 29, "href": "/sub/4B59004E" },
+          { "label": "Office REITs", "value": 25, "href": "/sub/1F9B0776" },
+          { "label": "Publishing", "value": 24, "href": "/sub/63934848" },
+          { "label": "Electronic Manufacturing Services", "value": 23, "href": "/sub/95B13044" },
+          { "label": "Oil & Gas Exploration & Production", "value": 23, "href": "/sub/8D203C2D" },
+          { "label": "Multi-Sector Holdings", "value": -29, "href": "/sub/87FCAE9A" },
+          { "label": "Apparel Retail", "value": -30, "href": "/sub/457BB093" },
+          { "label": "Automotive Retail", "value": -30, "href": "/sub/8AD509DF" },
+          { "label": "Passenger Airlines", "value": -31, "href": "/sub/7C6F8CF0" },
+          { "label": "Homebuilding", "value": -33, "href": "/sub/40AFBB27" },
+          { "label": "Construction & Engineering", "value": -34, "href": "/sub/787C9D0B" },
+          { "label": "Home Improvement Retail", "value": -36, "href": "/sub/94A22E14" },
+          { "label": "Diversified Capital Markets", "value": -38, "href": "/sub/CE93821A" },
+          { "label": "Aerospace & Defense", "value": -41, "href": "/sub/F58F17A8" },
+          { "label": "Footwear", "value": -48, "href": "/sub/ABFF7D9B" }
+        ]
+      }
+    },
+    {
+      "number": 6,
+      "title": "IT 內部：12 個子板塊 9 負 3 正——「輕資產」vs「重資產」的結構性分裂",
+      "image": "06_materials_split.png",
+      "caption": "IT 12 個子板塊中 9 個負報酬。唯三正報酬：App Software +1.43%、IT Consulting +1.16%、Internet Services +0.09%——全是輕資產軟體與服務。底部全是硬體和製造：EMS -13.19%、Electronic Components -10.16%、Semi Equipment -9.14%、Semiconductors -8.03%、Tech Hardware -7.44%。「AI 使用者」和「AI 建設者」的市場待遇完全分裂。",
+      "body": "上期 Exhibit 6 聚焦 Energy 內部的全面翻轉（7/7 全正）。本週聚焦 **IT 內部的結構性分裂**——追蹤以來 IT 首度墊底全場，但崩跌不是均勻的，而是沿著「輕資產 vs 重資產」的斷層線展開。**唯三正報酬的共同特徵**：App Software +1.43%（mom 67.3，穩定）、IT Consulting +1.16%（mom 45.3，低但穩）、Internet Services +0.09%（mom 56.1，穩定）——它們的商業模式是**賣軟體和服務**，營收主要來自訂閱和顧問費，不需要大量資本支出建設資料中心或製造晶片。$3 兆帳外承諾幾乎不影響它們。**9 個負報酬子板塊的排列順序揭示了衝擊的傳導路徑**：EMS -13.19%（代工製造端最受衝擊——直接承接科技巨頭的 $1.7 兆採購合約）→ Electronic Components -10.16%（零組件供應商）→ Semi Equipment -9.14%（設備商）→ Semiconductors -8.03%（晶片設計）→ Tech Hardware -7.44%（終端硬體）→ Communications Equipment -5.85% → Electronic Equipment -4.60% → Tech Distributors -2.72% → Systems Software -2.09%。**衝擊力度從供應鏈上游到下游遞減**——越接近「建設端」的子板塊跌越多、越接近「使用端」的跌越少，形成一個近乎完美的梯度。**Systems Software -2.09%（mom 80.3）** 是 IT 群組中最接近正報酬的非軟體子板塊——它的 mom 從 83.5 降到 80.3 仍在 80 之上，但方向已從「持續攀升」轉為「開始回落」。如果 Systems Software mom 跌破 75，IT 核心持有的基礎會進一步動搖。**Semiconductors -8.03%（mom 66.6）** 是操作決策的關鍵指標——上期 64→70 的回升被完全逆轉為 70→67。如果下週跌破 60，IT 核心持有需要正式降格。**核心判斷：IT 的「軟硬分裂」不是暫時的市場情緒——30 年期殖利率 5.34% 的環境下，資本密集型的「AI 建設者」會持續承壓，而資本輕量的「AI 使用者」有機會脫鉤。** 如果這個分裂持續，未來的 IT 配置可能需要拆分為「IT-Software」和「IT-Hardware」兩個獨立判斷。",
+      "links": [
+        { "label": "App Software", "href": "/sub/05F28EE1" },
+        { "label": "EMS", "href": "/sub/95B13044" },
+        { "label": "Semiconductors", "href": "/sub/3DFD4B15" },
+        { "label": "Systems Software", "href": "/sub/4D1787C4" },
+        { "label": "Tech Hardware", "href": "/sub/D10047AB" }
+      ],
+      "chartData": {
+        "type": "hbar",
+        "items": [
+          { "label": "Application Software", "value": 1.4, "href": "/sub/05F28EE1" },
+          { "label": "IT Consulting & Other Services", "value": 1.2, "href": "/sub/364050B7" },
+          { "label": "Internet Services & Infrastructure", "value": 0.1, "href": "/sub/0FA374B8" },
+          { "label": "Systems Software", "value": -2.1, "href": "/sub/4D1787C4" },
+          { "label": "Technology Distributors", "value": -2.7, "href": "/sub/7F980CFF" },
+          { "label": "Electronic Equipment & Instruments", "value": -4.6, "href": "/sub/A74998C2" },
+          { "label": "Communications Equipment", "value": -5.9, "href": "/sub/FE725307" },
+          { "label": "Technology Hardware, Storage & Peripherals", "value": -7.4, "href": "/sub/D10047AB" },
+          { "label": "Semiconductors", "value": -8.0, "href": "/sub/3DFD4B15" },
+          { "label": "Semiconductor Materials & Equipment", "value": -9.1, "href": "/sub/7F8BA218" },
+          { "label": "Electronic Components", "value": -10.2, "href": "/sub/3A71D4E6" },
+          { "label": "Electronic Manufacturing Services", "value": -13.2, "href": "/sub/95B13044" }
+        ]
+      }
+    }
+  ],
+  "actions": [
+    "**上期操作績效回顧**：IT 核心持有 ✗✗——本期最大衝擊。IT -5.05% 首度墊底全場，連續五週正報酬記錄終結（+0.08%→+1.81%→+6.44%→+1.58%→**-5.05%**）。Semiconductors mom 70.2→66.6 逆轉，Tech Hardware 82.0→78.0 回落，Systems Software 83.5→80.3 掉頭。WSJ $3 兆 AI 帳外承諾 + 30 年期殖利率 5.34% 的雙殺——上期的「核心持有」框架面臨首次真正的壓力測試。Healthcare 核心持有 ✓✓——本期最佳判斷。HC +1.73%，HCS 78.9→82.1 大幅改善（+3.2 點，追蹤以來最大單週正向變動），上期「只剩 0.9 點」的門檻危機完全解除。Biotechnology +8.58%（mom 73.7→82.2）、Life Sciences +6.31%（mom 74.7→82.6）動能爆發。**Materials「中性觀望不追高」✓**——整體 +1.54% 溫和，但內部分化是追蹤以來最極端：貴金屬暴漲（Copper +15.3%、Silver +12.8%、Gold +11.8%）vs 工業金屬崩跌（Aluminum -5.8%、Diversified Metals -7.9%），差距超過 23 百分點。「不追高」的判斷讓我們沒有重倉工業金屬——正確。但貴金屬的避險需求驅動暴漲也需要重新評估配置框架。**Energy「事件驅動觀望、不追漲」✓**——Energy +2.08% 從上期 +8.35% 大幅降溫，Oil Refining +2.76%（mom 90.8→93.0 續居 #1）。「不追漲」的判斷在上期暴漲後的回歸中再次得到驗證——追漲者會經歷從 +8.35% 到 +2.08% 的心理落差。**AI 電力基建「暫停關注」✓✓**——Heavy Electrical -7.58%（mom 53.8→45.7 崩跌）、IPPs -7.81%（mom 20.1→15.3 繼續探底）。本週殖利率飆升對公用事業的衝擊直接驗證了上期的迴避判斷。",
+    "**IT 核心持有——維持但加入殖利率觸發條件。本期是 IT 核心持有自建立以來最嚴峻的壓力測試。** IT -5.05% 首度墊底全場，12 個子板塊 9 個負報酬——這不是「減速」而是「崩跌」。但我們選擇維持核心持有而非降格，原因有三。第一，**$3 兆帳外承諾不是新資訊**——這些數據一直在 10-K 附註裡，WSJ 把它們推上頭版引發的是「散戶追趕式重定價」，不是基本面惡化。第二，**IT 內部的軟硬分化說明市場在區分而非全面拋售**——App Software +1.43%、IT Consulting +1.16% 的正報酬表明「AI 使用者」仍獲認可。第三，**核心 IT 子板塊的 mom 雖然回落但未崩塌**——Systems Software 80.3 仍在 80 之上、App Software 67.3 穩定。但我們不能忽視結構性壓力：30 年期殖利率 5.34% 對所有長久期資產是毒藥。**新增殖利率觸發條件**：如果 30 年期殖利率連續三週維持在 5.25% 以上，IT 核心持有需進入降格討論。**Semiconductors mom 66.6 是更急迫的指標**——如果跌破 60，不等殖利率條件就直接降格。",
+    "**Healthcare 核心持有——信心提升。HCS 78.9→82.1 的反彈徹底解除上期的門檻危機。** HC +1.73% 在全市場下跌環境中的防禦表現令人印象深刻。HCS 82.1 不只是遠離 78 門檻——它是**回到了三週前的安全水位**（82.1 vs Issue 17 的 81.8）。更重要的是 HC 群組的整體動能結構大幅改善：**Biotechnology 73.7→82.2（+8.5 點）**、**Life Sciences 74.7→82.6（+7.9 點）**、**HC Technology 70.5→81.0（+10.5 點）**——三個子板塊的 mom 同時大幅躍升到 80 以上。HC 板塊現在有四個 mom > 80 的子板塊（Life Sciences 82.6、Biotech 82.2、HCS 82.1、HC Tech 81.0），這是追蹤以來最寬厚的動能基礎。HC Facilities 76.2（mom 71.7→76.2，+4.5 點）和 MHC 74.1（持平）也在安全區間。在殖利率飆升的環境下，Healthcare 的防禦屬性 + 高動能 = 最佳避風港。門檻上修：HCS < 75 才考慮降格（從原本的 78 上修到 75，反映更寬的安全墊）。",
+    "**Materials——首度分級處理：貴金屬升格「戰術性關注」、工業金屬維持「中性觀望」。** 上期判斷「中性觀望不追高」整體仍然正確（Materials +1.54% 溫和），但本週的內部分化迫使我們首次把 Materials 拆成兩個獨立判斷。**貴金屬（Copper +15.3%、Silver +12.8%、Gold +11.8%）的驅動力與上期完全不同**——上期是 NFP 數據衝擊推動的一次性脈衝（被本週的均值回歸完美驗證），本週是**殖利率環境推動的避險需求**（30 年期 5.34% → 國債信用疑慮 → 實質資產避險）。後者有更強的持續性——只要殖利率維持高位，避險需求就不會消失。但 mom_score 發出警告：Copper 55.2、Silver 58.0、Gold 46.1 都仍在中性偏弱區間——**價格暴漲但動能尚未跟上**，這意味著如果殖利率快速回落，貴金屬的回調也會很劇烈。因此「戰術性關注」而非「核心配置」——密切追蹤但不重倉。**工業金屬（Aluminum -5.8%、Diversified Metals -7.9%）的表現確認了一個重要區分**：同樣是「金屬」，但驅動力完全不同——工業金屬反映的是製造業需求（受利率衝擊），貴金屬反映的是避險需求（受利率提振）。工業金屬維持「中性觀望」不變。",
+    "**Energy——維持「事件驅動觀望、不追漲」。+2.08% 的溫和報酬完美驗證上期判斷。** 上期從「主動迴避」調回「事件驅動觀望、不追漲」，理由是「不做空也不追多——承認不確定性」。本週 +2.08%（vs 上期 +8.35%）的大幅降溫證明了不追漲的智慧——追漲者在上期 +8.35% 買入，本週只能看著報酬降到 +2.08%（心理落差超過 6 個百分點）。Energy 內部也出現分化：6/7 正報酬（E&P +6.10% 領漲、Oil Refining +2.76%、Integrated Oil +3.66%），唯一負報酬是 Oil Equipment -3.49%。**Oil Refining mom 90.8→93.0 持續攀升穩居 rank #1**——在經歷了上上期 -9.38% → 上期 +13.17% → 本期 +2.76% 的極端波動後，93.0 的 mom 確認了趨勢的真實性（不是波動造成的假象）。但這也意味著 Oil Refining 已經在動能的「天花板區域」——93 以上繼續上升的空間有限，任何顯著回調都會讓 mom 從天花板快速下滑。荷莫茲海峽本週退居幕後——油價維持 $85-87 高位但市場注意力被殖利率風暴搶走。這個配置判斷的持續性取決於荷莫茲和 OPEC+ 的下一步：如果談判恢復→油價下行→Energy 回調；如果僵局持續→油價高位→Energy 維持溫和正報酬。「觀望」仍是最佳姿態。",
+    "**AI 電力基建——維持「暫停關注」。殖利率衝擊直接驗證了迴避判斷。** Heavy Electrical -7.58%（mom 53.8→45.7，崩跌 8.1 點）、IPPs -7.81%（mom 20.1→15.3，繼續探底）。上期的回歸條件是「FOMC 明確轉鴿 或 Heavy Electrical mom 重回 65+」——兩個條件不但都沒有達成，反而朝反方向加速惡化。Heavy Electrical 從 53.8 跌到 45.7，距離 65 回歸門檻差距從 11.2 點擴大到 19.3 點。IPPs 15.3 幾乎是追蹤以來的歷史最低水位。**Utilities 全板塊 6/6 子產業皆負報酬**：IPPs -7.81%、Renewable Electricity -3.36%、Electric Utilities -3.22%、Multi-Utilities -3.29%、Gas Utilities -1.07%、Water Utilities -0.55%。30 年期殖利率 5.34% 是公用事業的毒藥——高殖利率意味著 Utilities 的股息吸引力下降（債券替代效應）+ 公用事業的高負債成本上升。在殖利率回落之前，AI 電力基建的回歸沒有基礎。回歸條件不變但門檻實際上更遠了。",
+    "**下週觀察重點**：(1) **Semiconductors mom 66.6——60 是生死線。** 本週從 70.2 逆轉到 66.6，距離 60 只剩 6.6 點。如果下週繼續惡化跌破 60，IT 核心持有需要正式降格——不等殖利率條件。反之如果穩住或反彈，證明本週的崩跌是殖利率衝擊的一次性影響而非趨勢反轉。(2) **30 年期殖利率軌跡**——5.34% 是 2007 年以來最高。如果維持 5.25%+ 連續三週以上，IT 和 Utilities 的結構性壓力會持續——IT 核心持有的殖利率觸發條件開始倒數。反之如果回落到 5% 以下，「殖利率衝擊」可能只是一週的噪音。(3) **貴金屬的動能建立**——Copper 55.2、Silver 58.0、Gold 46.1 的 mom 都還在中性偏弱區間。本週的暴漲（+15.3%/+12.8%/+11.8%）能否在下週轉化為 mom 的實質提升？如果 mom 跳升到 65+，貴金屬從「戰術性關注」升格為「核心配置」的可能性增加。(4) **Oil Refining mom 93.0 的天花板效應**——93 已接近 mom_score 的理論上限。任何正常回調都會讓 mom 快速下滑——觀察下週的回調幅度是否溫和（健康調整）還是劇烈（趨勢見頂）。(5) **IT 軟硬分裂的持續性**——本週 App Software +1.43% vs EMS -13.19% 的差距是 14.6 百分點。如果下週分裂持續，我們需要考慮把 IT 配置拆分為「IT-Software」和「IT-Hardware」兩個獨立判斷——這會是追蹤以來最大的框架調整。"
+  ],
+  "sources": [
+    { "title": "WSJ Finds $3 Trillion in Off-Balance-Sheet AI Commitments — Digg", "url": "https://digg.com/tech/n9ybbj51" },
+    { "title": "Big Tech holds $3T in off-balance-sheet AI commitments, dwarfing reported spending — CryptoBriefing", "url": "https://cryptobriefing.com/big-tech-3-trillion-off-balance-sheet-ai-commitments/" },
+    { "title": "WSJ Catches Up, Discovers AI's Off-Balance Sheet Liabilities Are $3 Trillion — ZeroHedge", "url": "https://www.zerohedge.com/markets/wsj-catches-discovers-ais-balance-sheet-liabilities-are-3-trillion-and-growing-12-trillion" },
+    { "title": "WSJ reports $3T in AI spending commitments kept off balance sheets — Yahoo Finance", "url": "https://finance.yahoo.com/video/wsj-reports-3t-ai-spending-144501122.html" },
+    { "title": "Off-Balance-Sheet AI Debt Approaches $3 Trillion Across Tech Giants — Stratton Journal", "url": "https://www.strattonjournal.com/articles/the-3-trillion-shadow-how-off-balance-sheet-ai-debt-is-reshaping-tech-finance" },
+    { "title": "30-year US Treasury yield hits highest level in nearly 20 years — CryptoBriefing", "url": "https://cryptobriefing.com/30-year-treasury-yield-highest-20-years/" },
+    { "title": "30-Year Treasury Yield Hits 19-Year High: What It Means for Investors — Intellectia", "url": "https://intellectia.ai/blog/30-year-treasury-yield-19-year-high-august-2026" },
+    { "title": "30-Year Treasury Yield Touches 19-Year High as US Debt Approaches $40 Trillion — The Fiscal Times", "url": "https://www.thefiscaltimes.com/2026/08/18/30-Year-Treasury-Yield-Touches-19-Year-High-US-Debt-Approaches-40-Trillion" },
+    { "title": "30-year Treasury yield tops 5.33%, new 19-year high — CNBC", "url": "https://www.cnbc.com/2026/08/18/treasury-yields-.html" },
+    { "title": "US Bond Selloff Drives 30-Year Yields to Highest Since 2007 — Bloomberg", "url": "https://www.bloomberg.com/news/articles/2026-08-17/us-bond-selloff-drives-30-year-yields-to-the-highest-since-2007" },
+    { "title": "Global bond yields are surging. Here's why it matters — CNN Business", "url": "https://www.cnn.com/2026/08/21/economy/bond-market-explainer" },
+    { "title": "The 30-year Treasury yield just hit a 19-year high. Three things could drive it even higher — CNBC", "url": "https://www.cnbc.com/2026/08/18/30-year-treasury-yield-three-things-that-could-drive-it-even-higher.html" }
+  ]
+}
