@@ -1,0 +1,239 @@
+{
+  "slug": "2026-08-25",
+  "issue": 22,
+  "date": "2026-08-25",
+  "snapshotDate": "2026-08-25",
+  "title": "避險成潮——貴金屬連二週雙位數暴漲 × Biotech 登頂 rank #1，Semiconductors 64.7 逼近 60 生死線",
+  "subtitle": "Copper +20.5% 創紀錄（連二週雙位數：上期 +15.3%→本期 +20.5%）、Silver +16.6%、Gold +16.5%——避險需求從一次性脈衝升級為趨勢。黃金八月漲幅超過 15%，是 1999 年 9 月以來最強單月表現。Biotech +8.74%（mom 82.2→93.7）超越 Oil Refining 登頂 rank #1——Moderna/Merck mRNA 癌症疫苗 Phase 3 成功 + M&A 浪潮推動。IT -1.98% 連續兩週墊底但跌幅從 -5.05% 收窄——殖利率從 5.34% 回落至 ~5.21% 緩解急性壓力，但 Semiconductors mom 66.6→64.7 持續惡化、距 60 生死線只剩 4.7 點。IT 軟硬分裂第二週確認：輕資產 IT 全正（Internet Services +5.5%、IT Consulting +4.5%、App Software +2.4%），重資產 IT 全負（Semi Equipment -7.8%、EMS -7.3%、Electronic Components -6.7%）。Energy -1.18% 轉負——美國對伊朗祭出「經濟全面攻擊」制裁但市場視為對供給衝擊有限，油價反跌 2.5%。",
+  "imageDir": "/research/weekly/2026-08-25",
+  "coverImage": "01_sector_1w.png",
+  "intro": [
+    "上期五個觀察重點本週最重要的結論是：**貴金屬不再是一次性脈衝——它正在成為趨勢。** 上期 Copper +15.3%、Silver +12.8%、Gold +11.8% 是追蹤以來最強的貴金屬週。本週不但沒有均值回歸——反而加速：**Copper +20.5%（創紀錄）、Silver +16.6%、Gold +16.5%**。連續兩週雙位數暴漲在追蹤以來從未出現過。更重要的是 mom 正在跟上：Copper 55.2→57.2、Silver 58.0→59.4、Gold 46.1→50.8——雖然還沒有突破 65 的門檻，但方向是對的，速度也在加速。上期我們把貴金屬升格為「戰術性關注」——本週的加速暴漲證明升格的時機恰好踩在趨勢確認的起點。其他四個觀察重點：**Semiconductors mom 60 生死線——64.7，逼近中。** 從上期 66.6 再跌 1.9 點至 64.7，距離 60 只剩 4.7 點。Nvidia 財報（8/26 盤後公佈）是下週的終極催化——如果指引失望，Semi mom 可能直接跌破 60。**30 年期殖利率——回落。** 從上期 5.34% 高峰回落至 ~5.21%，油價下跌是主要推力。上期設定的「三週 5.25%+ 才觸發 IT 降格」條件並未啟動——殖利率壓力正在緩解。**Oil Refining 天花板效應——溫和修正。** 93.0→92.2，微降 0.8 點但仍居 rank #2（被 Biotech 93.7 超越）。ret_1w -3.94% 是上期觀察的「正常回調」——幅度溫和，不是崩跌。**IT 軟硬分裂——第二週確認。** 輕資產 IT 全正（Internet Services +5.5%、IT Consulting +4.5%、App Software +2.4%），重資產 IT 全負（Semi Equipment -7.8%、EMS -7.3%、Electronic Components -6.7%）。兩週連續出現相同模式——**這是結構性的，不是噪音。** 上期操作判斷：IT 核心持有（帶殖利率條件）✗（IT -1.98% 仍負但跌幅大幅收窄、殖利率回落是好消息）；HC 核心持有 ✓✓（Biotech 93.7 登頂 #1！HC 最強時刻）；貴金屬戰術性關注 ✓✓✓（加速暴漲遠超預期）；Energy 觀望不追漲 ✓（Energy -1.18% 轉負，沒追漲就沒被套）；AI 電力基建暫停關注 ✓✓（Heavy Electrical -5.93% 繼續崩跌）。",
+    "**週一（8/24）** 美國對伊朗祭出新一輪制裁——財政部長 Scott Bessent 宣布「我們正在對伊朗的全球金融聯繫發動經濟攻擊」，目標涵蓋航運網絡和金融連結。但市場反應出人意料：**油價反跌 2.5%**（WTI $84.9、Brent $92），因為交易員認為制裁對伊朗原油出口的即時衝擊有限，遠不如荷莫茲海峽封鎖的直接威脅。S&P 500 -0.3%，科技股是最弱板塊。半導體股在 Nvidia 財報（8/26）前持續承壓——Intel -5%、AMD -4%、TSMC -3%。**週二（8/25）** S&P 500 +0.3% 反彈逼近歷史新高。油價繼續下跌逾 3%——市場從「擔心波斯灣戰爭」轉向「美國轉為經濟施壓」的敘事，地緣風險溢價快速消退。貴金屬繼續飆漲——Gold 觸及三個月高點逼近 $4,700、Copper 觸及紀錄高點 $6.77/lb，黃金八月漲幅已超 15%（1999 年 9 月以來最強單月）。**Biotech 板塊持續受 Moderna/Merck mRNA 癌症疫苗 Phase 3 成功（8/19 公佈）的餘震推動**——這是史上第一個 Phase 3 成功的 mRNA 癌症療法，個人化癌症疫苗從概念走向臨床驗證。加上 2026 上半年生技 M&A 交易量已超越 2025 全年，Biotech 的結構性多頭論述正在強化。**週五（8/27）** S&P 500 -0.25%（週五回落但整週仍正 +0.5%）——聯準會主席 Kevin Warsh 表達對通膨的擔憂，殖利率從盤中低點反彈。30 年期殖利率收在 ~5.21%，比上期 5.34% 高峰回落約 13 個基點。",
+    "本期核心判斷：**避險需求已從脈衝升級為潮流——貴金屬連二週雙位數暴漲不是「追漲」而是「趨勢建立」的早期信號。** 上期的關鍵洞見是把貴金屬的驅動力區分為「NFP 脈衝」（Issue 19-20 被均值回歸收割）和「殖利率+避險需求」（Issue 21 開始）。本週的加速暴漲驗證了這個區分——**如果是一次性脈衝，第二週應該均值回歸；如果是趨勢建立，第二週應該加速。** Copper 從 +15.3% 加速到 +20.5%、Silver 從 +12.8% 加速到 +16.6%、Gold 從 +11.8% 加速到 +16.5%——三個品種同步加速，符合趨勢建立的判定。但 mom_score 的警告仍然有效：Copper 57.2、Silver 59.4、Gold 50.8——都還沒有突破 65。**價格在前面跑，動能在後面追。** 如果下週 mom 跳升到 65 以上，升格為「核心配置」的條件就會滿足。本週另一個里程碑是 **Biotech mom 93.7 登頂 rank #1**——超越了連續多週稱霸的 Oil Refining（92.2）。mRNA 癌症疫苗 Phase 3 成功 + M&A 浪潮 + 避險資金流入 HC = Biotech 的三重順風。配置方向：**IT 正式拆分為「IT-Software」和「IT-Hardware」兩個獨立判斷**——軟硬分裂連續兩週確認，不再適合用單一「IT 核心持有」概括。IT-Software 維持核心持有（App Software、IT Consulting、Internet Services 全正）；IT-Hardware 進入「條件觀察」（Semiconductors mom 64.7，跌破 60 則降格為迴避）。**HC 核心持有信心最高**——Biotech #1 + 五個 HC 子板塊 mom 全在 70 以上。**貴金屬從「戰術性關注」升格為「戰術性配置」**——但不重倉（mom 未過 65）。**Energy 維持觀望**——制裁推動油價下跌反而確認了「不追漲」的智慧。"
+  ],
+  "exhibits": [
+    {
+      "number": 1,
+      "title": "板塊一週報酬：Materials +4.1% 領漲——IT -2.0% 連續兩週墊底",
+      "image": "01_sector_1w.png",
+      "caption": "Materials +4.11% 從上期第三名（+1.54%）升至本週領漲——貴金屬加速是唯一驅動力。Consumer Staples +2.50%、Healthcare +2.41% 跟進。IT -1.98% 連續兩週墊底但跌幅從 -5.05% 大幅收窄。Energy -1.18% 從上期 +2.08% 翻負——伊朗制裁推動油價下跌。Utilities -1.19% 繼續弱勢。",
+      "body": "上期是「IT -5.05% 首度墊底——殖利率+帳外槓桿雙殺」的急性衝擊。本週的板塊格局進入**「急性轉慢性」的過渡期**：衝擊源（殖利率）正在回落（5.34%→5.21%），但結構性分化（避險 vs 成長）持續深化。**Materials +4.11% 重返領漲**但驅動力完全不同於 Issue 19 的 NFP 衝擊暴漲——本週的驅動力 100% 是貴金屬的避險需求。Materials 內部，Copper/Silver/Gold 的加權貢獻佔了板塊報酬的絕大部分——剔除三大貴金屬後，Materials 的平均報酬接近零。**Consumer Staples +2.50%** 是防禦配置的另一個證據——上期 +0.70% 微正，本週加速到 +2.50%，Personal Care Products +8.08% 和 Soft Drinks 持續走強。**Healthcare +2.41%** 連續三週正報酬（+0.77%→+1.73%→+2.41%），穩定加速——Biotech +8.74% 是絕對核心引擎。**IT -1.98% 連續兩週墊底**但跌幅從 -5.05% 大幅收窄到 -1.98%——急性衝擊正在消退。殖利率從 5.34% 回落到 5.21% 緩解了折現率壓力，但 Nvidia 財報（8/26 盤後）的不確定性讓半導體群持續承壓。**Energy -1.18% 從正翻負**是本週最意外的反轉——美國對伊朗的「經濟全面攻擊」制裁反而讓市場鬆了口氣（「制裁比戰爭好」），油價因此下跌 2.5%。上期 Energy +2.08%→本期 -1.18%，荷莫茲議題的市場敘事從「地緣風險溢價」轉向「經濟制裁取代軍事威脅」。",
+      "links": [
+        { "label": "Copper", "href": "/sub/9D3B3E86" },
+        { "label": "Biotechnology", "href": "/sub/A26A78F7" },
+        { "label": "Semiconductors", "href": "/sub/3DFD4B15" },
+        { "label": "Oil Refining", "href": "/sub/DB62D66B" },
+        { "label": "Personal Care Products", "href": "/sub/208584AE" }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "輪動地圖：Materials × Healthcare 雙引擎——Energy 從正翻負、IT 仍在負值區",
+      "image": "02_rotation_map.png",
+      "caption": "Materials +4.11% 和 Healthcare +2.41% 是本週僅有的兩個「穩健正報酬+結構性驅動力」板塊。Energy -1.18% 從上期 +2.08% 翻入負值區——制裁效應。IT -1.98% 從 -5.05% 收窄但仍在負值。Real Estate +2.22% 表現亮眼但 3M +3.29% 缺乏長期動能。",
+      "body": "上期是「IT 從正報酬區墜入深度負值——Healthcare × 貴金屬逆勢崛起」。本週的輪動地圖確認了**上期開始的「避險 vs 成長」分裂正在固化**——Materials 和 Healthcare 穩定在正報酬區，IT 和 Energy 穩定在負報酬區。最關鍵的觀察是 **Energy 從正翻負**。上期 Energy +2.08%（從 +8.35% 降溫但仍正），本期 -1.18%——地緣敘事的「相變」推動了這個翻轉：上期油價反彈的驅動力是「荷莫茲談判破裂→供給中斷恐慌」，本週美國對伊朗的制裁被市場解讀為「經濟施壓取代軍事升級」→供給中斷的概率下降→油價回落。**Materials 的 +4.11% 幾乎完全來自三大貴金屬**——如果只看非貴金屬 Materials（化學品、鋼鐵、鋁等），板塊報酬接近零甚至微負。這意味著 Materials 的正報酬不是「板塊輪動」而是「單一主題（避險需求）」在 Materials 內部的局部爆發。**Healthcare +2.41% 的穩定加速**（三週：+0.77%→+1.73%→+2.41%）與 IT -1.98% 的持續負報酬形成最清晰的「避風港 vs 風暴中心」對比。HC 的 3M +23.54% 是全場最高——中長期動能基礎堅實。**Real Estate +2.22% 的表現值得關注**——利率回落（5.34%→5.21%）對利率敏感型 REITs 有正面效應。Office REITs +6.00%、Real Estate Services +4.13% 是領漲力量。但 3M +3.29% 的低基數說明這可能只是超跌反彈而非趨勢啟動。",
+      "links": [
+        { "label": "Gold", "href": "/sub/33E5E2A6" },
+        { "label": "Life Sciences", "href": "/sub/19BD4D4B" },
+        { "label": "Semi Equipment", "href": "/sub/7F8BA218" },
+        { "label": "Oil Refining", "href": "/sub/DB62D66B" },
+        { "label": "Office REITs", "href": "/sub/1F9B0776" }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Top/Bottom 12：貴金屬連二週霸榜 Top 3——Bottom 被 IT 硬體+Industrials 瓜分",
+      "image": "03_top_bottom_subs.png",
+      "caption": "Copper +20.5% 連二週登頂——上期 +15.3%→本期 +20.5% 加速。Silver +16.6%、Gold +16.5% 再次包攬 Top 3。Biotech +8.7% 第四名但 mom 93.7 是全場最高。Bottom 端 Homefurnishing Retail -10.1% 領跌，Construction & Engineering -9.2%，IT 硬體群（Semi Equipment -7.8%、EMS -7.3%、Electronic Components -6.7%）繼續崩跌。",
+      "body": "上期 Top 3 是 Copper/Silver/Gold（+15.3%/+12.8%/+11.8%）。本週 **Top 3 再次是 Copper/Silver/Gold——而且每一個都比上期更強**。Copper 從 +15.3% 加速到 +20.5%（+5.2 百分點）、Silver 從 +12.8% 到 +16.6%（+3.8）、Gold 從 +11.8% 到 +16.5%（+4.7）。**連續兩週霸榜 Top 3 且加速——這是追蹤以來從未出現過的模式。** 上期的均值回歸預警（「mom 仍低，暴漲可能被回調收割」）被本週的加速完全否定——這不是脈衝，這是趨勢。**Biotech +8.74%（mom 93.7 rank #1）** 是 Top 12 中最具里程碑意義的——超越了連續多週稱霸的 Oil Refining，標誌著 HC 板塊從「防禦配置」升級為「進攻型配置」。Moderna/Merck 的 mRNA 癌症疫苗 Phase 3 成功是直接催化。**Coal +8.17%** 在 Energy 板塊整體轉負的背景下逆勢暴漲——可能反映「替代能源」需求（油價下跌時煤炭的相對價值上升）或特殊供需因素。Bottom 端的結構與上期高度一致：**Homefurnishing Retail -10.07%** 從上期 -8.68% 進一步惡化——消費端壓力不是在緩解而是在加劇。**Construction & Engineering -9.20%** 是新的大跌者——可能反映利率環境對建設業的衝擊（高利率→建案融資成本上升→新開工減少）。**IT 硬體三劍客繼續崩跌**：Semi Equipment -7.81%（rank 暴跌 40 名！）、EMS -7.26%（rank 跌 38 名）、Electronic Components -6.66%——這三個是 $3 兆 AI 帳外承諾的「供應鏈受害者」，連續兩週被重創。**Aerospace & Defense -7.06%** 連續兩週大跌（上期 -6.80%），可能反映國防預算不確定性或長期合約在高利率環境下的重估。",
+      "links": [
+        { "label": "Copper", "href": "/sub/9D3B3E86" },
+        { "label": "Biotechnology", "href": "/sub/A26A78F7" },
+        { "label": "Semi Equipment", "href": "/sub/7F8BA218" },
+        { "label": "Homefurnishing Retail", "href": "/sub/BAE71B92" },
+        { "label": "Construction & Engineering", "href": "/sub/787C9D0B" }
+      ],
+      "chartData": {
+        "type": "hbar",
+        "items": [
+          { "label": "Copper", "value": 20.5, "href": "/sub/9D3B3E86" },
+          { "label": "Silver", "value": 16.6, "href": "/sub/FDF8E7AE" },
+          { "label": "Gold", "value": 16.5, "href": "/sub/33E5E2A6" },
+          { "label": "Fertilizers & Agricultural Chemicals", "value": 8.9, "href": "/sub/6A22E83B" },
+          { "label": "Biotechnology", "value": 8.7, "href": "/sub/A26A78F7" },
+          { "label": "Coal & Consumable Fuels", "value": 8.2, "href": "/sub/7B1B1651" },
+          { "label": "Agricultural & Farm Machinery", "value": 8.1, "href": "/sub/D8F634B1" },
+          { "label": "Personal Care Products", "value": 8.1, "href": "/sub/208584AE" },
+          { "label": "Life Sciences Tools & Services", "value": 6.2, "href": "/sub/19BD4D4B" },
+          { "label": "Office REITs", "value": 6.0, "href": "/sub/1F9B0776" },
+          { "label": "Data Processing & Outsourced Services", "value": 5.9, "href": "/sub/8CC1BC08" },
+          { "label": "Insurance Brokers", "value": 5.7, "href": "/sub/95BF86A5" },
+          { "label": "Specialty Stores", "value": -4.8, "href": "/sub/3EFA9656" },
+          { "label": "Technology Hardware, Storage & Peripherals", "value": -5.0, "href": "/sub/D10047AB" },
+          { "label": "Home Furnishings", "value": -5.2, "href": "/sub/06DE34DE" },
+          { "label": "Oil & Gas Equipment & Services", "value": -5.4, "href": "/sub/8B53278B" },
+          { "label": "Heavy Electrical Equipment", "value": -5.9, "href": "/sub/8D0D1D2F" },
+          { "label": "Electrical Components & Equipment", "value": -6.0, "href": "/sub/EC96173F" },
+          { "label": "Electronic Components", "value": -6.7, "href": "/sub/3A71D4E6" },
+          { "label": "Aerospace & Defense", "value": -7.1, "href": "/sub/F58F17A8" },
+          { "label": "Electronic Manufacturing Services", "value": -7.3, "href": "/sub/95B13044" },
+          { "label": "Semiconductor Materials & Equipment", "value": -7.8, "href": "/sub/7F8BA218" },
+          { "label": "Construction & Engineering", "value": -9.2, "href": "/sub/787C9D0B" },
+          { "label": "Homefurnishing Retail", "value": -10.1, "href": "/sub/BAE71B92" }
+        ]
+      }
+    },
+    {
+      "number": 4,
+      "title": "動能散點圖：Biotech（93.7, +8.7%）登頂右上角——IT 硬體持續右下崩塌",
+      "image": "04_energy_unwind.png",
+      "caption": "Biotech（93.7, +8.7%）超越 Oil Refining（92.2, -3.9%）登頂 rank #1——HC 群組四子板塊密集在右上象限。貴金屬三兄弟在左上「新領先者」象限持續加速——Copper（57.2, +20.5%）、Silver（59.4, +16.6%）、Gold（50.8, +16.5%）。IT 硬體群（綠色）在右下象限加速崩塌——Semi Equipment 從 53→42 暴跌。",
+      "body": "上期主題是「殖利率風暴撕裂 IT 群組——Healthcare × 貴金屬成避風港」。本週的散點圖呈現**三個明確的趨勢集群**，而且每一個都比上期更極端。**HC 群組（橘色）完全佔領右上象限**——Biotech（93.7, +8.74%）以破紀錄的 mom 登頂全場 #1，超越了統治多週的 Oil Refining。Life Sciences（84.0, +6.20%）穩居 #4。HC Facilities（82.4, +0.40%）、MHC（79.9, +0.51%）、HCS（78.5, +2.94%）全部在安全區間。**HC 現在有五個 mom > 70 的子板塊**——是追蹤以來動能基礎最寬厚的板塊。**貴金屬（紅色）在左上「新領先者」象限的加速**是本週最搶眼的變化——上期它們已經在這個象限，本週每一個都**向上移動且 mom 同步提升**：Copper（55→57, +15→+20）、Silver（58→59, +13→+17）、Gold（46→51, +12→+16）。「新領先者」象限的定義是「價格爆發但動能尚未跟上」——本週的數據顯示**動能正在追趕價格**，如果下週 mom 突破 65，它們會正式進入右上「確認趨勢」象限。**IT 硬體群（綠色）在右下象限持續惡化**是最令人擔憂的畫面——Semi Equipment 從上期的（53, -9.1）跌到（42, -7.8），mom 暴跌 12 點至 41.7，rank 下滑 40 名。EMS 從（57, -13.2）到（45, -7.3），mom 下跌 12 點。Semiconductors（65, -4.6）距離 60 生死線只剩 4.7 點。**Oil Refining（92.2, -3.94%）** 首次出現「高動能負報酬」——從右上「確認趨勢」滑入右下「動能整理」的邊緣。mom 從 93.0 微降到 92.2，仍是 #2，但 -3.94% 的負報酬是我們追蹤以來 Oil Refining 的首次週度虧損——「天花板效應」正在作用。",
+      "links": [
+        { "label": "Biotechnology", "href": "/sub/A26A78F7" },
+        { "label": "Oil Refining", "href": "/sub/DB62D66B" },
+        { "label": "Copper", "href": "/sub/9D3B3E86" },
+        { "label": "Semi Equipment", "href": "/sub/7F8BA218" },
+        { "label": "HCS", "href": "/sub/CE2456A9" }
+      ],
+      "chartData": {
+        "type": "scatter",
+        "xLabel": "Mom Score (0–100)",
+        "yLabel": "1W return (%)",
+        "quadrants": {
+          "topLeft": "新領先者",
+          "topRight": "確認趨勢",
+          "bottomLeft": "弱勢",
+          "bottomRight": "動能整理"
+        },
+        "colorLabels": {
+          "#2ECC71": "IT（軟硬分裂）",
+          "#E74C3C": "貴金屬（避險加速）",
+          "#E67E22": "Healthcare（Biotech #1）",
+          "#4A90D9": "其他"
+        },
+        "items": [
+          { "label": "Biotechnology", "x": 94, "y": 8.7, "href": "/sub/A26A78F7", "color": "#E67E22" },
+          { "label": "Oil & Gas Refining & Marketing", "x": 92, "y": -3.9, "href": "/sub/DB62D66B", "color": "#4A90D9" },
+          { "label": "Human Resource & Employment Services", "x": 88, "y": 2.8, "href": "/sub/D4E92F32", "color": "#4A90D9" },
+          { "label": "Life Sciences Tools & Services", "x": 84, "y": 6.2, "href": "/sub/19BD4D4B", "color": "#E67E22" },
+          { "label": "Housewares & Specialties", "x": 84, "y": 0.0, "href": "/sub/7123167E", "color": "#4A90D9" },
+          { "label": "Health Care Facilities", "x": 82, "y": 0.4, "href": "/sub/B9A0F1EE", "color": "#E67E22" },
+          { "label": "Managed Health Care", "x": 80, "y": 0.5, "href": "/sub/3E2ACB37", "color": "#E67E22" },
+          { "label": "Industrial Conglomerates", "x": 80, "y": -1.6, "href": "/sub/1BE528D2", "color": "#4A90D9" },
+          { "label": "Health Care Services", "x": 79, "y": 2.9, "href": "/sub/CE2456A9", "color": "#E67E22" },
+          { "label": "Technology Distributors", "x": 78, "y": 0.0, "href": "/sub/7F980CFF", "color": "#2ECC71" },
+          { "label": "Systems Software", "x": 75, "y": -1.1, "href": "/sub/4D1787C4", "color": "#2ECC71" },
+          { "label": "Technology Hardware", "x": 75, "y": -5.0, "href": "/sub/D10047AB", "color": "#2ECC71" },
+          { "label": "Application Software", "x": 69, "y": 2.4, "href": "/sub/05F28EE1", "color": "#2ECC71" },
+          { "label": "Semiconductors", "x": 65, "y": -4.6, "href": "/sub/3DFD4B15", "color": "#2ECC71" },
+          { "label": "Silver", "x": 59, "y": 16.6, "href": "/sub/FDF8E7AE", "color": "#E74C3C" },
+          { "label": "Copper", "x": 57, "y": 20.5, "href": "/sub/9D3B3E86", "color": "#E74C3C" },
+          { "label": "Electronic Components", "x": 54, "y": -6.7, "href": "/sub/3A71D4E6", "color": "#2ECC71" },
+          { "label": "Gold", "x": 51, "y": 16.5, "href": "/sub/33E5E2A6", "color": "#E74C3C" },
+          { "label": "Electronic Manufacturing Services", "x": 45, "y": -7.3, "href": "/sub/95B13044", "color": "#2ECC71" },
+          { "label": "Semiconductor Materials & Equipment", "x": 42, "y": -7.8, "href": "/sub/7F8BA218", "color": "#2ECC71" }
+        ]
+      }
+    },
+    {
+      "number": 5,
+      "title": "排名躍升：Packaged Foods +39 登頂——Semi Equipment -40 和 EMS -38 墜崖",
+      "image": "05_rank_delta.png",
+      "caption": "Packaged Foods +39 領漲 climbers——防禦型消費品受惠於風險偏好下降。Data Center REITs +35、Multi-Sector Holdings +35 並列。底部 Semi Equipment -40 是全場最大跌幅（從 rank 60→100），EMS -38 緊隨。IT 硬體群佔 Bottom 10 的 2 席，Industrials 佔 3 席。",
+      "body": "上期最大 climber 是 Financial Exchanges +47（殖利率受惠者）。本週 **Packaged Foods +39** 搭配 ret_1w +1.88% 是典型的「風險偏好下降→防禦型必需消費品受資金流入」。**Data Center REITs +35** 有趣——ret_1w -1.05%（微負）但 rank 大幅改善，可能反映殖利率回落對 REITs 的估值修復效應。**Multi-Sector Holdings +35** 同樣是被動改善（ret_1w -0.64%），上期是全場最大 rank 跌幅（-29），本週完全反彈——控股公司的 rank 高度波動是因為它們的報酬取決於底層投資組合的分散效果。**Real Estate Services +34**（+4.13%）和 **Investment Banking +33**（+2.88%）是殖利率回落的直接受惠者——利率敏感型金融和地產服務在 30 年期從 5.34%→5.21% 的過程中快速修復。**底部的故事是 IT 硬體群的排名崩塌**：**Semi Equipment -40**（從 rank 60 跌到 100）是全場最慘——上期 rank 曾因 +12 的改善顯得穩定，本週完全逆轉。**EMS -38**（rank 47→85）同樣是連續第二週大幅下滑。**Alternative Carriers -37**（rank 62→99）的崩跌值得注意——上期 -8.34% 本期 -2.05%，報酬改善但排名繼續下滑，說明其他板塊的改善更快。**Heavy Electrical -33**（rank 84→117）是 AI 電力基建持續崩跌的又一證據——從上期的 45.7 跌到 36.6 的 mom 直接反映在排名暴跌上。**Building Products -32**（rank 117→149）可能反映建設業在高利率環境下的全面收縮。",
+      "links": [
+        { "label": "Packaged Foods", "href": "/sub/8B1FBC3D" },
+        { "label": "Data Center REITs", "href": "/sub/5E2B6876" },
+        { "label": "Semi Equipment", "href": "/sub/7F8BA218" },
+        { "label": "EMS", "href": "/sub/95B13044" },
+        { "label": "Heavy Electrical", "href": "/sub/8D0D1D2F" }
+      ],
+      "chartData": {
+        "type": "hbar",
+        "xLabel": "Δ rank vs prior week",
+        "xUnit": "",
+        "items": [
+          { "label": "Packaged Foods & Meats", "value": 39, "href": "/sub/8B1FBC3D" },
+          { "label": "Data Center REITs", "value": 35, "href": "/sub/5E2B6876" },
+          { "label": "Multi-Sector Holdings", "value": 35, "href": "/sub/87FCAE9A" },
+          { "label": "Real Estate Services", "value": 34, "href": "/sub/A6FD952F" },
+          { "label": "Investment Banking & Brokerage", "value": 33, "href": "/sub/110D36B8" },
+          { "label": "Passenger Ground Transportation", "value": 27, "href": "/sub/99726A83" },
+          { "label": "Retail REITs", "value": 27, "href": "/sub/079EEFFD" },
+          { "label": "Distillers & Vintners", "value": 25, "href": "/sub/3E115254" },
+          { "label": "Consumer Staples Merchandise Retail", "value": 24, "href": "/sub/376586F4" },
+          { "label": "Broadcasting", "value": 23, "href": "/sub/B2F8F5B4" },
+          { "label": "Agricultural Products & Services", "value": -25, "href": "/sub/52404E82" },
+          { "label": "Construction & Engineering", "value": -25, "href": "/sub/787C9D0B" },
+          { "label": "Advertising", "value": -29, "href": "/sub/F60915FE" },
+          { "label": "Specialty Chemicals", "value": -30, "href": "/sub/33054D65" },
+          { "label": "Homefurnishing Retail", "value": -31, "href": "/sub/BAE71B92" },
+          { "label": "Building Products", "value": -32, "href": "/sub/2BF78B07" },
+          { "label": "Heavy Electrical Equipment", "value": -33, "href": "/sub/8D0D1D2F" },
+          { "label": "Alternative Carriers", "value": -37, "href": "/sub/E1C7925A" },
+          { "label": "Electronic Manufacturing Services", "value": -38, "href": "/sub/95B13044" },
+          { "label": "Semiconductor Materials & Equipment", "value": -40, "href": "/sub/7F8BA218" }
+        ]
+      }
+    },
+    {
+      "number": 6,
+      "title": "Materials 內部：貴金屬 vs 其他的差距擴大到 23 百分點——避險主題獨霸板塊",
+      "image": "06_materials_split.png",
+      "caption": "Copper +20.5%、Silver +16.6%、Gold +16.5% 包攬 Top 3——Fertilizers +8.9% 跟進。其餘 11 個 Materials 子板塊報酬介於 +5.1% 到 -2.9% 之間。貴金屬三兄弟與最弱的 Diversified Metals（-2.9%）之間差距達 23.4 百分點——追蹤以來 Materials 內部最極端的分化。",
+      "body": "上期 Exhibit 6 聚焦 IT 內部的軟硬分裂。本週回到 Materials——因為 **Materials 的貴金屬 vs 非貴金屬分裂已經比 IT 的軟硬分裂更極端**。16 個 Materials 子板塊可以清楚分成三層：**第一層：貴金屬三兄弟（+16.5%~+20.5%）**——Copper、Silver、Gold 以雙位數報酬遠遠領先。它們的驅動力是統一的：殖利率飆升→國債信用疑慮→實質資產避險需求→美元壓力。Gold 八月單月漲幅超過 15%（1999 年以來最強），Copper 觸及紀錄高點 $6.77/lb。**第二層：農化+包裝（+2.3%~+8.9%）**——Fertilizers +8.87% 受惠於全球農產品價格上漲和地緣不確定性（伊朗制裁可能影響化肥供給鏈）。Metal/Glass/Plastic Containers +5.10% 和 Paper & Plastic Packaging +2.25% 是防禦性需求。**第三層：工業原物料（-0.1%~-2.9%）**——Steel -1.49%、Aluminum -1.76%、Commodity Chemicals -2.30%、Diversified Metals -2.86% 全部微負。這些反映的是實體經濟的製造業需求——在利率高企和消費萎縮的環境下，工業需求疲弱。**三層之間的差距是結構性的**——貴金屬的驅動力（避險需求）和工業金屬的驅動力（製造業需求）不僅不同，而且目前是反向的：避險需求在利率上升時增加，製造業需求在利率上升時減少。這就是為什麼我們在上期把 Materials 「分級處理」而不是維持統一判斷。**本週的數據進一步確認了分級的正確性**——把 Copper +20.5% 和 Aluminum -1.76% 歸入同一個「Materials 觀望」判斷沒有任何操作意義。**Diversified Metals -2.86%** 特別值得注意——它同時包含貴金屬和工業金屬的公司（如 BHP、Rio Tinto），本週的負報酬說明「工業金屬拖累」的力量大於「貴金屬提振」——因為這些公司的營收主要來自鐵礦石和銅礦的工業端需求。",
+      "links": [
+        { "label": "Copper", "href": "/sub/9D3B3E86" },
+        { "label": "Silver", "href": "/sub/FDF8E7AE" },
+        { "label": "Gold", "href": "/sub/33E5E2A6" },
+        { "label": "Fertilizers", "href": "/sub/6A22E83B" },
+        { "label": "Diversified Metals", "href": "/sub/650D58F5" }
+      ],
+      "chartData": {
+        "type": "hbar",
+        "items": [
+          { "label": "Copper", "value": 20.5, "href": "/sub/9D3B3E86" },
+          { "label": "Silver", "value": 16.6, "href": "/sub/FDF8E7AE" },
+          { "label": "Gold", "value": 16.5, "href": "/sub/33E5E2A6" },
+          { "label": "Fertilizers & Agricultural Chemicals", "value": 8.9, "href": "/sub/6A22E83B" },
+          { "label": "Metal, Glass & Plastic Containers", "value": 5.1, "href": "/sub/AE23CF9D" },
+          { "label": "Paper & Plastic Packaging", "value": 2.3, "href": "/sub/424682BE" },
+          { "label": "Construction Materials", "value": 1.1, "href": "/sub/4E53B0B8" },
+          { "label": "Industrial Gases", "value": 1.0, "href": "/sub/7D825052" },
+          { "label": "Paper Products", "value": -0.1, "href": "/sub/7BD0E9D6" },
+          { "label": "Specialty Chemicals", "value": -0.6, "href": "/sub/33054D65" },
+          { "label": "Diversified Chemicals", "value": -1.1, "href": "/sub/4B59004E" },
+          { "label": "Steel", "value": -1.5, "href": "/sub/113B2BC3" },
+          { "label": "Aluminum", "value": -1.8, "href": "/sub/1D0B4025" },
+          { "label": "Commodity Chemicals", "value": -2.3, "href": "/sub/7BF90D4B" },
+          { "label": "Diversified Metals & Mining", "value": -2.9, "href": "/sub/650D58F5" }
+        ]
+      }
+    }
+  ],
+  "actions": [
+    "**上期操作績效回顧**：**IT 核心持有（帶殖利率條件）✗**——IT -1.98% 連續兩週墊底，但跌幅從 -5.05% 大幅收窄至 -1.98%。殖利率從 5.34% 回落至 ~5.21%——上期設定的「三週 5.25%+ 觸發 IT 降格」條件並未啟動。Semiconductors mom 66.6→64.7 持續惡化，距 60 生死線 4.7 點。IT 軟硬分裂第二週確認：輕資產 IT 全正（Internet Services +5.5%、IT Consulting +4.5%、App Software +2.4%），重資產 IT 全負（Semi Equipment -7.8%、EMS -7.3%、Electronic Components -6.7%）。**HC 核心持有 ✓✓✓**——本期最佳判斷。HC +2.41% 連續三週加速。Biotech 82.2→93.7（+11.5 點）登頂 rank #1，超越 Oil Refining——這是追蹤以來最戲劇性的單週 mom 躍升。Life Sciences 82.6→84.0 持續。HCS 82.1→78.5 微降但仍在安全門檻（75）之上。**貴金屬「戰術性關注」✓✓✓**——遠超預期。Copper 從 +15.3% 加速到 +20.5%（創紀錄）、Silver +12.8%→+16.6%、Gold +11.8%→+16.5%。連二週雙位數暴漲——上期升格「戰術性關注」的時機完美。**Energy「事件驅動觀望、不追漲」✓✓**——Energy -1.18% 轉負。美國對伊朗制裁反推油價下跌 2.5%——如果上期追漲，本週就是虧損。「不追漲」的紀律再次得到驗證。**AI 電力基建「暫停關注」✓✓**——Heavy Electrical mom 45.7→36.6（崩跌 9.1 點、rank 暴跌 33 名），IPPs 15.3→14.2 繼續探底。距離 65 回歸門檻差距從 19.3 點擴大到 28.4 點——回歸遙遙無期。",
+    "**IT 正式拆分為「IT-Software」核心持有 +「IT-Hardware」條件觀察。** 連續兩週的軟硬分裂不再適合用單一判斷概括——這是追蹤以來最大的框架調整。**IT-Software（App Software、IT Consulting、Internet Services）維持核心持有**——三個子板塊連續兩週全正（上期 +1.4/+1.2/+0.1、本期 +2.4/+4.5/+5.5），且加速。它們是「AI 使用者」——受惠於 AI 生產力提升但不承擔 $3 兆帳外承諾。**IT-Hardware（Semi, Semi Equipment, EMS, Electronic Components, Tech Hardware, Comm Equip）進入「條件觀察」**——連續兩週全負，Semi Equipment rank 暴跌 40 名（上期也跌 12 名）。核心觸發條件：**Semiconductors mom 跌破 60 → IT-Hardware 正式降格為「迴避」**。目前 64.7，距觸發 4.7 點。Nvidia 財報（8/26 盤後）是下週的關鍵——如果指引失望，Semi 可能一週內跌破 60。**Systems Software（75.2）和 Tech Distributors（78.4）**是「中間地帶」——mom 仍高但報酬轉負（分別 -1.1% 和 0.0%）。暫歸 IT-Software 陣營但需監控。",
+    "**Healthcare 核心持有——信心最高點。Biotech 93.7 rank #1 是追蹤以來的里程碑。** HC +2.41% 連續三週加速（+0.77%→+1.73%→+2.41%）——沒有其他板塊有這種穩定加速的動能結構。**Biotech 的 93.7 rank #1** 是多重利好的匯聚：(1) Moderna/Merck mRNA 癌症疫苗 Phase 3 成功——史上第一個成功的 mRNA 癌症療法，打開個人化醫療的商業化前景；(2) 2026 上半年生技 M&A 交易量已超越 2025 全年——大藥廠的收購需求推動估值；(3) 避險資金從 IT 輪動到 HC——Biotech 同時具備「高 beta 成長」和「非科技避險」的雙重身份。HC 板塊現在有 **Biotech 93.7 #1、Life Sciences 84.0 #4、HC Facilities 82.4 #6、MHC 79.9 #7、HCS 78.5 #10** 五個子板塊在 Top 10——前所未有的優勢位置。HCS 從上期 82.1 回落到 78.5，但仍安全高於 75 門檻。門檻維持：HCS < 75 考慮降格。",
+    "**貴金屬——從「戰術性關注」升格為「戰術性配置」。連二週雙位數暴漲確認趨勢建立。** 上期把貴金屬從「中性觀望」升格為「戰術性關注」，本週再升一級到「戰術性配置」。區別在於：「關注」= 密切追蹤但不建倉；「配置」= 允許小倉位建立但不重倉。升格的理由：(1) **連二週雙位數暴漲且加速**——Copper +15.3%→+20.5%、Silver +12.8%→+16.6%、Gold +11.8%→+16.5%，不符合脈衝回歸的模式。(2) **mom 正在追趕價格**——Copper 55→57、Silver 58→59、Gold 46→51，方向正確。(3) **驅動力有持續性**——殖利率高位+國債 $40 兆+避險需求不是一次性事件。但**不重倉**的理由也很清楚：mom 仍未突破 65，歷史上「低 mom + 高報酬」的組合有大約 40% 的機率在第三週被均值回歸收割。**升格為核心配置的條件**：任一貴金屬 mom 突破 65 + 第三週報酬仍為正。如果下週三個品種同時回調——「戰術性配置」降回「戰術性關注」。",
+    "**Energy——維持「事件驅動觀望、不追漲」。制裁推動油價下跌完美驗證判斷。** Energy -1.18% 是上期 +2.08% 後的反轉——驅動力很清楚：美國對伊朗的制裁被市場解讀為「經濟施壓取代軍事升級」，供給中斷的恐慌消退→油價下跌 2.5%。這是一個經典的「地緣事件的市場解讀」反轉：荷莫茲談判破裂→油漲（恐慌升級），美國制裁→油跌（制裁被視為比戰爭溫和的選項）。**Oil Refining mom 92.2（-3.94%）** 首度出現週度虧損——從上期的 93.0 微降到 92.2，失去了 rank #1（被 Biotech 93.7 超越）。這是「天花板效應」的第一個實質信號——但 92.2 仍是全場第二高 mom，回調幅度溫和，不構成警報。Energy 內部 Coal +8.17% 是異常值——可能與伊朗制裁對化石能源供給鏈的連帶效應有關。其餘能源子板塊多為微負。配置不變——「觀望、不追漲」仍然是最佳姿態。",
+    "**AI 電力基建——維持「暫停關注」。回歸門檻差距擴大到 28.4 點——回歸遙遙無期。** Heavy Electrical mom 45.7→36.6（崩跌 9.1 點），ret_1w -5.93%，rank 暴跌 33 名至 117。上期距離 65 回歸門檻差 19.3 點，本週差距擴大到 **28.4 點**——以目前的惡化速度，即使明天開始反彈也需要至少 4-5 週才能回到 65。IPPs 15.3→14.2（rank 155，近乎全場最後一名）。Utilities 板塊 -1.19% 整體仍弱——殖利率雖從 5.34% 回落到 5.21% 但仍遠高於公用事業的舒適區間。Electric Utilities -1.45%、Multi-Utilities -1.96%、Renewable Electricity -1.63% 全負。回歸條件不變但門檻事實上更遠了：Heavy Electrical mom 需重回 65+。",
+    "**下週觀察重點**：(1) **Nvidia 財報（8/26 盤後）——本週最重要的單一事件。** Nvidia 的指引將決定半導體群的下一步。如果指引強勁→Semiconductors mom 可能穩住或反彈→IT-Hardware 壓力緩解。如果指引失望→Semiconductors mom 可能直接跌破 60 生死線→IT-Hardware 正式降格為「迴避」。Nvidia 據報將上調 AI 伺服器價格 15%+ 以反映記憶體成本上漲——市場對此的反應是關鍵。(2) **Semiconductors mom 64.7——距 60 生死線 4.7 點。** 這是最急迫的監控指標。如果跌破 60，IT-Hardware 從「條件觀察」降格為「迴避」——這會是追蹤以來最大的降格操作。(3) **貴金屬第三週測試——趨勢確認 vs 均值回歸？** 連二週雙位數暴漲後，第三週是決定性的分水嶺。如果繼續正報酬且 mom 突破 65→升格為「核心配置」。如果大幅回調→降回「戰術性關注」。(4) **Biotech 93.7 rank #1 的可持續性**——極高的 mom 意味著高期望。如果 Biotech 下週報酬轉負而 mom 仍維持 90+，那是健康的高位盤整。如果 mom 跌破 85，需要重新評估 mRNA 催化的持續性。(5) **30 年期殖利率方向確認**——本週從 5.34% 回落到 ~5.21%，但 Fed 主席 Warsh 週五對通膨表達擔憂。如果殖利率反彈回 5.30%+，IT-Hardware 和 Utilities 的壓力會重新加劇。"
+  ],
+  "sources": [
+    { "title": "Stock market today: S&P 500, Nasdaq fall as chip stocks sink, US unveils new Iran sanctions — Yahoo Finance", "url": "https://finance.yahoo.com/markets/live/stock-market-today-monday-august-24-dow-sp-500-nasdaq-080306047.html" },
+    { "title": "Oil prices fall as US sanctions on Iran posing limited near-term supply risk — Oil & Gas Journal", "url": "https://www.ogj.com/general-interest/economics-markets/news/55400452/oil-prices-fall-as-us-sanctions-on-iran-posing-limited-near-term-supply-risk" },
+    { "title": "Oil prices fall as U.S. rolls out global sanctions focused on Iran — CNBC", "url": "https://www.cnbc.com/2026/08/24/oil-price-today-wti-brent-us-sanctions-iran.html" },
+    { "title": "Semiconductor Stocks Slide Ahead of NVIDIA Earnings — Yahoo Finance", "url": "https://finance.yahoo.com/markets/stocks/articles/semiconductor-stocks-slide-ahead-nvidia-144350563.html" },
+    { "title": "Chip Stocks Selloff August 2026: Why Nvidia AMD Are Falling — Intellectia", "url": "https://intellectia.ai/blog/chip-stocks-selloff-august-2026" },
+    { "title": "S&P 500 falls Friday after Fed's Warsh highlights inflation worries — CNBC", "url": "https://www.cnbc.com/2026/08/27/stock-market-today-live-updates.html" },
+    { "title": "Gold and Silver Rally: $5 Trillion Added in August — IndexBox", "url": "https://www.indexbox.io/blog/gold-and-silver-prices-surge-in-august-2026/" },
+    { "title": "Copper Hits Record, Uranium and Gold Stocks Rally — Skrill Network", "url": "https://skrillnetwork.com/copper-hits-record-high-as-gold-silver-uranium-stocks-rally-in-2026" },
+    { "title": "Biotech Stocks Are Projected to Extend Rally amid Innovation and M&A — Goldman Sachs", "url": "https://www.goldmansachs.com/insights/articles/biotech-stocks-are-projected-to-extend-rally-amid-innovation" },
+    { "title": "Biotech Stocks Rally: AMLX, RCEL, CNSP Gain On Key Clinical And Corporate News — RTT News", "url": "https://www.rttnews.com/3681660/biotech-stocks-rally-amlx-rcel-cnsp-gain-on-key-clinical-and-corporate-news.aspx" },
+    { "title": "Physical Gold Eases From A Three-Month High — USAGOLD", "url": "https://www.usagold.com/daily-precious-metals-market-report-august-25-2026/" },
+    { "title": "Stock market news for Aug 25, 2026 — CNBC", "url": "https://www.cnbc.com/2026/08/24/stock-market-today-live-updates.html" }
+  ]
+}
