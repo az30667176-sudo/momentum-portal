@@ -14,7 +14,7 @@ mpl.rcParams["figure.dpi"] = 130
 OUT = "scripts/charts"
 os.makedirs(OUT, exist_ok=True)
 
-with open("scripts/rot.json", encoding="utf-8") as f:
+with open("scripts/rot.json", encoding="utf-8-sig") as f:
     blob = json.load(f)
 rows = blob["rows"]
 uni = {u["gics_code"]: u for u in blob["universe"]}

@@ -3,7 +3,7 @@ import json, sys
 from collections import defaultdict
 from statistics import mean, median
 
-with open("scripts/rot.json", encoding="utf-8") as f:
+with open("scripts/rot.json", encoding="utf-8-sig") as f:
     blob = json.load(f)
 
 rows = blob["rows"]
