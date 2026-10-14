@@ -1,0 +1,234 @@
+{
+  "slug": "2026-10-09",
+  "issue": 28,
+  "date": "2026-10-09",
+  "snapshotDate": "2026-10-13",
+  "title": "退潮見真章——IT -3.1% 動能泡沫一週破滅、Div Metals -12.7% 中國幻想秒碎、HC +1.9% 連四正 Biotech `mom` 81 復活",
+  "subtitle": "Consumer Staples +3.09% 奪冠——上期墊底的防禦板塊一週翻身。IT -3.11% 從上期稱霸（+4.81%）直接墜底——Semi -7.10%、Semi Equipment -10.58%（Δ-39）、Electronic Components -8.94%，Micron 光環一週散盡。Div Metals & Mining 從上期全場領漲（+11.33%）翻至全場最大崩落（-12.74%）——swing -24.1 百分點創追蹤以來紀錄。Energy +2.68% 連續第二週正報酬——Oil Refining +6.61% 穩坐 rank #1（`mom` 88.7）——上期設定的「連二正→升格條件持有」觸發。HC +1.94% 連續第四週正報酬（+0.53→+0.67→+0.91→+1.94——持續加速！）——Biotech `mom` 77.4→81.3 重返 80+ 觸發上期自設的恢復條件。Gold `mom` 66.2→46.1（-20.1 pts）Δ-57 全場最慘排名崩落——徹底崩盤。Alternative Carriers -11.53% Δ-54。Materials -2.39% Aluminum -4.43% Δ-50。",
+  "imageDir": "/research/weekly/2026-10-09",
+  "coverImage": "01_sector_1w.png",
+  "intro": [
+    "上期七個觀察重點本週交出了教科書級的「均值回歸」成績單——**上期的贏家本週全數崩落、上期的輸家本週全數復活。** 逐條檢視：(1) **Oil Refining 連續第二週正報酬？YES！+6.61% ✓✓** 上期設定「連二正 + WTI 回穩 $95+ → 升格為條件持有」——Oil Refining 本週 +6.61%（連續第二週！）、`mom` 91.5→88.7（微幅回落但仍是全場 rank #1）。**升格條件觸發——Energy 從「反轉觀察」正式升為「條件持有」。** (2) **Semi `mom` 80+ 持續性？NO！81.8→77.2 ✗✗** Semi 1W -7.10%——上期 +5.83% 的漲幅一週全數吐回。`mom` 從 81.8 跌回 77.2（-4.6 pts）——**上期「首次突破 80」的里程碑只維持了一期**。但上期設定的降格條件是「連兩週 80 以下」——目前只有一週。Systems Software `mom` 82.6→85.2（+2.6 pts）依然穩健——**IT 的分裂在加深：軟體穩、硬體崩**。(3) **Biotech `mom` 繼續下滑還是企穩？RECOVERED！77.4→81.3 ✓✓** 上期因 Biotech `mom` 跌破 80 而降格 HC。本週 Biotech `mom` 反彈至 81.3（+3.9 pts、重返 80+）——**上期設定的恢復條件（Biotech `mom` 重回 80+ 且 HC 維持正報酬連續性）完全觸發**。HC +1.94% 連續第四週正報酬（+0.53→+0.67→+0.91→+1.94）——不僅連續正、還在加速——**這是追蹤以來 HC 最強的四週動能序列**。(4) **Div Metals +11.33% 是一次性暴漲還是趨勢開端？ONE-OFF！-12.74% ✗✗✗** 上期全場領漲的 Div Metals 本週直接翻為全場最大崩落——swing -24.07 百分點是追蹤以來任何子板塊連續兩週最大的 swing。**中國基建政策的「預期交易」在一週內完全蒸發——沒有實質政策落地、資金就退場。** `mom` 74.5→67.6（-6.9 pts）——動能建立的速度遠不及價格崩落的速度。(5) **10Y 5.52% 之後的方向？盤中觸及 5.35%（24 年新高）後回落至 5.24%。** 10Y 本週盤中觸及 5.35%（2002 年以來最高）——但週四成功的國債標售緩解了供需恐慌、殖利率回落至 5.24%。September CPI 將於 10/14（下週二）公布——預期 headline +3.6% YoY（前值 3.4%、受汽油價格 MoM +7.3% 推升）、core +2.4-2.5% YoY——**這是 10/27 FOMC 前的最後一份通膨數據**。市場已定價 ~80% 10 月暫停升息。(6) **Pharma Δ-39 是否延續？NO！Pharma +1.07% Δ+7 ✓** 上期暴跌的 Pharma 企穩反彈——`mom` 48.5→50.6（+2.1 pts）——**止血但遠未脫離危險區（rank #64）**。(7) **Fertilizers 進一步惡化？YES but slower. -4.02% ✗** 仍在跌（-4.02%）但比上期的 -17.60% 大幅收斂——`mom` 19.1→17.2（rank #152）——**已無可跌之地、但也看不到反轉訊號**。",
+    "**本週主導主題：均值回歸的復仇 + 防禦輪動。** 上期 IT +4.81% 稱霸、本週 -3.11% 墜底——**這是追蹤以來板塊排名最大的單週翻轉**。同時 Consumer Staples 從上期 -0.57% 翻至 +3.09% 奪冠——Distillers +6.71%、Food Retail +5.21%、Personal Care +4.37% 領漲——**資金從「追逐動能」轉向「尋求防禦」**。這不是個別板塊的隨機波動——是市場風格的系統性切換。**催化劑已經浮現：OpenAI 10/7 披露年化營收僅 ~$50B、遠低於先前流傳的 $70B 目標——Nasdaq 當日 -1.25%（八月中旬以來最大單日跌幅）、NVIDIA -3%、Oracle -6%、CoreWeave -8%——AI 現實落差的恐慌從 OpenAI 蔓延至整條半導體供應鏈。** 上期 Micron 兌現推升的 IT 硬體端暴漲（Semi Equipment +8.63%、Electronic Components +8.79%）本週幾乎原路回吐（Semi Equipment -10.58%、Electronic Components -8.94%）——**「sell the news」的第三層效應：不只是 Consumer Electronics 回吐、整條供應鏈都在回吐——OpenAI 的營收失速則讓「AI 需求無限」的敘事出現裂痕**。Energy +2.68% 連續第二週正報酬——7 個子板塊中 5 個正報酬（Coal -4.04%、Oil Equipment -0.51% 是例外）——Oil Refining +6.61% 穩坐 rank #1。**HC +1.94% 是本週最重要的結構性確認**——連四正 + Biotech `mom` 81 + Life Sciences Tools rank #3 + HC 佔 Top-20 mom 五席（上期四席→本週五席）——**HC 的廣度正在擴張、不是收窄**。上期我們降格 HC 因為 Biotech 破 80——一週後 Biotech 就反彈回 81——**框架的紀律迫使我們同樣嚴格地執行恢復**。Real Estate +1.01%（從 -1.16%）和 Utilities +1.47%（從 +1.20%）微幅改善——利率敏感板塊有喘息但不足以改變結構性弱勢。Financials -0.08%（從 -0.67%）幾乎持平。**Materials -2.39% 是唯一加速惡化的板塊**——Div Metals -12.74%、Silver -5.38%、Construction Materials -4.48%——上期的「金屬 vs 化學」分裂消失了——**本週是全面崩塌**。",
+    "本期核心判斷：**「退潮見真章——動能泡沫一碰就碎、結構趨勢越壓越硬。」** 上期的「兌現的代價」把市場分成兩類：(1) Micron 兌現推升的 IT 硬體端、和中國政策預期推升的 Div Metals——**這些是「事件驅動的短期交易」**。本週它們全數回吐（IT -3.1%、Div Metals -12.7%）。(2) HC 的連續正報酬、Oil Refining 的動能領先——**這些是「基本面驅動的結構趨勢」**。本週它們不僅沒有回落、還在加速（HC +1.94% 連四正加速、Oil Refining +6.61% 連二正穩坐 rank #1）。**均值回歸是自然法則——但有些東西拒絕回歸均值。拒絕回歸的、才是真正的趨勢。** 配置方向調整：HC 從「核心持有」恢復為「最高配置」（Biotech `mom` 81.3 + 連四正雙觸發）。IT 維持「高信心核心持有」但進入警戒（Semi `mom` 77.2 跌破 80、但軟體端穩健；需再觀察一週）。Energy 從「反轉觀察」升為「條件持有」（Oil Refining 連二正觸發）。Copper 從「戰術性觀察」下調注意（`mom` 73.3→66.1 大幅下滑）。"
+  ],
+  "exhibits": [
+    {
+      "number": 1,
+      "title": "板塊一週報酬：Consumer Staples +3.1% 奪冠——IT -3.1% 從王座墜底、全場最大翻轉",
+      "image": "01_sector_1w.png",
+      "caption": "Consumer Staples +3.09% 奪冠（上期 -0.57%）。Energy +2.68%（上期 +3.13%，連二正！）。HC +1.94%（連四正、持續加速）。Utilities +1.47%、Real Estate +1.01%——利率敏感板塊微幅改善。Consumer Disc +0.26%。Financials -0.08%。Industrials -0.42%。Comm Services -0.63%。Materials -2.39%。IT -3.11%（上期 +4.81%，全場最大翻轉）。",
+      "body": "上期是「IT +4.81% 稱霸——Energy +3.13% 死而復生」。本週格局完全顛倒——**IT 從 +4.81% 墜至 -3.11%、Consumer Staples 從 -0.57% 升至 +3.09%——兩者的 swing 分別是 -7.92 和 +3.66 百分點**。這是追蹤以來板塊排名最劇烈的單週洗牌——上期的頭名（IT）變成墊底的倒數第二、上期的倒數第四（Consumer Staples）變成冠軍。**Consumer Staples 的突然崛起不是因為板塊基本面改善——而是「避風港效應」。** 在 IT 硬體端暴跌 + Materials 全面崩塌的環境下、低 beta 的消費必需品成為資金的臨時停靠點。Distillers +6.71%（烈酒股在經濟放緩預期中被視為「抗衰退」）、Food Retail +5.21%、Personal Care +4.37%——**全是「不景氣也要消費」的品類**。**Energy +2.68% 連續第二週正報酬**——WTI 本週在 $88-96 之間劇烈波動（週二暴跌 8.3% 至 $88 後迅速反彈至 $91+）、Brent 維持 $100+ ——Iran 本週又攻擊了至少 12 艘通過 Hormuz 海峽的油輪、海峽通過量較戰前基線低約 23%。Oil Refining +6.61% 再次稱霸 Energy 內部——crack spread 在原油波動中持續受益。E&P +5.64%（Δ+31！）和 Integrated Oil +5.36%（Δ+12）也加入了正報酬行列——**Energy 的反彈從 Oil Refining 一枝獨秀擴展到多個子板塊**。**HC +1.94% 是連續第四週正報酬——且持續加速（+0.53→+0.67→+0.91→+1.94）**。10 個 HC 子板塊全數正報酬！HC Tech +4.18%、Managed HC +3.94%、HC Supplies +2.92%、HC Distributors +2.90%、HC Facilities +2.17%——**HC 的正報酬寬度達到追蹤以來最佳——全部 10 個子板塊都是正的**。Eli Lilly 本週衝上 $1,126.80 歷史新高（市值破 $1.02 兆）——GLP-1 肥胖藥的世俗增長敘事持續推升 HC 板塊。**IT -3.11%** 的內部結構極度分化：Systems Software +0.43%（穩）、IT Consulting +5.37%（強！）——但 Semi -7.10%、Semi Equipment -10.58%、Electronic Components -8.94%、Internet Infra -6.10%——**硬體端全線崩塌、軟體端幾乎不受影響——IT 正在經歷結構性分裂**。**OpenAI 營收 miss（$50B vs $70B 目標）是 10/7 IT 崩跌的直接催化劑**——市場用最快的速度重新定價了「AI 需求 = 半導體無限上漲」的假設。但 TSMC 基本面依然極強（9 月營收 NT$5,118 億、YoY +54.6%——Q3 淨利預估 +65%）——**硬體端的崩跌是「估值修正」不是「基本面崩壞」**。",
+      "links": [
+        { "label": "Oil Refining", "href": "/sub/DB62D66B" },
+        { "label": "Semiconductors", "href": "/sub/3DFD4B15" },
+        { "label": "Semi Equipment", "href": "/sub/7F8BA218" },
+        { "label": "Biotechnology", "href": "/sub/A26A78F7" },
+        { "label": "Systems Software", "href": "/sub/4D1787C4" }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Rotation Map：IT 從右上高速區墜回——HC 穩守右上、Energy 維持彈回位置",
+      "image": "02_rotation_map.png",
+      "caption": "IT（3M +6.6%, 1W -3.1%）從右上「加速買入」墜入右下「趨勢領導者減速」。HC（3M +8.4%, 1W +1.9%）穩守右上。Energy（3M +14.0%, 1W +2.7%）維持右上彈回位置。Consumer Staples（3M -0.4%, 1W +3.1%）從左下跳至左上——但 3M 仍負、不是趨勢。Materials（3M -3.9%, 1W -2.4%）在左下繼續沉淪。",
+      "body": "上期 Rotation Map 的 IT 在右上象限拉出追蹤以來最極端的「趨勢領導者加速買入」位置。**本週 IT 從右上墜入右下——這個移動方向叫「趨勢領導者減速」——3M 趨勢仍正（+6.62%）但 1W 報酬轉負（-3.11%）**。這是 Rotation Map 理論中最值得關注的信號之一：它意味著 IT 的長期趨勢還沒死、但短期動能正在消退。如果下週 IT 繼續負報酬、它會開始向左下「趨勢崩壞」象限移動。**HC（3M +8.41%, 1W +1.94%）是地圖上最穩定的點**——連續三期都穩守在右上象限、而且 1W 在加速。3M +8.41% 比上期 +6.05% 更強（因為三個月前的低基期正在被高基期取代）——**HC 不只是短期在漲、中期趨勢也在改善**。**Energy（3M +14.04%, 1W +2.68%）** 維持在右上、3M 趨勢從 +16.72% 微幅收窄至 +14.04%（三個月前的 Oil Refining 暴漲正在滾出窗口）——但依然是全場最強的 3M 趨勢。**Consumer Staples 的移動最有意思**——它從左下（-0.41%, -0.57%）跳到左上（-0.41%, +3.09%）——**3M 仍負但 1W 突然大正——這是典型的「技術性反彈」或「防禦避風港」位置、不是趨勢反轉**。除非 Consumer Staples 連續正報酬 2-3 週讓 3M 轉正、否則它只是暫時的避風港。**Materials（3M -3.92%, 1W -2.39%）在左下繼續沉淪**——Div Metals 的崩落讓 Materials 的 3M 趨勢加速惡化。",
+      "links": [
+        { "label": "Semiconductors", "href": "/sub/3DFD4B15" },
+        { "label": "Oil Refining", "href": "/sub/DB62D66B" },
+        { "label": "Life Sciences Tools", "href": "/sub/19BD4D4B" },
+        { "label": "HC Technology", "href": "/sub/A8DBD49D" }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Top/Bottom 12：Telecom Tower REITs +10.9% 冷門奪冠——Div Metals -12.7% 從冠軍墜為全場最大崩落",
+      "image": "03_top_bottom_subs.png",
+      "caption": "Top 3：Telecom Tower REITs +10.85%（Δ+40）、Distillers +6.71%（Δ+37）、Oil Refining +6.61%（rank #1 連三週）。IT Consulting +5.37% 是 IT 唯一進入 Top 12 的子板塊。Bottom 1：Div Metals -12.74%（上期 +11.33% 全場領漲→本週全場最大崩落！）。Semi Equipment -10.58%（Δ-39）。Alternative Carriers -11.53%（Δ-54）。Semi -7.10%。",
+      "body": "上期 Top 12 由 IT 主導（佔 6 席）、Div Metals +11.33% 領漲。**本週 Top 12 完全洗牌——IT 只剩 1 席（IT Consulting +5.37%）、其餘 5 席全數消失或翻入 Bottom**。最戲劇性的交叉：**Div Metals & Mining 從上期 Top 1（+11.33%）直接翻至 Bottom 1（-12.74%）——swing -24.07 百分點——追蹤以來最大的兩週 swing**。這打破了上期 Oil Refining 的紀錄（-5.16%→+8.52%, swing +13.68 pts）——而且方向相反。**上期我們問「Div Metals +11.33% 是一次性暴漲還是趨勢開端？」——答案很殘酷：一次性暴漲的典型結局就是全數回吐**。**Telecom Tower REITs +10.85%（Δ+40）** 是本週最意外的領漲者——AMT、CCI 等塔台 REITs 在 5G 基建需求 + 利率見頂預期的雙重驅動下暴漲。`mom` 只有 43.3（rank #93）——**價格遠遠跑在動能前面——這是我們在 Heavy Electrical 身上見過的「價格領先動能」模式**。**Oil Refining +6.61% 連續第三期出現在 Top 12——而且穩坐 rank #1（`mom` 88.7）**。它已從上期的「反轉觀察」正式觸發了「條件持有」的升格條件。Bottom 12 的結構從上期的「Fertilizers -17.6% 一枝獨跌」轉為**IT 硬體端的集體崩塌**——Semi Equipment -10.58%（Δ-39！）、Electronic Components -8.94%（Δ-18）、Semi -7.10%、Electronic Manufacturing -7.05%、Internet Infra -6.10%——**5 個 IT 子板塊同時出現在 Bottom 12——追蹤以來 IT 在 Bottom 的最大集中度**。**Alternative Carriers -11.53%（Δ-54）** 突然崩落——光纖/寬頻業者在利率壓力 + 5G 替代效應下承壓。**Wireless Telecom -8.11%** 同受電信板塊重整衝擊。**Passenger Airlines -6.59%**——Delta Air Lines Q3 財報（10/9 公布）EPS $1.72 miss 共識（$1.77-$1.83）、兩年來首次未達標——噴射燃料成本因 Iran 戰爭飆升、全年 EPS 指引從 $6.50-$7.50 大砍至 $5.10-$5.60——**能源危機的成本轉嫁效應正在航空業全面爆發**。",
+      "chartData": {
+        "type": "hbar",
+        "items": [
+          { "label": "Telecom Tower REITs", "value": 10.85, "href": "/sub/AD1BD498" },
+          { "label": "Distillers & Vintners", "value": 6.71, "href": "/sub/F9D39DEA" },
+          { "label": "Oil & Gas Refining & Marketing", "value": 6.61, "href": "/sub/DB62D66B" },
+          { "label": "Data Processing & Outsourced Services", "value": 5.83, "href": "/sub/A96A4AA7" },
+          { "label": "Oil & Gas Exploration & Production", "value": 5.64, "href": "/sub/8D203C2D" },
+          { "label": "IT Consulting & Other Services", "value": 5.37, "href": "/sub/364050B7" },
+          { "label": "Integrated Oil & Gas", "value": 5.36, "href": "/sub/630FFAD7" },
+          { "label": "Publishing", "value": 5.30, "href": "/sub/FE8D91AB" },
+          { "label": "Interactive Home Entertainment", "value": 5.30, "href": "/sub/951C6D9C" },
+          { "label": "Food Retail", "value": 5.21, "href": "/sub/E9C739A4" },
+          { "label": "Broadline Retail", "value": 5.01, "href": "/sub/BA58F32D" },
+          { "label": "Computer & Electronics Retail", "value": 4.63, "href": "/sub/97A5E27C" },
+          { "label": "Construction Materials", "value": -4.48, "href": "/sub/4E53B0B8" },
+          { "label": "Electrical Components & Equipment", "value": -4.69, "href": "/sub/EC96173F" },
+          { "label": "Homebuilding", "value": -4.97, "href": "/sub/40AFBB27" },
+          { "label": "Communications Equipment", "value": -5.27, "href": "/sub/FE725307" },
+          { "label": "Silver", "value": -5.38, "href": "/sub/FDF8E7AE" },
+          { "label": "Construction & Engineering", "value": -5.93, "href": "/sub/5D119E38" },
+          { "label": "Internet Services & Infrastructure", "value": -6.10, "href": "/sub/CA7FC59F" },
+          { "label": "Passenger Airlines", "value": -6.59, "href": "/sub/0E3C3D87" },
+          { "label": "Electronic Manufacturing Services", "value": -7.05, "href": "/sub/E0B8CAB5" },
+          { "label": "Semiconductors", "value": -7.10, "href": "/sub/3DFD4B15" },
+          { "label": "Wireless Telecommunication Services", "value": -8.11, "href": "/sub/1975BC30" },
+          { "label": "Electronic Components", "value": -8.94, "href": "/sub/3A71D4E6" },
+          { "label": "Semiconductor Materials & Equipment", "value": -10.58, "href": "/sub/7F8BA218" },
+          { "label": "Alternative Carriers", "value": -11.53, "href": "/sub/B8CBDFE3" },
+          { "label": "Diversified Metals & Mining", "value": -12.74, "href": "/sub/650D58F5" }
+        ]
+      },
+      "links": [
+        { "label": "Div Metals & Mining", "href": "/sub/650D58F5" },
+        { "label": "Semi Equipment", "href": "/sub/7F8BA218" },
+        { "label": "Oil Refining", "href": "/sub/DB62D66B" },
+        { "label": "Semiconductors", "href": "/sub/3DFD4B15" },
+        { "label": "Telecom Tower REITs", "href": "/sub/AD1BD498" }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Top-20 Mom-Score：Oil Refining（橘色）穩坐 #1——HC（綠色）擴張至五席、IT（藍色）四席但 Semi 滑入負報酬區",
+      "image": "04_energy_unwind.png",
+      "caption": "Oil Refining `mom` 88.7 rank #1（連三週）、1W +6.61%——穩坐右上「動能確認」。HC 五席：Life Sci Tools（85.3, +0.20%）、HC Tech（81.7, +4.18%）、Biotech（81.3, -0.72%）、Managed HC（74.7, +3.94%）、HC Services（73.0, +0.73%）。IT 四席：Tech Hardware（87.0, -2.07%）、Systems Software（85.2, +0.43%）、Tech Distributors（85.1, +2.40%）、Semi（77.2, -7.10%——深入負報酬區）。",
+      "body": "上期 Exhibit 4 的主角是 Oil Refining 的「戲劇性復活」——從右下墜回右上。**本週它的故事變得更簡單也更有力——穩坐 rank #1 不動（Δ 0）、`mom` 88.7、1W +6.61%——這是 Oil Refining 連續第三期出現在 Top-20 的右上區域**。它已經從「反轉觀察」的不確定狀態穩定為「動能確認」——crack spread 和煉油利潤率的結構性支撐是真實的。**HC 從四席擴張為五席——這是 HC 在 Top-20 中追蹤以來最多的席位數**。上期新增的 HC Facilities（69.1, +2.17%）擠入 rank #20——HC 的動能寬度在擴張而非收窄。最重要的變化在 **Biotech**——上期它在負 1W 區域且 `mom` 77.4（低於 80）。本週 `mom` 81.3（+3.9 pts、重返 80+）雖然 1W 仍微負（-0.72%）——**但 `mom` 的回升意味著中期趨勢在修復**。HC Tech（81.7, +4.18%）繼續閃耀——追蹤以來幾乎沒有離開過 Top-10 。**IT 仍有四席但內部嚴重分裂**。Systems Software（85.2, +0.43%）和 Tech Distributors（85.1, +2.40%）在正 1W 區穩健運行。但 **Semi（77.2, -7.10%）深深墜入負報酬區——它在圖上的位置從右上移到了右下的邊緣**。Tech Hardware（87.0, -2.07%）也在微負區——**IT 的軟體端和服務端正在與硬體端脫鉤**。上期 Semi `mom` 81.8 時我們說「首次突破 80 是追蹤以來最重要的里程碑」——一週後它就跌回 77.2。**80 門檻的可靠性再次被質疑——Semi 的動能波動性太大、`mom` 80 不是穩定狀態而是過渡區**。**Consumer Electronics（76.8, +0.33%）** 從上期的負報酬區回到幾乎持平——「sell the news」效應消化完畢後、它正在找到新的均衡。**Broadline Retail（76.2, +5.01%）** 首次進入 Top-10——Amazon 效應在消費數據穩定的背景下持續推升。",
+      "chartData": {
+        "type": "scatter",
+        "xLabel": "Mom Score (0-100)",
+        "yLabel": "1W return (%)",
+        "quadrants": true,
+        "colorLabels": {
+          "#FF6B35": "Energy",
+          "#2ECC71": "Health Care",
+          "#3498DB": "Information Technology",
+          "#95A5A6": "其他"
+        },
+        "items": [
+          { "label": "Oil & Gas Refining & Marketing", "x": 88.7, "y": 6.61, "href": "/sub/DB62D66B", "color": "#FF6B35" },
+          { "label": "Technology Hardware, S&P", "x": 87.0, "y": -2.07, "href": "/sub/D10047AB", "color": "#3498DB" },
+          { "label": "Life Sciences Tools & Services", "x": 85.3, "y": 0.20, "href": "/sub/19BD4D4B", "color": "#2ECC71" },
+          { "label": "Systems Software", "x": 85.2, "y": 0.43, "href": "/sub/4D1787C4", "color": "#3498DB" },
+          { "label": "Technology Distributors", "x": 85.1, "y": 2.40, "href": "/sub/7F980CFF", "color": "#3498DB" },
+          { "label": "Health Care Technology", "x": 81.7, "y": 4.18, "href": "/sub/A8DBD49D", "color": "#2ECC71" },
+          { "label": "Biotechnology", "x": 81.3, "y": -0.72, "href": "/sub/A26A78F7", "color": "#2ECC71" },
+          { "label": "Semiconductors", "x": 77.2, "y": -7.10, "href": "/sub/3DFD4B15", "color": "#3498DB" },
+          { "label": "Consumer Electronics", "x": 76.8, "y": 0.33, "href": "/sub/A3C1F86E", "color": "#95A5A6" },
+          { "label": "Broadline Retail", "x": 76.2, "y": 5.01, "href": "/sub/BA58F32D", "color": "#95A5A6" },
+          { "label": "Managed Health Care", "x": 74.7, "y": 3.94, "href": "/sub/3E2ACB37", "color": "#2ECC71" },
+          { "label": "Hotel & Resort REITs", "x": 74.2, "y": 2.95, "href": "/sub/E721F75E", "color": "#95A5A6" },
+          { "label": "Housewares & Specialties", "x": 74.1, "y": 0.72, "href": "/sub/7123167E", "color": "#95A5A6" },
+          { "label": "Office Services & Supplies", "x": 73.0, "y": 1.54, "href": "/sub/31A0D44A", "color": "#95A5A6" },
+          { "label": "Health Care Services", "x": 73.0, "y": 0.73, "href": "/sub/CE2456A9", "color": "#2ECC71" },
+          { "label": "Human Resource & Employment", "x": 71.7, "y": 4.30, "href": "/sub/D4E92F32", "color": "#95A5A6" },
+          { "label": "Industrial Conglomerates", "x": 71.6, "y": -1.18, "href": "/sub/1BE528D2", "color": "#95A5A6" },
+          { "label": "Steel", "x": 70.3, "y": 1.56, "href": "/sub/113B2BC3", "color": "#95A5A6" },
+          { "label": "Personal Care Products", "x": 69.2, "y": 4.37, "href": "/sub/208584AE", "color": "#95A5A6" },
+          { "label": "Health Care Facilities", "x": 69.1, "y": 2.17, "href": "/sub/B9A0F1EE", "color": "#2ECC71" }
+        ]
+      },
+      "links": [
+        { "label": "Oil Refining", "href": "/sub/DB62D66B" },
+        { "label": "Biotechnology", "href": "/sub/A26A78F7" },
+        { "label": "Semiconductors", "href": "/sub/3DFD4B15" },
+        { "label": "Systems Software", "href": "/sub/4D1787C4" },
+        { "label": "Managed HC", "href": "/sub/3E2ACB37" }
+      ]
+    },
+    {
+      "number": 5,
+      "title": "排名異動：Telecom Tower REITs Δ+40 領升——Movies Δ-67 追蹤以來最大崩落、Gold Δ-57",
+      "image": "05_rank_delta.png",
+      "caption": "Top 3 climbers：Telecom Tower REITs Δ+40、Soft Drinks Δ+38、Distillers Δ+37——Consumer Staples 的防禦輪動推動排名飛升。E&P Δ+31 反映 Energy 復甦擴散。Bottom 1：Movies & Entertainment Δ-67（追蹤以來單週最大排名崩落）。Gold Δ-57。Alternative Carriers Δ-54。Aluminum Δ-50。Semi Equipment Δ-39。",
+      "body": "上期的 climbers 以 Semi Equipment Δ+31 和 Electronic Components Δ+29 為代表——反映 IT 硬體端暴漲。**本週這兩個 climber 直接變成 Bottom（Semi Equipment Δ-39、Electronic Components 隱含的排名大幅惡化）**——追蹤以來最戲劇性的「climber → faller」翻轉。**Top-10 climbers 呈現鮮明的「防禦 + Energy」格局**——Soft Drinks Δ+38（Consumer Staples）、Distillers Δ+37（Consumer Staples）、Food Distributors Δ+26（Consumer Staples）——**Consumer Staples 佔了 climbers 前 10 中的 3 席——防禦輪動在排名變化中最為明顯**。E&P Δ+31 和 Oil Storage Δ+25 進一步確認了 Energy 反彈的擴散——上期只有 Oil Refining 獨強、本週 E&P 也加入了排名攀升行列。**Movies & Entertainment Δ-67 是追蹤以來任何子板塊的最大單週排名崩落**——但 1W 居然是 +1.29%（正報酬！）。這說明它的排名崩落不是因為暴跌、而是因為其他板塊的排名提升把它擠下去了——**被動式排名崩落**。**Gold Δ-57** 是最值得關注的——`mom` 66.2→46.1（-20.1 pts！）、rank 從 22 墜至 79——**Gold 從中前段直接跌入中後段**。在 10Y 殖利率高位盤整的環境下、零收益的黃金持續承壓——上期我們撤出觀察名單是正確的決定。**Aluminum Δ-50**（rank 99→149）——從中段墜入尾段。上期 Aluminum +1.49%（Δ+28）是 Div Metals 暴漲的受惠者——本週 -4.43% 說明「受惠者」的好日子同樣短暫。**Semi Equipment Δ-39**（rank 38→77）是 IT 硬體端崩塌的縮影——它的排名在兩週內畫出了完美的 V 型然後反轉：Issue 26 rank 69 → Issue 27 rank 38（Δ+31）→ Issue 28 rank 77（Δ-39）——**比起始點還要低**。",
+      "chartData": {
+        "type": "hbar",
+        "xLabel": "Rank change vs prior week",
+        "xUnit": "",
+        "items": [
+          { "label": "Telecom Tower REITs", "value": 40, "href": "/sub/AD1BD498" },
+          { "label": "Soft Drinks & Non-alcoholic Beverages", "value": 38, "href": "/sub/DD15FBF8" },
+          { "label": "Distillers & Vintners", "value": 37, "href": "/sub/F9D39DEA" },
+          { "label": "Specialized Consumer Services", "value": 36, "href": "/sub/5FC0A44B" },
+          { "label": "Paper & Plastic Packaging", "value": 35, "href": "/sub/424682BE" },
+          { "label": "Multi-Sector Holdings", "value": 31, "href": "/sub/D98A8A50" },
+          { "label": "Oil & Gas Exploration & Production", "value": 31, "href": "/sub/8D203C2D" },
+          { "label": "Electronic Equipment & Instruments", "value": 26, "href": "/sub/E3FABC0C" },
+          { "label": "Food Distributors", "value": 26, "href": "/sub/7B09ABE1" },
+          { "label": "Oil & Gas Storage & Transportation", "value": 25, "href": "/sub/0439508E" },
+          { "label": "Specialty Chemicals", "value": -30, "href": "/sub/33054D65" },
+          { "label": "Internet Services & Infrastructure", "value": -32, "href": "/sub/CA7FC59F" },
+          { "label": "Investment Banking & Brokerage", "value": -33, "href": "/sub/9A2F5FCC" },
+          { "label": "Semiconductor Materials & Equipment", "value": -39, "href": "/sub/7F8BA218" },
+          { "label": "Integrated Telecommunication Services", "value": -41, "href": "/sub/F20499EA" },
+          { "label": "Real Estate Development", "value": -46, "href": "/sub/8622E012" },
+          { "label": "Aluminum", "value": -50, "href": "/sub/1D0B4025" },
+          { "label": "Alternative Carriers", "value": -54, "href": "/sub/B8CBDFE3" },
+          { "label": "Gold", "value": -57, "href": "/sub/33E5E2A6" },
+          { "label": "Movies & Entertainment", "value": -67, "href": "/sub/6D67D3FA" }
+        ]
+      },
+      "links": [
+        { "label": "Gold", "href": "/sub/33E5E2A6" },
+        { "label": "Semi Equipment", "href": "/sub/7F8BA218" },
+        { "label": "Aluminum", "href": "/sub/1D0B4025" },
+        { "label": "E&P", "href": "/sub/8D203C2D" },
+        { "label": "Movies", "href": "/sub/6D67D3FA" }
+      ]
+    },
+    {
+      "number": 6,
+      "title": "Materials 全面崩塌：Div Metals -12.7%、Aluminum -4.4%、Silver -5.4%——15 個子板塊中 11 個負報酬",
+      "image": "06_materials_split.png",
+      "caption": "Materials -2.39%（上期 -0.59%，顯著惡化）。15 個子板塊中僅 4 個正報酬（上期 6 個）——從「精準分裂」變為「全面崩塌」。最強：Industrial Gases +1.64%、Steel +1.56%。最弱：Div Metals -12.74%（從上期 +11.33% 的全場冠軍翻為全場最大崩落）。Gold -2.11%（`mom` 46.1，暴跌 20 pts！）。Copper -0.19%（`mom` 66.1，下滑 7 pts）。",
+      "body": "上期 Materials 的故事是「精準分裂——Div Metals +11.33% vs Fertilizers -17.60%、spread 28.93 pts」。**本週分裂消失了——但不是因為收斂、而是因為全面崩塌：15 個子板塊中 11 個負報酬**。Div Metals -12.74%、Silver -5.38%、Construction Materials -4.48%、Aluminum -4.43%、Fertilizers -4.02%——**Materials 板塊的「金屬 vs 化學」格局崩解為「全面失血」**。**Div Metals & Mining -12.74%** 的崩落意味著上期的中國基建政策預期是一場「鏡花水月」——**沒有政策實質落地的「預期交易」壽命只有一週**。銅價從 LME $9,800/t 回落、鐵礦重新走弱——上期說「如果下週持續 5%+ → `mom` 可能突破 80」——結果不僅沒有突破 80、`mom` 反而從 74.5 跌至 67.6（-6.9 pts）。**Gold `mom` 66.2→46.1（-20.1 pts）是本週最慘烈的單一指標變化**——上期 Gold 的 `mom` 還在 66（我們說「還沒到宣判死刑的程度」）——本週它直接跌破 50 進入「深度弱勢」。Δ-57 是全場第二大排名崩落——僅次於 Movies 的 Δ-67。**Gold 從「不值得配置」變成「需要警示的結構性弱勢」**——在 10Y 5.5%+ 的環境下、零收益黃金面臨的不只是「缺乏催化劑」、而是「持續的機會成本壓力」。**Copper `mom` 73.3→66.1（-7.2 pts）** 也在快速衰退——1W -0.19%（微負）但 `mom` 的下滑速度令人擔憂。上期我們說 Copper 是 Materials 中「唯一連三週正報酬 + `mom` 持續上升的子板塊」——本週正報酬中斷、`mom` 大幅回落——**Copper 的「戰術性觀察」需要重新評估**。**Silver `mom` 48.4→43.1（-5.3 pts）、1W -5.38%** 繼續探底——連五週 `mom` 下滑（70.0→59.4→55.8→48.4→43.1）——**已逼近 40 的「結構性放棄」門檻**。唯一的亮點是 **Steel（70.3, +1.56%, rank #18）** 和 **Industrial Gases（38.7, +1.64%）**——前者受惠於美國鋼鐵關稅保護、後者受惠於工業氣體的長期合約定價機制。",
+      "chartData": {
+        "type": "hbar",
+        "items": [
+          { "label": "Industrial Gases", "value": 1.64, "href": "/sub/7D825052" },
+          { "label": "Steel", "value": 1.56, "href": "/sub/113B2BC3" },
+          { "label": "Metal, Glass & Plastic Containers", "value": 0.32, "href": "/sub/AE23CF9D" },
+          { "label": "Paper & Plastic Packaging", "value": 0.02, "href": "/sub/424682BE" },
+          { "label": "Copper", "value": -0.19, "href": "/sub/9D3B3E86" },
+          { "label": "Commodity Chemicals", "value": -0.85, "href": "/sub/7BF90D4B" },
+          { "label": "Specialty Chemicals", "value": -0.91, "href": "/sub/33054D65" },
+          { "label": "Diversified Chemicals", "value": -2.00, "href": "/sub/4B59004E" },
+          { "label": "Gold", "value": -2.11, "href": "/sub/33E5E2A6" },
+          { "label": "Paper Products", "value": -2.25, "href": "/sub/7BD0E9D6" },
+          { "label": "Fertilizers & Agricultural Chemicals", "value": -4.02, "href": "/sub/6A22E83B" },
+          { "label": "Aluminum", "value": -4.43, "href": "/sub/1D0B4025" },
+          { "label": "Construction Materials", "value": -4.48, "href": "/sub/4E53B0B8" },
+          { "label": "Silver", "value": -5.38, "href": "/sub/FDF8E7AE" },
+          { "label": "Diversified Metals & Mining", "value": -12.74, "href": "/sub/650D58F5" }
+        ]
+      },
+      "links": [
+        { "label": "Div Metals & Mining", "href": "/sub/650D58F5" },
+        { "label": "Gold", "href": "/sub/33E5E2A6" },
+        { "label": "Copper", "href": "/sub/9D3B3E86" },
+        { "label": "Silver", "href": "/sub/FDF8E7AE" },
+        { "label": "Steel", "href": "/sub/113B2BC3" }
+      ]
+    }
+  ],
+  "actions": [
+    "**上期操作績效回顧（Issue 27 → Issue 28）**：**HC「核心持有」✓ 且恢復條件觸發**——HC +1.94%（連四正、加速中 ✓✓✓✓）。Biotech `mom` 77.4→81.3（+3.9 pts、重返 80+ ✓）。Life Sciences Tools `mom` 91.0→85.3（微幅回落但仍 rank #3）。HC 10 個子板塊全數正報酬（✓✓）——**HC 的正報酬寬度達到追蹤以來最佳**。上期設定的恢復條件（Biotech `mom` 重回 80+ 且 HC 維持正報酬連續性）**完全觸發**。**IT「高信心核心持有」部分 ✓ 但硬體端崩塌**——IT -3.11%（從 +4.81% 翻為負 ✗）。Semi `mom` 81.8→77.2（-4.6 pts、跌破 80 ✗）。Systems Software `mom` 82.6→85.2（+2.6 pts ✓✓）。上期的降格條件「Semi `mom` 連兩週 80 以下」——目前只有一週、暫不觸發。但 Semi -7.10% 和 Semi Equipment -10.58% 是嚴重的警訊。**Energy「反轉觀察」升格條件觸發 ✓✓**——Oil Refining +6.61% 連續第二週正報酬、`mom` 88.7 rank #1。上期設定「Oil Refining 連二正 → 升為條件持有」——**條件完全觸發**。Energy +2.68% 連二正、E&P +5.64%（Δ+31）加入反彈行列——反彈從 Oil Refining 一枝獨秀擴散到更多子板塊。**Copper「戰術性觀察」✗✗**——`mom` 73.3→66.1（-7.2 pts 大幅衰退）、1W -0.19%（正報酬中斷）。三重驅動力（中國 EV + Codelco + AI 電力）沒有消退但被 Div Metals 崩落的情緒連累。**Gold 已撤出觀察名單 ✓✓✓**——Gold `mom` 66.2→46.1（暴跌 20.1 pts！）Δ-57——上期撤出觀察名單是追蹤以來最正確的及時決定之一。**Heavy Electrical `mom` 50.0→49.5（-0.5 pts）** 幾乎持平。1W -3.35%——**價格和動能同步走弱**。55 門檻遙遙無期。",
+    "**HC：從「核心持有」恢復為「最高配置」。Biotech `mom` 81 + 連四正 + 全子板塊正報酬 = 三重觸發。** 上期因 Biotech `mom` 跌破 80 而降格——本週三個恢復訊號同時出現：(1) **Biotech `mom` 81.3 重返 80+**——不是「勉強回到邊界」而是清晰地站穩在 81+。(2) **HC 連四正且持續加速（+0.53→+0.67→+0.91→+1.94）**——這不是「帶病漲」、而是「健康加速」。(3) **全部 10 個 HC 子板塊正報酬**——追蹤以來首見——即使是上期受傷的 Pharma 也反彈至 +1.07%（Δ+7）。上期的降格只維持了一期就恢復——**但這不是框架的失敗。降格→恢復的過程驗證了框架的雙向紀律：既能在訊號惡化時果斷降格、也能在訊號恢復時果斷恢復——不會因為「面子問題」而拖延恢復**。降格條件不變：Biotech `mom` 再次跌破 80 + HC 正報酬中斷 → 降回核心持有。",
+    "**IT：維持「高信心核心持有」但進入嚴重警戒。Semi 硬體端崩塌 vs 軟體端穩健 = 結構性分裂加深。** Semi -7.10%（`mom` 81.8→77.2）、Semi Equipment -10.58%（Δ-39）、Electronic Components -8.94%——**IT 硬體端的 Micron 光環在一週內完全散盡**。但 Systems Software +0.43%（`mom` 82.6→85.2）、IT Consulting +5.37%、Tech Distributors +2.40%——**IT 的軟體/服務端幾乎不受影響**。這意味著 IT 的投資邏輯必須進一步窄化：**不是「IT 整體」而是「IT 軟體端」**。Semi 的 `mom` 77.2 是第一週跌破 80——上期的降格條件是「連兩週 80 以下」。**如果下週 Semi `mom` 繼續在 80 以下 → 觸發降格為「核心持有」。** 但考慮到 Systems Software `mom` 85.2（追蹤以來新高！）、IT 的核心支柱並未動搖——降格的話更精確的表述是「IT 硬體端降格、軟體端維持」。",
+    "**Energy：從「反轉觀察」正式升為「條件持有」。Oil Refining 連二正 = 升格條件完全觸發。** 上期設定「Oil Refining 連續第二週正報酬 + WTI 回穩 $95+ → 升格」。Oil Refining +6.61% 連二正（✓）、`mom` 88.7 穩坐 rank #1（✓）。WTI 本週在 $88-96 波動、Brent 維持 $100+——Iran/Hormuz 衝突持續支撐油價（海峽通過量較戰前低 ~23%）。更重要的是反彈在擴散——E&P +5.64%（Δ+31！從 rank 112 升至 81）、Integrated Oil +5.36%（Δ+12）、Oil Storage +3.52%（Δ+25）——**Energy 的復甦不再是 Oil Refining 的「一人秀」、而是多個子板塊的共振**。7 個 Energy 子板塊中 5 個正報酬（Coal -4.04% 和 Oil Equipment -0.51% 是例外——Coal 受新能源轉型衝擊、不在能源上升週期的受益範圍）。**升格為「條件持有」——但不是「核心持有」。** 「條件持有」意味著承認趨勢正在重建、維持適度部位、但不加碼。升格為「核心持有」的條件：Oil Refining `mom` 維持 85+ 連續三週 + Energy 整體板塊連三正。",
+    "**Copper：從「戰術性觀察」下調為「注意弱化」。`mom` 73.3→66.1 大幅衰退、正報酬中斷。** 上期 Copper 是 Materials 中「唯一連三週正報酬 + `mom` 持續上升」的子板塊——本週正報酬中斷（-0.19%）、`mom` 大幅回落（-7.2 pts）。三重驅動力（中國 EV + Codelco + AI 電力基建）理論上沒有消退——但 Div Metals 的崩落（-12.74%）帶來的情緒衝擊顯然波及了整個金屬板塊。**Copper 的問題不是基本面惡化、而是被「連坐效應」拖累**。如果下週 Copper 能穩定在 `mom` 65+ 且 1W 回正 → 維持觀察。如果 `mom` 繼續下滑至 60 以下 → 暫停關注。**Gold 和 Silver 的「結構性崩塌」確認——不再追蹤**。Gold `mom` 46.1（-20.1 pts）、Silver `mom` 43.1——兩者都已跌破 50 進入「深度弱勢」。在利率高位的環境下沒有催化劑。",
+    "**Heavy Electrical / AI 電力基建：維持「暫停關注」。55 門檻依然遙遠。** `mom` 50.0→49.5（-0.5 pts）——幾乎不動。1W -3.35%——價格也轉負。上期 1W +4.03% 的「價格領先動能」格局消失了——**本週價格和動能同步走弱**。但 1M +12.95% 仍然很強——月度趨勢和週度波動的時間尺度不同。**維持框架不變：55+ 開始觀察、65+ 考慮升格。Heavy Electrical 不是近期的故事。**",
+    "**下週觀察重點**：(1) **Semi `mom` 連兩週 80 以下？** 本週 77.2 是第一週。如果下週仍低於 80 → 觸發 IT 降格條件。如果反彈回 80+ → Semi 的 80 只是暫時波動。(2) **HC 連五正？** 連四正且加速中——如果第五週仍正 → 「最高配置」進一步得到確認。HC 佔 Top-20 mom 五席 = 追蹤以來最強的動能廣度。(3) **Oil Refining 能否連三正？** 已連二正觸發「條件持有」。如果連三正 → Energy 的結構性復甦進一步得到確認。如果轉負 → 停留在「條件持有」觀察。(4) **Consumer Staples +3.09% 是避風港還是趨勢？** 如果下週 Consumer Staples 繼續正報酬 → 防禦輪動可能是真的風格切換。如果回落 → 只是 IT 崩塌時的臨時避難所。(5) **Copper `mom` 企穩還是繼續下滑？** 66.1 距離 60 只剩 6 pts——如果繼續衰退 → 暫停關注。(6) **September CPI（10/14 公布）的市場反應。** 預期 headline +3.6% YoY（受汽油 MoM +7.3% 推升）、core +2.4-2.5% YoY。如果 headline 高於 3.6% → 10Y 可能重新挑戰 5.35%+ 甚至推向 5.50%、對利率敏感板塊形成更大壓力、10/27 FOMC 升息機率回升。如果符合或低於預期 → Real Estate/Utilities 可能迎來更大的喘息空間、市場定價的 ~80% 暫停升息將得到確認。(7) **銀行財報季（10/13 起：JPM、WFC）。** 預期 JPM Q3 EPS ~$5.93、營收 ~$51-52B（+9.6% YoY）。高利率環境下 NII 應維持強勁、但信貸損失撥備方向是關鍵——如果撥備大幅增加 → 經濟軟著陸敘事受挑戰。"
+  ],
+  "sources": [
+    { "title": "S&P 500 Weekly Performance — MarketWatch", "url": "https://www.marketwatch.com/investing/index/spx" },
+    { "title": "Nasdaq Composite Weekly — Yahoo Finance", "url": "https://finance.yahoo.com/quote/%5EIXIC/" },
+    { "title": "US 10-Year Treasury Yield — Trading Economics", "url": "https://tradingeconomics.com/united-states/government-bond-yield" },
+    { "title": "WTI Crude Oil Prices — EIA", "url": "https://www.eia.gov/petroleum/gasdiesel/" },
+    { "title": "SOXX Semiconductor ETF — Yahoo Finance", "url": "https://finance.yahoo.com/quote/SOXX/" },
+    { "title": "Consumer Price Index Report — BLS", "url": "https://www.bls.gov/cpi/" },
+    { "title": "Fed Minutes & Speakers — Federal Reserve", "url": "https://www.federalreserve.gov/monetarypolicy.htm" },
+    { "title": "LME Metals Prices — London Metal Exchange", "url": "https://www.lme.com/en/metals" },
+    { "title": "OPEC Monthly Oil Market Report — OPEC", "url": "https://www.opec.org/opec_web/en/publications/338.htm" },
+    { "title": "Gold Spot Price — Kitco", "url": "https://www.kitco.com/charts/livegold.html" }
+  ]
+}
