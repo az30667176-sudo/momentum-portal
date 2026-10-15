@@ -258,13 +258,17 @@ def fetch_prices_cached(
 
         logger.info(f"[cache] 快取至 {latest_date}，下載最新 {days_needed} 天增量")
         close_n, vol_n, high_n, low_n, open_n = _download_ohlcv(tickers, days_needed + 10)
+        _readjust_history(cache, close_n)
 
         def _merge(old: pd.DataFrame, new: pd.DataFrame) -> pd.DataFrame:
             if old is None or old.empty:
                 return _dedupe_cols(new)
-            merged = pd.concat([old, new], axis=0)
-            # 同一天以新資料為準（處理後來的除權調整）
-            merged = merged[~merged.index.duplicated(keep='last')].sort_index()
+            # 同一天以新資料為準（處理後來的除權調整），但新資料是 NaN 時保留舊值：
+            # 盤後第二輪排程 yfinance 常回空的當日列，keep='last' 會把好資料整列洗成 NaN
+            old, new = _dedupe_cols(old), _dedupe_cols(new)
+            new = new[~new.index.duplicated(keep='last')]
+            old = old[~old.index.duplicated(keep='last')]
+            merged = new.combine_first(old).sort_index()
             return _dedupe_cols(merged)
 
         close_df  = _merge(cache['close'],  close_n)
@@ -287,8 +291,66 @@ def fetch_prices_cached(
     if not open_df.empty:
         open_df = open_df.reindex(columns=keep)
 
+    close_df, volume_df, high_df, low_df, open_df = _drop_partial_tail(
+        close_df, volume_df, high_df, low_df, open_df
+    )
+
     save_price_cache(close_df, volume_df, high_df, low_df, open_df, cache_file=cache_file)
     return close_df, volume_df, high_df, low_df, open_df
+
+
+SPLIT_RATIO_TOL = 0.02   # 重疊區新舊價比偏離 >2% 視為公司行動(拆股/合股)
+PARTIAL_ROW_MIN = 0.80   # 最後一日有價檔數 < 近 20 日中位數 80% 視為不完整
+
+
+def _readjust_history(cache: dict, close_new: pd.DataFrame) -> None:
+    """
+    拆股後 yfinance auto_adjust 會整段重調歷史，但增量下載只覆蓋最近幾週，
+    舊快取歷史仍是未調整價 → 接縫處出現假的 ±50~200% 單日跳動。
+    用重疊區「最早 3 天」的新/舊收盤價比偵測（拆股若落在重疊區內，只有拆股前那段
+    比值才代表舊歷史該乘的係數；重疊區本身 merge 時會被新資料覆蓋），
+    3 天比值需彼此一致（±1%）才動手，避免 yfinance 單日髒值誤觸。就地把舊歷史乘上比值（量 ÷ 比值）。
+    """
+    old_close = cache['close']
+    common = old_close.columns.intersection(close_new.columns)
+    dates = old_close.index.intersection(close_new.index)
+    if len(dates) < 3 or len(common) == 0:
+        return
+    head = (close_new.loc[dates[:3], common] / old_close.loc[dates[:3], common])
+    ratio = head.median()
+    consistent = (head.max() - head.min()).abs() <= 0.01 * ratio.abs()
+    hit = ratio[((ratio - 1).abs() > SPLIT_RATIO_TOL) & consistent & (head.count() == 3)].dropna()
+    if hit.empty:
+        return
+    logger.warning(f"[cache] 偵測到公司行動，重調舊歷史 {len(hit)} 檔：{hit.round(4).to_dict()}")
+    for field in ('close', 'high', 'low', 'open'):
+        df = cache.get(field)
+        if df is not None and not df.empty:
+            cols = hit.index.intersection(df.columns)
+            df[cols] = df[cols].mul(hit[cols], axis=1)
+    vol = cache.get('volume')
+    if vol is not None and not vol.empty:
+        cols = hit.index.intersection(vol.columns)
+        vol[cols] = vol[cols].div(hit[cols], axis=1)
+
+
+def _drop_partial_tail(close_df, volume_df, high_df, low_df, open_df):
+    """
+    盤後太早跑時 yfinance 只回部分個股的當日價 → 最後一列大量 NaN，
+    下游會誤判整批出榜。丟掉不完整的尾列，下次執行再補。
+    """
+    counts = close_df.notna().sum(axis=1)
+    while len(counts) > 21:
+        ref = counts.iloc[-21:-1].median()
+        if counts.iloc[-1] >= PARTIAL_ROW_MIN * ref:
+            break
+        logger.warning(f"[cache] 丟棄不完整尾列 {counts.index[-1].date()}（{counts.iloc[-1]}/{int(ref)} 檔）")
+        counts = counts.iloc[:-1]
+    keep = counts.index
+    return (
+        close_df.loc[keep], volume_df.reindex(keep), high_df.reindex(keep),
+        low_df.reindex(keep), open_df.reindex(keep) if not open_df.empty else open_df,
+    )
 
 
 # ── 備用：不使用快取的直接下載（向後相容）────────────────────

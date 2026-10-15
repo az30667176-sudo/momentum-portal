@@ -707,6 +707,11 @@ git push
 - **原因**：`fetcher.py` 的補抓（補回）loop 重新抓某檔（這次是 **ZWS**）時，yfinance 偶爾把它回成重複/MultiIndex 欄 `('ZWS','ZWS')`，與批次下載那欄相撞 → DataFrame 出現**重複 ticker 欄** → 下一個 `reindex(columns=...)` 拋錯，整條 load 中止（`main.py:422`）。**非登入/secret 問題**：前數週皆成功，是同一壞資料每日重演才連續失敗（登入若壞會「每次都失敗」）。快取 parquet 本身乾淨，重複欄是執行期下載+補抓+merge 才產生
 - **修正**：`fetcher.py` 加 `_dedupe_cols()`（`df.loc[:, ~df.columns.duplicated(keep='last')]`，保留最新補抓那欄並 log 警告），套在 `_download_ohlcv` 補抓後 + `_merge` 合併後。無重複時 no-op，正常路徑零影響。任何「某檔變重複欄」的未來變形都一併擋掉。commit `ca73370`
 
+### 19. 快取價格被洗壞：拆股接縫 + 當日列被 NaN 覆蓋 — 2026-10-15
+- **症狀**：(a) APH/BKNG/CRWD/CVNA/DD/KLAC/MLI/MNST/POWL 歷史出現假的 ±60~200% 單日跳動，quant-bench 每次本機修補後下次 pull 又回來；(b) 最新一日只有 0~11 檔有價（10/13、10/14 都發生），下游 quant-bench 誤判整批持股出榜
+- **原因**：(a) 增量下載只覆蓋最近 ~2 週，拆股後 yfinance auto_adjust 重調的舊歷史沒被回寫 → 接縫；(b) 每天第二輪排程 yfinance 回空的當日列，`_merge` 用 `keep='last'` 讓 NaN 整列蓋掉前一輪的好資料
+- **修正**：`fetcher.py` 加 `_readjust_history()`（重疊區最早 3 天新/舊價比偏離 >2% 且一致 → 舊歷史乘比值、量 ÷ 比值）；`_merge` 改 `new.combine_first(old)`（NaN 不蓋舊值）；存檔前 `_drop_partial_tail()` 丟掉有價檔數 < 近 20 日中位數 80% 的尾列。快取一次性修復：9 檔 yfinance 全歷史重抓 + 10/14 列由前一 commit 回填
+
 ---
 
 ## 常見問題
